@@ -8,7 +8,7 @@ module.exports = {
     config.resolve.alias = {
       ...config.resolve.alias,
       "@": path.resolve(__dirname, "src"),
-      "#": path.resolve(__dirname, "src/shared"),
+      "#": path.resolve(__dirname, "src/common"),
     };
 
     const rules = config.module.rules

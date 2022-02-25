@@ -1,4 +1,6 @@
-import "#/styles/globals.css";
+import "@/common/styles/globals.scss";
+import { ThemeModeProvider } from "#/themes";
+import { CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
@@ -22,7 +24,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/vercel.svg" />
       </Head>
 
-      <Component {...pageProps} />
+      <ThemeModeProvider>
+        <CssBaseline enableColorScheme={true}/>
+        <Component {...pageProps} />
+      </ThemeModeProvider>
     </>
   );
 }
