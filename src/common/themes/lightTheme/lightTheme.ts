@@ -1,23 +1,35 @@
-import { grey } from "./colors";
-import _ from "lodash";
-import commonThemeOptions from "./commonThemeOptions";
+import { MuiButton, MuiIconButton } from "./button";
 import { createTheme, ThemeOptions } from "@mui/material/styles";
+import _ from "lodash";
+import { grey } from "#/styles/colors";
+import commonThemeOptions from "../commonThemeOptions";
 
 const lightThemeOptions: ThemeOptions = {
   palette: {
     mode: "light",
     background: {
-      default: "#f5f5f5",
+      default: "#fff",
       paper: "#fff",
     },
     secondary: {
-      main: "#fff",
+      main: grey["500"]!,
     },
     text: {
       primary: grey["900"],
       secondary: grey["800"],
       disabled: grey["600"],
     },
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        colorDefault: {
+          backgroundColor: "#ffffff",
+        },
+      },
+    },
+    MuiIconButton,
+    MuiButton,
   },
 };
 const lightTheme = createTheme(_.merge(commonThemeOptions, lightThemeOptions));

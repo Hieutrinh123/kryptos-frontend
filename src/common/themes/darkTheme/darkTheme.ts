@@ -1,7 +1,7 @@
-import { grey } from "./colors";
-import commonThemeOptions from "@/common/themes/commonThemeOptions";
-import { createTheme, ThemeOptions } from "@mui/material/styles";
+import { ThemeOptions, createTheme } from "@mui/material/styles";
 import _ from "lodash";
+import commonThemeOptions from "#/themes/commonThemeOptions";
+import { grey } from "#/styles/colors";
 
 const darkThemeOptions: ThemeOptions = {
   palette: {
@@ -19,6 +19,7 @@ const darkThemeOptions: ThemeOptions = {
       disabled: "#d0d0d0",
     },
   },
+  components: {},
 };
 
 const darkTheme = createTheme(_.merge(commonThemeOptions, darkThemeOptions));

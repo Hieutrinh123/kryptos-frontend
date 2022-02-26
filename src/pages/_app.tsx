@@ -1,9 +1,9 @@
 import "@/common/styles/globals.scss";
-import { ThemeModeProvider } from "#/themes";
-import { CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
+import { CssBaseline } from "@mui/material";
 import Head from "next/head";
 import React from "react";
+import { ThemeModeProvider } from "#/themes";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,11 +21,46 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:site_name" content="CoinBlog" />
         <meta name="geo.region" content="VN" />
         <meta httpEquiv="Content-Type" content="text/html" charSet="UTF-8" />
-        <link rel="icon" href="/vercel.svg" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <svg
+          style={{ width: 0, height: 0, position: "absolute" }}
+          aria-hidden="true"
+          focusable="false"
+        >
+          <defs>
+            <linearGradient
+              id="glass-gradient"
+              x1="0%"
+              y1="43%"
+              x2="100%"
+              y2="57%"
+            >
+              <stop offset="0%" stopColor="#4795E3" />
+              <stop offset="50%" stopColor="#4BC1E4" />
+            </linearGradient>
+          </defs>
+        </svg>
       </Head>
 
       <ThemeModeProvider>
-        <CssBaseline enableColorScheme={true}/>
+        <CssBaseline enableColorScheme={true} />
         <Component {...pageProps} />
       </ThemeModeProvider>
     </>

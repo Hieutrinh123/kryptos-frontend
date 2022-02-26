@@ -1,6 +1,6 @@
-import darkTheme from "#/themes/darkTheme";
 import { PaletteMode, ThemeProvider } from "@mui/material";
 import React, { useMemo, useState } from "react";
+import darkTheme from "./darkTheme";
 import lightTheme from "./lightTheme";
 
 interface ThemeContextProps {
