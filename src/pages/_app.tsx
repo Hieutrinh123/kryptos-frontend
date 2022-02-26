@@ -1,4 +1,5 @@
 import "@/common/styles/globals.scss";
+import { SVGGradient } from "#/styles/gradients";
 import type { AppProps } from "next/app";
 import CssBaseline from "@mui/material/CssBaseline";
 import Head from "next/head";
@@ -39,26 +40,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           href="/favicon/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
-        <svg
-          style={{ width: 0, height: 0, position: "absolute" }}
-          aria-hidden="true"
-          focusable="false"
-        >
-          <defs>
-            <linearGradient
-              id="glass-gradient"
-              x1="0%"
-              y1="43%"
-              x2="100%"
-              y2="57%"
-            >
-              <stop offset="0%" stopColor="#4795E3" />
-              <stop offset="50%" stopColor="#4BC1E4" />
-            </linearGradient>
-          </defs>
-        </svg>
+
       </Head>
 
+      <SVGGradient />
       <ThemeModeProvider>
         <CssBaseline enableColorScheme={true} />
         <Component {...pageProps} />

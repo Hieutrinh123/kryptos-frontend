@@ -11,6 +11,17 @@ export const CommonMuiIconButton: Components["MuiIconButton"] = {
       borderRadius: 50,
       boxShadow: "none !important",
     },
+    colorPrimary: {
+      ":hover svg": {
+        fill: "url(#glass-gradient)",
+      },
+      ":active": {
+        background: glassGradient,
+        "& svg": {
+          fill: "white",
+        },
+      },
+    },
   },
 };
 
@@ -20,16 +31,7 @@ export const DarkModeMuiIconButton: Components["MuiIconButton"] = {
       background: grey["700"],
       color: "white",
       ":hover": {
-        "& > *": {
-          fill: "url(#glass-gradient)",
-        },
         backgroundColor: grey["700"],
-      },
-      ":active": {
-        background: glassGradient,
-        "& > *": {
-          fill: "white",
-        },
       },
     },
   },
@@ -41,16 +43,7 @@ export const LightModeMuiIconButton: Components["MuiIconButton"] = {
       background: grey["200"],
       color: alpha(grey["800"], 0.25),
       ":hover": {
-        "& > *": {
-          fill: "url(#glass-gradient)",
-        },
         backgroundColor: grey["200"],
-      },
-      ":active": {
-        background: glassGradient,
-        "& > *": {
-          fill: "white",
-        },
       },
     },
   },

@@ -3,10 +3,12 @@ import { ThemeModeContext } from "#/themes";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
+import Link from "next/link";
 import { useContext } from "react";
 import Logo from "./Logo";
 
@@ -16,12 +18,19 @@ const ComputerHeaderContent = () => {
     <>
       <Logo />
 
-      <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+      <Stack flexGrow={1} direction="row" justifyContent="center" spacing={2}>
+        <Link href="/project-analysis" passHref>
+          <Button variant="text" color="secondary">
+            Phân tích dự án
+          </Button>
+        </Link>
+        <DropdownMenu title="Phân tích">
+          <MenuItem>Phân tích On-Chain</MenuItem>
+          <MenuItem>Phân tích kỹ thuật</MenuItem>
+        </DropdownMenu>
         <DropdownMenu title={"Phân tích"} />
         <DropdownMenu title={"Phân tích"} />
-        <DropdownMenu title={"Phân tích"} />
-        <DropdownMenu title={"Phân tích"} />
-      </Box>
+      </Stack>
 
       <Box
         sx={(theme) => ({
@@ -40,10 +49,9 @@ const ComputerHeaderContent = () => {
           <NotificationsNoneIcon />
         </IconButton>
         <DropdownMenu
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          buttonBuilder={(onClick) => (
-            <IconButton color="primary" onClick={onClick}>
+          placement="bottom-start"
+          buttonBuilder={(buttonProps) => (
+            <IconButton color="primary" {...buttonProps}>
               <SettingsIcon />
             </IconButton>
           )}

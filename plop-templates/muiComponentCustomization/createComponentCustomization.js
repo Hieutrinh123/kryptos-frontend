@@ -10,7 +10,7 @@ module.exports = {
   actions: [
     {
       type: "add",
-      path: "src/common/themes/custom/{{camelCase name}}.tsx",
+      path: "src/common/themes/custom/{{camelCase name}}.ts",
       templateFile: "plop-templates/muiComponentCustomization/component.hbs",
     },
   ],

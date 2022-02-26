@@ -4,6 +4,7 @@ import {
   DarkModeMuiAppBar,
   LightModeMuiAppBar,
 } from "#/themes/custom/appBar";
+import {CommonMuiToolbar} from "#/themes/custom/toolbar";
 import { createTheme, ThemeOptions } from "@mui/material/styles";
 import _ from "lodash";
 import {
@@ -13,8 +14,8 @@ import {
 } from "./button";
 import {
   CommonMuiIconButton,
-  LightModeMuiIconButton,
   DarkModeMuiIconButton,
+  LightModeMuiIconButton,
 } from "./iconButton";
 
 const commonThemeOptions: ThemeOptions = {
@@ -26,6 +27,7 @@ const commonThemeOptions: ThemeOptions = {
     MuiAppBar: CommonMuiAppBar,
     MuiButton: CommonMuiButton,
     MuiIconButton: CommonMuiIconButton,
+    MuiToolbar: CommonMuiToolbar
   },
 };
 

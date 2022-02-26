@@ -11,7 +11,7 @@ const Logo: React.FC = () => {
       flexDirection="row"
       justifyContent="center"
       alignItems="center"
-      sx={(theme) => ({ marginRight: theme.spacing(2) })}
+      marginRight={2}
     >
       <Image src={logo} alt="Logo" height={36} width={36} />
       <Typography

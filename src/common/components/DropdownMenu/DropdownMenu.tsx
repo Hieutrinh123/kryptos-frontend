@@ -1,14 +1,33 @@
-import Menu, { MenuProps } from "@mui/material/Menu";
-import Button from "@mui/material/Button";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import React, { SyntheticEvent, useState } from "react";
+import {
+  ClickAwayListener,
+  Grow,
+  Paper,
+  Popper,
+  PopperProps,
+} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import {
+  bindPopper,
+  bindToggle,
+  usePopupState,
+} from "material-ui-popup-state/hooks";
+import React, { SyntheticEvent } from "react";
 
-type OnClickHandler = (event: SyntheticEvent) => void;
+interface ButtonProps {
+  "aria-controls"?: string;
+  "aria-describedby"?: string;
+  "aria-haspopup": true | undefined;
+  onClick: (event: SyntheticEvent<any>) => void;
+}
 
-interface DropdownMenuProps extends Omit<MenuProps, "open"> {
+interface DropdownMenuProps extends Omit<PopperProps, "open"> {
   title?: string;
-  buttonBuilder?: (onClick: OnClickHandler) => React.ReactNode;
+  buttonBuilder?: (
+    buttonProps: ButtonProps,
+    isOpen?: boolean
+  ) => React.ReactNode;
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -17,34 +36,72 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   children,
   ...rest
 }) => {
-  const [anchor, setAnchor] = useState<Element | null>(null);
-  const handleOpen = (event: SyntheticEvent) => {
-    setAnchor(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchor(null);
-  };
-  const isOpen = Boolean(anchor);
+  const popupState = usePopupState({
+    variant: "popper",
+    popupId: "demoPopper",
+  });
+
+  const isOpen = popupState.isOpen;
 
   let buttonComponent;
   if (buttonBuilder) {
-    buttonComponent = buttonBuilder(handleOpen);
+    buttonComponent = buttonBuilder(bindToggle(popupState), isOpen);
   } else {
     buttonComponent = (
-      <Button onClick={handleOpen} color="secondary" variant="text">
-        {title}
-        {isOpen ? <KeyboardArrowDownIcon /> : <ChevronRightIcon />}
+      <Button variant="text" color="secondary" {...bindToggle(popupState)}>
+        <Box marginRight={1}>{title}</Box>
+        <MenuArrow isOpen={isOpen} />
       </Button>
     );
   }
   return (
     <>
       {buttonComponent}
-      <Menu {...rest} anchorEl={anchor} open={isOpen} onClose={handleClose}>
-        {children}
-      </Menu>
+      <Popper
+        {...bindPopper(popupState)}
+        transition
+        style={{ zIndex: 1300 }}
+        {...rest}
+      >
+        {({ TransitionProps, placement }) => (
+          <ClickAwayListener onClickAway={popupState.close}>
+            <Grow
+              {...TransitionProps}
+              style={{
+                transition: "0.1s",
+                transformOrigin: placement.includes("bottom")
+                  ? "left top"
+                  : "left bottom",
+              }}
+            >
+              <Paper>
+                <>{children}</>
+              </Paper>
+            </Grow>
+          </ClickAwayListener>
+        )}
+      </Popper>
     </>
   );
 };
 
 export default DropdownMenu;
+
+interface MenuArrowProps {
+  isOpen: boolean;
+}
+
+const MenuArrow: React.FC<MenuArrowProps> = ({ isOpen }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        rotate: isOpen ? "-90deg" : "90deg",
+        transition: "0.5s",
+        transitionDelay: "0.1s",
+      }}
+    >
+      <ChevronRightIcon />
+    </div>
+  );
+};
