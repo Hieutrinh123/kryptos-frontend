@@ -13,8 +13,8 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="static" color="default" elevation={0}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+      <Container maxWidth="xl" sx={{ height: "100%" }}>
+        <Toolbar disableGutters sx={{ height: "100%" }}>
           {isMobile ? <MobileHeaderContent /> : <ComputerHeaderContent />}
         </Toolbar>
       </Container>

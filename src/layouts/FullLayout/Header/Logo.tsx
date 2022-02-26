@@ -17,6 +17,7 @@ const Logo: React.FC = () => {
       <Typography
         variant="h6"
         fontWeight="bolder"
+        fontSize="1.5rem"
         sx={(theme) => ({
           marginLeft: theme.spacing(2),
           display: { xs: "none", md: "unset" },

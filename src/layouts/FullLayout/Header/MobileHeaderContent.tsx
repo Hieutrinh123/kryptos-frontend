@@ -1,4 +1,4 @@
-import { ThemeContext } from "#/themes";
+import { ThemeModeContext } from "#/themes";
 import Logo from "@/layouts/FullLayout/Header/Logo";
 import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
@@ -13,7 +13,7 @@ const pages = ["Products", "Pricing", "Blog"];
 const MobileHeaderContent = () => {
   const [anchorElNav, setAnchorElNav] = useState<Element | null>(null);
 
-  const { toggleTheme, mode } = useContext(ThemeContext);
+  const { toggleTheme, mode } = useContext(ThemeModeContext);
 
   const handleOpenNavMenu = (event: SyntheticEvent) => {
     setAnchorElNav(event.currentTarget);

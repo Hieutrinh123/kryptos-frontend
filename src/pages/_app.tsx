@@ -1,6 +1,6 @@
 import "@/common/styles/globals.scss";
 import type { AppProps } from "next/app";
-import { CssBaseline } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
 import Head from "next/head";
 import React from "react";
 import { ThemeModeProvider } from "#/themes";

@@ -1,23 +1,22 @@
 import { PaletteMode, ThemeProvider } from "@mui/material";
 import React, { useMemo, useState } from "react";
-import darkTheme from "./darkTheme";
-import lightTheme from "./lightTheme";
+import { darkModeTheme, lightModeTheme } from "./custom/theme";
 
 interface ThemeContextProps {
   mode: PaletteMode;
   toggleTheme: () => void;
 }
 
-export const ThemeContext = React.createContext<ThemeContextProps>({
-  mode: "light",
+export const ThemeModeContext = React.createContext<ThemeContextProps>({
+  mode: "dark",
   toggleTheme: () => {},
 });
 
 export const ThemeModeProvider: React.FC = ({ children }) => {
-  const [mode, setMode] = useState<PaletteMode>("light");
+  const [mode, setMode] = useState<PaletteMode>("dark");
 
   const theme = useMemo(() => {
-    return mode === "light" ? lightTheme : darkTheme;
+    return mode === "light" ? lightModeTheme : darkModeTheme;
   }, [mode]);
 
   const toggleTheme = () => {
@@ -25,8 +24,8 @@ export const ThemeModeProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ mode, toggleTheme }}>
+    <ThemeModeContext.Provider value={{ mode, toggleTheme }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </ThemeContext.Provider>
+    </ThemeModeContext.Provider>
   );
 };
