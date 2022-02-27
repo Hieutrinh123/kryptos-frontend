@@ -2,11 +2,7 @@ import { grey } from "#/styles/colors";
 import type { Components } from "@mui/material/styles/components";
 
 export const CommonMuiAppBar: Components["MuiAppBar"] = {
-  styleOverrides: {
-    root: {
-      height: "80px",
-    },
-  },
+  styleOverrides: {},
 };
 
 export const LightModeMuiAppBar: Components["MuiAppBar"] = {

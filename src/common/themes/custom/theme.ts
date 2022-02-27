@@ -4,6 +4,12 @@ import {
   DarkModeMuiAppBar,
   LightModeMuiAppBar,
 } from "#/themes/custom/appBar";
+import {
+  CommonMuiMenuItem,
+  DarkModeMuiMenuItem,
+  LightModeMuiMenuItem,
+} from "#/themes/custom/menuItem";
+import { CommonMuiToolbar } from "#/themes/custom/toolbar";
 import { createTheme, ThemeOptions } from "@mui/material/styles";
 import _ from "lodash";
 import {
@@ -13,8 +19,8 @@ import {
 } from "./button";
 import {
   CommonMuiIconButton,
-  LightModeMuiIconButton,
   DarkModeMuiIconButton,
+  LightModeMuiIconButton,
 } from "./iconButton";
 
 const commonThemeOptions: ThemeOptions = {
@@ -23,9 +29,11 @@ const commonThemeOptions: ThemeOptions = {
     grey,
   },
   components: {
+    MuiMenuItem: CommonMuiMenuItem,
     MuiAppBar: CommonMuiAppBar,
     MuiButton: CommonMuiButton,
     MuiIconButton: CommonMuiIconButton,
+    MuiToolbar: CommonMuiToolbar,
   },
 };
 
@@ -46,6 +54,7 @@ const darkModeOptions: ThemeOptions = {
     },
   },
   components: {
+    MuiMenuItem: DarkModeMuiMenuItem,
     MuiAppBar: DarkModeMuiAppBar,
     MuiButton: DarkModeMuiButton,
     MuiIconButton: DarkModeMuiIconButton,
@@ -73,6 +82,7 @@ const lightModeOptions: ThemeOptions = {
     },
   },
   components: {
+    MuiMenuItem: LightModeMuiMenuItem,
     MuiAppBar: LightModeMuiAppBar,
     MuiIconButton: LightModeMuiIconButton,
     MuiButton: LightModeMuiButton,
