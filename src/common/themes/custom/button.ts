@@ -13,7 +13,7 @@ export const CommonMuiButton: Components["MuiButton"] = {
   styleOverrides: {
     disableElevation: true,
     root: {
-      borderRadius: 50,
+      borderRadius: 24,
       boxShadow: "none !important",
       transition: "0.5s",
     },
@@ -36,6 +36,25 @@ export const CommonMuiButton: Components["MuiButton"] = {
 
       ":hover": {
         "& > *": textColorGradient,
+      },
+
+      ":after": {
+        content: '""',
+        background: glassGradient,
+        display: "block",
+        borderTopLeftRadius: "6px",
+        borderTopRightRadius: "6px",
+        height: "6px",
+        width: "0",
+        position: "absolute",
+        bottom: "0",
+        transition: "0.5s",
+      },
+
+      ":focus": {
+        ":after": {
+          width: "100%",
+        },
       },
     },
   },

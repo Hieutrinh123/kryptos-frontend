@@ -4,6 +4,7 @@ import {
   Grow,
   Paper,
   Popper,
+  PopperPlacementType,
   PopperProps,
 } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -13,13 +14,14 @@ import {
   bindToggle,
   usePopupState,
 } from "material-ui-popup-state/hooks";
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, useEffect, useRef } from "react";
 
 interface ButtonProps {
   "aria-controls"?: string;
   "aria-describedby"?: string;
   "aria-haspopup": true | undefined;
   onClick: (event: SyntheticEvent<any>) => void;
+  ref: React.Ref<HTMLButtonElement>;
 }
 
 interface DropdownMenuProps extends Omit<PopperProps, "open"> {
@@ -28,27 +30,47 @@ interface DropdownMenuProps extends Omit<PopperProps, "open"> {
     buttonProps: ButtonProps,
     isOpen?: boolean
   ) => React.ReactNode;
+  placement?: PopperPlacementType;
+  offsetX?: number;
+  offsetY?: number;
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
   title,
   buttonBuilder,
   children,
+  placement,
+  offsetX,
+  offsetY,
   ...rest
 }) => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const popupState = usePopupState({
     variant: "popper",
-    popupId: "demoPopper",
+    popupId: "dropDownMenu",
   });
 
   const isOpen = popupState.isOpen;
+  useEffect(() => {
+    if (!isOpen) {
+      buttonRef.current?.blur();
+    }
+  }, [buttonRef, isOpen]);
 
   let buttonComponent;
   if (buttonBuilder) {
-    buttonComponent = buttonBuilder(bindToggle(popupState), isOpen);
+    buttonComponent = buttonBuilder(
+      { ref: buttonRef, ...bindToggle(popupState) },
+      isOpen
+    );
   } else {
     buttonComponent = (
-      <Button variant="text" color="secondary" {...bindToggle(popupState)}>
+      <Button
+        variant="text"
+        color="secondary"
+        {...bindToggle(popupState)}
+        ref={buttonRef}
+      >
         <Box marginRight={1}>{title}</Box>
         <MenuArrow isOpen={isOpen} />
       </Button>
@@ -60,6 +82,13 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       <Popper
         {...bindPopper(popupState)}
         transition
+        placement={placement ?? "bottom-start"}
+        modifiers={[
+          {
+            name: "offset",
+            options: { offset: [offsetX ?? -20, offsetY ?? 0] },
+          },
+        ]}
         style={{ zIndex: 1300 }}
         {...rest}
       >
@@ -69,9 +98,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
               {...TransitionProps}
               style={{
                 transition: "0.1s",
-                transformOrigin: placement.includes("bottom")
-                  ? "left top"
-                  : "left bottom",
+                transformOrigin: placement.includes("top") ? "bottom" : "top",
               }}
             >
               <Paper>
