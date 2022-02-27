@@ -1,5 +1,5 @@
 import { ThemeModeContext } from "#/themes";
-import Logo from "@/layouts/FullLayout/Header/Logo";
+import Logo from "@/common/components/Logo";
 import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -25,7 +25,7 @@ const MobileHeaderContent = () => {
 
   return (
     <>
-      <Logo />
+      <Logo type="header" />
       <Box
         sx={{
           display: "flex",

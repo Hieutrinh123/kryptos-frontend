@@ -4,12 +4,15 @@ import Image from "next/image";
 import React from "react";
 import logo from "public/logo.png";
 
-const Logo: React.FC = () => {
+interface LogoProps {
+  type: "header" | "footer";
+}
+
+const Logo: React.FC<LogoProps> = (props) => {
   return (
     <Box
       display="flex"
       flexDirection="row"
-      justifyContent="center"
       alignItems="center"
       sx={(theme) => ({ marginRight: theme.spacing(2) })}
     >
@@ -20,7 +23,10 @@ const Logo: React.FC = () => {
         fontSize="1.5rem"
         sx={(theme) => ({
           marginLeft: theme.spacing(2),
-          display: { xs: "none", md: "unset" },
+          display: {
+            xs: props.type === "header" ? "none" : "unset",
+            md: "unset",
+          },
         })}
       >
         KRYPTOS

@@ -8,13 +8,13 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import { useContext } from "react";
-import Logo from "./Logo";
+import Logo from "@/common/components/Logo";
 
 const ComputerHeaderContent = () => {
   const { toggleTheme, mode } = useContext(ThemeModeContext);
   return (
     <>
-      <Logo />
+      <Logo type="header" />
 
       <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
         <DropdownMenu title={"Phân tích"} />
