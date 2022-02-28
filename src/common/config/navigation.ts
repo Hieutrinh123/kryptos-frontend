@@ -1,3 +1,6 @@
+import FacebookImg from "public/images/facebook.png";
+import Twitter from "public/images/twitter.png";
+
 export interface NavOption {
   href: string;
   title: string;
@@ -8,6 +11,12 @@ export interface SubLink {
   href: string;
   title: string;
 }
+
+export type SocialLinks = {
+  href: string;
+  title: string;
+  image: StaticImageData;
+};
 
 export function getFullSublinkHref(menuHref: string, sublinkHref: string) {
   return "/" + menuHref + "/" + sublinkHref;
@@ -91,5 +100,28 @@ export const navOptions: NavOption[] = [
         title: "Tình hình vĩ mô",
       },
     ],
+  },
+];
+
+export const social: SocialLinks[] = [
+  {
+    href: "#",
+    title: "facebook",
+    image: FacebookImg,
+  },
+  {
+    href: "#",
+    title: "twitter",
+    image: Twitter,
+  },
+  {
+    href: "#",
+    title: "facebook",
+    image: FacebookImg,
+  },
+  {
+    href: "#",
+    title: "twitter",
+    image: Twitter,
   },
 ];

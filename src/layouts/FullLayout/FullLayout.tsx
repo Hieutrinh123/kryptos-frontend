@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import React from "react";
-import Footer from "./Footer";
+import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 
 interface FullLayoutProps {
