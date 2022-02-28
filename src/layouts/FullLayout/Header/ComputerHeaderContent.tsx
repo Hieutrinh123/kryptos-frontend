@@ -11,8 +11,8 @@ import IconButton from "@mui/material/IconButton";
 import MuiLink from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import React, { useContext } from "react";
-import Logo from "./Logo";
+import { useContext } from "react";
+import Logo from "@/common/components/Logo";
 
 interface NavMenuProps {
   navOption: NavOption;
@@ -47,7 +47,7 @@ const ComputerHeaderContent = () => {
   const { toggleTheme, mode } = useContext(ThemeModeContext);
   return (
     <>
-      <Logo />
+      <Logo type="header" />
 
       <Stack flexGrow={1} direction="row" justifyContent="center" spacing={2}>
         {navOptions.map((navOption, index) => (
