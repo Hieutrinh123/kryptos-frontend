@@ -1,16 +1,17 @@
-import {getFullSublinkHref, NavOption, navOptions} from "#/config/navigation";
+import { getFullSublinkHref, NavOption, navOptions } from "#/config/navigation";
 import DropdownMenu from "@/components/DropdownMenu";
-import Logo from "@/components/Logo";
+import Logo from "@/components/Logo/Logo";
+import SettingMenu from "@/containers/SettingMenu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchIcon from "@mui/icons-material/Search";
-import {Stack} from "@mui/material";
+import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MuiLink from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import React, {useContext} from "react";
+import React from "react";
 
 interface NavMenuProps {
   navOption: NavOption;

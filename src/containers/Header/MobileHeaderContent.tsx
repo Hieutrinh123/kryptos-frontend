@@ -1,5 +1,5 @@
 import { ThemeModeContext } from "#/themes";
-import Logo from "@/common/components/Logo";
+import Logo from "@/components/Logo/Logo";
 import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";

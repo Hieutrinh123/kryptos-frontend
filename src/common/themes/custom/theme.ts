@@ -11,6 +11,11 @@ import {
 } from "#/themes/custom/menuItem";
 // Add customization import (do not delete this comment)
 import {
+  CommonMuiLink,
+  DarkModeMuiLink,
+  LightModeMuiLink,
+} from "./link";
+import {
   CommonMuiInputBase,
   DarkModeMuiInputBase,
   LightModeMuiInputBase,
@@ -43,6 +48,7 @@ const commonThemeOptions: ThemeOptions = {
   },
   components: {
     // Add common component customization (do not delete this comment)
+    MuiLink: CommonMuiLink,
     MuiInputBase: CommonMuiInputBase,
     MuiPaper: CommonMuiPaper,
     MuiMenuItem: CommonMuiMenuItem,
@@ -73,6 +79,7 @@ const darkModeOptions: ThemeOptions = {
   },
   components: {
     // Add dark mode component customization (do not delete this comment)
+    MuiLink: DarkModeMuiLink,
     MuiInputBase: DarkModeMuiInputBase,
     MuiPaper: DarkModeMuiPaper,
     MuiMenuItem: DarkModeMuiMenuItem,
@@ -105,6 +112,7 @@ const lightModeOptions: ThemeOptions = {
   },
   components: {
     // Add light mode component customization (do not delete this comment)
+    MuiLink: LightModeMuiLink,
     MuiInputBase: LightModeMuiInputBase,
     MuiPaper: LightModeMuiPaper,
     MuiMenuItem: LightModeMuiMenuItem,

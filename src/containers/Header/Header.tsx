@@ -6,7 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import ComputerHeaderContent from "./ComputerHeaderContent";
 import MobileHeaderContent from "./MobileHeaderContent";
 
-const ResponsiveAppBar = () => {
+const Header = () => {
   const isMobile = useMediaQuery<Theme>((theme) =>
     theme.breakpoints.down("lg")
   );
@@ -24,4 +24,4 @@ const ResponsiveAppBar = () => {
     </>
   );
 };
-export default ResponsiveAppBar;
+export default Header;

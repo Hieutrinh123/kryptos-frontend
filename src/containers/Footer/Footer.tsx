@@ -1,10 +1,9 @@
-import { social } from "@/common/config/navigation";
+import { navOptions, social } from "#/config/navigation";
+import Logo from "@/components/Logo/Logo";
 import { Box, Container, Grid, Link, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 
 import React from "react";
-import Logo from "@/common/components/Logo";
-import { footerLink } from "./data";
 import FooterLinkGroup from "./FooterLinkGroup";
 
 interface FooterProps {}
@@ -15,7 +14,6 @@ const Footer: React.FC<FooterProps> = ({}) => {
       component="footer"
       color="white"
       sx={(theme) => ({
-        backgroundColor: "grey.900",
         marginTop: theme.spacing(2),
         py: theme.spacing(8),
       })}
@@ -70,12 +68,8 @@ const Footer: React.FC<FooterProps> = ({}) => {
                 },
               })}
             >
-              {footerLink.map((item, index) => (
-                <FooterLinkGroup
-                  key={index}
-                  title={item.title}
-                  items={item.links}
-                />
+              {navOptions.map((navOption, index) => (
+                <FooterLinkGroup key={index} navOption={navOption} />
               ))}
             </Box>
           </Grid>
