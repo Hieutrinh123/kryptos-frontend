@@ -13,7 +13,7 @@ const pages = ["Products", "Pricing", "Blog"];
 const MobileHeaderContent = () => {
   const [anchorElNav, setAnchorElNav] = useState<Element | null>(null);
 
-  const { toggleTheme, mode } = useContext(ThemeModeContext);
+  const { toggleTheme, theme } = useContext(ThemeModeContext);
 
   const handleOpenNavMenu = (event: SyntheticEvent) => {
     setAnchorElNav(event.currentTarget);
@@ -65,7 +65,7 @@ const MobileHeaderContent = () => {
 
           <MenuItem onClick={toggleTheme}>
             <Typography textAlign="center">
-              Change to {mode === "light" ? "dark" : "light"} mode
+              Change to {theme === "light" ? "dark" : "light"} mode
             </Typography>
           </MenuItem>
         </Menu>

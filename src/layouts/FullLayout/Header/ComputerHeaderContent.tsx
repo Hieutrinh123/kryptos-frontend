@@ -1,18 +1,16 @@
-import DropdownMenu from "#/components/DropdownMenu";
-import { getFullSublinkHref, NavOption, navOptions } from "#/config/navigation";
-import { ThemeModeContext } from "#/themes";
+import {getFullSublinkHref, NavOption, navOptions} from "#/config/navigation";
+import DropdownMenu from "@/components/DropdownMenu";
+import Logo from "@/components/Logo";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchIcon from "@mui/icons-material/Search";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { Stack } from "@mui/material";
+import {Stack} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MuiLink from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import { useContext } from "react";
-import Logo from "@/common/components/Logo";
+import React, {useContext} from "react";
 
 interface NavMenuProps {
   navOption: NavOption;
@@ -20,7 +18,7 @@ interface NavMenuProps {
 const NavMenu: React.FC<NavMenuProps> = ({ navOption }) => {
   if (navOption.sublinks) {
     return (
-      <DropdownMenu title={navOption.title}>
+      <DropdownMenu title={navOption.title} offsetX={-20} offsetY={0}>
         {navOption.sublinks.map((sublink) => (
           <MenuItem key={sublink.href}>
             <Link
@@ -35,7 +33,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ navOption }) => {
     );
   }
   return (
-    <Link passHref href={navOption.href}>
+    <Link passHref href={"/" + navOption.href}>
       <Button variant="text" color="secondary">
         <span>{navOption.title}</span>
       </Button>
@@ -44,7 +42,6 @@ const NavMenu: React.FC<NavMenuProps> = ({ navOption }) => {
 };
 
 const ComputerHeaderContent = () => {
-  const { toggleTheme, mode } = useContext(ThemeModeContext);
   return (
     <>
       <Logo type="header" />
@@ -71,20 +68,7 @@ const ComputerHeaderContent = () => {
         <IconButton color="primary">
           <NotificationsNoneIcon />
         </IconButton>
-        <DropdownMenu
-          placement="bottom-start"
-          buttonBuilder={(buttonProps) => (
-            <IconButton color="primary" {...buttonProps}>
-              <SettingsIcon />
-            </IconButton>
-          )}
-        >
-          <MenuItem>
-            <Button onClick={toggleTheme}>
-              Change to {mode === "light" ? "dark" : "light"} mode
-            </Button>
-          </MenuItem>
-        </DropdownMenu>
+        <SettingMenu />
       </Box>
     </>
   );

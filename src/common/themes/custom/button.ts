@@ -27,7 +27,6 @@ export const CommonMuiButton: Components["MuiButton"] = {
         "& > *": textColorUngradient,
       },
     },
-
     textSecondary: {
       fontWeight: "bold",
       fontSize: "1rem",
@@ -51,7 +50,7 @@ export const CommonMuiButton: Components["MuiButton"] = {
         transition: "0.5s",
       },
 
-      ":focus": {
+      "&.Mui-selected": {
         ":after": {
           width: "100%",
         },

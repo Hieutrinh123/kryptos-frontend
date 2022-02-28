@@ -3,13 +3,15 @@ import React, { useMemo, useState } from "react";
 import { darkModeTheme, lightModeTheme } from "./custom/theme";
 
 interface ThemeContextProps {
-  mode: PaletteMode;
+  theme: PaletteMode;
   toggleTheme: () => void;
+  changeTheme: (mode: PaletteMode) => void;
 }
 
 export const ThemeModeContext = React.createContext<ThemeContextProps>({
-  mode: "dark",
+  theme: "dark",
   toggleTheme: () => {},
+  changeTheme: () => {},
 });
 
 export const ThemeModeProvider: React.FC = ({ children }) => {
@@ -24,7 +26,9 @@ export const ThemeModeProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <ThemeModeContext.Provider value={{ mode, toggleTheme }}>
+    <ThemeModeContext.Provider
+      value={{ theme: mode, toggleTheme, changeTheme: setMode }}
+    >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeModeContext.Provider>
   );

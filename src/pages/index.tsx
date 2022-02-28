@@ -1,12 +1,11 @@
+import Image from "next/image";
 import FullLayout from "@/layouts/FullLayout";
-import Typography from "@mui/material/Typography";
+import mainThumbnail from "#/assets/main-thumbnail.avif";
 
 export default function Home() {
   return (
     <FullLayout>
-      <Typography height="200vh" variant="h1">
-        Hello
-      </Typography>
+      <Image src={mainThumbnail} alt="Thumbnail" layout="responsive" />
     </FullLayout>
   );
 }
