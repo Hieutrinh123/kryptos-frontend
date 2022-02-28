@@ -4,10 +4,10 @@ import Twitter from "public/images/twitter.png";
 export interface NavOption {
   href: string;
   title: string;
-  sublinks?: SubLink[];
+  sublinks?: NavigationSubLink[];
 }
 
-export interface SubLink {
+export interface NavigationSubLink {
   href: string;
   title: string;
 }

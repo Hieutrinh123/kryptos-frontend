@@ -15,7 +15,7 @@ export const CommonMuiIconButton: Components["MuiIconButton"] = {
       ":hover svg": {
         fill: "url(#glass-gradient)",
       },
-      ":active": {
+      "&:active,&.Mui-selected": {
         background: glassGradient,
         "& svg": {
           fill: "white",

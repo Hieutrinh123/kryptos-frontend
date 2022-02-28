@@ -9,6 +9,20 @@ import {
   DarkModeMuiMenuItem,
   LightModeMuiMenuItem,
 } from "#/themes/custom/menuItem";
+// Add customization import (do not delete this comment)
+import { CommonMuiLink, DarkModeMuiLink, LightModeMuiLink } from "./link";
+import {
+  CommonMuiInputBase,
+  DarkModeMuiInputBase,
+  LightModeMuiInputBase,
+} from "./inputBase";
+import { CommonMuiPaper, DarkModeMuiPaper, LightModeMuiPaper } from "./paper";
+import {
+  CommonMuiToggleButton,
+  DarkModeMuiToggleButton,
+  LightModeMuiToggleButton,
+} from "#/themes/custom/toggleButton";
+import { CommonMuiToggleButtonGroup } from "#/themes/custom/toggleButtonGroup";
 import { CommonMuiToolbar } from "#/themes/custom/toolbar";
 import { createTheme, ThemeOptions } from "@mui/material/styles";
 import _ from "lodash";
@@ -29,11 +43,17 @@ const commonThemeOptions: ThemeOptions = {
     grey,
   },
   components: {
+    // Add common component customization (do not delete this comment)
+    MuiLink: CommonMuiLink,
+    MuiInputBase: CommonMuiInputBase,
+    MuiPaper: CommonMuiPaper,
     MuiMenuItem: CommonMuiMenuItem,
     MuiAppBar: CommonMuiAppBar,
     MuiButton: CommonMuiButton,
     MuiIconButton: CommonMuiIconButton,
     MuiToolbar: CommonMuiToolbar,
+    MuiToggleButtonGroup: CommonMuiToggleButtonGroup,
+    MuiToggleButton: CommonMuiToggleButton,
   },
 };
 
@@ -54,10 +74,15 @@ const darkModeOptions: ThemeOptions = {
     },
   },
   components: {
+    // Add dark mode component customization (do not delete this comment)
+    MuiLink: DarkModeMuiLink,
+    MuiInputBase: DarkModeMuiInputBase,
+    MuiPaper: DarkModeMuiPaper,
     MuiMenuItem: DarkModeMuiMenuItem,
     MuiAppBar: DarkModeMuiAppBar,
     MuiButton: DarkModeMuiButton,
     MuiIconButton: DarkModeMuiIconButton,
+    MuiToggleButton: DarkModeMuiToggleButton,
   },
 };
 
@@ -82,10 +107,15 @@ const lightModeOptions: ThemeOptions = {
     },
   },
   components: {
+    // Add light mode component customization (do not delete this comment)
+    MuiLink: LightModeMuiLink,
+    MuiInputBase: LightModeMuiInputBase,
+    MuiPaper: LightModeMuiPaper,
     MuiMenuItem: LightModeMuiMenuItem,
     MuiAppBar: LightModeMuiAppBar,
     MuiIconButton: LightModeMuiIconButton,
     MuiButton: LightModeMuiButton,
+    MuiToggleButton: LightModeMuiToggleButton,
   },
 };
 

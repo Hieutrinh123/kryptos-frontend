@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import React from "react";
-import Footer from "./Footer/Footer";
-import Header from "./Header/Header";
+import Footer from "@/containers/Footer";
+import Header from "@/containers/Header";
 
 interface FullLayoutProps {
   children: React.ReactNode;
