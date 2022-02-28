@@ -49,6 +49,8 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     variant: "popper",
     popupId: "dropDownMenu",
   });
+  const buttonWidth = buttonRef.current?.clientWidth;
+  const popperWidth = buttonWidth ? buttonWidth + 100 : undefined;
 
   const isOpen = popupState.isOpen;
   useEffect(() => {
@@ -89,7 +91,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
             options: { offset: [offsetX ?? -20, offsetY ?? 0] },
           },
         ]}
-        style={{ zIndex: 1300 }}
+        style={{ zIndex: 1300, width: popperWidth }}
         {...rest}
       >
         {({ TransitionProps, placement }) => (
@@ -101,9 +103,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 transformOrigin: placement.includes("top") ? "bottom" : "top",
               }}
             >
-              <Paper>
-                <>{children}</>
-              </Paper>
+              <Paper>{children}</Paper>
             </Grow>
           </ClickAwayListener>
         )}
