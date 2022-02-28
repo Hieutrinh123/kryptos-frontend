@@ -1,4 +1,4 @@
-import { Box, Link, List, ListItem, Stack, Typography } from "@mui/material";
+import { Box, Link, Stack, Typography } from "@mui/material";
 import React from "react";
 import { LinksKind } from "./data";
 
