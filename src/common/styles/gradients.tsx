@@ -1,7 +1,13 @@
 import { primary } from "#/styles/colors";
+import { alpha } from "@mui/material/styles";
 import React from "react";
 
 export const glassGradient = `linear-gradient(98.63deg, ${primary.main} 11.76%, ${primary.light} 96.82%)`;
+export const glassGradientWithAlpha = (alphaValue: number) => {
+  const mainColor = alpha(primary.main, alphaValue);
+  const lightColor = alpha(primary.light, alphaValue);
+  return `linear-gradient(98.63deg, ${mainColor} 11.76%, ${lightColor} 96.82%)`;
+};
 
 export const textColorGradient = {
   background: glassGradient,

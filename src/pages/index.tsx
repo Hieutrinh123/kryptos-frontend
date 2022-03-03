@@ -1,11 +1,10 @@
-import Image from "next/image";
+import HighlightedPosts from "@/containers/HighlightedPosts";
 import FullLayout from "@/layouts/FullLayout";
-import mainThumbnail from "#/assets/main-thumbnail.avif";
 
 export default function Home() {
   return (
     <FullLayout>
-      <Image src={mainThumbnail} alt="Thumbnail" layout="responsive" />
+      <HighlightedPosts />
     </FullLayout>
   );
 }

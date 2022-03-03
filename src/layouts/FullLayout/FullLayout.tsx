@@ -1,8 +1,7 @@
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import React from "react";
 import Footer from "@/containers/Footer";
 import Header from "@/containers/Header";
+import Box from "@mui/material/Box";
+import React from "react";
 
 interface FullLayoutProps {
   children: React.ReactNode;
@@ -18,9 +17,9 @@ const FullLayout: React.FC<FullLayoutProps> = ({ children }) => {
       }}
     >
       <Header />
-      <Container component="main" sx={{ flex: "1 0" }}>
+      <Box component="main" sx={{ flex: "1 0" }}>
         {children}
-      </Container>
+      </Box>
       <Footer />
     </Box>
   );
