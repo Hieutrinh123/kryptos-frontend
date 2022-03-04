@@ -1,3 +1,6 @@
+import DynamicFeedOutlinedIcon from '@mui/icons-material/DynamicFeedOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import {
   Avatar,
   Button,
@@ -7,16 +10,14 @@ import {
   Theme,
   Typography,
   useMediaQuery,
-} from "@mui/material";
-import Image from "next/image";
+} from '@mui/material';
+import React from 'react';
 
-import React from "react";
-import { interactiveGroup } from "./data";
 interface AuthorInformationProps {}
 
 const AuthorInformation: React.FC<AuthorInformationProps> = ({}) => {
   const isMobile = useMediaQuery<Theme>((theme) =>
-    theme.breakpoints.down("sm")
+    theme.breakpoints.down('sm')
   );
 
   return (
@@ -28,24 +29,24 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({}) => {
     >
       <Grid
         container
-        direction={{ md: "row", xs: "column" }}
+        direction={{ md: 'row', xs: 'column' }}
         columnSpacing={{ md: 8, xs: 0 }}
         sx={{
-          flexWrap: "nowrap",
+          flexWrap: 'nowrap',
         }}
       >
-        <Grid item container direction="row" sm={5} xs={12}>
+        <Grid item container direction='row' sm={5} xs={12}>
           <Grid item xs={5}>
             <Avatar
               sx={(theme) => ({
-                maxWidth: "145px",
-                maxHeight: "145px",
-                width: "100%",
-                height: "100%",
-                flexShrink: "0",
-                [theme.breakpoints.down("sm")]: {
-                  maxWidth: "80px",
-                  maxHeight: "80px",
+                maxWidth: '145px',
+                maxHeight: '145px',
+                width: '100%',
+                height: '100%',
+                flexShrink: '0',
+                [theme.breakpoints.down('sm')]: {
+                  maxWidth: '80px',
+                  maxHeight: '80px',
                 },
               })}
             />
@@ -55,15 +56,15 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({}) => {
             item
             container
             xs={7}
-            direction="column"
+            direction='column'
             paddingLeft={{ sm: 2 }}
           >
             <Typography
               sx={(theme) => ({
-                fontSize: "18px",
-                fontWeight: "700",
-                [theme.breakpoints.down("sm")]: {
-                  fontSize: "16px",
+                fontSize: '18px',
+                fontWeight: '700',
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: '16px',
                 },
               })}
             >
@@ -72,43 +73,70 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({}) => {
             <Typography
               gutterBottom={true}
               sx={{
-                fontSize: "24px",
-                fontWeight: "900",
+                fontSize: '24px',
+                fontWeight: '900',
               }}
             >
               Lorem ipsum
             </Typography>
             <Stack
-              direction="row"
+              direction='row'
               sx={(theme) => ({
-                "& > div ~ div": {
+                '& > div ~ div': {
                   ml: theme.spacing(2),
                 },
               })}
             >
-              {interactiveGroup.map((item, index) => (
-                <Stack direction="row" alignItems="center" key={index}>
-                  <Image src={item.image} alt={item.title} />
-                  <Typography
-                    color="secondary"
-                    sx={(theme) => ({
-                      ml: theme.spacing(1),
-                      fontSize: "14px",
-                      fontWeight: "400",
-                    })}
-                  >
-                    {item.numInteractive}
-                  </Typography>
-                </Stack>
-              ))}
+              <Stack direction='row' alignItems='center'>
+                <PeopleAltOutlinedIcon color='secondary' fontSize='small' />
+                <Typography
+                  color='secondary'
+                  sx={(theme) => ({
+                    ml: theme.spacing(1),
+                    fontSize: '14px',
+                    fontWeight: '400',
+                  })}
+                >
+                  2000
+                </Typography>
+              </Stack>
+              <Stack direction='row' alignItems='center'>
+                <DynamicFeedOutlinedIcon color='secondary' fontSize='small' />
+                <Typography
+                  color='secondary'
+                  sx={(theme) => ({
+                    ml: theme.spacing(1),
+                    fontSize: '14px',
+                    fontWeight: '400',
+                  })}
+                >
+                  2000
+                </Typography>
+              </Stack>
+              <Stack direction='row' alignItems='center'>
+                <FavoriteBorderOutlinedIcon
+                  color='secondary'
+                  fontSize='small'
+                />
+                <Typography
+                  color='secondary'
+                  sx={(theme) => ({
+                    ml: theme.spacing(1),
+                    fontSize: '14px',
+                    fontWeight: '400',
+                  })}
+                >
+                  2000
+                </Typography>
+              </Stack>
             </Stack>
             {!isMobile && (
               <Button
-                variant="contained"
+                variant='contained'
                 sx={(theme) => ({
                   my: theme.spacing(2),
-                  height: "48px",
-                  borderRadius: "12px",
+                  height: '48px',
+                  borderRadius: '12px',
                 })}
               >
                 <span>Đã theo dõi</span>
@@ -118,11 +146,11 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({}) => {
         </Grid>
         {isMobile && (
           <Button
-            variant="contained"
+            variant='contained'
             sx={(theme) => ({
               my: theme.spacing(2),
-              height: "48px",
-              borderRadius: "12px",
+              height: '48px',
+              borderRadius: '12px',
             })}
           >
             <span>Đã theo dõi</span>
@@ -131,17 +159,17 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({}) => {
         <Grid item sm={7} xs={12} marginTop={{ xs: 3, md: 0 }}>
           <Typography
             sx={{
-              fontSize: "18px",
-              fontWeight: "700",
+              fontSize: '18px',
+              fontWeight: '700',
             }}
           >
             Giới thiêụ
           </Typography>
           <Typography
-            component="sub"
+            component='sub'
             sx={{
-              fontSize: "16px",
-              lineHeight: "19px",
+              fontSize: '16px',
+              lineHeight: '19px',
             }}
           >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus,

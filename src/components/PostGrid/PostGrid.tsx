@@ -1,9 +1,9 @@
-import { textColorGradient } from "@/common/styles/gradients";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { Avatar, Box, Paper, Stack, Typography } from "@mui/material";
-import NextImage from "next/image";
-import React from "react";
+import { textColorGradient } from '@/common/styles/gradients';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { Avatar, Box, Paper, Stack, Typography } from '@mui/material';
+import NextImage from 'next/image';
+import React from 'react';
 interface PostGridProps {
   postImage: StaticImageData | string;
   title: String;
@@ -23,60 +23,54 @@ const PostGrid: React.FC<PostGridProps> = ({
     <Paper
       elevation={1}
       sx={(theme) => ({
-        width: "100%",
-        height: "360px",
-        overflow: "hidden",
-        "&:hover": {
+        width: '100%',
+        height: '360px',
+        overflow: 'hidden',
+        '&:hover': {
           boxShadow: theme.shadows[5],
         },
       })}
     >
-      <Stack justifyContent="stretch" spacing={2}>
+      <Stack justifyContent='stretch' spacing={2}>
         <Box
           sx={{
-            width: "100%",
-            height: "200px",
-            borderBottomLeftRadius: "24px",
-            borderBottomRightRadius: "24px",
-            backgroundColor: "#000",
-            position: "relative",
-            overflow: "hidden",
+            width: '100%',
+            height: '200px',
+            borderBottomLeftRadius: '24px',
+            borderBottomRightRadius: '24px',
+            backgroundColor: '#000',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          <NextImage
-            src={postImage}
-            alt="image"
-            layout="fill"
-            width="100%"
-            height="100%"
-          />
+          <NextImage src={postImage} alt='image' layout='fill' />
         </Box>
         <Stack
           sx={(theme) => ({
             px: theme.spacing(3),
             pb: theme.spacing(3),
-            cursor: "pointer",
+            cursor: 'pointer',
           })}
         >
           <Box
-            height="100px"
+            height='100px'
             sx={{
-              overflow: "hidden",
-              display: "-webkit-box",
-              WebkitLineClamp: "3",
-              WebkitBoxOrient: "vertical",
+              overflow: 'hidden',
+              display: '-webkit-box',
+              WebkitLineClamp: '3',
+              WebkitBoxOrient: 'vertical',
             }}
           >
-            <Typography component="sub" sx={{ color: textColorGradient }}>
+            <Typography component='sub' sx={{ color: textColorGradient }}>
               {category}
             </Typography>
             <Typography
-              variant="h4"
-              component="h4"
+              variant='h4'
+              component='h4'
               sx={{
-                fontSize: "24px",
-                fontWeight: "700",
-                lineHeight: "1.4",
+                fontSize: '24px',
+                fontWeight: '700',
+                lineHeight: '1.4',
               }}
             >
               {title}
@@ -84,35 +78,35 @@ const PostGrid: React.FC<PostGridProps> = ({
           </Box>
 
           <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
+            direction='row'
+            alignItems='center'
+            justifyContent='space-between'
           >
             <Stack
-              direction="row"
+              direction='row'
               divider={
                 <FiberManualRecordIcon
-                  color="secondary"
+                  color='secondary'
                   sx={{
-                    width: "5px",
-                    height: "5px",
+                    width: '5px',
+                    height: '5px',
                   }}
                 />
               }
-              alignItems="center"
+              alignItems='center'
               spacing={2}
             >
-              <Stack direction="row" alignItems="center" spacing={1}>
+              <Stack direction='row' alignItems='center' spacing={1}>
                 <Avatar
                   alt={`Avatar ${userName}`}
                   sx={{
-                    width: "24px",
-                    height: "24px",
+                    width: '24px',
+                    height: '24px',
                   }}
                 />
-                <Typography sx={{ fontWeight: "400" }}>{userName}</Typography>
+                <Typography sx={{ fontWeight: '400' }}>{userName}</Typography>
               </Stack>
-              <Typography color="secondary">Jan 27</Typography>
+              <Typography color='secondary'>Jan 27</Typography>
             </Stack>
             <BookmarkBorderIcon />
           </Stack>
