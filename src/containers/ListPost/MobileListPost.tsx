@@ -1,8 +1,6 @@
-import PostGrid from '@/components/PostGrid';
-import { Box } from '@mui/material';
-import React from 'react';
-import Slider, { Settings } from 'react-slick';
-import { PostItem } from './data';
+import React from "react";
+import Slider, { Settings } from "react-slick";
+import { PostItem } from "./data";
 
 interface MobileListPostProps {
   listPosts: PostItem[];

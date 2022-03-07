@@ -1,11 +1,10 @@
-import "@/common/styles/globals.scss";
 import { SVGGradient } from "#/styles/gradients";
-import type { AppProps } from "next/app";
+import { ThemeModeProvider } from "#/themes";
+import "@/common/styles/globals.scss";
 import CssBaseline from "@mui/material/CssBaseline";
+import type { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
-import { ThemeModeProvider } from "#/themes";
-import FullLayout from "@/layouts/FullLayout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -45,10 +44,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <SVGGradient />
       <ThemeModeProvider>
-        <FullLayout>
-          <CssBaseline enableColorScheme={true} />
-          <Component {...pageProps} />
-        </FullLayout>
+        <CssBaseline enableColorScheme={true} />
+        <Component {...pageProps} />
       </ThemeModeProvider>
     </>
   );

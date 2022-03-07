@@ -1,11 +1,12 @@
 import AuthorInformation from "@/containers/AuthorInformation";
 import ListPost from "@/containers/ListPost";
+import FullLayout from "@/layouts/FullLayout";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
 const WriteProfilePage = () => {
   return (
-    <Box>
+    <FullLayout>
       <AuthorInformation />
       <Box marginTop={{ md: 8, xs: 4 }}>
         <Typography
@@ -23,7 +24,7 @@ const WriteProfilePage = () => {
         </Typography>
         <ListPost />
       </Box>
-    </Box>
+    </FullLayout>
   );
 };
 
