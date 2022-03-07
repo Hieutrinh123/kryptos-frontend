@@ -1,6 +1,5 @@
-import React from 'react'
-import { Box, Button, Pagination } from '@mui/material'
-import PaginationBasic from '../PaginationBasic';
+import { Box, Button, Pagination } from '@mui/material';
+import React from 'react';
 
 
 interface PaginationBlogListProps {

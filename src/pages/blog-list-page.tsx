@@ -2,8 +2,8 @@ import CardAuthorCompact from '@/components/CardAuthorCompact';
 import CardBlogSquare from '@/components/CardBlogSquare';
 import PaginationBasic from '@/components/PaginationBasic';
 import PaginationBlogList from '@/components/PaginationBlogList';
-import FullLayout from '@/layouts/FullLayout'
-import { Box, Grid, Typography, Button } from '@mui/material';
+import FullLayout from '@/layouts/FullLayout';
+import { Box, Grid, Typography } from '@mui/material';
 
 const BlogListPage = () => {
 
