@@ -1,10 +1,10 @@
-import "@/common/styles/globals.scss";
 import { SVGGradient } from "#/styles/gradients";
-import type { AppProps } from "next/app";
+import { ThemeModeProvider } from "#/themes";
+import "@/common/styles/globals.scss";
 import CssBaseline from "@mui/material/CssBaseline";
+import type { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
-import { ThemeModeProvider } from "#/themes";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -40,7 +40,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           href="/favicon/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
-
       </Head>
 
       <SVGGradient />
