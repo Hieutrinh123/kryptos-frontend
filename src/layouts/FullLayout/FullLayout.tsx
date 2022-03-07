@@ -1,3 +1,4 @@
+import ButtonGotoTop from "@/components/ButtonGoToTop";
 import Footer from "@/containers/Footer";
 import Header from "@/containers/Header";
 import Box from "@mui/material/Box";
@@ -21,6 +22,7 @@ const FullLayout: React.FC<FullLayoutProps> = ({ children }) => {
         {children}
       </Box>
       <Footer />
+      <ButtonGotoTop />
     </Box>
   );
 };
