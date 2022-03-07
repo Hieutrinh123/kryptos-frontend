@@ -1,5 +1,4 @@
 import Img from 'public/logo.png';
-import { Key } from 'react';
 
 interface PostItem {
   id: string;
@@ -87,3 +86,4 @@ const listPosts: PostItem[] = [
 
 export { listPosts };
 export type { PostItem };
+
