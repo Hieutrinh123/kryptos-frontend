@@ -1,5 +1,5 @@
-import CardBlogSquare from "@/components/CardBlogSquare";
-import PaginationBlogList from "@/components/PaginationBlogList";
+import SquareBlogCard from "@/components/SquareBlogCard";
+import BlogListPagination from "@/components/BlogListPagination";
 import { Grid } from "@mui/material";
 import React from "react";
 
@@ -11,7 +11,7 @@ const ListBlogs: React.FC<ListBlogsProps> = ({}) => {
     for (let i = 0; i < 12; i++) {
       result.push(
         <Grid item xs={4}>
-          <CardBlogSquare
+          <SquareBlogCard
             title="Lorem"
             subcategoryName="bitcoin"
             usernameCreate="sonpt"
@@ -30,7 +30,7 @@ const ListBlogs: React.FC<ListBlogsProps> = ({}) => {
       <Grid container spacing={4} rowSpacing={4} justifyContent="center">
         {renderBlogList()}
       </Grid>
-      <PaginationBlogList count={100} />
+      <BlogListPagination count={100} />
     </>
   );
 };

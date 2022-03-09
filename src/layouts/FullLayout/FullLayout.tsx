@@ -1,4 +1,4 @@
-import ButtonGotoTop from "@/components/ButtonGoToTop";
+import GoToTopButton from "@/components/GoToTopButton";
 import Footer from "@/containers/Footer";
 import Header from "@/containers/Header";
 import Box from "@mui/material/Box";
@@ -11,18 +11,19 @@ interface FullLayoutProps {
 const FullLayout: React.FC<FullLayoutProps> = ({ children }) => {
   return (
     <Box
-      sx={{
+      sx={(theme) => ({
         display: "flex",
         flexDirection: "column",
         height: "100vh",
-      }}
+        background: theme.palette.background.default,
+      })}
     >
       <Header />
       <Box component="main" sx={{ flex: "1 0" }}>
         {children}
       </Box>
       <Footer />
-      <ButtonGotoTop />
+      <GoToTopButton />
     </Box>
   );
 };

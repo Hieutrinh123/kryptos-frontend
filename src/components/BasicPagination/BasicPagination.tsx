@@ -5,7 +5,7 @@ interface PaginationBasicProps {
   count: number;
 }
 
-const PaginationBasic: React.FC<PaginationBasicProps> = ({ count }) => {
+const BasicPagination: React.FC<PaginationBasicProps> = ({ count }) => {
   return (
     <Pagination
       className="pagination-basic__container"
@@ -15,4 +15,4 @@ const PaginationBasic: React.FC<PaginationBasicProps> = ({ count }) => {
   );
 };
 
-export default PaginationBasic;
+export default BasicPagination;

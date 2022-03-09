@@ -1,12 +1,12 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
-import PaginationBasic from "../PaginationBasic";
+import BasicPagination from "../BasicPagination";
 
 interface PaginationNotificationProps {
   count: number;
 }
 
-const PaginationNotification: React.FC<PaginationNotificationProps> = ({
+const NotificationPagination: React.FC<PaginationNotificationProps> = ({
   count,
 }) => {
   return (
@@ -18,7 +18,7 @@ const PaginationNotification: React.FC<PaginationNotificationProps> = ({
         margin: "32px 0 64px",
       }}
     >
-      <PaginationBasic count={count} />
+      <BasicPagination count={count} />
       <Button
         sx={{
           fontWeight: 900,
@@ -33,4 +33,4 @@ const PaginationNotification: React.FC<PaginationNotificationProps> = ({
   );
 };
 
-export default PaginationNotification;
+export default NotificationPagination;

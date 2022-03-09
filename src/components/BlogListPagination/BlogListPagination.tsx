@@ -1,12 +1,12 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
-import PaginationBasic from "../PaginationBasic";
+import BasicPagination from "../BasicPagination";
 
 interface PaginationBlogListProps {
   count: number;
 }
 
-const PaginationBlogList: React.FC<PaginationBlogListProps> = ({ count }) => {
+const BlogListPagination: React.FC<PaginationBlogListProps> = ({ count }) => {
   return (
     <Box
       className="pagination__blog"
@@ -17,7 +17,7 @@ const PaginationBlogList: React.FC<PaginationBlogListProps> = ({ count }) => {
         margin: "32px 0 64px",
       }}
     >
-      <PaginationBasic count={count} />
+      <BasicPagination count={count} />
       <Button sx={{ fontWeight: 900, fontSize: 14, lineHeight: "14px" }}>
         Bài viết cũ hơn
       </Button>
@@ -25,4 +25,4 @@ const PaginationBlogList: React.FC<PaginationBlogListProps> = ({ count }) => {
   );
 };
 
-export default PaginationBlogList;
+export default BlogListPagination;

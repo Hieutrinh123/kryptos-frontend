@@ -8,7 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
-interface CardBlogSquareProps {
+interface SquareBlogCardProps {
   title: string;
   subcategoryName: string;
   usernameCreate: string;
@@ -17,7 +17,7 @@ interface CardBlogSquareProps {
   bookmark: boolean;
 }
 
-const CardBlogSquare: React.FC<CardBlogSquareProps> = ({
+const SquareBlogCard: React.FC<SquareBlogCardProps> = ({
   title,
   subcategoryName,
   usernameCreate,
@@ -28,7 +28,6 @@ const CardBlogSquare: React.FC<CardBlogSquareProps> = ({
       <CardMedia
         component="img"
         height="198"
-        // image="/static/images/cards/contemplative-reptile.jpg"
         alt="green iguana"
         sx={{ background: "#000000", borderRadius: "24px" }}
       />
@@ -84,4 +83,4 @@ const CardBlogSquare: React.FC<CardBlogSquareProps> = ({
   );
 };
 
-export default CardBlogSquare;
+export default SquareBlogCard;
