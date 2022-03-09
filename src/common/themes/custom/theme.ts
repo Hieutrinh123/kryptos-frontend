@@ -10,6 +10,7 @@ import {
   LightModeMuiMenuItem,
 } from "#/themes/custom/menuItem";
 // Add customization import (do not delete this comment)
+import { CommonMuiCard, DarkModeMuiCard, LightModeMuiCard } from "./card";
 import { CommonMuiLink, DarkModeMuiLink, LightModeMuiLink } from "./link";
 import {
   CommonMuiInputBase,
@@ -44,6 +45,7 @@ const commonThemeOptions: ThemeOptions = {
   },
   components: {
     // Add common component customization (do not delete this comment)
+    MuiCard: CommonMuiCard,
     MuiLink: CommonMuiLink,
     MuiInputBase: CommonMuiInputBase,
     MuiPaper: CommonMuiPaper,
@@ -61,7 +63,7 @@ const darkModeOptions: ThemeOptions = {
   palette: {
     mode: "dark",
     background: {
-      default: grey["800"],
+      default: grey["900"],
       paper: grey["600"],
     },
     secondary: {
@@ -75,6 +77,7 @@ const darkModeOptions: ThemeOptions = {
   },
   components: {
     // Add dark mode component customization (do not delete this comment)
+    MuiCard: DarkModeMuiCard,
     MuiLink: DarkModeMuiLink,
     MuiInputBase: DarkModeMuiInputBase,
     MuiPaper: DarkModeMuiPaper,
@@ -94,7 +97,7 @@ const lightModeOptions: ThemeOptions = {
   palette: {
     mode: "light",
     background: {
-      default: "#fff",
+      default: grey["200"],
       paper: "#fff",
     },
     secondary: {
@@ -108,6 +111,7 @@ const lightModeOptions: ThemeOptions = {
   },
   components: {
     // Add light mode component customization (do not delete this comment)
+    MuiCard: LightModeMuiCard,
     MuiLink: LightModeMuiLink,
     MuiInputBase: LightModeMuiInputBase,
     MuiPaper: LightModeMuiPaper,

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import ListNotification from "../ListNotification";
+import NotificationList from "./NotificationList";
 
 interface NotificationProps {}
 
@@ -21,7 +21,7 @@ const Notification: React.FC<NotificationProps> = ({}) => {
       >
         Thông báo mới nhất
       </Typography>
-      <ListNotification />
+      <NotificationList />
     </Box>
   );
 };
