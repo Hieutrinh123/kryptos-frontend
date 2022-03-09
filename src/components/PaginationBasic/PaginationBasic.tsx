@@ -12,7 +12,7 @@ const PaginationBasic: React.FC<PaginationBasicProps> = ({
     ...otherMenuProps
 }) => {
     return (
-        <Pagination count={count} sx={{ justifyContent: 'center', display: 'flex', margin: '32px 0 64px' }} />
+        <Pagination className='pagination-basic__container' count={count} sx={{ justifyContent: 'center', display: 'flex' }} />
     )
 }
 
