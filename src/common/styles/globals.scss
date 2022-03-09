@@ -17,3 +17,25 @@ a {
   margin: 0;
   box-sizing: border-box;
 }
+
+
+.notification__container .MuiPopover-paper {
+  background-color: rgba(29, 29, 29, 0.75);
+}
+
+.pagination-basic__container{
+    button{
+      background-color: transparent !important;
+      margin: 4px;
+      padding: 0;
+      min-width: 0;
+      font-weight: 400;
+    }
+    .Mui-selected{
+      font-weight: 900;
+    }
+    .MuiTouchRipple-root{
+      width: 0;
+    }
+
+}

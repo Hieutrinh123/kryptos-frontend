@@ -4,14 +4,15 @@ import Logo from "@/components/Logo/Logo";
 import SettingMenu from "@/containers/SettingMenu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchIcon from "@mui/icons-material/Search";
-import { Stack } from "@mui/material";
+import { Popover, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MuiLink from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import Notification from "../Notification";
 
 interface NavMenuProps {
   navOption: NavOption;
@@ -43,6 +44,21 @@ const NavMenu: React.FC<NavMenuProps> = ({ navOption }) => {
 };
 
 const ComputerHeaderContent = () => {
+
+  const [anchorEl, setAnchorEl] = useState()
+
+  const onClickNotificationIcon = (event: any) => {
+    console.log(event, event.currentTarget);
+    setAnchorEl(event.currentTarget)
+  }
+
+  const onCloseNotificationPopover = () => {
+    setAnchorEl(undefined)
+  }
+
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined;
+
   return (
     <>
       <Logo type="header" />
@@ -66,9 +82,23 @@ const ComputerHeaderContent = () => {
         <Button variant="contained" color="primary">
           <span>Đăng nhập</span>
         </Button>
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={onClickNotificationIcon} aria-describedby={id}>
           <NotificationsNoneIcon />
         </IconButton>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={onCloseNotificationPopover}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+
+          className='notification__container'
+        >
+          <Notification />
+        </Popover>
         <SettingMenu />
       </Box>
     </>
