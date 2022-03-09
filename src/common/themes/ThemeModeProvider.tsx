@@ -1,4 +1,5 @@
-import { PaletteMode, ThemeProvider } from "@mui/material";
+import type { PaletteMode } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
 import React, { useMemo, useState } from "react";
 import { darkModeTheme, lightModeTheme } from "./custom/theme";
 
