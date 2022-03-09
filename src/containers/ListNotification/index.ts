@@ -1,3 +1,3 @@
 import ListNotification from "./ListNotification";
 
-export default ListNotification
+export default ListNotification;

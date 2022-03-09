@@ -1,3 +1,3 @@
-import ListPost from './ListPost';
+import ListPost from "./ListPost";
 
 export default ListPost;

@@ -12,11 +12,11 @@ const ListBlogs: React.FC<ListBlogsProps> = ({}) => {
       result.push(
         <Grid item xs={4}>
           <CardBlogSquare
-            title='Lorem'
-            subcategoryName='bitcoin'
-            usernameCreate='sonpt'
-            userAvatarCreate='abc'
-            dateCreate='1/1/2021'
+            title="Lorem"
+            subcategoryName="bitcoin"
+            usernameCreate="sonpt"
+            userAvatarCreate="abc"
+            dateCreate="1/1/2021"
             bookmark={true}
           />
         </Grid>
@@ -27,7 +27,7 @@ const ListBlogs: React.FC<ListBlogsProps> = ({}) => {
 
   return (
     <>
-      <Grid container spacing={4} rowSpacing={4} justifyContent='center'>
+      <Grid container spacing={4} rowSpacing={4} justifyContent="center">
         {renderBlogList()}
       </Grid>
       <PaginationBlogList count={100} />

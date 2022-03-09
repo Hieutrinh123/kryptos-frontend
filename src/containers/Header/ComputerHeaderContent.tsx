@@ -44,20 +44,19 @@ const NavMenu: React.FC<NavMenuProps> = ({ navOption }) => {
 };
 
 const ComputerHeaderContent = () => {
-
-  const [anchorEl, setAnchorEl] = useState()
+  const [anchorEl, setAnchorEl] = useState();
 
   const onClickNotificationIcon = (event: any) => {
     console.log(event, event.currentTarget);
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const onCloseNotificationPopover = () => {
-    setAnchorEl(undefined)
-  }
+    setAnchorEl(undefined);
+  };
 
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined;
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <>
@@ -82,7 +81,11 @@ const ComputerHeaderContent = () => {
         <Button variant="contained" color="primary">
           <span>Đăng nhập</span>
         </Button>
-        <IconButton color="primary" onClick={onClickNotificationIcon} aria-describedby={id}>
+        <IconButton
+          color="primary"
+          onClick={onClickNotificationIcon}
+          aria-describedby={id}
+        >
           <NotificationsNoneIcon />
         </IconButton>
         <Popover
@@ -91,11 +94,10 @@ const ComputerHeaderContent = () => {
           anchorEl={anchorEl}
           onClose={onCloseNotificationPopover}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
+            vertical: "bottom",
+            horizontal: "left",
           }}
-
-          className='notification__container'
+          className="notification__container"
         >
           <Notification />
         </Popover>

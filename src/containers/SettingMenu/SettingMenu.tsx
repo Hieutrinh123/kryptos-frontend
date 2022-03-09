@@ -61,4 +61,3 @@ const SettingMenu: React.FC<SettingMenuProps> = ({}) => {
 };
 
 export default SettingMenu;
-

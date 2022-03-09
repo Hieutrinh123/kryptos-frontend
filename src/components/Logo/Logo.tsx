@@ -10,12 +10,7 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = (props) => {
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      alignItems="center"
-      marginRight={2}
-    >
+    <Box display="flex" flexDirection="row" alignItems="center" marginRight={2}>
       <Image src={logo} alt="Logo" height={36} width={36} />
       <Typography
         variant="h6"

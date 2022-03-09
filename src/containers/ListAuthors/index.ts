@@ -1,3 +1,3 @@
 import ListAuthors from "./ListAuthors";
 
-export default ListAuthors
+export default ListAuthors;

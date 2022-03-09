@@ -1,3 +1,3 @@
-import AuthorInformation from './AuthorInformation';
+import AuthorInformation from "./AuthorInformation";
 
 export default AuthorInformation;

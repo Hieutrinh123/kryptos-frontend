@@ -1,3 +1,3 @@
-import HighlightedPosts from './HighlightedPosts';
+import HighlightedPosts from "./HighlightedPosts";
 
 export default HighlightedPosts;

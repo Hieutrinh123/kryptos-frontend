@@ -1,7 +1,7 @@
-import PostGrid from '@/components/PostGrid';
-import { Grid } from '@mui/material';
-import React from 'react';
-import { PostItem } from './data';
+import PostGrid from "@/components/PostGrid";
+import { Grid } from "@mui/material";
+import React from "react";
+import { PostItem } from "./data";
 
 interface ComputerListPostProps {
   listPosts: PostItem[];
@@ -14,9 +14,9 @@ const ComputerListPost: React.FC<ComputerListPostProps> = ({ listPosts }) => {
       spacing={{ sm: 4, xs: 2 }}
       marginTop={{ xs: 5 }}
       sx={(theme) => ({
-        [theme.breakpoints.down('sm')]: {
-          overflowX: 'visible',
-          flexWrap: 'nowrap',
+        [theme.breakpoints.down("sm")]: {
+          overflowX: "visible",
+          flexWrap: "nowrap",
         },
       })}
     >
@@ -28,7 +28,7 @@ const ComputerListPost: React.FC<ComputerListPostProps> = ({ listPosts }) => {
           xs={12}
           key={post.id}
           sx={{
-            flexShrink: '0',
+            flexShrink: "0",
           }}
         >
           <PostGrid

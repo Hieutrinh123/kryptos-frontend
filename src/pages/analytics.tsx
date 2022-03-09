@@ -8,10 +8,10 @@ const BlogListPage = () => {
     <FullLayout>
       <Container>
         <Typography
-          component='div'
-          variant='h3'
+          component="div"
+          variant="h3"
           fontWeight={900}
-          textAlign='center'
+          textAlign="center"
           marginTop={6}
           marginBottom={5}
         >
