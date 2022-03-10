@@ -7,11 +7,11 @@ import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import React from "react";
 
-interface WriterListPageProps {
+interface AuthorListPageProps {
   authors: Authors;
 }
 
-const WriterListPage: NextPage<WriterListPageProps> = ({ authors }) => {
+const AuthorListPage: NextPage<AuthorListPageProps> = ({ authors }) => {
   return (
     <FullLayout>
       <List>
@@ -25,13 +25,13 @@ const WriterListPage: NextPage<WriterListPageProps> = ({ authors }) => {
   );
 };
 
-export default WriterListPage;
+export default AuthorListPage;
 
 export const getServerSideProps: GetServerSideProps<
-  WriterListPageProps
+  AuthorListPageProps
 > = async (context) => {
   const page = parseInt((context.params?.page as string) ?? "1");
-  const authors = await listAuthors(page);
+  const authors = await listAuthors(page, 9);
   return {
     props: {
       authors,

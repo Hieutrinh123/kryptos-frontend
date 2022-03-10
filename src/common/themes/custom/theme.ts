@@ -1,15 +1,19 @@
+import { createTheme, ThemeOptions } from "@mui/material/styles";
+import _ from "lodash";
 import { grey, primary } from "#/styles/colors";
-import {
-  CommonMuiAppBar,
-  DarkModeMuiAppBar,
-  LightModeMuiAppBar,
-} from "#/themes/custom/appBar";
+import { breakpoints } from "./breakpoints";
+
+// Add customization import (do not delete this comment)
 import {
   CommonMuiMenuItem,
   DarkModeMuiMenuItem,
   LightModeMuiMenuItem,
-} from "#/themes/custom/menuItem";
-// Add customization import (do not delete this comment)
+} from "./menuItem";
+import {
+  CommonMuiAppBar,
+  DarkModeMuiAppBar,
+  LightModeMuiAppBar,
+} from "./appBar";
 import { CommonMuiCard, DarkModeMuiCard, LightModeMuiCard } from "./card";
 import { CommonMuiLink, DarkModeMuiLink, LightModeMuiLink } from "./link";
 import {
@@ -22,11 +26,10 @@ import {
   CommonMuiToggleButton,
   DarkModeMuiToggleButton,
   LightModeMuiToggleButton,
-} from "#/themes/custom/toggleButton";
-import { CommonMuiToggleButtonGroup } from "#/themes/custom/toggleButtonGroup";
-import { CommonMuiToolbar } from "#/themes/custom/toolbar";
-import { createTheme, ThemeOptions } from "@mui/material/styles";
-import _ from "lodash";
+} from "./toggleButton";
+import { CommonMuiToggleButtonGroup } from "./toggleButtonGroup";
+import { CommonMuiToolbar } from "./toolbar";
+
 import {
   CommonMuiButton,
   DarkModeMuiButton,
@@ -43,8 +46,10 @@ const commonThemeOptions: ThemeOptions = {
     primary,
     grey,
   },
+  breakpoints,
   components: {
     // Add common component customization (do not delete this comment)
+    MuiToolbar: CommonMuiToolbar,
     MuiCard: CommonMuiCard,
     MuiLink: CommonMuiLink,
     MuiInputBase: CommonMuiInputBase,
@@ -53,7 +58,6 @@ const commonThemeOptions: ThemeOptions = {
     MuiAppBar: CommonMuiAppBar,
     MuiButton: CommonMuiButton,
     MuiIconButton: CommonMuiIconButton,
-    MuiToolbar: CommonMuiToolbar,
     MuiToggleButtonGroup: CommonMuiToggleButtonGroup,
     MuiToggleButton: CommonMuiToggleButton,
   },

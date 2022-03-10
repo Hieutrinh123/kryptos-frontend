@@ -1,6 +1,6 @@
 import SquareBlogCard from "@/components/SquareBlogCard";
 import BlogListPagination from "@/components/BlogListPagination";
-import { Grid } from "@mui/material";
+import Grid from "@/components/Grid";
 import React from "react";
 
 interface ListBlogsProps {}
@@ -10,7 +10,7 @@ const ListBlogs: React.FC<ListBlogsProps> = ({}) => {
     let result = [];
     for (let i = 0; i < 12; i++) {
       result.push(
-        <Grid item xs={4}>
+        <Grid item mobile={4}>
           <SquareBlogCard
             title="Lorem"
             subcategoryName="bitcoin"

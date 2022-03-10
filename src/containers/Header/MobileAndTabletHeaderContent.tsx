@@ -10,7 +10,7 @@ import { SyntheticEvent, useContext, useState } from "react";
 
 const pages = ["Products", "Pricing", "Blog"];
 
-const MobileHeaderContent = () => {
+const MobileAndTabletHeaderContent = () => {
   const [anchorElNav, setAnchorElNav] = useState<Element | null>(null);
 
   const { toggleTheme, theme } = useContext(ThemeModeContext);
@@ -73,4 +73,4 @@ const MobileHeaderContent = () => {
     </>
   );
 };
-export default MobileHeaderContent;
+export default MobileAndTabletHeaderContent;
