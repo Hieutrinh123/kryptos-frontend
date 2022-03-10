@@ -1,4 +1,4 @@
-import { Author } from "@/api/author";
+import { Author } from "@tryghost/content-api";
 import Avatar from "@mui/material/Avatar";
 import React from "react";
 
@@ -20,14 +20,11 @@ function getInitials(name: string) {
 const AuthorAvatar: React.FC<AuthorAvatarProps> = ({ author }) => {
   return (
     <Avatar
-      src={author.avatar}
+      src={author.profile_image ?? undefined}
       alt={author.name}
-      sx={{
-        height: 96,
-        width: 96,
-      }}
+      sx={{ height: "100%", width: "100%" }}
     >
-      {getInitials(author.name)}
+      {author.name ? getInitials(author.name) : "Author"}
     </Avatar>
   );
 };

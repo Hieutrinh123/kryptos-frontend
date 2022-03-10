@@ -2,22 +2,14 @@ import { textColorGradient } from "@/common/styles/gradients";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Avatar, Box, Paper, Stack, Typography } from "@mui/material";
+import { PostOrPage } from "@tryghost/content-api";
 import NextImage from "next/image";
 import React from "react";
 interface PostGridProps {
-  postImage: StaticImageData | string;
-  title: String;
-  category: String;
-  avatarSrc: StaticImageData | String;
-  userName: String;
+  post: PostOrPage;
 }
 
-const PostGrid: React.FC<PostGridProps> = ({
-  postImage,
-  title,
-  category,
-  userName,
-}) => {
+const PostGrid: React.FC<PostGridProps> = ({ post }) => {
   return (
     <Paper
       elevation={1}
@@ -42,7 +34,11 @@ const PostGrid: React.FC<PostGridProps> = ({
             overflow: "hidden",
           }}
         >
-          <NextImage src={postImage} alt="image" layout="fill" />
+          <NextImage
+            src={post.feature_image ?? "https://via.placeholder.com/200/500"}
+            alt="image"
+            layout="fill"
+          />
         </Box>
         <Stack
           sx={(theme) => ({
@@ -61,7 +57,7 @@ const PostGrid: React.FC<PostGridProps> = ({
             }}
           >
             <Typography component="sub" sx={{ color: textColorGradient }}>
-              {category}
+              {post.primary_tag?.name ?? ""}
             </Typography>
             <Typography
               variant="h4"
@@ -72,7 +68,7 @@ const PostGrid: React.FC<PostGridProps> = ({
                 lineHeight: "1.4",
               }}
             >
-              {title}
+              {post.title ?? ""}
             </Typography>
           </Box>
 
@@ -97,13 +93,19 @@ const PostGrid: React.FC<PostGridProps> = ({
             >
               <Stack direction="row" alignItems="center" spacing={1}>
                 <Avatar
-                  alt={`Avatar ${userName}`}
+                  src={
+                    post.primary_author?.profile_image ??
+                    "https://via.placeholder.com/24"
+                  }
+                  alt={post.primary_author?.name ?? "Author"}
                   sx={{
                     width: "24px",
                     height: "24px",
                   }}
                 />
-                <Typography sx={{ fontWeight: "400" }}>{userName}</Typography>
+                <Typography sx={{ fontWeight: "400" }}>
+                  {post.primary_author?.name ?? "Author"}
+                </Typography>
               </Stack>
               <Typography color="secondary">Jan 27</Typography>
             </Stack>

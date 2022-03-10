@@ -1,12 +1,12 @@
+import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 import Slider, { Settings } from "react-slick";
-import { PostItem } from "./data";
 
 interface MobileListPostProps {
-  listPosts: PostItem[];
+  posts: PostsOrPages;
 }
 
-const MobileListPost: React.FC<MobileListPostProps> = ({ listPosts }) => {
+const MobilePostList: React.FC<MobileListPostProps> = ({ posts }) => {
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -18,13 +18,13 @@ const MobileListPost: React.FC<MobileListPostProps> = ({ listPosts }) => {
 
   return (
     <Slider {...settings}>
-      {listPosts.map((post) => (
+      {posts.map((post) => (
         <div key={post.id}>
-          <p>hello</p>
+          <p>{post.title}</p>
         </div>
       ))}
     </Slider>
   );
 };
 
-export default MobileListPost;
+export default MobilePostList;

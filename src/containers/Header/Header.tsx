@@ -1,15 +1,12 @@
-import { Theme } from "@mui/material";
+import {useIsMobile} from "#/styles/responsive";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import ComputerHeaderContent from "./ComputerHeaderContent";
 import MobileHeaderContent from "./MobileHeaderContent";
 
 const Header = () => {
-  const isMobile = useMediaQuery<Theme>((theme) =>
-    theme.breakpoints.down("lg")
-  );
+  const isMobile = useIsMobile();
 
   return (
     <>

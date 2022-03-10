@@ -13,7 +13,7 @@ export function useNotifications(): Notification[] {
       type: "author",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      time: new Date("22/02/2001"),
+      time: new Date("2001/02/22"),
     },
   ];
 }

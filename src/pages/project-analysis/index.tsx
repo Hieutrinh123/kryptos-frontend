@@ -1,8 +1,9 @@
-import { Author } from "@/api/author";
+import { listAuthors } from "@/api/author";
 import AuthorList from "@/containers/AuthorList";
 import ListBlogs from "@/containers/BlogList";
 import FullLayout from "@/layouts/FullLayout";
 import { Container, Typography } from "@mui/material";
+import { Author } from "@tryghost/content-api";
 import { GetServerSideProps, NextPage } from "next";
 
 interface BlogListPageProps {
@@ -35,21 +36,8 @@ export default BlogListPage;
 export const getServerSideProps: GetServerSideProps<
   BlogListPageProps
 > = async () => {
+  const authors = await listAuthors(1);
   return {
-    props: {
-      authors: [
-        {
-          name: "An Tran",
-        },
-        {
-          avatar: "https://via.placeholder.com/150",
-          name: "Son Pham",
-        },
-        {
-          avatar: "https://via.placeholder.com/150",
-          name: "Hoa Tri",
-        },
-      ],
-    },
+    props: { authors },
   };
 };
