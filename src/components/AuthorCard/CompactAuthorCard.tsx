@@ -1,9 +1,9 @@
-import { Author } from "@/api/author";
 import AuthorAvatar from "@/components/AuthorCard/AuthorAvatar";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { Author } from "@tryghost/content-api";
 import React from "react";
 
 interface CompactAuthorCardProps {

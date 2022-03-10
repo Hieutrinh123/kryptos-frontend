@@ -1,6 +1,8 @@
-import { responsiveProps, useIsMobile } from "#/styles/responsive";
+import { useIsMobile } from "#/styles/responsive";
 import AuthorAvatar from "@/components/AuthorCard/AuthorAvatar";
-import { Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import Grid from "@/components/Grid";
+import { Button, Paper, Stack, Typography } from "@mui/material";
+
 import Box from "@mui/material/Box";
 import { Author } from "@tryghost/content-api";
 import React from "react";
@@ -37,20 +39,18 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({ author }) => {
       <Grid container spacing={4}>
         <Grid
           item
-          {...responsiveProps({ mobile: 3, desktop: 2 })}
+          mobile={4}
+          tablet={2}
           display="flex"
           justifyContent="center"
           alignItems="center"
         >
-          <Box
-            maxWidth={responsiveProps({ mobile: 80, desktop: 140 })}
-            maxHeight={responsiveProps({ mobile: 80, desktop: 140 })}
-          >
+          <Box maxWidth={140} maxHeight={140}>
             <AuthorAvatar author={author} />
           </Box>
         </Grid>
 
-        <Grid item {...responsiveProps({ mobile: 9, desktop: 4 })}>
+        <Grid item mobile={8} tablet={4}>
           <Stack spacing={1}>
             <Typography variant="subtitle1">Tác giả</Typography>
             <Typography variant="h5">{author.name ?? "Author"}</Typography>
@@ -59,12 +59,12 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({ author }) => {
         </Grid>
 
         {isMobile && (
-          <Grid item xs={12}>
+          <Grid item mobile={12}>
             <SubscribeButton />
           </Grid>
         )}
 
-        <Grid item {...responsiveProps({ mobile: 12, desktop: 6 })}>
+        <Grid item mobile={12} tablet={6}>
           <Stack spacing={1}>
             <Typography variant="subtitle1">Giới thiệu</Typography>
             <Typography component="sub" variant="subtitle1">

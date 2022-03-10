@@ -1,6 +1,7 @@
 import { navOptions, social } from "#/config/navigation";
 import Logo from "@/components/Logo/Logo";
-import { Box, Container, Grid, Link, Stack, Typography } from "@mui/material";
+import { Box, Container, Link, Stack, Typography } from "@mui/material";
+import Grid from "@/components/Grid";
 import Image from "next/image";
 
 import React from "react";
@@ -18,22 +19,19 @@ const Footer: React.FC<FooterProps> = ({}) => {
         py: theme.spacing(8),
       })}
     >
-      <Container maxWidth="lg">
+      <Container>
         <Grid container spacing={5}>
           <Grid
             item
-            xs={12}
-            md={4}
+            mobile={12}
+            desktop={4}
             sx={(theme) => ({
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
               maxHeight: 300,
-              [theme.breakpoints.down("md")]: {
+              [theme.breakpoints.down("mobile")]: {
                 height: 200,
-              },
-              [theme.breakpoints.down("sm")]: {
-                height: 250,
               },
             })}
           >
@@ -45,7 +43,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
               tư tốt nhất
             </Typography>
 
-            <Stack spacing={{ xs: 4, md: 2 }} direction="row">
+            <Stack spacing={2} direction="row">
               {social.map((item, index) => (
                 <Link href={item.href} key={index}>
                   <Image src={item.image} alt={item.title} />
@@ -54,7 +52,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
             </Stack>
           </Grid>
 
-          <Grid item xs={12} md={8}>
+          <Grid item mobile={12} desktop={8}>
             <Box
               sx={(theme) => ({
                 display: "flex",
@@ -63,7 +61,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
                 flexDirection: "column",
                 maxHeight: 300,
                 gap: theme.spacing(2),
-                [theme.breakpoints.down("sm")]: {
+                [theme.breakpoints.down("mobile")]: {
                   maxHeight: 600,
                 },
               })}

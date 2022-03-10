@@ -3,11 +3,11 @@ import AuthorList from "@/containers/AuthorList";
 import ListBlogs from "@/containers/BlogList";
 import FullLayout from "@/layouts/FullLayout";
 import { Container, Typography } from "@mui/material";
-import { Author } from "@tryghost/content-api";
+import { Authors } from "@tryghost/content-api";
 import { GetServerSideProps, NextPage } from "next";
 
 interface BlogListPageProps {
-  authors: Author[];
+  authors: Authors;
 }
 
 const BlogListPage: NextPage<BlogListPageProps> = ({ authors }) => {

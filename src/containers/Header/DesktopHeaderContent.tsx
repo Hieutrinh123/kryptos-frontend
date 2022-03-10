@@ -43,7 +43,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ navOption }) => {
   );
 };
 
-const ComputerHeaderContent = () => {
+const DesktopHeaderContent = () => {
   const [anchorEl, setAnchorEl] = useState();
 
   const onClickNotificationIcon = (event: any) => {
@@ -106,4 +106,4 @@ const ComputerHeaderContent = () => {
     </>
   );
 };
-export default ComputerHeaderContent;
+export default DesktopHeaderContent;
