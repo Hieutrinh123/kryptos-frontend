@@ -1,23 +1,25 @@
-import { alpha } from "@mui/material/styles";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import mainThumbnail from "#/assets/main-thumbnail.avif";
 import { carouselTimeout, carouselTransitionTime } from "#/config/homepage";
 import { glassGradientWithAlpha } from "#/styles/gradients";
+import { BlurBackdrop } from "@/containers/HighlightedPosts/BlurBackdrop";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-import Slide from "@mui/material/Slide";
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
+import Slide from "@mui/material/Slide";
+import { PostOrPage, PostsOrPages } from "@tryghost/content-api";
 import Image from "next/image";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
-interface MainCarouselProps {}
+interface MainCarouselProps {
+  posts: PostsOrPages;
+}
 
-const MainCarousel: React.FC<MainCarouselProps> = ({}) => {
-  const items = [0, 1, 2];
+const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const handleNextSlide = useCallback(() => {
-    setCurrentSlideIndex((oldIndex) => (oldIndex + 1) % items.length);
-  }, [items.length]);
+    setCurrentSlideIndex((oldIndex) => (oldIndex + 1) % posts.length);
+  }, [posts.length]);
 
   useEffect(() => {
     const timer = setTimeout(handleNextSlide, carouselTimeout);
@@ -25,7 +27,7 @@ const MainCarousel: React.FC<MainCarouselProps> = ({}) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [currentSlideIndex, handleNextSlide, items.length]);
+  }, [currentSlideIndex, handleNextSlide, posts.length]);
 
   const rootRef = useRef(null);
 
@@ -34,31 +36,14 @@ const MainCarousel: React.FC<MainCarouselProps> = ({}) => {
       ref={rootRef}
       sx={{ height: "100%", overflow: "hidden", position: "relative" }}
     >
-      {items.map((item, index) => (
+      {posts.map((post, index) => (
         <MainCarouselItem
           key={index}
           shown={index === currentSlideIndex}
           root={rootRef.current}
+          post={post}
         />
       ))}
-
-      <Box
-        position="absolute"
-        borderRadius="50%"
-        height="1000px"
-        width="1000px"
-        sx={(theme) => ({
-          top: 20,
-          left: 100,
-          transform: "translate(-50%, -50%)",
-          backgroundColor: alpha(theme.palette.grey["800"], 0.75),
-          backgroundBlendMode: "blur",
-          mixBlendMode: "normal",
-          backdropFilter: "blur(50px)",
-        })}
-      >
-        <h1>Lorem Ipsum</h1>
-      </Box>
 
       <IconButton
         onClick={handleNextSlide}
@@ -78,12 +63,19 @@ const MainCarousel: React.FC<MainCarouselProps> = ({}) => {
   );
 };
 
+export default MainCarousel;
+
 interface MainCarouselItemProps {
   shown: boolean;
   root: HTMLElement | null;
+  post: PostOrPage;
 }
 
-const MainCarouselItem: React.FC<MainCarouselItemProps> = ({ shown, root }) => {
+const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
+  shown,
+  root,
+  post,
+}) => {
   return (
     <Slide
       container={root}
@@ -93,8 +85,24 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({ shown, root }) => {
       unmountOnExit
       timeout={carouselTransitionTime}
     >
-      <Box sx={{ position: "absolute", height: "100%", width: "100%" }}>
-        <Image src={mainThumbnail} alt="Thumbnail" layout="responsive" />
+      <Box
+        sx={{
+          position: "absolute",
+          height: "100%",
+          width: "100%",
+          "& img": {
+            filter: "grayscale(100%)",
+          },
+        }}
+      >
+        {post?.feature_image && (
+          <Image
+            src={post?.feature_image}
+            alt="Thumbnail"
+            layout="fill"
+            quality={100}
+          />
+        )}
 
         <Box
           sx={{
@@ -103,11 +111,29 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({ shown, root }) => {
             background: glassGradientWithAlpha(0.8),
             height: "100%",
             width: "100%",
+            mixBlendMode: "hard-light",
           }}
         />
+
+        <BlurBackdrop />
+
+        <MainCarouselItemDescription post={post} />
       </Box>
     </Slide>
   );
 };
 
-export default MainCarousel;
+interface MainCarouselItemDescriptionProps {
+  post: PostOrPage;
+}
+
+const MainCarouselItemDescription: React.FC<
+  MainCarouselItemDescriptionProps
+> = ({ post }) => {
+  return (
+    <Box position="absolute" top="5vw" left="5vw">
+      <Typography variant="h2">{post.title}</Typography>
+      <Typography variant="subtitle1">{post.excerpt}</Typography>
+    </Box>
+  );
+};
