@@ -1,7 +1,8 @@
 import { useIsMobile } from "#/styles/responsive";
+import Box from "@mui/material/Box";
 import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
-import ComputerPostList from "./ComputerPostList";
+import ComputerAndTabletPostList from "./ComputerAndTabletPostList";
 import MobilePostList from "./MobilePostList";
 
 interface ListPostProps {
@@ -13,11 +14,12 @@ const PostList: React.FC<ListPostProps> = ({ posts }) => {
 
   return (
     <>
-      {isMobile ? (
+      <Box display={isMobile ? "block" : "none"}>
         <MobilePostList posts={posts} />
-      ) : (
-        <ComputerPostList posts={posts} />
-      )}
+      </Box>
+      <Box display={isMobile ? "none" : "block"}>
+        <ComputerAndTabletPostList posts={posts} />
+      </Box>
     </>
   );
 };

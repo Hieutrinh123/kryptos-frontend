@@ -1,10 +1,10 @@
 import { SVGGradient } from "#/styles/gradients";
 import { ThemeModeProvider } from "#/themes";
-import "@/common/styles/globals.scss";
 import CssBaseline from "@mui/material/CssBaseline";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
+import "@/common/styles/globals.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <SVGGradient />
       <ThemeModeProvider>
-        <CssBaseline enableColorScheme={true} />
+        <CssBaseline enableColorScheme />
         <Component {...pageProps} />
       </ThemeModeProvider>
     </>

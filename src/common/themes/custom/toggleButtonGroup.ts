@@ -1,4 +1,4 @@
-import { toggleButtonClasses } from "@mui/material";
+import { toggleButtonClasses } from "@mui/material/ToggleButton";
 import { Components } from "@mui/material/styles/components";
 
 export const CommonMuiToggleButtonGroup: Components["MuiToggleButtonGroup"] = {

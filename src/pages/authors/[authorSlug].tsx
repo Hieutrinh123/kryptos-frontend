@@ -1,6 +1,6 @@
 import { getAuthorInfo, getPostsFromAuthor } from "@/api/author";
 import AuthorInformation from "@/containers/AuthorInformation";
-import PostList from "@/containers/PostList";
+import PostList from "@/components/BlogPostList";
 import FullLayout from "@/layouts/FullLayout";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";

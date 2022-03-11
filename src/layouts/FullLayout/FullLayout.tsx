@@ -14,7 +14,6 @@ const FullLayout: React.FC<FullLayoutProps> = ({ children }) => {
       sx={(theme) => ({
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
         background: theme.palette.background.default,
       })}
     >

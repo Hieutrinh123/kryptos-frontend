@@ -1,6 +1,7 @@
 import type { PaletteMode } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import React, { useMemo, useState } from "react";
+import React, { useCallback } from "react";
+import { useDarkMode } from "usehooks-ts";
 import { darkModeTheme, lightModeTheme } from "./custom/theme";
 
 interface ThemeContextProps {
@@ -16,21 +17,39 @@ export const ThemeModeContext = React.createContext<ThemeContextProps>({
 });
 
 export const ThemeModeProvider: React.FC = ({ children }) => {
-  const [mode, setMode] = useState<PaletteMode>("dark");
+  const { isDarkMode, toggle, enable, disable } = useDarkMode(false);
+  const [mounted, setMounted] = React.useState(false);
 
-  const theme = useMemo(() => {
-    return mode === "light" ? lightModeTheme : darkModeTheme;
-  }, [mode]);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-  };
+  const changeTheme = useCallback(
+    (mode: PaletteMode) => {
+      if (mode === "light") {
+        disable();
+      } else {
+        enable();
+      }
+    },
+    [enable, disable]
+  );
 
-  return (
+  const body = (
     <ThemeModeContext.Provider
-      value={{ theme: mode, toggleTheme, changeTheme: setMode }}
+      value={{
+        theme: isDarkMode ? "dark" : "light",
+        toggleTheme: toggle,
+        changeTheme,
+      }}
     >
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={isDarkMode ? darkModeTheme : lightModeTheme}>
+        {children}
+      </ThemeProvider>
     </ThemeModeContext.Provider>
   );
+  if (!mounted) {
+    return <div style={{ visibility: "hidden" }}>{body}</div>;
+  }
+  return body;
 };

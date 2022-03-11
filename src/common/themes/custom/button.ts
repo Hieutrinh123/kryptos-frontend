@@ -27,6 +27,7 @@ export const CommonMuiButton: Components["MuiButton"] = {
         "& > *": textColorUngradient,
       },
     },
+
     textSecondary: {
       fontWeight: "bold",
       fontSize: "1rem",

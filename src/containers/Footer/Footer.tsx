@@ -1,8 +1,9 @@
-import { navOptions, social } from "#/config/navigation";
-import Logo from "@/components/Logo/Logo";
-import { Box, Container, Link, Stack, Typography } from "@mui/material";
+import { categories } from "#/config/navigation";
 import Grid from "@/components/Grid";
-import Image from "next/image";
+import Logo from "@/components/Logo/Logo";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
 import React from "react";
 import FooterLinkGroup from "./FooterLinkGroup";
@@ -13,7 +14,6 @@ const Footer: React.FC<FooterProps> = ({}) => {
   return (
     <Box
       component="footer"
-      color="white"
       sx={(theme) => ({
         marginTop: theme.spacing(2),
         py: theme.spacing(8),
@@ -42,14 +42,6 @@ const Footer: React.FC<FooterProps> = ({}) => {
               đi đầu xu thế thị trường tiền điện tử và đưa ra các quyết định đầu
               tư tốt nhất
             </Typography>
-
-            <Stack spacing={2} direction="row">
-              {social.map((item, index) => (
-                <Link href={item.href} key={index}>
-                  <Image src={item.image} alt={item.title} />
-                </Link>
-              ))}
-            </Stack>
           </Grid>
 
           <Grid item mobile={12} desktop={8}>
@@ -66,8 +58,8 @@ const Footer: React.FC<FooterProps> = ({}) => {
                 },
               })}
             >
-              {navOptions.map((navOption, index) => (
-                <FooterLinkGroup key={index} navOption={navOption} />
+              {categories.map((navOption, index) => (
+                <FooterLinkGroup key={index} category={navOption} />
               ))}
             </Box>
           </Grid>

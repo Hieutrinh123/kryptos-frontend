@@ -1,5 +1,5 @@
 import { OptionUnstyled, optionUnstyledClasses } from "@mui/base";
-import { Popper } from "@mui/material";
+import Popper from "@mui/material/Popper";
 import * as React from "react";
 import SelectUnstyled, {
   SelectUnstyledProps,

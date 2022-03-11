@@ -1,17 +1,21 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/homepage";
 import { glassGradientWithAlpha } from "#/styles/gradients";
+import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";
 import { BlurBackdrop } from "@/containers/HighlightedPosts/BlurBackdrop";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Slide from "@mui/material/Slide";
-import { PostOrPage, PostsOrPages } from "@tryghost/content-api";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { PostOrPage } from "@tryghost/content-api";
 import Image from "next/image";
+import NextLink from "next/link";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface MainCarouselProps {
-  posts: PostsOrPages;
+  posts: PostOrPage[];
 }
 
 const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
@@ -34,7 +38,11 @@ const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
   return (
     <Box
       ref={rootRef}
-      sx={{ height: "100%", overflow: "hidden", position: "relative" }}
+      height={{ mobile: "calc(100vh - 80px)", desktop: "100%" }}
+      sx={{
+        overflow: "hidden",
+        position: "relative",
+      }}
     >
       {posts.map((post, index) => (
         <MainCarouselItem
@@ -101,6 +109,7 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
             alt="Thumbnail"
             layout="fill"
             quality={100}
+            objectFit="cover"
           />
         )}
 
@@ -131,9 +140,32 @@ const MainCarouselItemDescription: React.FC<
   MainCarouselItemDescriptionProps
 > = ({ post }) => {
   return (
-    <Box position="absolute" top="5vw" left="5vw">
-      <Typography variant="h2">{post.title}</Typography>
-      <Typography variant="subtitle1">{post.excerpt}</Typography>
-    </Box>
+    <Stack
+      position="absolute"
+      top={{ mobile: "30vh", desktop: "10vh" }}
+      left={{ mobile: "5vh", desktop: "10vh" }}
+      maxWidth="50vh"
+      spacing={2}
+      alignItems="start"
+      sx={{
+        color: "white !important",
+      }}
+    >
+      <Typography variant="h1" fontWeight="bold">
+        {post.title}
+      </Typography>
+      <Typography variant="subtitle1">
+        {limitParagraphWordCount(post.excerpt ?? "")}
+      </Typography>
+      <NextLink href={`/posts/${post.slug}`} passHref>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ borderRadius: "6px", height: "48px" }}
+        >
+          <span>Xem thêm</span>
+        </Button>
+      </NextLink>
+    </Stack>
   );
 };

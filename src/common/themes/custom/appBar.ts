@@ -10,6 +10,9 @@ export const LightModeMuiAppBar: Components["MuiAppBar"] = {
     colorDefault: {
       backgroundColor: "white",
     },
+    root: {
+      borderRadius: 0,
+    },
   },
 };
 

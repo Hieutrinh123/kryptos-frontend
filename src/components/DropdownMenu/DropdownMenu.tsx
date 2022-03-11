@@ -1,5 +1,7 @@
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { ButtonProps, Menu, MenuProps, PaperProps } from "@mui/material";
+import Menu, { MenuProps } from "@mui/material/Menu";
+import { PaperProps } from "@mui/material/Paper";
+import { ButtonProps } from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import {

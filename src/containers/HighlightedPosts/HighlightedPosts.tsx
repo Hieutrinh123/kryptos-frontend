@@ -1,9 +1,7 @@
-import mainThumbnail from "#/assets/main-thumbnail.avif";
 import Grid from "@/components/Grid";
 import MainCarousel from "@/containers/HighlightedPosts/MainCarousel";
-import { Stack } from "@mui/material";
+import SidePosts from "@/containers/HighlightedPosts/SidePosts";
 import { PostsOrPages } from "@tryghost/content-api";
-import Image from "next/image";
 import React from "react";
 
 interface HighlightedPostsProps {
@@ -11,17 +9,20 @@ interface HighlightedPostsProps {
 }
 
 const HighlightedPosts: React.FC<HighlightedPostsProps> = ({ posts }) => {
+  const postCount = posts.length;
+  if (posts.length < 3) {
+    return null;
+  }
+
+  const mainPosts = posts.slice(0, postCount - 3);
+  const sidePosts = posts.slice(postCount - 3, postCount);
   return (
     <Grid container spacing={0}>
-      <Grid item mobile={9}>
-        <MainCarousel posts={posts} />
+      <Grid item mobile={12} desktop={9}>
+        <MainCarousel posts={mainPosts} />
       </Grid>
-      <Grid item mobile={3}>
-        <Stack spacing={0}>
-          <Image src={mainThumbnail} alt="Thumbnail" layout="responsive" />
-          <Image src={mainThumbnail} alt="Thumbnail" layout="responsive" />
-          <Image src={mainThumbnail} alt="Thumbnail" layout="responsive" />
-        </Stack>
+      <Grid item mobile={12} desktop={3}>
+        <SidePosts posts={sidePosts} />
       </Grid>
     </Grid>
   );

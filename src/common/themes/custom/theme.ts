@@ -71,7 +71,7 @@ const darkModeOptions: ThemeOptions = {
       paper: grey["600"],
     },
     secondary: {
-      main: grey["800"]!,
+      main: grey["800"],
     },
     text: {
       primary: "#fff",
@@ -79,6 +79,7 @@ const darkModeOptions: ThemeOptions = {
       disabled: "#d0d0d0",
     },
   },
+
   components: {
     // Add dark mode component customization (do not delete this comment)
     MuiCard: DarkModeMuiCard,
@@ -105,7 +106,7 @@ const lightModeOptions: ThemeOptions = {
       paper: "#fff",
     },
     secondary: {
-      main: grey["500"]!,
+      main: grey["500"],
     },
     text: {
       primary: grey["900"],

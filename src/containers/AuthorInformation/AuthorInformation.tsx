@@ -1,5 +1,5 @@
 import { useIsMobile } from "#/styles/responsive";
-import AuthorAvatar from "@/components/AuthorCard/AuthorAvatar";
+import AuthorAvatar from "@/components/AuthorAvatar";
 import Grid from "@/components/Grid";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 

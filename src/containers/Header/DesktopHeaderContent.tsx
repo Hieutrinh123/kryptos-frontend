@@ -1,4 +1,4 @@
-import { getFullSublinkHref, NavOption, navOptions } from "#/config/navigation";
+import { categories, Category, getSubcategoryHref } from "#/config/navigation";
 import DropdownMenu from "@/components/DropdownMenu";
 import Logo from "@/components/Logo/Logo";
 import SettingMenu from "@/containers/SettingMenu";
@@ -15,19 +15,19 @@ import React, { useState } from "react";
 import Notification from "../Notification";
 
 interface NavMenuProps {
-  navOption: NavOption;
+  category: Category;
 }
-const NavMenu: React.FC<NavMenuProps> = ({ navOption }) => {
-  if (navOption.sublinks) {
+const NavMenu: React.FC<NavMenuProps> = ({ category }) => {
+  if (category.subcategories) {
     return (
-      <DropdownMenu title={navOption.title} offsetX={-20} offsetY={0}>
-        {navOption.sublinks.map((sublink) => (
-          <MenuItem key={sublink.href}>
+      <DropdownMenu title={category.title} offsetX={-20} offsetY={0}>
+        {category.subcategories.map((subcategory) => (
+          <MenuItem key={subcategory.slug}>
             <Link
               passHref
-              href={getFullSublinkHref(navOption.href, sublink.href)}
+              href={getSubcategoryHref(category.slug, subcategory.slug)}
             >
-              <MuiLink>{sublink.title}</MuiLink>
+              <MuiLink>{subcategory.title}</MuiLink>
             </Link>
           </MenuItem>
         ))}
@@ -35,9 +35,9 @@ const NavMenu: React.FC<NavMenuProps> = ({ navOption }) => {
     );
   }
   return (
-    <Link passHref href={"/" + navOption.href}>
+    <Link passHref href={"/" + category.slug}>
       <Button variant="text" color="secondary">
-        <span>{navOption.title}</span>
+        <span>{category.title}</span>
       </Button>
     </Link>
   );
@@ -63,8 +63,8 @@ const DesktopHeaderContent = () => {
       <Logo type="header" />
 
       <Stack flexGrow={1} direction="row" justifyContent="center" spacing={2}>
-        {navOptions.map((navOption, index) => (
-          <NavMenu navOption={navOption} key={index} />
+        {categories.map((category, index) => (
+          <NavMenu category={category} key={index} />
         ))}
       </Stack>
 
