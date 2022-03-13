@@ -1,14 +1,14 @@
-import NotificationPagination from "@/components/NotificationPagination";
-import { ArrowForwardIos } from "@mui/icons-material";
-import { Badge, Box } from "@mui/material";
+import { useNotifications } from "@/api/notification";
+import ArrowForwardIos from "@mui/icons-material/ArrowForwardIos";
 import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { useNotifications } from "@/api/notification";
 
 interface ListNotificationProps {}
 
@@ -84,7 +84,6 @@ const NotificationList: React.FC<ListNotificationProps> = ({}) => {
           )
         )}
       </List>
-      <NotificationPagination count={10} />
     </Box>
   );
 };

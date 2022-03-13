@@ -1,5 +1,5 @@
 import { useIsMobile } from "#/styles/responsive";
-import AuthorAvatar from "@/components/AuthorCard/AuthorAvatar";
+import AuthorAvatar from "@/components/AuthorAvatar";
 import Grid from "@/components/Grid";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 
@@ -11,7 +11,7 @@ interface AuthorInformationProps {
   author: Author;
 }
 
-const SubscribeButton: React.FC = () => {
+const SubscribeButton: React.FC = ({}) => {
   return (
     <Button
       variant="contained"
@@ -54,15 +54,15 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({ author }) => {
           <Stack spacing={1}>
             <Typography variant="subtitle1">Tác giả</Typography>
             <Typography variant="h5">{author.name ?? "Author"}</Typography>
-            {!isMobile && <SubscribeButton />}
+            <Box display={isMobile ? "block" : "none"}>
+              <SubscribeButton />
+            </Box>
           </Stack>
         </Grid>
 
-        {isMobile && (
-          <Grid item mobile={12}>
-            <SubscribeButton />
-          </Grid>
-        )}
+        <Grid item mobile={12} display={isMobile ? "flex" : "none"}>
+          <SubscribeButton />
+        </Grid>
 
         <Grid item mobile={12} tablet={6}>
           <Stack spacing={1}>

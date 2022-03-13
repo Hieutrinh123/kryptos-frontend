@@ -1,4 +1,4 @@
-import { Grid as MuiGrid, GridProps } from "@mui/material";
+import MuiGrid, { GridProps } from "@mui/material/Grid";
 import React from "react";
 
 interface CustomGridProps

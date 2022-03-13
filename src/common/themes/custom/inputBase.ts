@@ -1,4 +1,4 @@
-import { selectClasses } from "@mui/material";
+import { selectClasses } from "@mui/material/Select";
 import { Components } from "@mui/material/styles/components";
 
 export const CommonMuiInputBase: Components["MuiInputBase"] = {

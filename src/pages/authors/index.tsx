@@ -1,6 +1,6 @@
 import { listAuthors } from "@/api/author";
 import FullLayout from "@/layouts/FullLayout";
-import { ListItem } from "@mui/material";
+import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";
 import { Authors } from "@tryghost/content-api";
 import { GetServerSideProps, NextPage } from "next";

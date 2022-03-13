@@ -1,11 +1,11 @@
 import { OptionUnstyled, optionUnstyledClasses } from "@mui/base";
-import { Popper } from "@mui/material";
+import Popper from "@mui/material/Popper";
 import * as React from "react";
 import SelectUnstyled, {
   SelectUnstyledProps,
   selectUnstyledClasses,
 } from "@mui/base/SelectUnstyled";
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 
 const blue = {
   100: "#DAECFF",

@@ -1,6 +1,6 @@
 import { getAuthorInfo, getPostsFromAuthor } from "@/api/author";
 import AuthorInformation from "@/containers/AuthorInformation";
-import PostList from "@/containers/PostList";
+import BlogPostList from "@/components/BlogPostList";
 import FullLayout from "@/layouts/FullLayout";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -31,7 +31,7 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
         </Box>
 
         <Box mt={4}>
-          <PostList posts={posts} />
+          <BlogPostList posts={posts} />
         </Box>
       </Container>
     </FullLayout>
@@ -47,6 +47,7 @@ export const getServerSideProps: GetServerSideProps<
   if (!authorSlug) {
     return { notFound: true };
   }
+  console.log(authorSlug);
   const author = await getAuthorInfo(authorSlug);
   const posts = await getPostsFromAuthor(authorSlug);
   if (!author || !posts) {

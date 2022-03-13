@@ -1,26 +1,26 @@
-import { getFullSublinkHref, NavOption } from "#/config/navigation";
+import { getSubcategoryHref, Category } from "#/config/navigation";
 import { Box, Link, Stack } from "@mui/material";
 import NextLink from "next/link";
 import React from "react";
 
 interface FooterLinkGroupProps {
-  navOption: NavOption;
+  category: Category;
 }
 
-const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ navOption }) => {
+const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
   return (
     <Box
-      sx={(theme) => ({
+      sx={{
         alignSelf: "flex-start",
         display: "inline-block",
-      })}
+      }}
     >
-      <NextLink href={"/" + navOption.href} passHref>
+      <NextLink href={"/" + category.slug} passHref>
         <Link underline="none" fontWeight="bold">
-          {navOption.title}
+          {category.title}
         </Link>
       </NextLink>
-      {navOption.sublinks && (
+      {category.subcategories && (
         <Stack
           component="ul"
           spacing={1}
@@ -30,13 +30,13 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ navOption }) => {
             padding: 0,
           }}
         >
-          {navOption.sublinks.map((link, index) => (
+          {category.subcategories.map((subcategory, index) => (
             <li key={index}>
               <NextLink
-                href={getFullSublinkHref(navOption.href, link.href)}
+                href={getSubcategoryHref(category.slug, subcategory.slug)}
                 passHref
               >
-                <Link underline="none">{link.title}</Link>
+                <Link underline="none">{subcategory.title}</Link>
               </NextLink>
             </li>
           ))}

@@ -9,7 +9,7 @@ export async function getAuthorInfo(
   authorSlug: string
 ): Promise<Author | null> {
   try {
-    return api.authors.read({ slug: authorSlug });
+    return await api.authors.read({ slug: authorSlug });
   } catch (e) {
     console.error(e);
     return null;
@@ -20,11 +20,12 @@ export async function getPostsFromAuthor(
   authorSlug: string
 ): Promise<PostsOrPages | null> {
   try {
-    return api.posts.browse({
+    return await api.posts.browse({
       filter: `authors.slug:${authorSlug}`,
       include: ["authors", "tags"],
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }

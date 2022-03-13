@@ -1,127 +1,104 @@
-import FacebookImg from "public/images/facebook.png";
-import Twitter from "public/images/twitter.png";
-
-export interface NavOption {
-  href: string;
+export interface Category {
+  slug: string;
   title: string;
-  sublinks?: NavigationSubLink[];
+  subcategories?: Subcategory[];
 }
 
-export interface NavigationSubLink {
-  href: string;
+export interface Subcategory {
+  slug: string;
   title: string;
 }
 
-export type SocialLinks = {
-  href: string;
-  title: string;
-  image: StaticImageData;
+export function getSubcategoryHref(
+  categoryHref: string,
+  subcategoryHref: string
+) {
+  return "/" + categoryHref + "/" + subcategoryHref;
+}
+export const PROJECT_ANALYSIS_CATEGORY = {
+  slug: "project-analysis",
+  title: "Phân tích dự án",
 };
 
-export function getFullSublinkHref(menuHref: string, sublinkHref: string) {
-  return "/" + menuHref + "/" + sublinkHref;
-}
+export const UPDATE_CATEGORY = {
+  title: "Cập nhật",
+  slug: "update",
+  subcategories: [
+    {
+      slug: "on-chain-analysis",
+      title: "Phân tích On-chain",
+    },
+    {
+      slug: "technical-analysis",
+      title: "Phân tích kỹ thuật",
+    },
+  ],
+};
 
-export const navOptions: NavOption[] = [
-  {
-    href: "project-analysis",
-    title: "Phân tích dự án",
-  },
-  {
-    title: "Cập nhật",
-    href: "update",
-    sublinks: [
-      {
-        href: "on-chain-analysis",
-        title: "Phân tích On-chain",
-      },
-      {
-        href: "technical-analysis",
-        title: "Phân tích kỹ thuật",
-      },
-    ],
-  },
-  {
-    title: "Hệ sinh thái",
-    href: "ecosystem",
-    sublinks: [
-      {
-        href: "binance-smart-chain",
-        title: "Binance Smart Chain",
-      },
-      {
-        href: "solana",
-        title: "Solana",
-      },
-      {
-        href: "avalanche",
-        title: "Avalanche",
-      },
-      {
-        href: "polygon",
-        title: "Polygon",
-      },
-      {
-        href: "fantom",
-        title: "Fantom",
-      },
-      {
-        href: "near",
-        title: "Near",
-      },
-      {
-        href: "others",
-        title: "Khác",
-      },
-    ],
-  },
-  {
-    title: "Phân tích chuyên sâu",
-    href: "indepth-analysis",
-    sublinks: [
-      {
-        href: "defi",
-        title: "DeFi",
-      },
-      {
-        href: "nft",
-        title: "NFT",
-      },
-      {
-        href: "web3",
-        title: "Web3",
-      },
-      {
-        href: "infrastructure",
-        title: "Cơ sở hạ tầng",
-      },
-      {
-        href: "macro",
-        title: "Tình hình vĩ mô",
-      },
-    ],
-  },
-];
+export const ECOSYSTEM_CATEGORY = {
+  title: "Hệ sinh thái",
+  slug: "ecosystem",
+  subcategories: [
+    {
+      slug: "binance-smart-chain",
+      title: "Binance Smart Chain",
+    },
+    {
+      slug: "solana",
+      title: "Solana",
+    },
+    {
+      slug: "avalanche",
+      title: "Avalanche",
+    },
+    {
+      slug: "polygon",
+      title: "Polygon",
+    },
+    {
+      slug: "fantom",
+      title: "Fantom",
+    },
+    {
+      slug: "near",
+      title: "NEAR",
+    },
+    {
+      slug: "others",
+      title: "Khác",
+    },
+  ],
+};
 
-export const social: SocialLinks[] = [
-  {
-    href: "#",
-    title: "facebook",
-    image: FacebookImg,
-  },
-  {
-    href: "#",
-    title: "twitter",
-    image: Twitter,
-  },
-  {
-    href: "#",
-    title: "facebook",
-    image: FacebookImg,
-  },
-  {
-    href: "#",
-    title: "twitter",
-    image: Twitter,
-  },
+export const INDEPTH_ANALYSIS_CATEGORY = {
+  title: "Phân tích chuyên sâu",
+  slug: "indepth-analysis",
+  subcategories: [
+    {
+      slug: "de-fi",
+      title: "De-Fi",
+    },
+    {
+      slug: "nft",
+      title: "NFT",
+    },
+    {
+      slug: "web3",
+      title: "Web3",
+    },
+    {
+      slug: "infrastructure",
+      title: "Cơ sở hạ tầng",
+    },
+    {
+      slug: "macro-economy",
+      title: "Tình hình vĩ mô",
+    },
+  ],
+};
+export const categories: Category[] = [
+  PROJECT_ANALYSIS_CATEGORY,
+  UPDATE_CATEGORY,
+  ECOSYSTEM_CATEGORY,
+  INDEPTH_ANALYSIS_CATEGORY,
 ];

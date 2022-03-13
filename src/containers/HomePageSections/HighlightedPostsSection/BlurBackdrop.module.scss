@@ -1,0 +1,10 @@
+.blur-backdrop {
+  @supports not (backdrop-filter: blur(100px)) {
+    background-color: rgb(29, 29, 29, 0.9);
+  }
+
+  @supports (backdrop-filter: blur(100px)) {
+    mix-blend-mode: soft-light;
+    backdrop-filter: blur(100px);
+  }
+}
