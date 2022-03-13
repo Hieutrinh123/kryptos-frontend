@@ -5,7 +5,7 @@ import SelectUnstyled, {
   SelectUnstyledProps,
   selectUnstyledClasses,
 } from "@mui/base/SelectUnstyled";
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 
 const blue = {
   100: "#DAECFF",

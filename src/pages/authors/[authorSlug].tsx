@@ -1,6 +1,6 @@
 import { getAuthorInfo, getPostsFromAuthor } from "@/api/author";
 import AuthorInformation from "@/containers/AuthorInformation";
-import PostList from "@/components/BlogPostList";
+import BlogPostList from "@/components/BlogPostList";
 import FullLayout from "@/layouts/FullLayout";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -31,7 +31,7 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
         </Box>
 
         <Box mt={4}>
-          <PostList posts={posts} />
+          <BlogPostList posts={posts} />
         </Box>
       </Container>
     </FullLayout>

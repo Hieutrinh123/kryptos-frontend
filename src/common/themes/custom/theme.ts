@@ -1,9 +1,24 @@
 import { createTheme, ThemeOptions } from "@mui/material/styles";
 import _ from "lodash";
-import { grey, primary } from "#/styles/colors";
+import {
+  darkBackground,
+  grey,
+  lightBackground,
+  primary,
+} from "#/styles/colors";
 import { breakpoints } from "./breakpoints";
 
 // Add customization import (do not delete this comment)
+import {
+  CommonMuiCardContent,
+  DarkModeMuiCardContent,
+  LightModeMuiCardContent,
+} from "./cardContent";
+import {
+  CommonMuiCardMedia,
+  DarkModeMuiCardMedia,
+  LightModeMuiCardMedia,
+} from "./cardMedia";
 import {
   CommonMuiMenuItem,
   DarkModeMuiMenuItem,
@@ -46,9 +61,16 @@ const commonThemeOptions: ThemeOptions = {
     primary,
     grey,
   },
+  typography: (palette) => ({
+    allVariants: {
+      color: palette.text.primary,
+    },
+  }),
   breakpoints,
   components: {
     // Add common component customization (do not delete this comment)
+    MuiCardContent: CommonMuiCardContent,
+    MuiCardMedia: CommonMuiCardMedia,
     MuiToolbar: CommonMuiToolbar,
     MuiCard: CommonMuiCard,
     MuiLink: CommonMuiLink,
@@ -66,22 +88,22 @@ const commonThemeOptions: ThemeOptions = {
 const darkModeOptions: ThemeOptions = {
   palette: {
     mode: "dark",
-    background: {
-      default: grey["900"],
-      paper: grey["600"],
-    },
+    background: darkBackground,
+
     secondary: {
       main: grey["800"],
     },
     text: {
       primary: "#fff",
       secondary: "#f0f0f0",
-      disabled: "#d0d0d0",
+      disabled: "#5e5e5e",
     },
   },
 
   components: {
     // Add dark mode component customization (do not delete this comment)
+    MuiCardContent: DarkModeMuiCardContent,
+    MuiCardMedia: DarkModeMuiCardMedia,
     MuiCard: DarkModeMuiCard,
     MuiLink: DarkModeMuiLink,
     MuiInputBase: DarkModeMuiInputBase,
@@ -101,21 +123,20 @@ export const darkModeTheme = createTheme(
 const lightModeOptions: ThemeOptions = {
   palette: {
     mode: "light",
-    background: {
-      default: grey["200"],
-      paper: "#fff",
-    },
+    background: lightBackground,
     secondary: {
       main: grey["500"],
     },
     text: {
       primary: grey["900"],
       secondary: grey["800"],
-      disabled: grey["600"],
+      disabled: grey["300"],
     },
   },
   components: {
     // Add light mode component customization (do not delete this comment)
+    MuiCardContent: LightModeMuiCardContent,
+    MuiCardMedia: LightModeMuiCardMedia,
     MuiCard: LightModeMuiCard,
     MuiLink: LightModeMuiLink,
     MuiInputBase: LightModeMuiInputBase,

@@ -12,17 +12,12 @@ const Header = () => {
     <>
       <AppBar position="fixed" color="default" elevation={0}>
         <Container maxWidth={false} sx={{ height: "100%" }}>
-          <Toolbar
-            disableGutters
-            sx={{ height: "100%", display: isDesktop ? "flex" : "none" }}
-          >
-            <DesktopHeaderContent />
-          </Toolbar>
-          <Toolbar
-            disableGutters
-            sx={{ height: "100%", display: isDesktop ? "none" : "flex" }}
-          >
-            <MobileAndTabletHeaderContent />
+          <Toolbar disableGutters sx={{ height: "100%" }}>
+            {isDesktop ? (
+              <DesktopHeaderContent />
+            ) : (
+              <MobileAndTabletHeaderContent />
+            )}
           </Toolbar>
         </Container>
       </AppBar>

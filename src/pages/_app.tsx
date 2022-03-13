@@ -1,3 +1,5 @@
+import createEmotionCache from "#/utils/createEmotionCache";
+import { CacheProvider, EmotionCache } from "@emotion/react";
 import { SVGGradient } from "#/styles/gradients";
 import { ThemeModeProvider } from "#/themes";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -6,7 +8,17 @@ import Head from "next/head";
 import React from "react";
 import "@/common/styles/globals.scss";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const clientSideEmotionCache = createEmotionCache();
+
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+function MyApp({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps,
+}: MyAppProps) {
   return (
     <>
       <Head>
@@ -43,10 +55,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <SVGGradient />
-      <ThemeModeProvider>
-        <CssBaseline enableColorScheme />
-        <Component {...pageProps} />
-      </ThemeModeProvider>
+      <CacheProvider value={emotionCache}>
+        <ThemeModeProvider>
+          <CssBaseline enableColorScheme />
+          <Component {...pageProps} />
+        </ThemeModeProvider>
+      </CacheProvider>
     </>
   );
 }

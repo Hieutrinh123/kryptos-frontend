@@ -15,9 +15,9 @@ export const breakpoints = {
   values: {
     xs: 0,
     md: 600,
-    lg: 1200,
+    lg: 1120,
     mobile: 0,
     tablet: 600,
-    desktop: 1200,
+    desktop: 1120,
   },
 };

@@ -1,14 +1,14 @@
 import Grid from "@/components/Grid";
-import MainCarousel from "@/containers/HighlightedPosts/MainCarousel";
-import SidePosts from "@/containers/HighlightedPosts/SidePosts";
+import MainCarousel from "@/containers/HomePageSections/HighlightedPostsSection/MainCarousel";
+import SidePosts from "@/containers/HomePageSections/HighlightedPostsSection/SidePosts";
 import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 
-interface HighlightedPostsProps {
+interface HighlightedPostsSectionProps {
   posts: PostsOrPages;
 }
 
-const HighlightedPosts: React.FC<HighlightedPostsProps> = ({ posts }) => {
+const HighlightedPostsSection: React.FC<HighlightedPostsSectionProps> = ({ posts }) => {
   const postCount = posts.length;
   if (posts.length < 3) {
     return null;
@@ -28,4 +28,4 @@ const HighlightedPosts: React.FC<HighlightedPostsProps> = ({ posts }) => {
   );
 };
 
-export default HighlightedPosts;
+export default HighlightedPostsSection;

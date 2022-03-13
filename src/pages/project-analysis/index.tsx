@@ -1,6 +1,5 @@
 import { listAuthors } from "@/api/author";
 import AuthorList from "@/containers/AuthorList";
-import ListBlogs from "@/containers/BlogList";
 import FullLayout from "@/layouts/FullLayout";
 import { Container, Typography } from "@mui/material";
 import { Authors } from "@tryghost/content-api";
@@ -24,7 +23,6 @@ const BlogListPage: NextPage<BlogListPageProps> = ({ authors }) => {
         >
           Phân tích dự án
         </Typography>
-        <ListBlogs />
       </Container>
       <AuthorList authors={authors} />
     </FullLayout>

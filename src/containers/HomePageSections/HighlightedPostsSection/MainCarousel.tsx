@@ -1,7 +1,7 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/homepage";
 import { glassGradientWithAlpha } from "#/styles/gradients";
 import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";
-import { BlurBackdrop } from "@/containers/HighlightedPosts/BlurBackdrop";
+import { BlurBackdrop } from "@/containers/HomePageSections/HighlightedPostsSection/BlurBackdrop";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -26,11 +26,13 @@ const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
   }, [posts.length]);
 
   useEffect(() => {
-    const timer = setTimeout(handleNextSlide, carouselTimeout);
+    if (carouselTimeout > 0) {
+      const timer = setTimeout(handleNextSlide, carouselTimeout);
 
-    return () => {
-      clearTimeout(timer);
-    };
+      return () => {
+        clearTimeout(timer);
+      };
+    }
   }, [currentSlideIndex, handleNextSlide, posts.length]);
 
   const rootRef = useRef(null);
@@ -147,11 +149,8 @@ const MainCarouselItemDescription: React.FC<
       maxWidth="50vh"
       spacing={2}
       alignItems="start"
-      sx={{
-        color: "white !important",
-      }}
     >
-      <Typography variant="h1" fontWeight="bold">
+      <Typography variant="h1" fontWeight="bold" color="white">
         {post.title}
       </Typography>
       <Typography variant="subtitle1">
