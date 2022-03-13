@@ -31,7 +31,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "short" }) => {
               component="img"
               src={post.feature_image ?? undefined}
               sx={{
-                aspectRatio: variant === "tall" ? "1 / 1" : "2 / 1",
+                aspectRatio: variant === "short" ? "2 / 1" : "1 / 1",
                 width: variant === "side" ? "200px" : undefined,
               }}
             />

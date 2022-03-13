@@ -47,7 +47,6 @@ const DesktopHeaderContent = () => {
   const [anchorEl, setAnchorEl] = useState();
 
   const onClickNotificationIcon = (event: any) => {
-    console.log(event, event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
 

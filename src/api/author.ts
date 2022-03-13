@@ -25,7 +25,7 @@ export async function getPostsFromAuthor(
       include: ["authors", "tags"],
     });
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return null;
   }
 }

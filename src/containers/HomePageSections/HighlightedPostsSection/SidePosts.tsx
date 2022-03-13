@@ -1,7 +1,12 @@
+import { toolbarHeight } from "#/config/toolbar";
+import { grey } from "#/styles/colors";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import { alpha } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 import { PostOrPage } from "@tryghost/content-api";
-import Image from "next/image";
+import NextImage from "next/image";
+import NextLink from "next/link";
 import React from "react";
 
 interface SidePostsProps {
@@ -12,15 +17,38 @@ const SidePosts: React.FC<SidePostsProps> = ({ posts }) => {
   return (
     <Stack spacing={0} direction={{ mobile: "row", desktop: "column" }}>
       {posts.map((post) => (
-        <Box key={post.id} minHeight="200px" width="100%" position="relative">
-          {post.feature_image && (
-            <Image
-              src={post.feature_image}
-              alt={post.feature_image_alt ?? "thumbnail"}
-              layout="fill"
-              objectFit="cover"
-            />
-          )}
+        <Box
+          key={post.id}
+          minHeight={`calc((100vh - ${toolbarHeight}px) / 3)`}
+          width="100%"
+          position="relative"
+        >
+          <NextLink href={`posts/${post.slug}`} passHref>
+            <a>
+              {post.feature_image && (
+                <NextImage
+                  src={post.feature_image}
+                  alt={post.feature_image_alt ?? "thumbnail"}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              )}
+              <Box
+                height="100%"
+                width="100%"
+                position="absolute"
+                bgcolor={alpha(grey[500], 0.5)}
+                display="flex"
+                justifyContent="start"
+                alignItems="center"
+                padding={4}
+              >
+                <Typography color="white" variant="h4" fontWeight="bold">
+                  {post.title}
+                </Typography>
+              </Box>
+            </a>
+          </NextLink>
         </Box>
       ))}
     </Stack>

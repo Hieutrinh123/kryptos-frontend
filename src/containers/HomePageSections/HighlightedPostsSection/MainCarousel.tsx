@@ -1,4 +1,5 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/homepage";
+import { toolbarHeight } from "#/config/toolbar";
 import { glassGradientWithAlpha } from "#/styles/gradients";
 import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";
 import { BlurBackdrop } from "@/containers/HomePageSections/HighlightedPostsSection/BlurBackdrop";
@@ -40,7 +41,7 @@ const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
   return (
     <Box
       ref={rootRef}
-      height={{ mobile: "calc(100vh - 80px)", desktop: "100%" }}
+      height={{ mobile: `calc(100vh - ${toolbarHeight}px)`, desktop: "100%" }}
       sx={{
         overflow: "hidden",
         position: "relative",
@@ -128,24 +129,22 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
 
         <BlurBackdrop />
 
-        <MainCarouselItemDescription post={post} />
+        <PostDescription post={post} />
       </Box>
     </Slide>
   );
 };
 
-interface MainCarouselItemDescriptionProps {
+interface PostDescriptionProps {
   post: PostOrPage;
 }
 
-const MainCarouselItemDescription: React.FC<
-  MainCarouselItemDescriptionProps
-> = ({ post }) => {
+const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
   return (
     <Stack
       position="absolute"
-      top={{ mobile: "30vh", desktop: "10vh" }}
-      left={{ mobile: "5vh", desktop: "10vh" }}
+      top={{ mobile: "30vh", desktop: "20vh" }}
+      left={{ mobile: "5vh", desktop: "20vh" }}
       maxWidth="50vh"
       spacing={2}
       alignItems="start"
@@ -153,7 +152,7 @@ const MainCarouselItemDescription: React.FC<
       <Typography variant="h1" fontWeight="bold" color="white">
         {post.title}
       </Typography>
-      <Typography variant="subtitle1">
+      <Typography variant="subtitle1" color="white">
         {limitParagraphWordCount(post.excerpt ?? "")}
       </Typography>
       <NextLink href={`/posts/${post.slug}`} passHref>
