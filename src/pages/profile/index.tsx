@@ -1,4 +1,4 @@
-import FavouritePosts from "@/containers/FavouritePosts";
+// import FavouritePosts from "@/containers/FavouritePosts";
 import PersonalReview from "@/containers/PersonalReview";
 import FullLayout from "@/layouts/FullLayout";
 import AddIcon from '@mui/icons-material/Add';
@@ -81,7 +81,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ }) => {
             className='right_container'
             sx={{ flex: 3, padding: 0 }}
           >
-            <FavouritePosts />
+            {/* <FavouritePosts /> */}
           </Box>
         </Container>
       </Container>
