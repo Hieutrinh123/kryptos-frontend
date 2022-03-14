@@ -10,6 +10,11 @@ import { breakpoints } from "./breakpoints";
 
 // Add customization import (do not delete this comment)
 import {
+  CommonMuiPagination,
+  DarkModeMuiPagination,
+  LightModeMuiPagination,
+} from "./pagination";
+import {
   CommonMuiCardContent,
   DarkModeMuiCardContent,
   LightModeMuiCardContent,
@@ -69,6 +74,7 @@ const commonThemeOptions: ThemeOptions = {
   breakpoints,
   components: {
     // Add common component customization (do not delete this comment)
+    MuiPagination: CommonMuiPagination,
     MuiCardContent: CommonMuiCardContent,
     MuiCardMedia: CommonMuiCardMedia,
     MuiToolbar: CommonMuiToolbar,
@@ -102,6 +108,7 @@ const darkModeOptions: ThemeOptions = {
 
   components: {
     // Add dark mode component customization (do not delete this comment)
+    MuiPagination: DarkModeMuiPagination,
     MuiCardContent: DarkModeMuiCardContent,
     MuiCardMedia: DarkModeMuiCardMedia,
     MuiCard: DarkModeMuiCard,
@@ -135,6 +142,7 @@ const lightModeOptions: ThemeOptions = {
   },
   components: {
     // Add light mode component customization (do not delete this comment)
+    MuiPagination: LightModeMuiPagination,
     MuiCardContent: LightModeMuiCardContent,
     MuiCardMedia: LightModeMuiCardMedia,
     MuiCard: LightModeMuiCard,

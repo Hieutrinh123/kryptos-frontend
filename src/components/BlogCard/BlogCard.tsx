@@ -18,17 +18,21 @@ interface BlogCardProps {
 
 export type BlogCardVariant = "side" | "tall" | "short";
 
-const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "short" }) => {
+const BlogCard: React.FC<BlogCardProps> = ({
+  post,
+  variant = "short",
+  ...rest
+}) => {
   return (
     <NextLink href={"/posts/" + post.slug} passHref>
       <a>
-        <Card>
+        <Card {...rest}>
           <Stack
             direction={variant === "side" ? "row" : "column"}
-            alignItems="stretch"
+            alignItems='stretch'
           >
             <CardMedia
-              component="img"
+              component='img'
               src={post.feature_image ?? undefined}
               sx={{
                 aspectRatio: variant === "tall" ? "1 / 1" : "2 / 1",
@@ -41,25 +45,25 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "short" }) => {
                 flexGrow: 1,
               })}
             >
-              <Stack spacing={1} height="100%">
+              <Stack spacing={1} height='100%'>
                 <Stack spacing={1} flexGrow={1}>
-                  <Typography variant="subtitle1" sx={{ ...textColorGradient }}>
+                  <Typography variant='subtitle1' sx={{ ...textColorGradient }}>
                     {post.primary_tag?.name}
                   </Typography>
-                  <Typography variant="h5" fontWeight="bolder">
+                  <Typography variant='h5' fontWeight='bolder'>
                     {post.title}
                   </Typography>
                 </Stack>
                 <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
+                  direction='row'
+                  alignItems='center'
+                  justifyContent='space-between'
                 >
                   <Stack
-                    direction="row"
+                    direction='row'
                     spacing={2}
                     flexGrow={1}
-                    alignItems="center"
+                    alignItems='center'
                   >
                     {post.primary_author && (
                       <>
@@ -67,22 +71,22 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "short" }) => {
                           author={post.primary_author}
                           sx={{ maxWidth: "24px", height: "24px" }}
                         />
-                        <Typography variant="subtitle1">
+                        <Typography variant='subtitle1'>
                           {post.primary_author.name ?? "Author"}
                         </Typography>
                       </>
                     )}
 
-                    <Typography color="text.disabled">•</Typography>
+                    <Typography color='text.disabled'>•</Typography>
 
-                    <Typography variant="subtitle1" color="text.disabled">
+                    <Typography variant='subtitle1' color='text.disabled'>
                       {post.published_at &&
                         new Date(post.published_at).toLocaleDateString()}
                     </Typography>
                   </Stack>
 
                   <IconButton
-                    color="primary"
+                    color='primary'
                     onClick={(event) => {
                       event.preventDefault();
                       alert("bookmarked");
