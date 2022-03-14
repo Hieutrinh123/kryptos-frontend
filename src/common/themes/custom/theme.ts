@@ -13,12 +13,18 @@ import {
 } from "./appBar";
 import { breakpoints } from "./breakpoints";
 
+// Add customization import (do not delete this comment)
+import { CommonMuiCard, DarkModeMuiCard, LightModeMuiCard } from "./card";
 import {
   CommonMuiButton,
   DarkModeMuiButton,
   LightModeMuiButton,
 } from "./button";
-import { CommonMuiCard, DarkModeMuiCard, LightModeMuiCard } from "./card";
+import {
+  CommonMuiPagination,
+  DarkModeMuiPagination,
+  LightModeMuiPagination,
+} from "./pagination";
 import {
   CommonMuiCardContent,
   DarkModeMuiCardContent,
@@ -29,8 +35,6 @@ import {
   DarkModeMuiCardMedia,
   LightModeMuiCardMedia,
 } from "./cardMedia";
-
-// Add customization import (do not delete this comment)
 import {
   CommonMuiContainer,
   DarkModeMuiContainer,
@@ -75,6 +79,7 @@ const commonThemeOptions: ThemeOptions = {
   components: {
     // Add common component customization (do not delete this comment)
     MuiContainer: CommonMuiContainer,
+    MuiPagination: CommonMuiPagination,
     MuiCardContent: CommonMuiCardContent,
     MuiCardMedia: CommonMuiCardMedia,
     MuiToolbar: CommonMuiToolbar,
@@ -115,6 +120,7 @@ const darkModeOptions: ThemeOptions = {
 
   components: {
     // Add dark mode component customization (do not delete this comment)
+    MuiPagination: DarkModeMuiPagination,
     MuiContainer: DarkModeMuiContainer,
     MuiCardContent: DarkModeMuiCardContent,
     MuiCardMedia: DarkModeMuiCardMedia,
@@ -149,6 +155,7 @@ const lightModeOptions: ThemeOptions = {
   },
   components: {
     // Add light mode component customization (do not delete this comment)
+    MuiPagination: LightModeMuiPagination,
     MuiContainer: LightModeMuiContainer,
     MuiCardContent: LightModeMuiCardContent,
     MuiCardMedia: LightModeMuiCardMedia,
