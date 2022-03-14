@@ -10,10 +10,10 @@ const PersonalReview: React.FC<PersonalReviewProps> = ({ }) => {
     return (
         <>
             {
-                // isMobile ?
-                <MobilePersonalReview />
-                //     :
-                // <ComputerPersonalReview />
+                isMobile ?
+                    <MobilePersonalReview />
+                    :
+                    <ComputerPersonalReview />
             }
         </>
     );

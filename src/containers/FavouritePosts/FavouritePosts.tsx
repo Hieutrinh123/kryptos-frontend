@@ -1,4 +1,4 @@
-import BasicPagination from "@/components/BasicPagination";
+// import BasicPagination from "@/components/BasicPagination";
 import RectangularBlogCard from "@/components/RectangularBlogCard";
 import { Box, TextField, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -45,7 +45,7 @@ const FavouritePosts: React.FC<FavouritePostsProps> = ({
                 </Box>
                 {renderPosts()}
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <BasicPagination count={5} />
+                    {/* <BasicPagination count={5} /> */}
                     <Typography marginLeft={2} variant="body1" fontWeight={900}>Bài viết cũ hơn</Typography>
                 </Box>
             </CardContent>
