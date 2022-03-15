@@ -1,15 +1,15 @@
-import {carouselTimeout, carouselTransitionTime} from "#/config/homepage";
-import BlogCard from "@/components/BlogCard";
+import {carouselTimeout, carouselTransitionTime} from "#/config/carousel";
+import BlogPostCard from "@/components/BlogCard";
 import Box from "@mui/material/Box";
 import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 import Slider from "react-slick";
 
-interface MobileAndTabletPostListProps {
+interface CarouselPostListProps {
   posts: PostsOrPages;
 }
 
-const MobileAndTabletPostList: React.FC<MobileAndTabletPostListProps> = ({
+const CarouselPostList: React.FC<CarouselPostListProps> = ({
   posts,
 }) => {
   return (
@@ -28,11 +28,11 @@ const MobileAndTabletPostList: React.FC<MobileAndTabletPostListProps> = ({
     >
       {posts.map((post) => (
         <Box key={post.id} paddingX={2}>
-          <BlogCard post={post} variant="short" />
+          <BlogPostCard post={post} variant="short" />
         </Box>
       ))}
     </Slider>
   );
 };
 
-export default MobileAndTabletPostList;
+export default CarouselPostList;

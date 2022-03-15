@@ -1,1 +1,1 @@
-import BlogCard from './BlogCard'; export default BlogCard;
+import BlogPostCard from './BlogPostCard'; export default BlogPostCard;

@@ -16,7 +16,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
       }}
     >
       <NextLink href={"/" + category.slug} passHref>
-        <Link underline="none" fontWeight="bold">
+        <Link underline="none" fontWeight="bold" color="white">
           {category.title}
         </Link>
       </NextLink>
@@ -36,7 +36,9 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
                 href={getSubcategoryHref(category.slug, subcategory.slug)}
                 passHref
               >
-                <Link underline="none">{subcategory.title}</Link>
+                <Link underline="none" color="white">
+                  {subcategory.title}
+                </Link>
               </NextLink>
             </li>
           ))}

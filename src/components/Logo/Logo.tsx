@@ -7,9 +7,10 @@ import Link from "next/link";
 
 interface LogoProps {
   type: "header" | "footer";
+  color?: string;
 }
 
-const Logo: React.FC<LogoProps> = (props) => {
+const Logo: React.FC<LogoProps> = ({ color, type }) => {
   return (
     <Link href="/" passHref>
       <a>
@@ -24,10 +25,11 @@ const Logo: React.FC<LogoProps> = (props) => {
             variant="h6"
             fontWeight="bolder"
             fontSize="1.5rem"
+            color={color}
             sx={(theme) => ({
               marginLeft: theme.spacing(2),
               display: {
-                xs: props.type === "header" ? "none" : "unset",
+                xs: type === "header" ? "none" : "unset",
                 md: "unset",
               },
             })}

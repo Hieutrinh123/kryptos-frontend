@@ -1,26 +1,28 @@
 import { useIsDesktop } from "#/styles/responsive";
-import { BlogCardVariant } from "@/components/BlogCard/BlogCard";
+import { BlogPostCardVariant } from "@/components/BlogCard/BlogPostCard";
 import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
-import DesktopPostList from "./DesktopPostList";
-import MobileAndTabletPostList from "./MobileAndTabletPostList";
+import GridPostList from "./DesktopPostList";
+import CarouselPostList from "./CarouselPostList";
 
 interface ListPostProps {
   posts: PostsOrPages;
-  desktopVariant?: BlogCardVariant;
+  desktopVariant?: BlogPostCardVariant;
+  mobileCarousel?: boolean;
 }
 
 const BlogPostList: React.FC<ListPostProps> = ({
   posts,
+  mobileCarousel = true,
   desktopVariant = "short",
 }) => {
   const isDesktop = useIsDesktop();
 
-  if (isDesktop) {
-    return <DesktopPostList posts={posts} variant={desktopVariant} />;
+  if (isDesktop || !mobileCarousel) {
+    return <GridPostList posts={posts} variant={desktopVariant} />;
   }
 
-  return <MobileAndTabletPostList posts={posts} />;
+  return <CarouselPostList posts={posts} />;
 };
 
 export default BlogPostList;

@@ -1,6 +1,8 @@
 import { textColorGradient } from "#/styles/gradients";
+import { useIsMobile } from "#/styles/responsive";
 import AuthorAvatar from "@/components/AuthorAvatar";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,14 +13,20 @@ import { PostOrPage } from "@tryghost/content-api";
 import NextLink from "next/link";
 import React from "react";
 
-interface BlogCardProps {
+interface BlogPostCard {
   post: PostOrPage;
-  variant?: BlogCardVariant;
+  variant?: BlogPostCardVariant;
+  imageWidth?: number;
 }
 
-export type BlogCardVariant = "side" | "tall" | "short";
+export type BlogPostCardVariant = "side" | "tall" | "short";
 
-const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "short" }) => {
+const BlogPostCard: React.FC<BlogPostCard> = ({
+  post,
+  variant = "short",
+  imageWidth = 200,
+}) => {
+  const isMobile = useIsMobile();
   return (
     <NextLink href={"/posts/" + post.slug} passHref>
       <a>
@@ -26,15 +34,22 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "short" }) => {
           <Stack
             direction={variant === "side" ? "row" : "column"}
             alignItems="stretch"
+            position="relative"
           >
             <CardMedia
               component="img"
               src={post.feature_image ?? undefined}
               sx={{
-                aspectRatio: variant === "tall" ? "1 / 1" : "2 / 1",
-                width: variant === "side" ? "200px" : undefined,
+                aspectRatio: variant === "short" ? "2 / 1" : "1 / 1",
+                width: variant === "side" ? imageWidth : undefined,
               }}
             />
+            {isMobile && (
+              <Box position="absolute" top={10} right={10}>
+                <BlogBookmarkButton />
+              </Box>
+            )}
+
             <CardContent
               sx={(theme) => ({
                 padding: `${theme.spacing(2, 3, 2)} !important`,
@@ -80,16 +95,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "short" }) => {
                         new Date(post.published_at).toLocaleDateString()}
                     </Typography>
                   </Stack>
-
-                  <IconButton
-                    color="primary"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      alert("bookmarked");
-                    }}
-                  >
-                    <BookmarkBorderIcon />
-                  </IconButton>
+                  {!isMobile && <BlogBookmarkButton />}
                 </Stack>
               </Stack>
             </CardContent>
@@ -100,4 +106,18 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "short" }) => {
   );
 };
 
-export default BlogCard;
+export const BlogBookmarkButton: React.FC = () => {
+  return (
+    <IconButton
+      color="primary"
+      onClick={(event) => {
+        event.preventDefault();
+        alert("bookmarked");
+      }}
+    >
+      <BookmarkBorderIcon />
+    </IconButton>
+  );
+};
+
+export default BlogPostCard;

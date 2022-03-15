@@ -4,7 +4,7 @@ import {
   PROJECT_ANALYSIS_CATEGORY,
   UPDATE_CATEGORY,
 } from "#/config/navigation";
-import { getHighlightPosts, getPostsByCategory } from "@/api/posts";
+import { listHighlightedPosts, getPostsByCategory } from "@/api/posts";
 import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
 import HighlightedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
@@ -57,7 +57,7 @@ export default HomePage;
 export const getServerSideProps: GetServerSideProps<
   HomePageProps
 > = async () => {
-  const posts = await getHighlightPosts();
+  const posts = await listHighlightedPosts();
   const updatePosts = await getPostsByCategory(UPDATE_CATEGORY, 1, 5);
   const analysisPosts = await getPostsByCategory(
     PROJECT_ANALYSIS_CATEGORY,
