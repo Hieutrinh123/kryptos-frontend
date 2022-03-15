@@ -1,4 +1,4 @@
-import { carouselTimeout, carouselTransitionTime } from "#/config/homepage";
+import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
 import { toolbarHeight } from "#/config/toolbar";
 import { glassGradientWithAlpha } from "#/styles/gradients";
 import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";

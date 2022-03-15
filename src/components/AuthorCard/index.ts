@@ -1,3 +1,3 @@
-import CompactAuthorCard from "./CompactAuthorCard";
+import AuthorCard from "./AuthorCard";
 
-export default CompactAuthorCard;
+export default AuthorCard;

@@ -1,6 +1,6 @@
-import CompactAuthorCard from "@/components/AuthorCard";
-import { Box, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { useIsMobile } from "#/styles/responsive";
+import MobileAuthorList from "@/containers/AuthorList/MobileAuthorList";
+import DesktopAndTabletAuthorList from "./DesktopAndTabletAuthorList";
 import { Authors } from "@tryghost/content-api";
 import React from "react";
 
@@ -9,27 +9,11 @@ interface AuthorListProps {
 }
 
 const AuthorList: React.FC<AuthorListProps> = ({ authors }) => {
-  return (
-    <Box className="author__list">
-      <Typography
-        component="div"
-        variant="h3"
-        fontWeight={900}
-        textAlign="center"
-        marginTop={6}
-        marginBottom={5}
-      >
-        Các tác giả
-      </Typography>
-      <Grid container spacing={4} rowSpacing={4} justifyContent="center">
-        {authors.map((author, index) => (
-          <Grid item key={index}>
-            <CompactAuthorCard author={author} />
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
-  );
+  const isMobile = useIsMobile();
+  if (isMobile) {
+    return <MobileAuthorList authors={authors} />;
+  }
+  return <DesktopAndTabletAuthorList authors={authors} />;
 };
 
 export default AuthorList;

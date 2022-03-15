@@ -1,0 +1,1 @@
+import PostTableOfContent from './PostTableOfContent'; export default PostTableOfContent;

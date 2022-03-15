@@ -1,0 +1,1 @@
+import PostBanner from './PostBanner'; export default PostBanner;

@@ -1,0 +1,14 @@
+.post-toc {
+  ol,
+  ul {
+    list-style-position: inside;
+    padding-left: 16px;
+  }
+
+  & > ol,
+  & > ul {
+    > li > a {
+      font-weight: bold;
+    }
+  }
+}

@@ -20,7 +20,7 @@ module.exports = {
     },
     {
       type: "add",
-      path: "src/{{directory}}/{{name}}/index.ts",
+      path: "src/{{directory}}/{{name}}/index.tsx",
       templateFile: "plop-templates/component/index.hbs",
     },
   ],

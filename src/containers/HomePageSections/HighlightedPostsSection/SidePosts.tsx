@@ -1,5 +1,6 @@
 import { toolbarHeight } from "#/config/toolbar";
 import { grey } from "#/styles/colors";
+import { useIsMobile } from "#/styles/responsive";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { alpha } from "@mui/material/styles";
@@ -14,6 +15,7 @@ interface SidePostsProps {
 }
 
 const SidePosts: React.FC<SidePostsProps> = ({ posts }) => {
+  const isMobile = useIsMobile();
   return (
     <Stack spacing={0} direction={{ mobile: "row", desktop: "column" }}>
       {posts.map((post) => (
@@ -43,7 +45,11 @@ const SidePosts: React.FC<SidePostsProps> = ({ posts }) => {
                 alignItems="center"
                 padding={4}
               >
-                <Typography color="white" variant="h4" fontWeight="bold">
+                <Typography
+                  color="white"
+                  variant={isMobile ? "h6" : "h4"}
+                  fontWeight="bold"
+                >
                   {post.title}
                 </Typography>
               </Box>

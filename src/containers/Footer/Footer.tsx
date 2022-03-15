@@ -14,6 +14,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
   return (
     <Box
       component="footer"
+      bgcolor="black"
       sx={(theme) => ({
         marginTop: theme.spacing(2),
         py: theme.spacing(8),
@@ -35,9 +36,9 @@ const Footer: React.FC<FooterProps> = ({}) => {
               },
             })}
           >
-            <Logo type="footer" />
+            <Logo type="footer" color="white" />
 
-            <Typography>
+            <Typography color="white">
               Kryptos là kênh cung cấp dữ liệu, tin tức và nghiên cứu để độc giả
               đi đầu xu thế thị trường tiền điện tử và đưa ra các quyết định đầu
               tư tốt nhất
