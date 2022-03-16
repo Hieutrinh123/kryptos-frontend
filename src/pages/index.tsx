@@ -4,7 +4,7 @@ import {
   PROJECT_ANALYSIS_CATEGORY,
   UPDATE_CATEGORY,
 } from "#/config/navigation";
-import { listHighlightedPosts, getPostsByCategory } from "@/api/posts";
+import { listHighlightedPosts, listPostsByCategory } from "@/api/posts";
 import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
 import HighlightedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
@@ -13,7 +13,7 @@ import UpdatePostsSection from "@/containers/HomePageSections/UpdatePostsSection
 import FullLayout from "@/layouts/FullLayout";
 import Box from "@mui/material/Box";
 import { PostsOrPages } from "@tryghost/content-api";
-import { GetServerSideProps, NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 
 interface HomePageProps {
   posts: PostsOrPages;
@@ -54,18 +54,16 @@ const HomePage: NextPage<HomePageProps> = ({
 
 export default HomePage;
 
-export const getServerSideProps: GetServerSideProps<
-  HomePageProps
-> = async () => {
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const posts = await listHighlightedPosts();
-  const updatePosts = await getPostsByCategory(UPDATE_CATEGORY, 1, 5);
-  const analysisPosts = await getPostsByCategory(
+  const updatePosts = await listPostsByCategory(UPDATE_CATEGORY, 1, 5);
+  const analysisPosts = await listPostsByCategory(
     PROJECT_ANALYSIS_CATEGORY,
     1,
     3
   );
-  const ecosystemPosts = await getPostsByCategory(ECOSYSTEM_CATEGORY, 1, 6);
-  const inDepthPosts = await getPostsByCategory(
+  const ecosystemPosts = await listPostsByCategory(ECOSYSTEM_CATEGORY, 1, 6);
+  const inDepthPosts = await listPostsByCategory(
     INDEPTH_ANALYSIS_CATEGORY,
     1,
     6
@@ -79,5 +77,6 @@ export const getServerSideProps: GetServerSideProps<
       analysisPosts,
       inDepthPosts,
     },
+    revalidate: 60,
   };
 };

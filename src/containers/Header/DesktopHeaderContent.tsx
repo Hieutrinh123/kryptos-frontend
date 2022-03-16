@@ -1,4 +1,4 @@
-import { categories, Category, getSubcategoryHref } from "#/config/navigation";
+import { categories, Category } from "#/config/navigation";
 import DropdownMenu from "@/components/DropdownMenu";
 import Logo from "@/components/Logo/Logo";
 import SettingMenu from "@/containers/SettingMenu";
@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MuiLink from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
+import { usePopupState } from "material-ui-popup-state/hooks";
 import Link from "next/link";
 import React, { useState } from "react";
 import Notification from "../Notification";
@@ -18,24 +19,37 @@ interface NavMenuProps {
   category: Category;
 }
 const NavMenu: React.FC<NavMenuProps> = ({ category }) => {
+  const popupState = usePopupState({
+    popupId: "nav-menu-" + category.slug,
+    variant: "popover",
+  });
+
   if (category.subcategories) {
     return (
-      <DropdownMenu title={category.title} offsetX={-20} offsetY={0}>
+      <DropdownMenu
+        popupState={popupState}
+        title={category.title}
+        offsetX={-20}
+        offsetY={0}
+      >
         {category.subcategories.map((subcategory) => (
-          <MenuItem key={subcategory.slug}>
-            <Link
-              passHref
-              href={getSubcategoryHref(category.slug, subcategory.slug)}
-            >
-              <MuiLink>{subcategory.title}</MuiLink>
-            </Link>
-          </MenuItem>
+          <Link
+            passHref
+            href={"/categories/" + subcategory.slug}
+            key={subcategory.slug}
+          >
+            <a onClick={popupState.close}>
+              <MenuItem>
+                <MuiLink>{subcategory.title}</MuiLink>
+              </MenuItem>
+            </a>
+          </Link>
         ))}
       </DropdownMenu>
     );
   }
   return (
-    <Link passHref href={"/" + category.slug}>
+    <Link passHref href={"/categories/" + category.slug}>
       <Button variant="text" color="secondary">
         <span>{category.title}</span>
       </Button>

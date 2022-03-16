@@ -96,9 +96,19 @@ export const INDEPTH_ANALYSIS_CATEGORY = {
     },
   ],
 };
+
 export const categories: Category[] = [
   PROJECT_ANALYSIS_CATEGORY,
   UPDATE_CATEGORY,
   ECOSYSTEM_CATEGORY,
   INDEPTH_ANALYSIS_CATEGORY,
 ];
+
+export function getFinalCategories() {
+  return categories.flatMap(
+    (category) =>
+      category.subcategories?.map((subcategory) => subcategory.slug) ?? [
+        category.slug,
+      ]
+  );
+}

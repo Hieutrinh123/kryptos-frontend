@@ -49,11 +49,6 @@ export const getServerSideProps: GetServerSideProps<
   }
   const author = await getAuthorInfo(authorSlug);
   const posts = await getPostsFromAuthor(authorSlug);
-  if (!author || !posts) {
-    return {
-      notFound: true,
-    };
-  }
 
   return {
     props: {

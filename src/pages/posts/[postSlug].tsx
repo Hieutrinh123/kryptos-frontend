@@ -1,5 +1,5 @@
 import { useIsDesktop } from "#/styles/responsive";
-import { getPostDetail } from "@/api/posts";
+import { getPostDetail, listAllPostSlugs } from "@/api/posts";
 import PostBanner from "@/containers/PostBanner";
 import PostContent from "@/containers/PostContent";
 import PostTableOfContent from "@/containers/PostTableOfContent";
@@ -11,7 +11,8 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { PostOrPage } from "@tryghost/content-api";
-import { GetServerSideProps, NextPage } from "next";
+import _ from "lodash";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
 interface BlogViewPageProps {
   post: PostOrPage;
@@ -19,6 +20,9 @@ interface BlogViewPageProps {
 
 const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
   const isDesktop = useIsDesktop();
+  if (!post) {
+    return null;
+  }
   return (
     <FullLayout>
       <PostBanner post={post} />
@@ -73,7 +77,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
 
 export default BlogViewPage;
 
-export const getServerSideProps: GetServerSideProps<BlogViewPageProps> = async (
+export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
   context
 ) => {
   const postSlug = context.params?.postSlug;
@@ -83,12 +87,21 @@ export const getServerSideProps: GetServerSideProps<BlogViewPageProps> = async (
     };
   }
   const post = await getPostDetail(postSlug as string);
-  if (!post) {
+  if (_.isNil(post)) {
     return {
       notFound: true,
     };
   }
   return {
     props: { post },
+    revalidate: 900,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const postSlugs = await listAllPostSlugs();
+  return {
+    paths: postSlugs.map((postSlug) => ({ params: { postSlug } })),
+    fallback: true,
   };
 };
