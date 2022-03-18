@@ -1,5 +1,6 @@
 import { Category } from "#/config/navigation";
 import { PostOrPage, PostsOrPages } from "@tryghost/content-api";
+import { useEffect, useState } from "react";
 import { api } from "./api";
 
 export async function getPostDetail(slug: string): Promise<PostOrPage | null> {
@@ -9,6 +10,24 @@ export async function getPostDetail(slug: string): Promise<PostOrPage | null> {
     console.error(e);
     return null;
   }
+}
+
+export function usePostList(
+  initialPosts: PostsOrPages,
+  page: number,
+  limit: number = 10
+) {
+  const [posts, setPosts] = useState(initialPosts);
+
+  useEffect(() => {
+    if (page === 1) {
+      setPosts(initialPosts);
+    } else {
+      listPosts(page, limit).then(setPosts);
+    }
+  }, [page, limit, initialPosts]);
+
+  return posts;
 }
 
 export function listPosts(page: number, limit: number = 10) {
@@ -28,17 +47,6 @@ export async function listAllPostSlugs() {
     }
   }
   return slugs;
-}
-
-export async function countPostsByCategorySlug(
-  categorySlug: string
-): Promise<number> {
-  const posts = await api.posts.browse({
-    page: 1,
-    limit: 1,
-    filter: `tags:[${categorySlug}]`,
-  });
-  return posts.meta.pagination.total;
 }
 
 export async function listPostsByCategorySlug(

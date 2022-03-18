@@ -24,9 +24,6 @@ const PostTableOfContent: React.FC<PostTableOfContentProps> = ({ post }) => {
     tocbot.refresh(TOCBOT_OPTIONS);
   }, [post]);
 
-  if (!post.html) {
-    return null;
-  }
   return (
     <>
       <nav className={`toc js-toc ${styles.postToc}`} />

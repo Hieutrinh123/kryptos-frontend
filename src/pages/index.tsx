@@ -77,6 +77,6 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
       analysisPosts,
       inDepthPosts,
     },
-    revalidate: 60,
+    revalidate: 3600,
   };
 };

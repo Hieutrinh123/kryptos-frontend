@@ -1,33 +1,40 @@
-import { getFinalCategories } from "#/config/navigation";
+import { AUTHORS_PER_PAGE } from "#/config/authors";
+import { getAllLeafCategories } from "#/config/navigation";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useIsMobile } from "#/styles/responsive";
+import { useRouterPage } from "#/utils/useRouterPage";
 import { listAuthors } from "@/api/author";
-import { countPostsByCategorySlug, listPostsByCategorySlug } from "@/api/posts";
+import { listPostsByCategorySlug, usePostList } from "@/api/posts";
 import BlogPostList from "@/components/BlogPostList";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorList from "@/containers/AuthorList";
 import FullLayout from "@/layouts/FullLayout";
 import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Authors, PostsOrPages } from "@tryghost/content-api";
 import _ from "lodash";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import NextLink from "next/link";
 
 interface CategoryBlogListPageProps {
-  category: string;
+  categorySlug: string;
   authors: Authors;
   totalPageCount: number;
-  posts: PostsOrPages;
+  initialPosts: PostsOrPages;
 }
 
 const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
-  category,
+  categorySlug,
   authors,
-  posts,
+  initialPosts,
   totalPageCount,
 }) => {
   const isMobile = useIsMobile();
+  const page = useRouterPage();
+  const posts = usePostList(initialPosts, page, POSTS_PER_PAGE);
+
   if (!posts) {
     return null;
   }
@@ -42,7 +49,7 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
           <BlogPostList posts={posts} mobileCarousel={false} />
           <RouterPagination
             count={totalPageCount}
-            basePath={`/categories/${category}`}
+            basePath={`/categories/${categorySlug}`}
           />
           {!isMobile && (
             <>
@@ -50,6 +57,9 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
                 Các tác giả
               </Typography>
               <AuthorList authors={authors} />
+              <NextLink href="/authors" passHref>
+                <Link textAlign="center">Xem thêm</Link>
+              </NextLink>
             </>
           )}
         </Stack>
@@ -70,14 +80,8 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
     };
   }
 
-  const page = parseInt((context.params?.page ?? "1") as string);
-
-  const authors = await listAuthors(1);
-  const posts = await listPostsByCategorySlug(
-    categorySlug,
-    page,
-    POSTS_PER_PAGE
-  );
+  const authors = await listAuthors(1, AUTHORS_PER_PAGE);
+  const posts = await listPostsByCategorySlug(categorySlug, 1, POSTS_PER_PAGE);
 
   if (_.isNil(posts)) {
     return {
@@ -88,31 +92,22 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
   return {
     props: {
       authors,
-      posts,
-      category: categorySlug,
+      initialPosts: posts,
+      categorySlug: categorySlug,
       totalPageCount: posts.meta.pagination.pages,
     },
-    revalidate: 60,
+    revalidate: 3600,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const finalCategories = getFinalCategories();
-  const categoryPostCounts = await Promise.all(
-    finalCategories.map(countPostsByCategorySlug)
-  );
+  const leafCategories = getAllLeafCategories();
 
-  const paths = _.zip(finalCategories, categoryPostCounts).flatMap(
-    ([category, count]) => {
-      const pageCount = Math.ceil(count! / POSTS_PER_PAGE);
-      return _.range(1, pageCount + 1, 1).map((page) => ({
-        params: {
-          categorySlug: category as string,
-          page: page.toString(),
-        },
-      }));
-    }
-  );
+  const paths = leafCategories.map((category) => ({
+    params: {
+      categorySlug: category as string,
+    },
+  }));
 
   return {
     paths,

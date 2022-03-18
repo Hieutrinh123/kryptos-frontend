@@ -1,22 +1,48 @@
-import { getAuthorInfo, getPostsFromAuthor } from "@/api/author";
-import AuthorInformation from "@/containers/AuthorInformation";
+import { AUTHOR_POSTS_PER_PAGE } from "#/config/authors";
+import { useRouterPage } from "#/utils/useRouterPage";
+import {
+  getAllAuthorSlugs,
+  getAuthorInfo,
+  listPostsFromAuthor,
+  usePostsFromAuthor,
+} from "@/api/author";
 import BlogPostList from "@/components/BlogPostList";
+import RouterPagination from "@/components/RouterPagination";
+import AuthorInformation from "@/containers/AuthorInformation";
 import FullLayout from "@/layouts/FullLayout";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
 import { Author, PostsOrPages } from "@tryghost/content-api";
-import { GetServerSideProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useRouter } from "next/router";
 import React from "react";
 
 interface AuthorProfilePageProps {
   author: Author;
-  posts: PostsOrPages;
+  initialPosts: PostsOrPages;
+  totalPageCount: number;
 }
 const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
   author,
-  posts,
+  initialPosts,
+  totalPageCount,
 }) => {
+  const page = useRouterPage();
+  const router = useRouter();
+
+  const posts = usePostsFromAuthor(
+    router.query.authorSlug as string,
+    initialPosts,
+    page,
+    AUTHOR_POSTS_PER_PAGE
+  );
+
+  if (!posts) {
+    return null;
+  }
+
   return (
     <FullLayout>
       <Container>
@@ -30,9 +56,13 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
           </Typography>
         </Box>
 
-        <Box mt={4}>
+        <Stack mt={4} spacing={2}>
           <BlogPostList posts={posts} />
-        </Box>
+          <RouterPagination
+            count={totalPageCount}
+            basePath={`/authors/${author.slug}`}
+          />
+        </Stack>
       </Container>
     </FullLayout>
   );
@@ -40,20 +70,37 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
 
 export default AuthorProfilePage;
 
-export const getServerSideProps: GetServerSideProps<
-  AuthorProfilePageProps
-> = async (context) => {
+export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
+  context
+) => {
   const authorSlug = context.params?.authorSlug as string;
+
   if (!authorSlug) {
     return { notFound: true };
   }
+
   const author = await getAuthorInfo(authorSlug);
-  const posts = await getPostsFromAuthor(authorSlug);
+  const posts = await listPostsFromAuthor(authorSlug, 1, AUTHOR_POSTS_PER_PAGE);
 
   return {
     props: {
       author,
-      posts,
+      initialPosts: posts,
+      totalPageCount: posts.meta.pagination.pages,
     },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const authorSlugs = await getAllAuthorSlugs();
+  const paths = authorSlugs.map((authorSlug) => ({
+    params: {
+      authorSlug: authorSlug as string,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: true,
   };
 };

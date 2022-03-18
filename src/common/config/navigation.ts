@@ -104,7 +104,7 @@ export const categories: Category[] = [
   INDEPTH_ANALYSIS_CATEGORY,
 ];
 
-export function getFinalCategories() {
+export function getAllLeafCategories() {
   return categories.flatMap(
     (category) =>
       category.subcategories?.map((subcategory) => subcategory.slug) ?? [
