@@ -3,6 +3,7 @@ import { getPostDetail, listAllPostSlugs } from "@/api/posts";
 import PostBanner from "@/containers/PostBanner";
 import PostContent from "@/containers/PostContent";
 import PostTableOfContent from "@/containers/PostTableOfContent";
+import SocialLinks from "@/containers/SocialLinks";
 import FullLayout from "@/layouts/FullLayout";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -67,7 +68,12 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
             </Card>
           </Box>
           <Box flex={1}>
-            <Card sx={{ padding: 6 }}>Share</Card>
+            <Card sx={{ padding: 6 }}>
+              <Typography variant="h6" mb={4}>
+                Share
+              </Typography>
+              <SocialLinks />
+            </Card>
           </Box>
         </Stack>
       </Container>

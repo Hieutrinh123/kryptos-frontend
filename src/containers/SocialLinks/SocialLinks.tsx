@@ -7,7 +7,7 @@ import NextLink from "next/link";
 import React from "react";
 
 interface SocialLinksProps {
-  color: string;
+  color?: string;
 }
 
 const SocialLinks: React.FC<SocialLinksProps> = ({ color }) => {

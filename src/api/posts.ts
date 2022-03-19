@@ -18,16 +18,24 @@ export function usePostList(
   limit: number = 10
 ) {
   const [posts, setPosts] = useState(initialPosts);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (page === 1) {
       setPosts(initialPosts);
     } else {
-      listPosts(page, limit).then(setPosts);
+      setLoading(true);
+      listPosts(page, limit).then((posts) => {
+        setPosts(posts);
+        setLoading(false);
+      });
     }
   }, [page, limit, initialPosts]);
 
-  return posts;
+  return {
+    posts,
+    loading,
+  };
 }
 
 export function listPosts(page: number, limit: number = 10) {

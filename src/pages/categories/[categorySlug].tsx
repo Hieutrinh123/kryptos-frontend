@@ -33,9 +33,9 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
 }) => {
   const isMobile = useIsMobile();
   const page = useRouterPage();
-  const posts = usePostList(initialPosts, page, POSTS_PER_PAGE);
+  const { posts, loading } = usePostList(initialPosts, page, POSTS_PER_PAGE);
 
-  if (!posts) {
+  if (!posts || loading) {
     return null;
   }
   return (
