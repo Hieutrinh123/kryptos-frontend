@@ -24,8 +24,8 @@ const Footer: React.FC<FooterProps> = ({}) => {
       <Container>
         <Grid container spacing={5}>
           <Grid item mobile={12} desktop={4}>
-            <Stack spacing={2}>
-              <Logo type="footer" color="white" />
+            <Stack spacing={3}>
+              <Logo color="white" />
 
               <Typography color="white">
                 Kryptos là kênh cung cấp dữ liệu, tin tức và nghiên cứu để độc
