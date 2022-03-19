@@ -1,0 +1,17 @@
+.pagination-link {
+  display: flex;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.pagination-link-selected {
+  text-decoration: underline;
+  font-weight: bolder;
+}
+
+.pagination-link-disabled {
+  visibility: hidden;
+}

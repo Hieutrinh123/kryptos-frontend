@@ -1,8 +1,10 @@
 import { categories } from "#/config/navigation";
 import Grid from "@/components/Grid";
 import Logo from "@/components/Logo/Logo";
+import SocialLinks from "@/containers/SocialLinks";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import React from "react";
@@ -16,33 +18,23 @@ const Footer: React.FC<FooterProps> = ({}) => {
       component="footer"
       bgcolor="black"
       sx={(theme) => ({
-        marginTop: theme.spacing(2),
         py: theme.spacing(8),
       })}
     >
       <Container>
         <Grid container spacing={5}>
-          <Grid
-            item
-            mobile={12}
-            desktop={4}
-            sx={(theme) => ({
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              maxHeight: 300,
-              [theme.breakpoints.down("mobile")]: {
-                height: 200,
-              },
-            })}
-          >
-            <Logo type="footer" color="white" />
+          <Grid item mobile={12} desktop={4}>
+            <Stack spacing={2}>
+              <Logo type="footer" color="white" />
 
-            <Typography color="white">
-              Kryptos là kênh cung cấp dữ liệu, tin tức và nghiên cứu để độc giả
-              đi đầu xu thế thị trường tiền điện tử và đưa ra các quyết định đầu
-              tư tốt nhất
-            </Typography>
+              <Typography color="white">
+                Kryptos là kênh cung cấp dữ liệu, tin tức và nghiên cứu để độc
+                giả đi đầu xu thế thị trường tiền điện tử và đưa ra các quyết
+                định đầu tư tốt nhất
+              </Typography>
+
+              <SocialLinks color="#fff" />
+            </Stack>
           </Grid>
 
           <Grid item mobile={12} desktop={8}>
@@ -54,8 +46,8 @@ const Footer: React.FC<FooterProps> = ({}) => {
                 flexDirection: "column",
                 maxHeight: 300,
                 gap: theme.spacing(2),
-                [theme.breakpoints.down("mobile")]: {
-                  maxHeight: 600,
+                [theme.breakpoints.down("tablet")]: {
+                  maxHeight: 1000,
                 },
               })}
             >

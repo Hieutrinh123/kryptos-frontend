@@ -50,10 +50,14 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({ author }) => {
           </Box>
         </Grid>
 
-        <Grid item mobile={8} tablet={4}>
+        <Grid item mobile={8} tablet={3}>
           <Stack spacing={1}>
-            <Typography variant="subtitle1">Tác giả</Typography>
-            <Typography variant="h5">{author.name ?? "Author"}</Typography>
+            <Typography variant="subtitle1" fontWeight="bold">
+              Tác giả
+            </Typography>
+            <Typography variant="h5" fontWeight="bolder">
+              {author.name ?? "Author"}
+            </Typography>
             <Box display={isMobile ? "block" : "none"}>
               <SubscribeButton />
             </Box>
@@ -64,9 +68,11 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({ author }) => {
           <SubscribeButton />
         </Grid>
 
-        <Grid item mobile={12} tablet={6}>
+        <Grid item mobile={12} tablet={7}>
           <Stack spacing={1}>
-            <Typography variant="subtitle1">Giới thiệu</Typography>
+            <Typography variant="subtitle1" fontWeight="bold">
+              Giới thiệu
+            </Typography>
             <Typography component="sub" variant="subtitle1">
               {author.bio ?? ""}
             </Typography>

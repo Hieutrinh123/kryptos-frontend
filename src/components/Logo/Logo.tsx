@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import React from "react";
 import logo from "public/logo.png";
-import Link from "next/link";
+import NextLink from "next/link";
 
 interface LogoProps {
   type: "header" | "footer";
@@ -12,7 +12,7 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ color, type }) => {
   return (
-    <Link href="/" passHref>
+    <NextLink href="/" passHref>
       <a>
         <Box
           display="flex"
@@ -38,7 +38,7 @@ const Logo: React.FC<LogoProps> = ({ color, type }) => {
           </Typography>
         </Box>
       </a>
-    </Link>
+    </NextLink>
   );
 };
 

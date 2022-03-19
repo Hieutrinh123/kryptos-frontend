@@ -19,7 +19,7 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
   const isDesktop = useIsDesktop();
 
   return (
-    <Box paddingBottom={6} bgcolor="background.secondary">
+    <Box paddingTop={4} paddingBottom={6} bgcolor="background.secondary">
       <Container disableGutters={!isDesktop}>
         <Grid
           container

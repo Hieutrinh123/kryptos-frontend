@@ -25,7 +25,7 @@ const SidePosts: React.FC<SidePostsProps> = ({ posts }) => {
           width="100%"
           position="relative"
         >
-          <NextLink href={`posts/${post.slug}`} passHref>
+          <NextLink href={`/posts/${post.slug}`} passHref>
             <a>
               {post.feature_image && (
                 <NextImage
