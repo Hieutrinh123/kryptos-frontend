@@ -59,6 +59,9 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
 
         <CardContent
           sx={(theme) => ({
+            [theme.breakpoints.down("tablet")]: {
+              padding: `${theme.spacing(1)} !important`,
+            },
             padding: `${theme.spacing(2, 3, 2)} !important`,
             flexGrow: 1,
           })}
