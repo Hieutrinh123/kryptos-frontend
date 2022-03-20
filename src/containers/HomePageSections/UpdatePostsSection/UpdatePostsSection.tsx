@@ -1,7 +1,7 @@
 import { useIsDesktop } from "#/styles/responsive";
 import { sliceBrowseResult } from "#/utils/browseResult";
-import BlogPostCard from "@/components/BlogCard";
-import BlogPostList from "@/components/BlogPostList";
+import BlogPostCard from "@/containers/BlogCard";
+import BlogPostList from "@/containers/BlogPostList";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";

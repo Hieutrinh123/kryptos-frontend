@@ -1,5 +1,5 @@
 import { useIsMobile } from "#/styles/responsive";
-import AuthorAvatar from "@/components/AuthorAvatar";
+import AuthorAvatar from "@/containers/AuthorAvatar";
 import Grid from "@/components/Grid";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 
@@ -37,38 +37,30 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({ author }) => {
       }}
     >
       <Grid container spacing={4}>
-        <Grid
-          item
-          mobile={4}
-          tablet={2}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Box maxWidth={140} maxHeight={140}>
-            <AuthorAvatar author={author} />
-          </Box>
-        </Grid>
-
-        <Grid item mobile={8} tablet={3}>
-          <Stack spacing={1}>
-            <Typography variant="subtitle1" fontWeight="bold">
-              Tác giả
-            </Typography>
-            <Typography variant="h5" fontWeight="bolder">
-              {author.name ?? "Author"}
-            </Typography>
-            <Box display={isMobile ? "block" : "none"}>
-              <SubscribeButton />
+        <Grid item mobile={12} desktop={5}>
+          <Stack direction="row" spacing={5}>
+            <Box maxWidth={140} maxHeight={140} flexBasis={140}>
+              <AuthorAvatar author={author} />
             </Box>
+            <Stack spacing={2} flexGrow={1}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Tác giả
+              </Typography>
+              <Typography variant="h5" fontWeight="bolder">
+                {author.name ?? "Author"}
+              </Typography>
+              {!isMobile && <SubscribeButton />}
+            </Stack>
           </Stack>
         </Grid>
 
-        <Grid item mobile={12} display={isMobile ? "flex" : "none"}>
-          <SubscribeButton />
-        </Grid>
+        {isMobile && (
+          <Grid item mobile={12}>
+            <SubscribeButton />
+          </Grid>
+        )}
 
-        <Grid item mobile={12} tablet={7}>
+        <Grid item mobile={12} desktop={7}>
           <Stack spacing={1}>
             <Typography variant="subtitle1" fontWeight="bold">
               Giới thiệu

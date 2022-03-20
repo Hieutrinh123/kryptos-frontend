@@ -1,4 +1,4 @@
-import AuthorAvatar from "@/components/AuthorAvatar";
+import AuthorAvatar from "@/containers/AuthorAvatar";
 import NextLink from "next/link";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";

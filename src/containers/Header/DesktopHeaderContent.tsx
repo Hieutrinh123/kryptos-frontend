@@ -73,7 +73,7 @@ const DesktopHeaderContent = () => {
 
   return (
     <>
-      <Logo type="header" />
+      <Logo />
 
       <Stack flexGrow={1} direction="row" justifyContent="center" spacing={2}>
         {categories.map((category, index) => (
