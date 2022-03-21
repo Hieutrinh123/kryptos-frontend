@@ -1,4 +1,5 @@
 import { useIsMobile } from "@/common/styles/responsive";
+import CreatePost from "@/containers/CreatePost";
 import FavouritePosts from "@/containers/FavouritePosts";
 import PersonalReview from "@/containers/PersonalReview";
 import ProfileTabs from "@/containers/ProfileTabs";
@@ -32,7 +33,8 @@ const ProfilePage: NextPage<ProfilePageProps> = ({}) => {
             <ProfileTabs />
           </Box>
           <Box className='right_container' sx={{ flex: 3, padding: 0 }}>
-            <FavouritePosts />
+            {/* <FavouritePosts /> */}
+            <CreatePost />
           </Box>
         </Container>
       </Container>
