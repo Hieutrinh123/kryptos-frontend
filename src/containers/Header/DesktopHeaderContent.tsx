@@ -1,6 +1,7 @@
 import { categories, Category } from "#/config/navigation";
 import DropdownMenu from "@/components/DropdownMenu";
 import Logo from "@/components/Logo/Logo";
+import AuthenticationMenu from "@/containers/AuthenticationMenu";
 import SettingMenu from "@/containers/SettingMenu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchIcon from "@mui/icons-material/Search";
@@ -91,9 +92,7 @@ const DesktopHeaderContent = () => {
         <IconButton color="primary">
           <SearchIcon />
         </IconButton>
-        <Button variant="contained" color="primary">
-          <span>Đăng nhập</span>
-        </Button>
+        <AuthenticationMenu />
         <IconButton
           color="primary"
           onClick={onClickNotificationIcon}

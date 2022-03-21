@@ -4,7 +4,7 @@ import {
   textColorGradient,
   textColorUngradient,
 } from "#/styles/gradients";
-import { alpha, Components } from "@mui/material/styles";
+import { Components } from "@mui/material/styles";
 
 export const CommonMuiButton: Components["MuiButton"] = {
   defaultProps: {
@@ -92,14 +92,18 @@ export const LightModeMuiButton: Components["MuiButton"] = {
   styleOverrides: {
     containedPrimary: {
       background: grey["200"],
-      color: alpha(grey["800"], 0.25),
+
+      color: "black",
+      "& svg": {
+        color: "black !important",
+      },
 
       ":hover": {
         backgroundColor: grey["200"],
       },
 
       ":active": {
-        color: "white",
+        color: "black",
       },
     },
     textSecondary: {
