@@ -2,9 +2,7 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/homepage";
 import BlogCard from "@/components/BlogCard";
 import ArrowDropUpOutlinedIcon from "@mui/icons-material/ArrowDropUpOutlined";
-import { Box, Pagination, TextField, Typography } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import { Box, TextField, Typography, Card, CardContent } from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
 

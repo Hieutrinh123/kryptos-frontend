@@ -1,20 +1,19 @@
 // import BasicPagination from "@/components/BasicPagination";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
 import {
   Box,
   Button,
   FormControl,
   InputLabel,
-  Pagination,
   Select,
   TextField,
   Typography,
+  Card,
+  CardContent,
 } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import React from "react";
-import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
-import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
-import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
 interface ComputerCreatePostProps {}
 
 const ComputerCreatePost: React.FC<ComputerCreatePostProps> = ({}) => {

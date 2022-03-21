@@ -1,10 +1,10 @@
 import { useIsMobile } from "@/common/styles/responsive";
 import CreatePost from "@/containers/CreatePost";
-import FavouritePosts from "@/containers/FavouritePosts";
 import PersonalReview from "@/containers/PersonalReview";
 import ProfileTabs from "@/containers/ProfileTabs";
 import FullLayout from "@/layouts/FullLayout";
-import { Box, Container } from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import { NextPage } from "next";
 interface ProfilePageProps {}
 
