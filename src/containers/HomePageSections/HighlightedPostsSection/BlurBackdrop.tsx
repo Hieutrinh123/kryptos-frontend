@@ -8,8 +8,8 @@ export const BlurBackdrop = () => {
     <Box
       position="absolute"
       borderRadius="50%"
-      height={{ mobile: "120vh", desktop: "100vh" }}
-      width={{ mobile: "120vh", desktop: "100vh" }}
+      height={{ mobile: "120vh", desktop: "150vh" }}
+      width={{ mobile: "120vh", desktop: "150vh" }}
       className={styles.blurBackdrop}
       sx={(theme) => ({
         [theme.breakpoints.down("desktop")]: {

@@ -1,14 +1,24 @@
-import { createTheme, ThemeOptions } from "@mui/material/styles";
-import _ from "lodash";
 import {
   darkBackground,
   grey,
   lightBackground,
   primary,
 } from "#/styles/colors";
+import { createTheme, ThemeOptions } from "@mui/material/styles";
+import _ from "lodash";
+import {
+  CommonMuiAppBar,
+  DarkModeMuiAppBar,
+  LightModeMuiAppBar,
+} from "./appBar";
 import { breakpoints } from "./breakpoints";
 
-// Add customization import (do not delete this comment)
+import {
+  CommonMuiButton,
+  DarkModeMuiButton,
+  LightModeMuiButton,
+} from "./button";
+import { CommonMuiCard, DarkModeMuiCard, LightModeMuiCard } from "./card";
 import {
   CommonMuiPagination,
   DarkModeMuiPagination,
@@ -24,23 +34,29 @@ import {
   DarkModeMuiCardMedia,
   LightModeMuiCardMedia,
 } from "./cardMedia";
+
+// Add customization import (do not delete this comment)
 import {
-  CommonMuiMenuItem,
-  DarkModeMuiMenuItem,
-  LightModeMuiMenuItem,
-} from "./menuItem";
+  CommonMuiContainer,
+  DarkModeMuiContainer,
+  LightModeMuiContainer,
+} from "./container";
 import {
-  CommonMuiAppBar,
-  DarkModeMuiAppBar,
-  LightModeMuiAppBar,
-} from "./appBar";
-import { CommonMuiCard, DarkModeMuiCard, LightModeMuiCard } from "./card";
-import { CommonMuiLink, DarkModeMuiLink, LightModeMuiLink } from "./link";
+  CommonMuiIconButton,
+  DarkModeMuiIconButton,
+  LightModeMuiIconButton,
+} from "./iconButton";
 import {
   CommonMuiInputBase,
   DarkModeMuiInputBase,
   LightModeMuiInputBase,
 } from "./inputBase";
+import { CommonMuiLink, DarkModeMuiLink, LightModeMuiLink } from "./link";
+import {
+  CommonMuiMenuItem,
+  DarkModeMuiMenuItem,
+  LightModeMuiMenuItem,
+} from "./menuItem";
 import { CommonMuiPaper, DarkModeMuiPaper, LightModeMuiPaper } from "./paper";
 import {
   CommonMuiToggleButton,
@@ -49,17 +65,6 @@ import {
 } from "./toggleButton";
 import { CommonMuiToggleButtonGroup } from "./toggleButtonGroup";
 import { CommonMuiToolbar } from "./toolbar";
-
-import {
-  CommonMuiButton,
-  DarkModeMuiButton,
-  LightModeMuiButton,
-} from "./button";
-import {
-  CommonMuiIconButton,
-  DarkModeMuiIconButton,
-  LightModeMuiIconButton,
-} from "./iconButton";
 
 const commonThemeOptions: ThemeOptions = {
   palette: {
@@ -74,7 +79,11 @@ const commonThemeOptions: ThemeOptions = {
   breakpoints,
   components: {
     // Add common component customization (do not delete this comment)
+<<<<<<< HEAD
     MuiPagination: CommonMuiPagination,
+=======
+    MuiContainer: CommonMuiContainer,
+>>>>>>> ae9e5173a3015013c2a5802d16dc433177f66f57
     MuiCardContent: CommonMuiCardContent,
     MuiCardMedia: CommonMuiCardMedia,
     MuiToolbar: CommonMuiToolbar,
@@ -92,6 +101,13 @@ const commonThemeOptions: ThemeOptions = {
 };
 
 const darkModeOptions: ThemeOptions = {
+  // @ts-ignore
+  shadows: [
+    ...createTheme().shadows.map((shadow) =>
+      shadow.replace("0,0,0,", "192,192,192,")
+    ),
+  ],
+
   palette: {
     mode: "dark",
     background: darkBackground,
@@ -108,7 +124,11 @@ const darkModeOptions: ThemeOptions = {
 
   components: {
     // Add dark mode component customization (do not delete this comment)
+<<<<<<< HEAD
     MuiPagination: DarkModeMuiPagination,
+=======
+    MuiContainer: DarkModeMuiContainer,
+>>>>>>> ae9e5173a3015013c2a5802d16dc433177f66f57
     MuiCardContent: DarkModeMuiCardContent,
     MuiCardMedia: DarkModeMuiCardMedia,
     MuiCard: DarkModeMuiCard,
@@ -142,7 +162,11 @@ const lightModeOptions: ThemeOptions = {
   },
   components: {
     // Add light mode component customization (do not delete this comment)
+<<<<<<< HEAD
     MuiPagination: LightModeMuiPagination,
+=======
+    MuiContainer: LightModeMuiContainer,
+>>>>>>> ae9e5173a3015013c2a5802d16dc433177f66f57
     MuiCardContent: LightModeMuiCardContent,
     MuiCardMedia: LightModeMuiCardMedia,
     MuiCard: LightModeMuiCard,

@@ -11,3 +11,18 @@ export function sliceBrowseResult<T>(
 ): BrowseResults<T> {
   return Object.assign(result.slice(start, end), { meta: result.meta });
 }
+
+export function emptyBrowseResult<T>(): BrowseResults<T> {
+  return Object.assign([], {
+    meta: {
+      pagination: {
+        page: 0,
+        limit: 0,
+        pages: 0,
+        total: 0,
+        next: 0,
+        prev: 0,
+      },
+    },
+  });
+}

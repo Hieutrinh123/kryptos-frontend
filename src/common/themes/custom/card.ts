@@ -7,7 +7,7 @@ export const CommonMuiCard: Components["MuiCard"] = {
     },
   },
   defaultProps: {
-    elevation: 0,
+    elevation: 1,
   },
 };
 export const LightModeMuiCard: Components["MuiCard"] = {

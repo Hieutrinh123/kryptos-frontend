@@ -1,3 +1,4 @@
+import {getInitials} from "#/utils/username";
 import { styled } from "@mui/material/styles";
 import { SxProps } from "@mui/system";
 import { Author } from "@tryghost/content-api";
@@ -14,16 +15,6 @@ const StyledAvatar = styled(Avatar)({
   width: "100%",
 });
 
-function getInitials(name: string) {
-  if (name.length === 0) {
-    return "";
-  }
-  const tokens = name.split(" ");
-  if (tokens.length === 1) {
-    return tokens[0][0];
-  }
-  return tokens[0][0] + tokens[tokens.length - 1][0];
-}
 
 const AuthorAvatar: React.FC<AuthorAvatarProps> = ({ author, sx }) => {
   return (

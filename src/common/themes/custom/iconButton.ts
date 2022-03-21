@@ -1,6 +1,6 @@
 import { grey } from "#/styles/colors";
 import { glassGradient } from "#/styles/gradients";
-import { alpha, Components } from "@mui/material/styles";
+import { Components } from "@mui/material/styles";
 
 export const CommonMuiIconButton: Components["MuiIconButton"] = {
   defaultProps: {
@@ -41,7 +41,7 @@ export const LightModeMuiIconButton: Components["MuiIconButton"] = {
   styleOverrides: {
     colorPrimary: {
       background: grey["200"],
-      color: alpha(grey["800"], 0.25),
+      color: "black",
       ":hover": {
         backgroundColor: grey["200"],
       },

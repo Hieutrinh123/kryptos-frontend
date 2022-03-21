@@ -1,40 +1,55 @@
-import { listAuthors } from "@/api/author";
+import { AUTHORS_PER_PAGE } from "#/config/authors";
+import { useRouterPage } from "#/utils/useRouterPage";
+import { listAuthors, useAuthorList } from "@/api/author";
+import AuthorCard from "@/containers/AuthorCard";
+import RouterPagination from "@/components/RouterPagination";
 import FullLayout from "@/layouts/FullLayout";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { Authors } from "@tryghost/content-api";
 import { GetServerSideProps, NextPage } from "next";
-import Link from "next/link";
 import React from "react";
 
 interface AuthorListPageProps {
-  authors: Authors;
+  initialAuthors: Authors;
+  totalPageCount: number;
 }
 
-const AuthorListPage: NextPage<AuthorListPageProps> = ({ authors }) => {
+const AuthorListPage: NextPage<AuthorListPageProps> = ({
+  initialAuthors,
+  totalPageCount,
+}) => {
+  const page = useRouterPage();
+  const authors = useAuthorList(initialAuthors, page, AUTHORS_PER_PAGE);
+
   return (
     <FullLayout>
-      <List>
-        {authors.map((author) => (
-          <ListItem key={author.id}>
-            <Link href={`authors/${author.slug}`}>{author.name}</Link>
-          </ListItem>
-        ))}
-      </List>
+      <Container>
+        <Typography variant="h3" textAlign="center" mt={3}>
+          Các tác giả
+        </Typography>
+        <Stack spacing={3} mt={3}>
+          {authors.map((author) => (
+            <AuthorCard author={author} key={author.slug} variant="detailed" />
+          ))}
+        </Stack>
+        <RouterPagination count={totalPageCount} basePath={`authors`} />
+      </Container>
     </FullLayout>
   );
 };
 
 export default AuthorListPage;
 
-export const getServerSideProps: GetServerSideProps<
+export const getStaticProps: GetServerSideProps<
   AuthorListPageProps
-> = async (context) => {
-  const page = parseInt((context.params?.page as string) ?? "1");
-  const authors = await listAuthors(page, 9);
+> = async () => {
+  const authors = await listAuthors(1, AUTHORS_PER_PAGE);
   return {
     props: {
-      authors,
+      initialAuthors: authors,
+      totalPageCount: authors.meta.pagination.pages,
     },
   };
 };

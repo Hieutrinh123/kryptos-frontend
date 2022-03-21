@@ -1,7 +1,7 @@
 import { useIsDesktop } from "#/styles/responsive";
-import { sliceBrowseResult } from "#/utils/sliceBrowseResult";
-import BlogCard from "@/components/BlogCard";
-import BlogPostList from "@/components/BlogPostList";
+import { sliceBrowseResult } from "#/utils/browseResult";
+import BlogPostCard from "@/containers/BlogCard";
+import BlogPostList from "@/containers/BlogPostList";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
@@ -19,14 +19,15 @@ const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({ posts }) => {
   if (postCount <= 0) {
     return null;
   }
+
   return (
     <Box paddingY={6}>
-      <Container>
+      <Container disableGutters={!isDesktop}>
         <Stack spacing={3}>
           <Stack direction="row">
-            <Box flex={5}>
+            <Box flex={4} paddingX={isDesktop ? 0 : 4}>
               <Typography
-                variant={isDesktop ? "h2" : "h4"}
+                variant={isDesktop ? "h2" : "h3"}
                 mb={3}
                 fontWeight="bolder"
               >
@@ -34,8 +35,8 @@ const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({ posts }) => {
               </Typography>
             </Box>
             {isDesktop && (
-              <Box flex={7}>
-                <BlogCard post={posts[0]} variant="side" />
+              <Box flex={8}>
+                <BlogPostCard post={posts[0]} variant="side" imageWidth={250} />
               </Box>
             )}
           </Stack>

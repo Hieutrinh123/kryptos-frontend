@@ -1,79 +1,59 @@
+import { grey } from "@/common/styles/colors";
 import { OptionUnstyled, optionUnstyledClasses } from "@mui/base";
-import Popper from "@mui/material/Popper";
-import * as React from "react";
 import SelectUnstyled, {
-  SelectUnstyledProps,
   selectUnstyledClasses,
+  SelectUnstyledProps,
 } from "@mui/base/SelectUnstyled";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import { darken } from "@mui/material";
+import Box from "@mui/material/Box";
+import Popper from "@mui/material/Popper";
+import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
-
-const blue = {
-  100: "#DAECFF",
-  200: "#99CCF3",
-  400: "#3399FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  900: "#003A75",
-};
-
-const grey = {
-  100: "#E7EBF0",
-  200: "#E0E3E7",
-  300: "#CDD2D7",
-  400: "#B2BAC2",
-  500: "#A0AAB4",
-  600: "#6F7E8C",
-  700: "#3E5060",
-  800: "#2D3843",
-  900: "#1A2027",
-};
+import * as React from "react";
 
 const StyledButton = styled("button")(
   ({ theme }) => `
-  font-family: IBM Plex Sans, sans-serif;
-  font-size: 0.875rem;
-  box-sizing: border-box;
-  min-height: calc(1.5em + 22px);
-  min-width: 320px;
-  background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-  border: 1px solid ${theme.palette.mode === "dark" ? grey[800] : grey[300]};
-  border-radius: 0.75em;
-  margin-top: 0.5em;
-  padding: 10px;
-  text-align: left;
+  background: ${theme.palette.background.default};
+  border: none;
+  border-radius: 24px;
+  padding: ${theme.spacing(1, 2)};
+  text-align: center;
   line-height: 1.5;
-  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
 
   &:hover {
-    background: ${theme.palette.mode === "dark" ? "" : grey[100]};
-    border-color: ${theme.palette.mode === "dark" ? grey[700] : grey[400]};
-  }
-
-  &.${selectUnstyledClasses.focusVisible} {
-    outline: 3px solid ${theme.palette.mode === "dark" ? blue[600] : blue[100]};
+    background: ${darken(theme.palette.background.default, 0.1)};
   }
 
   &.${selectUnstyledClasses.expanded} {
-    &::after {
-      content: '▴';
+    & .SelectArrow {
+      transform: rotate(-180deg);
     }
   }
 
-  &::after {
-    content: '▾';
-    float: right;
+  & .SelectArrow {
+    transition: 0.5s;
   }
   `
 );
 
+const RootElement = React.forwardRef<HTMLButtonElement>((props, ref) => {
+  return (
+    <StyledButton {...props} ref={ref}>
+      <Stack direction="row" alignItems="center">
+        <KeyboardArrowDown visibility="hidden" />
+        <Box flexGrow={1}>{props.children}</Box>
+        <KeyboardArrowDown className="SelectArrow" />
+      </Stack>
+    </StyledButton>
+  );
+});
+RootElement.displayName = "SelectRoot";
+
 const StyledListbox = styled("ul")(
   ({ theme }) => `
-  font-family: IBM Plex Sans, sans-serif;
+  min-width: 200px;
   font-size: 0.875rem;
-  box-sizing: border-box;
-  padding: 5px;
-  margin: 10px 0;
-  min-width: 320px;
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
   border: 1px solid ${theme.palette.mode === "dark" ? grey[800] : grey[300]};
   border-radius: 0.75em;
@@ -87,26 +67,23 @@ export const Option = styled(OptionUnstyled)(
   ({ theme }) => `
   list-style: none;
   padding: 8px;
-  border-radius: 0.45em;
   cursor: default;
+  text-align: center;
 
   &:last-of-type {
     border-bottom: none;
   }
 
   &.${optionUnstyledClasses.selected} {
-    background-color: ${theme.palette.mode === "dark" ? blue[900] : blue[100]};
-    color: ${theme.palette.mode === "dark" ? blue[100] : blue[900]};
+    background-color: ${darken(theme.palette.background.default, 0.1)};
   }
 
   &.${optionUnstyledClasses.highlighted} {
-    background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]};
-    color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
+    background-color: ${darken(theme.palette.background.default, 0.2)};
   }
 
   &.${optionUnstyledClasses.highlighted}.${optionUnstyledClasses.selected} {
-    background-color: ${theme.palette.mode === "dark" ? blue[900] : blue[100]};
-    color: ${theme.palette.mode === "dark" ? blue[100] : blue[900]};
+    background-color: ${darken(theme.palette.background.default, 0.3)};
   }
 
   &.${optionUnstyledClasses.disabled} {
@@ -114,18 +91,29 @@ export const Option = styled(OptionUnstyled)(
   }
 
   &:hover:not(.${optionUnstyledClasses.disabled}) {
-    background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]};
-    color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
+    background-color: ${darken(theme.palette.background.default, 0.4)};
   }
   `
 );
 
 export default function CustomSelect(props: SelectUnstyledProps<string>) {
   const components: SelectUnstyledProps<string>["components"] = {
-    Root: StyledButton,
+    Root: RootElement,
     Listbox: StyledListbox,
     Popper: (popperProps) => {
-      return <Popper {...popperProps} placement="bottom" disablePortal />;
+      return (
+        <Popper
+          {...popperProps}
+          placement="bottom"
+          disablePortal
+          modifiers={[
+            {
+              name: "flip",
+              enabled: false,
+            },
+          ]}
+        />
+      );
     },
     ...props.components,
   };

@@ -25,7 +25,7 @@ const MobileAndTabletHeaderContent = () => {
 
   return (
     <>
-      <Logo type="header" />
+      <Logo />
       <Box
         sx={{
           display: "flex",
