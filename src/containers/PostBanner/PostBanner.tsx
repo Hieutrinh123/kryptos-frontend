@@ -1,7 +1,7 @@
 import { glassGradient } from "#/styles/gradients";
 import { useIsDesktop } from "#/styles/responsive";
-import AuthorAvatar from "@/components/AuthorAvatar";
 import Grid from "@/components/Grid";
+import AuthorChip from "@/containers/AuthorChip";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
@@ -93,13 +93,7 @@ const PostTitle: React.FC<{ post: PostOrPage }> = ({ post }) => {
             flexWrap="wrap"
           >
             <Typography variant="subtitle1">Bài viết được đăng bởi</Typography>
-            <AuthorAvatar
-              author={post.primary_author}
-              sx={{ height: 20, width: 20 }}
-            />
-            <Typography variant="subtitle1" fontWeight="bolder">
-              {post.primary_author.name}
-            </Typography>
+            <AuthorChip author={post.primary_author} />
           </Stack>
         )}
       </Stack>

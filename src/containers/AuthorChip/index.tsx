@@ -1,0 +1,1 @@
+import AuthorChip from './AuthorChip'; export default AuthorChip;

@@ -1,5 +1,5 @@
 import { useIsMobile } from "#/styles/responsive";
-import BlogPostList from "@/components/BlogPostList";
+import BlogPostList from "@/containers/BlogPostList";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";

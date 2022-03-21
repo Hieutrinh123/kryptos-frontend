@@ -6,7 +6,7 @@ import {
   listPostsFromAuthor,
   usePostsFromAuthor,
 } from "@/api/author";
-import BlogPostList from "@/components/BlogPostList";
+import BlogPostList from "@/containers/BlogPostList";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorInformation from "@/containers/AuthorInformation";
 import FullLayout from "@/layouts/FullLayout";

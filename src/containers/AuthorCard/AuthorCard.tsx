@@ -1,5 +1,5 @@
-import CompactAuthorCard from "@/components/AuthorCard/CompactAuthorCard";
-import DetailedAuthorCard from "@/components/AuthorCard/DetailedAuthorCard";
+import CompactAuthorCard from "@/containers/AuthorCard/CompactAuthorCard";
+import DetailedAuthorCard from "@/containers/AuthorCard/DetailedAuthorCard";
 import { Author } from "@tryghost/content-api";
 import React from "react";
 

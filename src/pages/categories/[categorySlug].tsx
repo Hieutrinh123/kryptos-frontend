@@ -5,7 +5,7 @@ import { useIsMobile } from "#/styles/responsive";
 import { useRouterPage } from "#/utils/useRouterPage";
 import { listAuthors } from "@/api/author";
 import { listPostsByCategorySlug, usePostList } from "@/api/posts";
-import BlogPostList from "@/components/BlogPostList";
+import BlogPostList from "@/containers/BlogPostList";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorList from "@/containers/AuthorList";
 import FullLayout from "@/layouts/FullLayout";
@@ -33,9 +33,9 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
 }) => {
   const isMobile = useIsMobile();
   const page = useRouterPage();
-  const posts = usePostList(initialPosts, page, POSTS_PER_PAGE);
+  const { posts, loading } = usePostList(initialPosts, page, POSTS_PER_PAGE);
 
-  if (!posts) {
+  if (!posts || loading) {
     return null;
   }
   return (

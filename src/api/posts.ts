@@ -3,31 +3,34 @@ import { PostOrPage, PostsOrPages } from "@tryghost/content-api";
 import { useEffect, useState } from "react";
 import { api } from "./api";
 
-export async function getPostDetail(slug: string): Promise<PostOrPage | null> {
-  try {
-    return await api.posts.read({ slug }, { include: ["tags", "authors"] });
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
+export async function getPostDetail(slug: string): Promise<PostOrPage> {
+  return await api.posts.read({ slug }, { include: ["tags", "authors"] });
 }
 
 export function usePostList(
   initialPosts: PostsOrPages,
   page: number,
-  limit: number = 10
+  limit: number = 1
 ) {
   const [posts, setPosts] = useState(initialPosts);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (page === 1) {
       setPosts(initialPosts);
     } else {
-      listPosts(page, limit).then(setPosts);
+      setLoading(true);
+      listPosts(page, limit).then((posts) => {
+        setPosts(posts);
+        setLoading(false);
+      });
     }
   }, [page, limit, initialPosts]);
 
-  return posts;
+  return {
+    posts,
+    loading,
+  };
 }
 
 export function listPosts(page: number, limit: number = 10) {

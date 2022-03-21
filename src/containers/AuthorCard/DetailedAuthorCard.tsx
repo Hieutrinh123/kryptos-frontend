@@ -1,5 +1,5 @@
 import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";
-import AuthorAvatar from "@/components/AuthorAvatar";
+import AuthorAvatar from "@/containers/AuthorAvatar";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";

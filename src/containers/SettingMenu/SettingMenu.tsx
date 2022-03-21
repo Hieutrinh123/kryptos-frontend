@@ -10,12 +10,11 @@ import {
 import IconButton from "@mui/material/IconButton";
 import Select, { Option } from "@/components/Select";
 import Typography from "@mui/material/Typography";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 interface SettingMenuProps {}
 
 const SettingMenu: React.FC<SettingMenuProps> = ({}) => {
-  const { changeTheme, theme } = useContext(ThemeModeContext);
   const [font, setFont] = useState("Roboto");
   return (
     <DropdownMenu
@@ -29,20 +28,8 @@ const SettingMenu: React.FC<SettingMenuProps> = ({}) => {
     >
       <Stack padding={2} spacing={2}>
         <Typography fontWeight="bold">Nền</Typography>
-        <ToggleButtonGroup
-          value={theme}
-          exclusive
-          onChange={(event, value: PaletteMode) => {
-            changeTheme(value);
-          }}
-        >
-          <ToggleButton value="light">
-            <span>Light</span>
-          </ToggleButton>
-          <ToggleButton value="dark">
-            <span>Dark</span>
-          </ToggleButton>
-        </ToggleButtonGroup>
+        <ThemeToggleButton />
+
         <Typography fontWeight="bold">Font chữ</Typography>
         <Select
           value={font}
@@ -61,3 +48,32 @@ const SettingMenu: React.FC<SettingMenuProps> = ({}) => {
 };
 
 export default SettingMenu;
+
+const ThemeToggleButton: React.FC = () => {
+  const { changeTheme, theme } = useContext(ThemeModeContext);
+
+  // for delaying rendering this until on client side.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <ToggleButtonGroup
+      value={theme}
+      exclusive
+      onChange={(event, value: PaletteMode) => {
+        changeTheme(value);
+      }}
+    >
+      <ToggleButton value="light">
+        <span>Light</span>
+      </ToggleButton>
+      <ToggleButton value="dark">
+        <span>Dark</span>
+      </ToggleButton>
+    </ToggleButtonGroup>
+  );
+};

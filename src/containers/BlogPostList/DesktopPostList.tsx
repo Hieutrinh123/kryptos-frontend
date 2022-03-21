@@ -1,6 +1,6 @@
-import { BlogPostCardVariant } from "@/components/BlogCard/BlogPostCard";
+import { BlogPostCardVariant } from "@/containers/BlogCard/BlogPostCard";
 import Grid from "@/components/Grid";
-import BlogPostCard from "@/components/BlogCard";
+import BlogPostCard from "@/containers/BlogCard";
 import Box from "@mui/material/Box";
 import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";

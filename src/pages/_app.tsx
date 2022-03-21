@@ -1,24 +1,45 @@
-import createEmotionCache from "#/utils/createEmotionCache";
-import { CacheProvider, EmotionCache } from "@emotion/react";
 import { SVGGradient } from "#/styles/gradients";
 import { ThemeModeProvider } from "#/themes";
-import CssBaseline from "@mui/material/CssBaseline";
-import type { AppProps } from "next/app";
-import Head from "next/head";
-import React from "react";
 import "@/common/styles/globals.scss";
-
-const clientSideEmotionCache = createEmotionCache();
+import createEmotionCache from "#/utils/createEmotionCache";
+import LoadingScreen from "@/containers/LoadingScreen";
+import { EmotionCache } from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { AppProps } from "next/app";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
+
+const clientSideEmotionCache = createEmotionCache();
 
 function MyApp({
   Component,
   emotionCache = clientSideEmotionCache,
   pageProps,
 }: MyAppProps) {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const handleStart = (url: string) =>
+      url !== router.asPath && setLoading(true);
+    const handleComplete = () => setLoading(false);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router]);
   return (
     <>
       <Head>
@@ -58,7 +79,7 @@ function MyApp({
       <CacheProvider value={emotionCache}>
         <ThemeModeProvider>
           <CssBaseline enableColorScheme />
-          <Component {...pageProps} />
+          {loading ? <LoadingScreen /> : <Component {...pageProps} />}
         </ThemeModeProvider>
       </CacheProvider>
     </>

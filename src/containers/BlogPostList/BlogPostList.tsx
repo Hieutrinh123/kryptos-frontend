@@ -1,5 +1,5 @@
 import { useIsDesktop } from "#/styles/responsive";
-import { BlogPostCardVariant } from "@/components/BlogCard/BlogPostCard";
+import { BlogPostCardVariant } from "@/containers/BlogCard/BlogPostCard";
 import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 import GridPostList from "./DesktopPostList";

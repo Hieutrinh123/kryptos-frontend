@@ -11,14 +11,15 @@ interface FullLayoutProps {
 const FullLayout: React.FC<FullLayoutProps> = ({ children }) => {
   return (
     <Box
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
       sx={(theme) => ({
-        display: "flex",
-        flexDirection: "column",
         background: theme.palette.background.default,
       })}
     >
       <Header />
-      <Box component="main" sx={{ flex: "1 0" }}>
+      <Box component="main" flexGrow={1} display="flex" flexDirection="column">
         {children}
       </Box>
       <Footer />

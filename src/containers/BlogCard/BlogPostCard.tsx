@@ -1,6 +1,6 @@
 import { textColorGradient } from "#/styles/gradients";
 import { useIsMobile } from "#/styles/responsive";
-import AuthorAvatar from "@/components/AuthorAvatar";
+import AuthorAvatar from "@/containers/AuthorAvatar";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -59,6 +59,9 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
 
         <CardContent
           sx={(theme) => ({
+            [theme.breakpoints.down("tablet")]: {
+              padding: `${theme.spacing(1)} !important`,
+            },
             padding: `${theme.spacing(2, 3, 2)} !important`,
             flexGrow: 1,
           })}

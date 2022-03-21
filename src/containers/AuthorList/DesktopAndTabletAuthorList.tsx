@@ -1,4 +1,4 @@
-import AuthorCard from "@/components/AuthorCard";
+import AuthorCard from "@/containers/AuthorCard";
 import Grid from "@/components/Grid";
 import { Box } from "@mui/material";
 import { Authors } from "@tryghost/content-api";

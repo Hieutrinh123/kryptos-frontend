@@ -1,7 +1,7 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { useRouterPage } from "#/utils/useRouterPage";
 import { listAuthors, useAuthorList } from "@/api/author";
-import AuthorCard from "@/components/AuthorCard";
+import AuthorCard from "@/containers/AuthorCard";
 import RouterPagination from "@/components/RouterPagination";
 import FullLayout from "@/layouts/FullLayout";
 import Container from "@mui/material/Container";

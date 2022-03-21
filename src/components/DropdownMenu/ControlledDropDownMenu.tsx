@@ -68,6 +68,7 @@ const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
         PaperProps={{
           ...PaperProps,
           style: {
+            overflow: "visible",
             minWidth: menuMinWidth,
           },
         }}

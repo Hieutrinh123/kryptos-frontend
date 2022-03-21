@@ -1,6 +1,8 @@
 import { toolbarHeight } from "#/config/toolbar";
 import { grey } from "#/styles/colors";
 import { useIsMobile } from "#/styles/responsive";
+import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";
+import Slide from "@mui/material/Slide";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { alpha } from "@mui/material/styles";
@@ -8,56 +10,99 @@ import Typography from "@mui/material/Typography";
 import { PostOrPage } from "@tryghost/content-api";
 import NextImage from "next/image";
 import NextLink from "next/link";
-import React from "react";
+import React, { useRef, useState } from "react";
 
 interface SidePostsProps {
   posts: PostOrPage[];
 }
 
 const SidePosts: React.FC<SidePostsProps> = ({ posts }) => {
-  const isMobile = useIsMobile();
   return (
     <Stack spacing={0} direction={{ mobile: "row", desktop: "column" }}>
       {posts.map((post) => (
-        <Box
-          key={post.id}
-          minHeight={`calc((100vh - ${toolbarHeight}px) / 3)`}
-          width="100%"
-          position="relative"
-        >
-          <NextLink href={`/posts/${post.slug}`} passHref>
-            <a>
-              {post.feature_image && (
-                <NextImage
-                  src={post.feature_image}
-                  alt={post.feature_image_alt ?? "thumbnail"}
-                  layout="fill"
-                  objectFit="cover"
-                />
-              )}
-              <Box
-                height="100%"
-                width="100%"
-                position="absolute"
-                bgcolor={alpha(grey[500], 0.5)}
-                display="flex"
-                justifyContent="start"
-                alignItems="center"
-                padding={4}
-              >
-                <Typography
-                  color="white"
-                  variant={isMobile ? "h6" : "h4"}
-                  fontWeight="bold"
-                >
-                  {post.title}
-                </Typography>
-              </Box>
-            </a>
-          </NextLink>
-        </Box>
+        <SingleSidePost post={post} key={post.id} />
       ))}
     </Stack>
+  );
+};
+
+interface SingleSidePostProps {
+  post: PostOrPage;
+}
+const SingleSidePost: React.FC<SingleSidePostProps> = ({ post }) => {
+  const isMobile = useIsMobile();
+  const [hover, setHover] = useState(false);
+  const containerRef = useRef();
+  return (
+    <Box
+      minHeight={`calc((100vh - ${toolbarHeight}px) / 3)`}
+      width="100%"
+      position="relative"
+      overflow="hidden"
+      ref={containerRef}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <NextLink href={`/posts/${post.slug}`} passHref>
+        <a>
+          {post.feature_image && (
+            <NextImage
+              src={post.feature_image}
+              alt={post.feature_image_alt ?? "thumbnail"}
+              layout="fill"
+              objectFit="cover"
+            />
+          )}
+          <Slide
+            direction={hover ? "down" : "up"}
+            in={!hover}
+            container={containerRef.current}
+          >
+            <Box
+              padding={4}
+              display="flex"
+              flexDirection="column"
+              justifyContent="start"
+              alignItems="center"
+              position="absolute"
+              height="100%"
+              width="100%"
+              bgcolor={alpha(grey[500], 0.5)}
+            >
+              <Typography
+                color="white"
+                variant={isMobile ? "h6" : "h4"}
+                fontWeight="bold"
+              >
+                {post.title}
+              </Typography>
+            </Box>
+          </Slide>
+
+          <Slide
+            direction={hover ? "up" : "down"}
+            in={hover}
+            container={containerRef.current}
+          >
+            <Box
+              padding={4}
+              display="flex"
+              flexDirection="column"
+              justifyContent="start"
+              alignItems="center"
+              position="absolute"
+              height="100%"
+              width="100%"
+              bgcolor={alpha(grey[500], 0.8)}
+            >
+              <Typography color="white" variant="body1">
+                {limitParagraphWordCount(post.excerpt, 20)}
+              </Typography>
+            </Box>
+          </Slide>
+        </a>
+      </NextLink>
+    </Box>
   );
 };
 
