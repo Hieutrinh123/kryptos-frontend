@@ -1,5 +1,5 @@
 import { textColorGradient } from "#/styles/gradients";
-import AuthorAvatar from "@/components/AuthorAvatar";
+import AuthorAvatar from "@/containers/AuthorAvatar";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
