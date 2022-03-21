@@ -79,11 +79,8 @@ const commonThemeOptions: ThemeOptions = {
   breakpoints,
   components: {
     // Add common component customization (do not delete this comment)
-<<<<<<< HEAD
     MuiPagination: CommonMuiPagination,
-=======
     MuiContainer: CommonMuiContainer,
->>>>>>> ae9e5173a3015013c2a5802d16dc433177f66f57
     MuiCardContent: CommonMuiCardContent,
     MuiCardMedia: CommonMuiCardMedia,
     MuiToolbar: CommonMuiToolbar,
@@ -124,14 +121,8 @@ const darkModeOptions: ThemeOptions = {
 
   components: {
     // Add dark mode component customization (do not delete this comment)
-<<<<<<< HEAD
     MuiPagination: DarkModeMuiPagination,
-=======
-    MuiContainer: DarkModeMuiContainer,
->>>>>>> ae9e5173a3015013c2a5802d16dc433177f66f57
-    MuiCardContent: DarkModeMuiCardContent,
     MuiCardMedia: DarkModeMuiCardMedia,
-    MuiCard: DarkModeMuiCard,
     MuiLink: DarkModeMuiLink,
     MuiInputBase: DarkModeMuiInputBase,
     MuiPaper: DarkModeMuiPaper,
@@ -162,11 +153,8 @@ const lightModeOptions: ThemeOptions = {
   },
   components: {
     // Add light mode component customization (do not delete this comment)
-<<<<<<< HEAD
     MuiPagination: LightModeMuiPagination,
-=======
     MuiContainer: LightModeMuiContainer,
->>>>>>> ae9e5173a3015013c2a5802d16dc433177f66f57
     MuiCardContent: LightModeMuiCardContent,
     MuiCardMedia: LightModeMuiCardMedia,
     MuiCard: LightModeMuiCard,
