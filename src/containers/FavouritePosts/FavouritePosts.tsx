@@ -1,15 +1,24 @@
 import { useIsMobile } from "@/common/styles/responsive";
+import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 import ComputerFavouritePosts from "./ComputerFavouritePosts";
 import MobileFavouritePosts from "./MobileFavouritePosts";
 
-interface FavouritePostsProps {}
+interface FavouritePostsProps {
+  posts: PostsOrPages;
+}
 
-const FavouritePosts: React.FC<FavouritePostsProps> = ({}) => {
+const FavouritePosts: React.FC<FavouritePostsProps> = ({ posts }) => {
   const isMobile = useIsMobile();
 
   return (
-    <>{isMobile ? <MobileFavouritePosts /> : <ComputerFavouritePosts />}</>
+    <>
+      {isMobile ? (
+        <MobileFavouritePosts posts={posts} />
+      ) : (
+        <ComputerFavouritePosts />
+      )}
+    </>
   );
 };
 

@@ -1,5 +1,4 @@
 import { useIsMobile } from "@/common/styles/responsive";
-import FavouritePosts from "@/containers/FavouritePosts";
 import PersonalReview from "@/containers/PersonalReview";
 import ProfileTabs from "@/containers/ProfileTabs";
 import FullLayout from "@/layouts/FullLayout";
@@ -21,7 +20,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({}) => {
           }}
         >
           <Box
-            className='left__container'
+            className="left__container"
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -30,9 +29,6 @@ const ProfilePage: NextPage<ProfilePageProps> = ({}) => {
             }}
           >
             <ProfileTabs />
-          </Box>
-          <Box className='right_container' sx={{ flex: 3, padding: 0 }}>
-            <FavouritePosts />
           </Box>
         </Container>
       </Container>

@@ -1,109 +1,20 @@
-// import BasicPagination from "@/components/BasicPagination";
-import { carouselTimeout, carouselTransitionTime } from "#/config/homepage";
-import BlogCard from "@/components/BlogCard";
+import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
+import BlogCard from "@/containers/BlogCard";
 import ArrowDropUpOutlinedIcon from "@mui/icons-material/ArrowDropUpOutlined";
-import { Box, Pagination, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 import Slider from "react-slick";
 
-const posts = [
-  {
-    id: "1",
-    slug: "1",
-    name: "Lorem Ipsum Dolor Sit Amet",
-    primary_tag: {
-      name: "Subcategory Name",
-    },
-    post: "Jan 27",
-    primary_author: {
-      name: "User",
-    },
-  },
-  {
-    id: "2",
-    slug: "2",
+interface MobileFavouritePostsProps {
+  posts: PostsOrPages;
+}
 
-    name: "Lorem Ipsum Dolor Sit Amet",
-    primary_tag: {
-      name: "Subcategory Name",
-    },
-    post: "Jan 27",
-    primary_author: {
-      name: "User",
-    },
-  },
-  {
-    id: "3",
-    slug: "3",
-
-    name: "Lorem Ipsum Dolor Sit Amet",
-    primary_tag: {
-      name: "Subcategory Name",
-    },
-    post: "Jan 27",
-    primary_author: {
-      name: "User",
-    },
-  },
-  {
-    id: "4",
-    slug: "4",
-
-    name: "Lorem Ipsum Dolor Sit Amet",
-    primary_tag: {
-      name: "Subcategory Name",
-    },
-    post: "Jan 27",
-    primary_author: {
-      name: "User",
-    },
-  },
-  {
-    id: "5",
-    slug: "5",
-
-    name: "Lorem Ipsum Dolor Sit Amet",
-    primary_tag: {
-      name: "Subcategory Name",
-    },
-    post: "Jan 27",
-    primary_author: {
-      name: "User",
-    },
-  },
-  {
-    id: "6",
-    slug: "6",
-
-    name: "Lorem Ipsum Dolor Sit Amet",
-    primary_tag: {
-      name: "Subcategory Name",
-    },
-    post: "Jan 27",
-    primary_author: {
-      name: "User",
-    },
-  },
-];
-
-interface MobileFavouritePostsProps {}
-
-const MobileFavouritePosts: React.FC<MobileFavouritePostsProps> = ({}) => {
-  const renderPosts = (posts: any) => {
-    const postList: any[] = [];
-    posts.map((post: any, idx: number) => {
-      postList.push(
-        <Box sx={{ marginRight: 2 }}>
-          <BlogCard post={post} />
-        </Box>
-      );
-    });
-
-    return postList;
-  };
-
+const MobileFavouritePosts: React.FC<MobileFavouritePostsProps> = ({
+  posts,
+}) => {
   return (
     <Card sx={{ borderRadius: "24px", padding: 1, background: "transparent" }}>
       <CardContent>
@@ -120,7 +31,7 @@ const MobileFavouritePosts: React.FC<MobileFavouritePostsProps> = ({}) => {
                 transform: "translateY(-50%)",
               }}
             />
-            <Typography variant='h5' fontWeight='bold' textAlign='center'>
+            <Typography variant="h5" fontWeight="bold" textAlign="center">
               Bài viết đã thích
             </Typography>
           </Box>
@@ -143,13 +54,17 @@ const MobileFavouritePosts: React.FC<MobileFavouritePostsProps> = ({}) => {
           arrows={false}
           infinite
           centerMode
-          centerPadding='10%'
+          centerPadding="10%"
           speed={carouselTransitionTime}
           slidesToShow={1}
           slidesToScroll={1}
           initialSlide={2}
         >
-          {renderPosts(posts)}
+          {posts.map((post) => (
+            <Box sx={{ marginRight: 2 }} key={post.slug}>
+              <BlogCard post={post} />
+            </Box>
+          ))}
         </Slider>
       </CardContent>
     </Card>
@@ -157,25 +72,3 @@ const MobileFavouritePosts: React.FC<MobileFavouritePostsProps> = ({}) => {
 };
 
 export default MobileFavouritePosts;
-
-// {
-//   /* <Slider
-// dots
-// autoplay
-// autoplaySpeed={carouselTimeout}
-// arrows={false}
-// infinite
-// centerMode
-// centerPadding="10%"
-// speed={carouselTransitionTime}
-// slidesToShow={1}
-// slidesToScroll={1}
-// initialSlide={2}
-// >
-// {posts.map((post) => (
-//   <Box key={post.id} paddingX={2}>
-//     <BlogCard post={post} variant="short" />
-//   </Box>
-// ))}
-// </Slider> */
-// }
