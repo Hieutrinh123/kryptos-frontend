@@ -1,11 +1,10 @@
 // import BasicPagination from "@/components/BasicPagination";
-import {
-  carouselTimeout,
-  carouselTransitionTime,
-} from "src/common/config/carousel";
-import BlogCard from "@/containers/BlogCard";
+import { carouselTimeout, carouselTransitionTime } from "#/config/homepage";
+import BlogCard from "@/components/BlogCard";
 import ArrowDropUpOutlinedIcon from "@mui/icons-material/ArrowDropUpOutlined";
-import { Box, TextField, Typography, Card, CardContent } from "@mui/material";
+import { Box, Pagination, TextField, Typography } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import React from "react";
 import Slider from "react-slick";
 

@@ -1,10 +1,9 @@
 import { useIsMobile } from "@/common/styles/responsive";
-import CreatePost from "@/containers/CreatePost";
+import FavouritePosts from "@/containers/FavouritePosts";
 import PersonalReview from "@/containers/PersonalReview";
 import ProfileTabs from "@/containers/ProfileTabs";
 import FullLayout from "@/layouts/FullLayout";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
+import { Box, Container } from "@mui/material";
 import { NextPage } from "next";
 interface ProfilePageProps {}
 
@@ -33,8 +32,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({}) => {
             <ProfileTabs />
           </Box>
           <Box className='right_container' sx={{ flex: 3, padding: 0 }}>
-            {/* <FavouritePosts /> */}
-            <CreatePost />
+            <FavouritePosts />
           </Box>
         </Container>
       </Container>

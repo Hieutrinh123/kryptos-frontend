@@ -4,7 +4,6 @@ import { Components } from "@mui/material/styles/components";
 export const CommonMuiInputBase: Components["MuiInputBase"] = {
   styleOverrides: {
     root: {
-      borderRadius: "50px !important",
       [`& > .${selectClasses.select}`]: {
         textAlign: "center",
       },
