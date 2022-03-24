@@ -14,6 +14,11 @@ import {
 import { breakpoints } from "./breakpoints";
 
 // Add customization import (do not delete this comment)
+import {
+  CommonMuiFilledInput,
+  DarkModeMuiFilledInput,
+  LightModeMuiFilledInput,
+} from "./filledInput";
 import { CommonMuiCard, DarkModeMuiCard, LightModeMuiCard } from "./card";
 import {
   CommonMuiButton,
@@ -78,6 +83,7 @@ const commonThemeOptions: ThemeOptions = {
   breakpoints,
   components: {
     // Add common component customization (do not delete this comment)
+    MuiFilledInput: CommonMuiFilledInput,
     MuiContainer: CommonMuiContainer,
     MuiPagination: CommonMuiPagination,
     MuiCardContent: CommonMuiCardContent,
@@ -120,6 +126,7 @@ const darkModeOptions: ThemeOptions = {
 
   components: {
     // Add dark mode component customization (do not delete this comment)
+    MuiFilledInput: DarkModeMuiFilledInput,
     MuiPagination: DarkModeMuiPagination,
     MuiContainer: DarkModeMuiContainer,
     MuiCardContent: DarkModeMuiCardContent,
@@ -155,6 +162,7 @@ const lightModeOptions: ThemeOptions = {
   },
   components: {
     // Add light mode component customization (do not delete this comment)
+    MuiFilledInput: LightModeMuiFilledInput,
     MuiPagination: LightModeMuiPagination,
     MuiContainer: LightModeMuiContainer,
     MuiCardContent: LightModeMuiCardContent,

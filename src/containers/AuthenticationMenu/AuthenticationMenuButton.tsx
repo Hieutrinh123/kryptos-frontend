@@ -5,9 +5,11 @@ import Button, { ButtonProps } from "@mui/material/Button";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-interface AuthenticationButtonProps extends ButtonProps {}
+interface AuthenticationMenuButtonProps extends ButtonProps {}
 
-const AuthenticationButton: React.FC<AuthenticationButtonProps> = (props) => {
+const AuthenticationMenuButton: React.FC<AuthenticationMenuButtonProps> = (
+  props
+) => {
   const [user, loading, error] = useAuthState(firebaseAuth);
   if (loading) {
     return <CircularProgress />;
@@ -23,19 +25,20 @@ const AuthenticationButton: React.FC<AuthenticationButtonProps> = (props) => {
     return (
       <button
         {...props}
-        style={{ background: "none", border: "none", cursor: "pointer" }}
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+        }}
       >
         <UserAvatar user={user} height={40} width={40} />
       </button>
     );
   }
-  return (
-    <Button {...props} variant="contained" color="primary">
-      <span>Đăng nhập</span>
-    </Button>
-  );
+  return null;
 };
 
-export default React.forwardRef<HTMLButtonElement, AuthenticationButtonProps>(
-  (props, ref) => <AuthenticationButton {...props} ref={ref} />
-);
+export default React.forwardRef<
+  HTMLButtonElement,
+  AuthenticationMenuButtonProps
+>((props, ref) => <AuthenticationMenuButton {...props} ref={ref} />);

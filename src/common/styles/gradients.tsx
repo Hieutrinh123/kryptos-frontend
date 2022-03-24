@@ -3,6 +3,7 @@ import { alpha } from "@mui/material/styles";
 import React from "react";
 
 export const glassGradient = `linear-gradient(98.63deg, ${primary.main} 11.76%, ${primary.light} 96.82%)`;
+export const boldGlassGradient = `linear-gradient(90deg, #7F499C 0%, #4BC1E4 100%);`;
 export const glassGradientWithAlpha = (alphaValue: number) => {
   const mainColor = alpha(primary.main, alphaValue);
   const lightColor = alpha(primary.light, alphaValue);

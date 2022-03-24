@@ -1,5 +1,6 @@
 import { grey } from "#/styles/colors";
 import {
+  boldGlassGradient,
   glassGradient,
   textColorGradient,
   textColorUngradient,
@@ -16,9 +17,36 @@ export const CommonMuiButton: Components["MuiButton"] = {
       borderRadius: 24,
       boxShadow: "none !important",
       transition: "0.5s",
+      cursor: "pointer",
     },
 
     containedPrimary: {
+      backgroundSize: "100%",
+      backgroundImage: glassGradient,
+      position: "relative",
+      zIndex: 100,
+      "&:before": {
+        borderRadius: 24,
+        backgroundImage: boldGlassGradient,
+        content: '""',
+        display: "block",
+        height: "100%",
+        position: "absolute",
+        top: "0",
+        left: "0",
+        opacity: 0,
+        width: "100%",
+        zIndex: -100,
+        transition: "opacity 500ms",
+      },
+      "&:hover": {
+        "&:before": {
+          opacity: 1,
+        },
+      },
+    },
+
+    containedSecondary: {
       ":hover": {
         "& > *": textColorGradient,
       },
@@ -62,7 +90,7 @@ export const CommonMuiButton: Components["MuiButton"] = {
 
 export const DarkModeMuiButton: Components["MuiButton"] = {
   styleOverrides: {
-    containedPrimary: {
+    containedSecondary: {
       background: grey["700"],
       color: "white",
       "& svg": {
@@ -90,7 +118,7 @@ export const DarkModeMuiButton: Components["MuiButton"] = {
 
 export const LightModeMuiButton: Components["MuiButton"] = {
   styleOverrides: {
-    containedPrimary: {
+    containedSecondary: {
       background: grey["200"],
 
       color: "black",

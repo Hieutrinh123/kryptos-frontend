@@ -1,19 +1,18 @@
 import { firebaseAuth } from "#/config/firebase";
 import { useSnackbarState } from "#/utils/useSnackbarState";
 import AlertSnackbar from "@/components/AlertSnackbar";
-import EmailAuthenticationForm from "@/containers/AuthenticationMenu/EmailAuthenticationForm";
+import GoogleIcon from "@mui/icons-material/Google";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import GoogleIcon from "@mui/icons-material/Google";
 import React from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 
-interface UnauthenticatedMenuContentProps {}
+interface SocialAuthenticationFormProps {}
 
-const UnauthenticatedMenuContent: React.FC<
-  UnauthenticatedMenuContentProps
+const SocialAuthenticationForm: React.FC<
+  SocialAuthenticationFormProps
 > = ({}) => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(firebaseAuth);
@@ -24,7 +23,11 @@ const UnauthenticatedMenuContent: React.FC<
     return null;
   }
   return (
-    <Stack spacing={2}>
+    <Stack spacing={3} width={320}>
+      <Typography variant="h5" fontWeight="bold" textAlign="center">
+        Đăng nhập bằng tài khoản mạng xã hội
+      </Typography>
+
       <Button
         variant="contained"
         color="primary"
@@ -41,12 +44,6 @@ const UnauthenticatedMenuContent: React.FC<
         )}
       </Button>
 
-      <Typography variant="h6" textAlign="center">
-        Hoặc
-      </Typography>
-
-      <EmailAuthenticationForm />
-
       <AlertSnackbar
         {...googleSnackbarState}
         severity="error"
@@ -56,4 +53,4 @@ const UnauthenticatedMenuContent: React.FC<
   );
 };
 
-export default UnauthenticatedMenuContent;
+export default SocialAuthenticationForm;

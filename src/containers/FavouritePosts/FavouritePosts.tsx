@@ -1,4 +1,3 @@
-// import BasicPagination from "@/components/BasicPagination";
 import { useIsMobile } from "@/common/styles/responsive";
 import React from "react";
 import ComputerFavouritePosts from "./ComputerFavouritePosts";
