@@ -1,7 +1,7 @@
 import { firebaseStorage } from "#/config/firebase";
-import { useFirebaseAuthState } from "#/hooks/useFirebaseAuthState";
-import { useFirebaseUpdateProfile } from "#/hooks/useFirebaseUpdateProfile";
-import { useFirebaseUploadFile } from "#/hooks/useFirebaseUploadFile";
+import { useFirebaseAuthState } from "#/hooks/auth/useFirebaseAuthState";
+import { useFirebaseUpdateProfile } from "#/hooks/auth/useFirebaseUpdateProfile";
+import { useFirebaseUploadFile } from "#/hooks/auth/useFirebaseUploadFile";
 import UserAvatar from "@/containers/UserAvatar";
 import UploadIcon from "@mui/icons-material/Upload";
 import { CircularProgress } from "@mui/material";

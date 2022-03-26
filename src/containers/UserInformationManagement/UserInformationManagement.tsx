@@ -1,10 +1,10 @@
-import { useAuthStateWithRedirect } from "#/hooks/useFirebaseAuthState";
-import { useFirebaseUpdateProfile } from "#/hooks/useFirebaseUpdateProfile";
+import { useAuthStateWithRedirect } from "#/hooks/auth/useFirebaseAuthState";
+import { useFirebaseUpdateProfile } from "#/hooks/auth/useFirebaseUpdateProfile";
 import {
   useCreateNewExtraDataIfNotExisting,
   useUpdateUserExtraData,
   useUserExtraData,
-} from "#/hooks/useUserExtraData";
+} from "#/hooks/firestore/useUserExtraData";
 import Grid from "@/components/Grid";
 import SwitchModeTextField from "@/components/SwitchModeTextField";
 import UserAvatarUploader from "@/containers/UserAvatarUploader";

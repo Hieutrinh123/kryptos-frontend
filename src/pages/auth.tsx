@@ -1,6 +1,6 @@
-import { useFirebaseAuthState } from "#/hooks/useFirebaseAuthState";
+import { useFirebaseAuthState } from "#/hooks/auth/useFirebaseAuthState";
 import { useShowAlert } from "#/hooks/useShowAlert";
-import { useUserExtraData } from "#/hooks/useUserExtraData";
+import { useUserExtraData } from "#/hooks/firestore/useUserExtraData";
 import EmailAuthenticationForm from "@/containers/AuthenticationForm/EmailAuthenticationForm";
 import SocialAuthenticationForm from "@/containers/AuthenticationForm/SocialAuthenticationForm";
 import Box from "@mui/material/Box";
