@@ -1,4 +1,4 @@
-import {getInitials} from "#/utils/username";
+import {getInitials} from "#/utils/naming";
 import { styled } from "@mui/material/styles";
 import { SxProps } from "@mui/system";
 import { Author } from "@tryghost/content-api";

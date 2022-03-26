@@ -2,7 +2,7 @@ import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { getAllLeafCategories } from "#/config/navigation";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useIsMobile } from "#/styles/responsive";
-import { useRouterPage } from "#/utils/useRouterPage";
+import { useRouterPage } from "#/hooks/useRouterPage";
 import { listAuthors } from "@/api/author";
 import { listPostsByCategorySlug, usePostList } from "@/api/posts";
 import BlogPostList from "@/containers/BlogPostList";

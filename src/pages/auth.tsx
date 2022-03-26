@@ -1,4 +1,6 @@
-import { firebaseAuth } from "#/config/firebase";
+import { useFirebaseAuthState } from "#/hooks/useFirebaseAuthState";
+import { useShowAlert } from "#/hooks/useShowAlert";
+import { useUserExtraData } from "#/hooks/useUserExtraData";
 import EmailAuthenticationForm from "@/containers/AuthenticationForm/EmailAuthenticationForm";
 import SocialAuthenticationForm from "@/containers/AuthenticationForm/SocialAuthenticationForm";
 import Box from "@mui/material/Box";
@@ -11,7 +13,6 @@ import NextImage from "next/image";
 import { useRouter } from "next/router";
 import logo from "public/logo.png";
 import React, { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 const LoginPageLogo: React.FC = () => (
   <Stack alignItems="center">
@@ -26,12 +27,28 @@ const LoginPageLogo: React.FC = () => (
 
 const LoginPage: NextPage = () => {
   const router = useRouter();
-  const [user] = useAuthState(firebaseAuth);
+  const [user, loadingUser] = useFirebaseAuthState();
+  const [userExtraData, loadingExtraData] = useUserExtraData(user);
+  const showAlert = useShowAlert();
+
   useEffect(() => {
-    if (user) {
-      router.replace("/").then();
+    if (!loadingUser && !loadingExtraData && user) {
+      if (userExtraData) {
+        router
+          .replace("/")
+          .then(() => showAlert("Đăng nhập thành công", "success"));
+      } else {
+        router
+          .replace("/profile")
+          .then(() =>
+            showAlert(
+              "Chào mừng đến với KryptosNews. Hãy cập nhật một số thông tin cá nhân của bạn",
+              "info"
+            )
+          );
+      }
     }
-  }, [user, router]);
+  }, [loadingUser, user, router, loadingExtraData, userExtraData, showAlert]);
 
   return (
     <Box bgcolor="background.secondary" py={4}>

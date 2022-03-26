@@ -1,26 +1,28 @@
-import { getInitials } from "#/utils/username";
+import { getInitials } from "#/utils/naming";
 import { User } from "@firebase/auth";
-import Avatar from "@mui/material/Avatar";
+import Avatar, { AvatarProps } from "@mui/material/Avatar";
+import { styled } from "@mui/material/styles";
 import React from "react";
 
 interface UserAvatarProps {
   user: User;
-  height?: number;
-  width?: number;
+  sx: AvatarProps["sx"];
 }
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ user, height, width }) => {
+const StyledAvatar = styled(Avatar)({
+  height: "100%",
+  width: "100%",
+});
+
+const UserAvatar: React.FC<UserAvatarProps> = ({ user, sx }) => {
   return (
-    <Avatar
+    <StyledAvatar
       src={user.photoURL ?? undefined}
       alt={`${user.displayName}'s avatar`}
-      sx={{
-        height,
-        width,
-      }}
+      sx={sx}
     >
       {getInitials(user.displayName)}
-    </Avatar>
+    </StyledAvatar>
   );
 };
 

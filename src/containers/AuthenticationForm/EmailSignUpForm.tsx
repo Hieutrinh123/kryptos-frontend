@@ -1,7 +1,6 @@
 import { firebaseAuth } from "#/config/firebase";
+import { useShowAlertEffect } from "#/hooks/useShowAlert";
 import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
-import { useSnackbarState } from "#/utils/useSnackbarState";
-import AlertSnackbar from "@/components/AlertSnackbar";
 import EmailFormFields from "@/containers/AuthenticationForm/EmailFormFields";
 
 import React from "react";
@@ -18,28 +17,18 @@ const EmailSignUpForm: React.FC<EmailSignUpProps> = ({}) => {
   ] = useCreateUserWithEmailAndPassword(firebaseAuth, {
     sendEmailVerification: true,
   });
-  const signUpError = useSnackbarState(
-    getFirebaseAuthErrorMessage(emailSignUpError),
-    6000
-  );
+
+  useShowAlertEffect(getFirebaseAuthErrorMessage(emailSignUpError), "error");
 
   if (emailSignUpUser) {
     return null;
   }
   return (
-    <>
-      <EmailFormFields
-        submitButtonLabel="Đăng ký"
-        onSubmit={signUpWithEmail}
-        loading={emailSignUpLoading}
-      />
-
-      <AlertSnackbar
-        {...signUpError}
-        severity="error"
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      />
-    </>
+    <EmailFormFields
+      submitButtonLabel="Đăng ký"
+      onSubmit={signUpWithEmail}
+      loading={emailSignUpLoading}
+    />
   );
 };
 

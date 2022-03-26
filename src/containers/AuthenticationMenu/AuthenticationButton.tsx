@@ -25,7 +25,7 @@ const AuthenticationButton: React.FC<AuthenticationButtonProps> = (props) => {
         {...props}
         style={{ background: "none", border: "none", cursor: "pointer" }}
       >
-        <UserAvatar user={user} height={40} width={40} />
+        <UserAvatar user={user} sx={{ height: 40, width: 40 }} />
       </button>
     );
   }

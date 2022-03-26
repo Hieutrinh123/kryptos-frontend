@@ -1,7 +1,6 @@
 import { firebaseAuth } from "#/config/firebase";
+import { useShowAlertEffect } from "#/hooks/useShowAlert";
 import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
-import { useSnackbarState } from "#/utils/useSnackbarState";
-import AlertSnackbar from "@/components/AlertSnackbar";
 import EmailFormFields from "@/containers/AuthenticationForm/EmailFormFields";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
@@ -20,10 +19,7 @@ const EmailSignInForm: React.FC<EmailSignInFormProps> = ({}) => {
     emailSignInError,
   ] = useSignInWithEmailAndPassword(firebaseAuth);
 
-  const signInError = useSnackbarState(
-    getFirebaseAuthErrorMessage(emailSignInError),
-    6000
-  );
+  useShowAlertEffect(getFirebaseAuthErrorMessage(emailSignInError), "error");
 
   if (emailSignInUser) {
     return null;
@@ -44,12 +40,6 @@ const EmailSignInForm: React.FC<EmailSignInFormProps> = ({}) => {
           </Link>
         </NextLink>
       </Stack>
-
-      <AlertSnackbar
-        {...signInError}
-        severity="error"
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      />
     </>
   );
 };

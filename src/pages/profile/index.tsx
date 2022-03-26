@@ -1,36 +1,15 @@
-import { useIsMobile } from "@/common/styles/responsive";
-import PersonalReview from "@/containers/PersonalReview";
-import ProfileTabs from "@/containers/ProfileTabs";
+import UserInformationManagement from "@/containers/UserInformationManagement";
 import FullLayout from "@/layouts/FullLayout";
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { NextPage } from "next";
+
 interface ProfilePageProps {}
 
 const ProfilePage: NextPage<ProfilePageProps> = ({}) => {
-  const isMobile = useIsMobile();
   return (
     <FullLayout>
-      <Container sx={{ marginTop: 7 }}>
-        <PersonalReview />
-        <Container
-          sx={{
-            display: isMobile ? "block" : "flex",
-            marginTop: 4,
-            padding: 0,
-          }}
-        >
-          <Box
-            className="left__container"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              flex: 1,
-              marginRight: isMobile ? 0 : 4,
-            }}
-          >
-            <ProfileTabs />
-          </Box>
-        </Container>
+      <Container sx={{ paddingTop: 5 }}>
+        <UserInformationManagement />
       </Container>
     </FullLayout>
   );

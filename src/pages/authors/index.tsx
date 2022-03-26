@@ -1,5 +1,5 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
-import { useRouterPage } from "#/utils/useRouterPage";
+import { useRouterPage } from "#/hooks/useRouterPage";
 import { listAuthors, useAuthorList } from "@/api/author";
 import AuthorCard from "@/containers/AuthorCard";
 import RouterPagination from "@/components/RouterPagination";

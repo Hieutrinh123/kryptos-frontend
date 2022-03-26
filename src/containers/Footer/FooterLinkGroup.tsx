@@ -1,4 +1,4 @@
-import { getSubcategoryHref, Category } from "#/config/navigation";
+import { Category } from "#/config/navigation";
 import { Box, Link, Stack } from "@mui/material";
 import NextLink from "next/link";
 import React from "react";
@@ -15,7 +15,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
         display: "inline-block",
       }}
     >
-      <NextLink href={"/" + category.slug} passHref>
+      <NextLink href={"/categories/" + category.slug} passHref>
         <Link underline="none" fontWeight="bold" color="white">
           {category.title}
         </Link>
@@ -32,10 +32,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
         >
           {category.subcategories.map((subcategory, index) => (
             <li key={index}>
-              <NextLink
-                href={getSubcategoryHref(category.slug, subcategory.slug)}
-                passHref
-              >
+              <NextLink href={"/categories/" + subcategory.slug} passHref>
                 <Link underline="none" color="white">
                   {subcategory.title}
                 </Link>

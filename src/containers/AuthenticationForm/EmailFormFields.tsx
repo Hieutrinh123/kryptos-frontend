@@ -1,4 +1,4 @@
-import { useInputState } from "#/utils/useInputState";
+import { useInputState } from "#/hooks/useInputState";
 import { validateEmailPassword } from "@/containers/AuthenticationForm/validator";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";

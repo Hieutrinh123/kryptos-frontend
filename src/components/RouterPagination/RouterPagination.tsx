@@ -1,4 +1,4 @@
-import { useRouterPage } from "#/utils/useRouterPage";
+import { useRouterPage } from "#/hooks/useRouterPage";
 import Box from "@mui/material/Box";
 import Pagination, {
   PaginationRenderItemParams,

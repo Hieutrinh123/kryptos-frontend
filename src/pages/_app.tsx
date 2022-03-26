@@ -1,7 +1,8 @@
+import { AlertProvider } from "#/hooks/useShowAlert";
 import { SVGGradient } from "#/styles/gradients";
 import { ThemeModeProvider } from "#/themes";
-import "@/common/styles/globals.scss";
 import createEmotionCache from "#/utils/createEmotionCache";
+import "@/common/styles/globals.scss";
 import LoadingScreen from "@/containers/LoadingScreen";
 import { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
@@ -78,8 +79,10 @@ function MyApp({
       <SVGGradient />
       <CacheProvider value={emotionCache}>
         <ThemeModeProvider>
-          <CssBaseline enableColorScheme />
-          {loading ? <LoadingScreen /> : <Component {...pageProps} />}
+          <AlertProvider>
+            <CssBaseline enableColorScheme />
+            {loading ? <LoadingScreen /> : <Component {...pageProps} />}
+          </AlertProvider>
         </ThemeModeProvider>
       </CacheProvider>
     </>

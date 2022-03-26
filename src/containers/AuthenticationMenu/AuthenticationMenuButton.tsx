@@ -31,7 +31,7 @@ const AuthenticationMenuButton: React.FC<AuthenticationMenuButtonProps> = (
           cursor: "pointer",
         }}
       >
-        <UserAvatar user={user} height={40} width={40} />
+        <UserAvatar user={user} sx={{ height: 40, width: 40 }} />
       </button>
     );
   }

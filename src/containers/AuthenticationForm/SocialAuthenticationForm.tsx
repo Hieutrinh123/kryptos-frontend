@@ -1,6 +1,6 @@
 import { firebaseAuth } from "#/config/firebase";
-import { useSnackbarState } from "#/utils/useSnackbarState";
-import AlertSnackbar from "@/components/AlertSnackbar";
+import { useShowAlertEffect } from "#/hooks/useShowAlert";
+import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
 import GoogleIcon from "@mui/icons-material/Google";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -17,7 +17,7 @@ const SocialAuthenticationForm: React.FC<
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(firebaseAuth);
 
-  const googleSnackbarState = useSnackbarState(googleError?.message, 6000);
+  useShowAlertEffect(getFirebaseAuthErrorMessage(googleError), "error");
 
   if (googleUser) {
     return null;
@@ -43,12 +43,6 @@ const SocialAuthenticationForm: React.FC<
           </Stack>
         )}
       </Button>
-
-      <AlertSnackbar
-        {...googleSnackbarState}
-        severity="error"
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      />
     </Stack>
   );
 };

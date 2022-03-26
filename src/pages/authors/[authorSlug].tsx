@@ -1,5 +1,5 @@
 import { AUTHOR_POSTS_PER_PAGE } from "#/config/authors";
-import { useRouterPage } from "#/utils/useRouterPage";
+import { useRouterPage } from "#/hooks/useRouterPage";
 import {
   getAllAuthorSlugs,
   getAuthorInfo,
