@@ -1,16 +1,19 @@
 import { firebaseAuth } from "#/config/firebase";
-import { User } from "@firebase/auth";
+import { useShowAlertEffect } from "#/hooks/useShowAlert";
+import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-type AuthHookResult = [User | undefined, boolean, Error | undefined];
-export function useFirebaseAuthState(): AuthHookResult {
+export function useFirebaseAuthState() {
   const [user, loading, error] = useAuthState(firebaseAuth);
-  return [user ?? undefined, loading, error];
+
+  useShowAlertEffect(getFirebaseAuthErrorMessage(error), "error");
+
+  return { user: user ?? undefined, loading };
 }
 
-export function useAuthStateWithRedirect(): AuthHookResult {
+export function useAuthStateWithRedirect() {
   const [user, loading, error] = useAuthState(firebaseAuth);
   const router = useRouter();
 
@@ -20,5 +23,7 @@ export function useAuthStateWithRedirect(): AuthHookResult {
     }
   }, [user, router, error, loading]);
 
-  return [user ?? undefined, loading, error];
+  useShowAlertEffect(getFirebaseAuthErrorMessage(error), "error");
+
+  return { user: user ?? undefined, loading };
 }

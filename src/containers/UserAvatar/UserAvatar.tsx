@@ -6,7 +6,7 @@ import React from "react";
 
 interface UserAvatarProps {
   user: User;
-  sx: AvatarProps["sx"];
+  sx?: AvatarProps["sx"];
 }
 
 const StyledAvatar = styled(Avatar)({

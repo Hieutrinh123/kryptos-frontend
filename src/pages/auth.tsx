@@ -27,8 +27,8 @@ const LoginPageLogo: React.FC = () => (
 
 const LoginPage: NextPage = () => {
   const router = useRouter();
-  const [user, loadingUser] = useFirebaseAuthState();
-  const [userExtraData, loadingExtraData] = useUserExtraData(user);
+  const { user, loading: loadingUser } = useFirebaseAuthState();
+  const { data: userExtraData, loading: loadingExtraData } = useUserExtraData();
   const showAlert = useShowAlert();
 
   useEffect(() => {

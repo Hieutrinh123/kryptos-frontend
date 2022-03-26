@@ -8,7 +8,7 @@ interface ProfilePageProps {}
 const ProfilePage: NextPage<ProfilePageProps> = ({}) => {
   return (
     <FullLayout>
-      <Container sx={{ paddingTop: 5 }}>
+      <Container sx={{ paddingY: 5 }}>
         <UserInformationManagement />
       </Container>
     </FullLayout>

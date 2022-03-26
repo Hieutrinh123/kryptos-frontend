@@ -1,4 +1,4 @@
-import { useShowAlert } from "#/hooks/useShowAlert";
+import {useShowAlert, useShowAlertEffect} from "#/hooks/useShowAlert";
 import { StorageReference, UploadResult } from "firebase/storage";
 import { useDownloadURL, useUploadFile } from "react-firebase-hooks/storage";
 
@@ -16,10 +16,12 @@ export function useFirebaseUploadFile(ref?: StorageReference) {
       return result;
     }
   };
+
+  useShowAlertEffect(error?.message, "error");
+
   return {
     uploadToFirebase: wrappedHandleUploadFile,
     uploading: uploading || loading,
-    error,
     snapshot,
     downloadUrl,
   };

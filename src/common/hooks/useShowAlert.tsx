@@ -5,12 +5,6 @@ import Snackbar from "@mui/material/Snackbar";
 import React, { useContext, useEffect, useState } from "react";
 
 type SeverityString = AlertProps["severity"];
-export interface SnackbarMessage {
-  message: string;
-  severity: SeverityString;
-  key: number;
-}
-
 interface AlertContextProps {
   setAlert: (message: string, severity?: SeverityString) => void;
 }
@@ -21,7 +15,7 @@ const AlertContext = React.createContext<AlertContextProps>({
 
 export const AlertProvider: React.FC = ({ children }) => {
   const [message, setMessage] = useState("");
-  const [severity, setSeverity] = useState<SeverityString | undefined>();
+  const [severity, setSeverity] = useState<SeverityString>();
 
   const setAlert = (newMessage: string, newSeverity?: SeverityString) => {
     setMessage(newMessage);
@@ -38,8 +32,6 @@ export const AlertProvider: React.FC = ({ children }) => {
     setMessage("");
     setSeverity(undefined);
   };
-
-  console.log(message, !!message);
 
   return (
     <AlertContext.Provider value={{ setAlert }}>
@@ -68,7 +60,7 @@ export function useShowAlertEffect(
 ) {
   const alertContext = useContext(AlertContext);
   useEffect(() => {
-    if (message) {
+    if (message && alertContext.setAlert) {
       alertContext.setAlert(message, severity);
     }
   }, [alertContext, message, severity]);

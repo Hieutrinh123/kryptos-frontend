@@ -1,31 +1,29 @@
-import { firebaseAuth, firebaseStorage } from "#/config/firebase";
+import { firebaseStorage } from "#/config/firebase";
 import { useFirebaseAuthState } from "#/hooks/useFirebaseAuthState";
+import { useFirebaseUpdateProfile } from "#/hooks/useFirebaseUpdateProfile";
 import { useFirebaseUploadFile } from "#/hooks/useFirebaseUploadFile";
-import { useShowAlertEffect } from "#/hooks/useShowAlert";
 import UserAvatar from "@/containers/UserAvatar";
 import UploadIcon from "@mui/icons-material/Upload";
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ref as calculateRef, StorageReference } from "firebase/storage";
 import React, { useCallback, useRef } from "react";
-import { useUpdateProfile } from "react-firebase-hooks/auth";
 
 interface UserAvatarUploaderProps {}
 
 const UserAvatarUploader: React.FC<UserAvatarUploaderProps> = ({}) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [user] = useFirebaseAuthState();
+  const { user } = useFirebaseAuthState();
 
   let fileReference: StorageReference | undefined;
   if (user) {
     fileReference = calculateRef(firebaseStorage, `${user.uid}/profilePicture`);
   }
 
-  const { uploadToFirebase, downloadUrl, uploading, error } =
+  const { uploadToFirebase, downloadUrl, uploading } =
     useFirebaseUploadFile(fileReference);
-  const [updateProfile, updatingProfile] = useUpdateProfile(firebaseAuth);
-
-  useShowAlertEffect(error?.message, "error");
+  const { update: updateProfile, loading: loadingUpdateProfile } =
+    useFirebaseUpdateProfile();
 
   const handleUploadImage = useCallback(
     async (file?: File) => {
@@ -56,13 +54,10 @@ const UserAvatarUploader: React.FC<UserAvatarUploaderProps> = ({}) => {
           }
           style={{ display: "none" }}
         />
-        {uploading || updatingProfile ? (
+        {uploading || loadingUpdateProfile ? (
           <CircularProgress />
         ) : (
-          <UserAvatar
-            user={user}
-            sx={{ cursor: "pointer", height: "120px", width: "120px" }}
-          />
+          <UserAvatar user={user} />
         )}
       </label>
 
