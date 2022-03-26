@@ -54,3 +54,55 @@ export function useUpdatePostInteraction(post: PostOrPage) {
     loading,
   };
 }
+
+export function useBookmarkPost(post: PostOrPage) {
+  const { interaction, loading } = usePostInteraction(post);
+  const { updatePostInteraction, loading: loadingUpdatePostInteraction } =
+    useUpdatePostInteraction(post);
+
+  const showAlert = useShowAlert();
+
+  const bookmarked = interaction?.bookmarked;
+
+  const toggleBookmark = useCallback(() => {
+    updatePostInteraction({ bookmarked: !bookmarked }).then(() => {
+      if (bookmarked) {
+        showAlert("Đã bỏ lưu bài viết", "success");
+      } else {
+        showAlert("Đã lưu bài viết", "success");
+      }
+    });
+  }, [bookmarked, showAlert, updatePostInteraction]);
+
+  return {
+    bookmarked,
+    loading: loading || loadingUpdatePostInteraction,
+    toggleBookmark,
+  };
+}
+
+export function useLikePost(post: PostOrPage) {
+  const { interaction, loading } = usePostInteraction(post);
+  const { updatePostInteraction, loading: loadingUpdatePostInteraction } =
+    useUpdatePostInteraction(post);
+
+  const showAlert = useShowAlert();
+
+  const liked = interaction?.liked;
+
+  const toggleLike = useCallback(() => {
+    updatePostInteraction({ liked: !liked }).then(() => {
+      if (liked) {
+        showAlert("Đã bỏ thích bài viết", "success");
+      } else {
+        showAlert("Đã thích bài viết", "success");
+      }
+    });
+  }, [liked, showAlert, updatePostInteraction]);
+
+  return {
+    liked,
+    loading: loading || loadingUpdatePostInteraction,
+    toggleLike,
+  };
+}

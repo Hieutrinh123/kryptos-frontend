@@ -1,18 +1,11 @@
-import {
-  usePostInteraction,
-  useUpdatePostInteraction,
-} from "#/hooks/firestore/usePostInteraction";
-import { useShowAlert } from "#/hooks/useShowAlert";
 import { textColorGradient } from "#/styles/gradients";
 import { useIsMobile } from "#/styles/responsive";
 import AuthorAvatar from "@/containers/AuthorAvatar";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import { CircularProgress } from "@mui/material";
+import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { PostOrPage } from "@tryghost/content-api";
@@ -60,7 +53,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
         />
         {isMobile && (
           <Box position="absolute" top={10} right={10}>
-            <BlogBookmarkButton post={post} />
+            <BlogBookmarkButton post={post} variant="compact" />
           </Box>
         )}
 
@@ -112,48 +105,14 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                     new Date(post.published_at).toLocaleDateString()}
                 </Typography>
               </Stack>
-              {!isMobile && <BlogBookmarkButton post={post} />}
+              {!isMobile && (
+                <BlogBookmarkButton post={post} variant="compact" />
+              )}
             </Stack>
           </Stack>
         </CardContent>
       </Stack>
     </Card>
-  );
-};
-
-interface BlogBookmarkButton {
-  post: PostOrPage;
-}
-export const BlogBookmarkButton: React.FC<BlogBookmarkButton> = ({ post }) => {
-  const { interaction, loading } = usePostInteraction(post);
-  const { updatePostInteraction, loading: loadingUpdatePostInteraction } =
-    useUpdatePostInteraction(post);
-
-  const showAlert = useShowAlert();
-
-  if (loading || loadingUpdatePostInteraction) {
-    return <CircularProgress />;
-  }
-
-  return (
-    <IconButton
-      color={interaction?.bookmarked ? "primary" : "secondary"}
-      onClick={(event) => {
-        const currentBookmarkedStatus = interaction?.bookmarked;
-        updatePostInteraction({ bookmarked: !currentBookmarkedStatus }).then(
-          () => {
-            if (currentBookmarkedStatus) {
-              showAlert("Post unbookmarked successfully", "success");
-            } else {
-              showAlert("Post bookmarked successfully", "success");
-            }
-          }
-        );
-        event.stopPropagation();
-      }}
-    >
-      <BookmarkBorderIcon />
-    </IconButton>
   );
 };
 

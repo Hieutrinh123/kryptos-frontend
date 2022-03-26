@@ -1,5 +1,7 @@
-import { useIsDesktop } from "#/styles/responsive";
+import { useIsDesktop, useIsMobile } from "#/styles/responsive";
 import { getPostDetail, listAllPostSlugs } from "@/api/posts";
+import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
+import BlogLikeButton from "@/containers/BlogLikeButton";
 import PostBanner from "@/containers/PostBanner";
 import PostContent from "@/containers/PostContent";
 import PostTableOfContent from "@/containers/PostTableOfContent";
@@ -21,6 +23,7 @@ interface BlogViewPageProps {
 
 const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
   const isDesktop = useIsDesktop();
+  const isMobile = useIsMobile();
   if (!post) {
     return null;
   }
@@ -61,19 +64,33 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
                 ))}
               </Stack>
             </Card>
-          </Stack>
-          <Box flex={2}>
-            <Card sx={{ padding: 6 }}>
-              <PostContent postHTML={post.html} />
-            </Card>
-          </Box>
-          <Box flex={1}>
+
             <Card sx={{ padding: 6 }}>
               <Typography variant="h6" mb={4}>
                 Share
               </Typography>
               <SocialLinks />
             </Card>
+
+          </Stack>
+          <Box flex={3}>
+            <Stack spacing={3}>
+              <Card sx={{ padding: 6 }}>
+                <PostContent postHTML={post.html} />
+              </Card>
+              <Card sx={{ padding: 4 }}>
+                <Stack direction="row" spacing={2}>
+                  <BlogBookmarkButton
+                    post={post}
+                    variant={isMobile ? "compact" : "full"}
+                  />
+                  <BlogLikeButton
+                    post={post}
+                    variant={isMobile ? "compact" : "full"}
+                  />
+                </Stack>
+              </Card>
+            </Stack>
           </Box>
         </Stack>
       </Container>

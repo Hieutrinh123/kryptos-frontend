@@ -54,6 +54,9 @@ export const CommonMuiButton: Components["MuiButton"] = {
         background: glassGradient,
         "& > *": textColorUngradient,
       },
+      ":hover svg": {
+        fill: "url(#glass-gradient)",
+      },
     },
 
     textSecondary: {
