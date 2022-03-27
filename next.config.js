@@ -30,7 +30,7 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ["via.placeholder.com", "admin.coinblog.dev.youngit.org"],
+    domains: ["via.placeholder.com", "admin.kryptos.news"],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 3600,
   },

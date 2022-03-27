@@ -9,12 +9,6 @@ export interface Subcategory {
   title: string;
 }
 
-export function getSubcategoryHref(
-  categoryHref: string,
-  subcategoryHref: string
-) {
-  return "/" + categoryHref + "/" + subcategoryHref;
-}
 export const PROJECT_ANALYSIS_CATEGORY = {
   slug: "project-analysis",
   title: "Phân tích dự án",
