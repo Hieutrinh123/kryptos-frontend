@@ -72,22 +72,22 @@ interface PostSideBarProps {
 const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
   return (
     <Stack spacing={4} position="sticky" top={100}>
-      <Card sx={{ padding: 4 }}>
-        <Typography variant="h6" mb={4}>
+      <Card sx={{ padding: 3 }}>
+        <Typography variant="h6" mb={2}>
           Share
         </Typography>
         <SocialLinks />
       </Card>
 
-      <Card sx={{ padding: 4 }}>
-        <Typography variant="h6" mb={4}>
+      <Card sx={{ padding: 3 }}>
+        <Typography variant="h6" mb={2}>
           Mục lục bài viết
         </Typography>
         <PostTableOfContent post={post} />
       </Card>
 
-      <Card sx={{ padding: 4 }}>
-        <Typography variant="h6" mb={4}>
+      <Card sx={{ padding: 3 }}>
+        <Typography variant="h6" mb={2}>
           Tags
         </Typography>
         <Stack direction="row" flexWrap="wrap">

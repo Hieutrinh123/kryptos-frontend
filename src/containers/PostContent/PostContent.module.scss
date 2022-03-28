@@ -12,19 +12,4 @@
   figure {
     text-align: center;
   }
-
-  // This offset the hash link jump
-  h1,
-  h2,
-  h3 {
-    position: relative;
-
-    &:before {
-      display: block;
-      content: " ";
-      margin-top: -100px;
-      height: 100px;
-      visibility: hidden;
-    }
-  }
 }

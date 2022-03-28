@@ -8,6 +8,8 @@ const TOCBOT_OPTIONS = {
   contentSelector: ".js-toc-content",
   headingSelector: "h1, h2, h3",
   activeLinkClass: "active-header",
+  headingsOffset: 100,
+  scrollSmoothOffset: -100,
 };
 
 interface PostTableOfContentProps {
