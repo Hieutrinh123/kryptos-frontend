@@ -3,8 +3,8 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import DesktopHeaderContent from "./DesktopHeaderContent";
-import MobileAndTabletHeaderContent from "./MobileAndTabletHeaderContent";
+import DesktopHeaderContent from "./DesktopHeaderContent/DesktopHeaderContent";
+import MobileAndTabletHeaderContent from "./MobileHeaderContent/MobileAndTabletHeaderContent";
 
 const Header = () => {
   const isDesktop = useIsDesktop();

@@ -4,19 +4,22 @@ import { CircularProgress } from "@mui/material";
 import Button, { ButtonProps } from "@mui/material/Button";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import NextLink from "next/link";
 
-interface AuthenticationButtonProps extends ButtonProps {}
+interface DesktopAuthButtonProps extends ButtonProps {}
 
-const AuthenticationButton: React.FC<AuthenticationButtonProps> = (props) => {
+const DesktopAuthButton: React.FC<DesktopAuthButtonProps> = (props) => {
   const [user, loading, error] = useAuthState(firebaseAuth);
   if (loading) {
     return <CircularProgress />;
   }
   if (error) {
     return (
-      <Button {...props} variant="contained" color="error">
-        <span>Đăng nhập lỗi, vui lòng thử lại</span>
-      </Button>
+      <NextLink href="/profile" passHref>
+        <Button {...props} variant="contained" color="error">
+          <span>Đăng nhập lỗi, vui lòng thử lại</span>
+        </Button>
+      </NextLink>
     );
   }
   if (user) {
@@ -30,12 +33,14 @@ const AuthenticationButton: React.FC<AuthenticationButtonProps> = (props) => {
     );
   }
   return (
-    <Button {...props} variant="contained" color="primary">
-      <span>Đăng nhập</span>
-    </Button>
+    <NextLink href="/profile" passHref>
+      <Button {...props} variant="contained" color="primary">
+        <span>Đăng nhập</span>
+      </Button>
+    </NextLink>
   );
 };
 
-export default React.forwardRef<HTMLButtonElement, AuthenticationButtonProps>(
-  (props, ref) => <AuthenticationButton {...props} ref={ref} />
+export default React.forwardRef<HTMLButtonElement, DesktopAuthButtonProps>(
+  (props, ref) => <DesktopAuthButton {...props} ref={ref} />
 );

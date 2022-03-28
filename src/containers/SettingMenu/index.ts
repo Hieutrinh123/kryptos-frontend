@@ -1,3 +1,3 @@
-import SettingMenu from "./SettingMenu";
+import SettingsMenu from "./SettingsMenu";
 
-export default SettingMenu;
+export default SettingsMenu;

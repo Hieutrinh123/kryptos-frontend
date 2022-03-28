@@ -1,50 +1,40 @@
-import { firebaseAuth } from "#/config/firebase";
+import { useFirebaseAuthState } from "#/hooks/auth/useFirebaseAuthState";
 import { getInitials } from "#/utils/naming";
-import DropdownMenu from "@/components/DropdownMenu";
-import { signOut } from "@firebase/auth";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Avatar from "@mui/material/Avatar";
+import CircularProgress from "@mui/material/CircularProgress";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import CircularProgress from "@mui/material/CircularProgress";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
 import NextLink from "next/link";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import AuthenticationButton from "./AuthenticationButton";
 
-interface AuthenticationMenuProps {}
+interface AuthenticationMenuProps {
+  width?: number;
+  hideInfo?: boolean;
+}
 
-const AuthenticationMenu: React.FC<AuthenticationMenuProps> = ({}) => {
-  const [user, loading] = useAuthState(firebaseAuth);
-
-  const handleSignOut = () => signOut(firebaseAuth);
+const AuthenticationMenu: React.FC<AuthenticationMenuProps> = ({
+  width,
+  hideInfo,
+}) => {
+  const { user, loading, signOut } = useFirebaseAuthState();
 
   if (!user) {
-    return (
-      <NextLink href="/auth" passHref>
-        <Button variant="contained" color="primary">
-          <span>Đăng nhập</span>
-        </Button>
-      </NextLink>
-    );
+    return null;
   }
   if (loading) {
     return <CircularProgress />;
   }
 
   return (
-    <DropdownMenu
-      offsetY={20}
-      buttonBuilder={(buttonProps) => <AuthenticationButton {...buttonProps} />}
-    >
-      <List sx={{ paddingY: 0, width: 300 }}>
+    <List sx={{ paddingY: 0, width }}>
+      {!hideInfo && (
         <ListItem>
           <ListItemAvatar>
             <Avatar src={user.photoURL ?? undefined}>
@@ -53,30 +43,30 @@ const AuthenticationMenu: React.FC<AuthenticationMenuProps> = ({}) => {
           </ListItemAvatar>
           <ListItemText primary={user.displayName} />
         </ListItem>
+      )}
 
-        <Divider />
+      <Divider />
 
-        <ListItem disablePadding>
-          <NextLink href="/profile" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Tài khoản của tôi" />
-            </ListItemButton>
-          </NextLink>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton onClick={handleSignOut}>
+      <ListItem disablePadding>
+        <NextLink href="/profile" passHref>
+          <ListItemButton>
             <ListItemIcon>
-              <LogoutIcon />
+              <AccountCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Đăng xuất" />
+            <ListItemText primary="Tài khoản của tôi" />
           </ListItemButton>
-        </ListItem>
-      </List>
-    </DropdownMenu>
+        </NextLink>
+      </ListItem>
+
+      <ListItem disablePadding>
+        <ListItemButton onClick={signOut}>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText primary="Đăng xuất" />
+        </ListItemButton>
+      </ListItem>
+    </List>
   );
 };
 

@@ -1,4 +1,4 @@
-import { categories } from "#/config/navigation";
+import { CATEGORIES } from "#/config/navigation";
 import Grid from "@/components/Grid";
 import Logo from "@/components/Logo/Logo";
 import SocialLinks from "@/containers/SocialLinks";
@@ -51,7 +51,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
                 },
               })}
             >
-              {categories.map((navOption, index) => (
+              {CATEGORIES.map((navOption, index) => (
                 <FooterLinkGroup key={index} category={navOption} />
               ))}
             </Box>
