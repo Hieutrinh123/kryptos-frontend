@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import { PostOrPage } from "@tryghost/content-api";
 import _ from "lodash";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import React from "react";
 
 interface BlogViewPageProps {
   post: PostOrPage;
@@ -32,47 +33,9 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
       <PostBanner post={post} />
       <Container
         disableGutters={!isDesktop}
-        maxWidth={false}
-        sx={(theme) => ({
-          [theme.breakpoints.only("mobile")]: {
-            padding: 4,
-          },
-          padding: 6,
-        })}
+        sx={{ paddingTop: 4, paddingBottom: 6 }}
       >
-        <Stack
-          direction={{ mobile: "column", desktop: "row" }}
-          spacing={4}
-          marginY={4}
-        >
-          <Stack flex={1} spacing={4}>
-            <Card sx={{ padding: 6 }}>
-              <Typography variant="h6" mb={4}>
-                Mục lục bài viết
-              </Typography>
-              <PostTableOfContent post={post} />
-            </Card>
-            <Card sx={{ padding: 6 }}>
-              <Typography variant="h6" mb={4}>
-                Tags
-              </Typography>
-              <Stack direction="row" flexWrap="wrap">
-                {post?.tags?.map((tag) => (
-                  <Box paddingRight={2} paddingBottom={2} key={tag.id}>
-                    <Chip label={tag.name} />
-                  </Box>
-                ))}
-              </Stack>
-            </Card>
-
-            <Card sx={{ padding: 6 }}>
-              <Typography variant="h6" mb={4}>
-                Share
-              </Typography>
-              <SocialLinks />
-            </Card>
-
-          </Stack>
+        <Stack direction={{ mobile: "column", desktop: "row" }} spacing={4}>
           <Box flex={3}>
             <Stack spacing={3}>
               <Card sx={{ padding: 6 }}>
@@ -92,9 +55,50 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
               </Card>
             </Stack>
           </Box>
+
+          <Box flex={1}>
+            <PostSideBar post={post} />
+          </Box>
         </Stack>
       </Container>
     </FullLayout>
+  );
+};
+
+interface PostSideBarProps {
+  post: PostOrPage;
+}
+
+const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
+  return (
+    <Stack spacing={4} position="sticky" top={100}>
+      <Card sx={{ padding: 4 }}>
+        <Typography variant="h6" mb={4}>
+          Share
+        </Typography>
+        <SocialLinks />
+      </Card>
+
+      <Card sx={{ padding: 4 }}>
+        <Typography variant="h6" mb={4}>
+          Mục lục bài viết
+        </Typography>
+        <PostTableOfContent post={post} />
+      </Card>
+
+      <Card sx={{ padding: 4 }}>
+        <Typography variant="h6" mb={4}>
+          Tags
+        </Typography>
+        <Stack direction="row" flexWrap="wrap">
+          {post?.tags?.map((tag) => (
+            <Box paddingRight={2} paddingBottom={2} key={tag.id}>
+              <Chip label={tag.name} />
+            </Box>
+          ))}
+        </Stack>
+      </Card>
+    </Stack>
   );
 };
 

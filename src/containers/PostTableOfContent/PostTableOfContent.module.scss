@@ -11,4 +11,8 @@
       font-weight: bold;
     }
   }
+
+  :global(.active-header) {
+    text-decoration: underline;
+  }
 }
