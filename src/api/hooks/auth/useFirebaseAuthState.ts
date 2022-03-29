@@ -25,15 +25,15 @@ export function useFirebaseAuthState() {
   };
 }
 
-export function useAuthStateWithRedirect() {
+export function useAuthStateWithRedirect(redirectUrl?: string) {
   const [user, loading, error] = useAuthState(firebaseAuth);
   const router = useRouter();
 
   useEffect(() => {
     if (!loading && (!user || error)) {
-      router.replace("/").then();
+      router.replace(redirectUrl ?? "/").then();
     }
-  }, [user, router, error, loading]);
+  }, [user, router, error, loading, redirectUrl]);
 
   useShowAlertEffect(getFirebaseAuthErrorMessage(error), "error");
 

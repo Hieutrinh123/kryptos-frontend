@@ -63,10 +63,10 @@ export function useAddComment(collectionRef: CollectionReference<CommentData>) {
 
   const addComment = useCallback(
     async (commentContent: string) => {
-      setLoading(true);
       if (!user) {
         return;
       }
+      setLoading(true);
       try {
         await addDoc<CommentData>(collectionRef, {
           uid: user.uid,

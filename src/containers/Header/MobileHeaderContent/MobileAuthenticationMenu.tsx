@@ -1,5 +1,5 @@
 import { getInitials } from "#/utils/naming";
-import {useFirebaseAuthState} from "@/api/hooks/auth/useFirebaseAuthState";
+import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
 import AuthenticationMenu from "@/containers/AuthenticationMenu";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -12,7 +12,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import LoginIcon from "@mui/icons-material/Login";
 import NextLink from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 interface MobileAuthenticationMenuProps {
   open: boolean;
@@ -26,6 +26,11 @@ const MobileAuthenticationMenu: React.FC<MobileAuthenticationMenuProps> = ({
   onClose,
 }) => {
   const { user, loading } = useFirebaseAuthState();
+  useEffect(() => {
+    if (!loading && !user) {
+      onClose();
+    }
+  }, [loading, onClose, user]);
   if (loading) {
     return <CircularProgress />;
   }

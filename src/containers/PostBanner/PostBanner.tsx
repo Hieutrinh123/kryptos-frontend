@@ -48,7 +48,7 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
                   src={post.feature_image}
                   alt={post.feature_image_alt ?? post.title + " thumbnail"}
                   layout="fill"
-                  objectFit="cover"
+                  objectFit="contain"
                 />
               )}
             </Box>

@@ -1,4 +1,5 @@
 import { grey } from "#/styles/colors";
+import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
 import { useCommenter } from "@/api/hooks/firestore/useCommenter";
 import { CommentData } from "@/api/hooks/firestore/useCommentList";
 import Grid from "@/components/Grid";
@@ -23,11 +24,15 @@ const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
   isReply,
 }) => {
   const comment = commentSnapshot.data();
+  const { user } = useFirebaseAuthState();
   const { commenter } = useCommenter(comment);
   const { value: showReplyInput, toggle: toggleReplyInput } = useBoolean(false);
   if (!commenter) {
     return null;
   }
+
+  const showReplyButton = !isReply && user;
+
   return (
     <Box>
       <Grid container spacing={2} alignItems="center">
@@ -44,7 +49,11 @@ const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
             </Stack>
           </Stack>
         </Grid>
-        <Grid item mobile={isReply ? 12 : 11} tablet={isReply ? 8 : 7}>
+        <Grid
+          item
+          mobile={showReplyButton ? 11 : 12}
+          tablet={showReplyButton ? 7 : 8}
+        >
           <Box
             padding={2}
             flexGrow={1}
@@ -54,7 +63,7 @@ const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
             <Typography>{comment.content}</Typography>
           </Box>
         </Grid>
-        {!isReply && (
+        {showReplyButton && (
           <Grid item mobile={1}>
             <IconButton color="secondary" onClick={toggleReplyInput}>
               <ReplyIcon />
