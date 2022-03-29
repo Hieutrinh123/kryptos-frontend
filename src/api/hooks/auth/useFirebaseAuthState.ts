@@ -13,7 +13,16 @@ export function useFirebaseAuthState() {
 
   const handleSignOut = () => signOut(firebaseAuth);
 
-  return { user: user ?? undefined, loading, signOut: handleSignOut };
+  const isNew = user
+    ? user.metadata.lastSignInTime === user.metadata.creationTime
+    : undefined;
+
+  return {
+    isNew,
+    user: user ?? undefined,
+    loading,
+    signOut: handleSignOut,
+  };
 }
 
 export function useAuthStateWithRedirect() {
@@ -28,5 +37,5 @@ export function useAuthStateWithRedirect() {
 
   useShowAlertEffect(getFirebaseAuthErrorMessage(error), "error");
 
-  return { user: user ?? undefined, loading };
+  return { user: user ?? undefined, updating: loading };
 }

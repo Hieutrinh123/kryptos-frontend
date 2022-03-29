@@ -9,6 +9,7 @@ export interface UncontrolledDropDownMenuProps extends Omit<MenuProps, "open"> {
   title?: string;
   buttonBuilder?: (
     buttonProps: ButtonProps,
+    ref: React.Ref<HTMLButtonElement>,
     isOpen?: boolean
   ) => React.ReactNode;
   offsetX?: number;

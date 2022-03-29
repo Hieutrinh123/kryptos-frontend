@@ -1,7 +1,7 @@
 import { firebaseStorage } from "#/config/firebase";
-import { useFirebaseAuthState } from "#/hooks/auth/useFirebaseAuthState";
-import { useFirebaseUpdateProfile } from "#/hooks/auth/useFirebaseUpdateProfile";
-import { useFirebaseUploadFile } from "#/hooks/auth/useFirebaseUploadFile";
+import {useFirebaseAuthState} from "@/api/hooks/auth/useFirebaseAuthState";
+import {useUpdateUserData} from "@/api/hooks/firestore/useUserData";
+import { useFirebaseUploadFile } from "@/api/hooks/useFirebaseUploadFile";
 import UserAvatar from "@/containers/UserAvatar";
 import UploadIcon from "@mui/icons-material/Upload";
 import { CircularProgress } from "@mui/material";
@@ -20,21 +20,24 @@ const UserAvatarUploader: React.FC<UserAvatarUploaderProps> = ({}) => {
     fileReference = calculateRef(firebaseStorage, `${user.uid}/profilePicture`);
   }
 
-  const { uploadToFirebase, downloadUrl, uploading } =
-    useFirebaseUploadFile(fileReference);
-  const { update: updateProfile, loading: loadingUpdateProfile } =
-    useFirebaseUpdateProfile();
+  const { uploadToFirebase, downloadUrl, uploading } = useFirebaseUploadFile(
+    fileReference,
+    { sizeLimitInMB: 5 }
+  );
+
+  const { handleUpdate: handleUpdate, updating: updating } = useUpdateUserData();
 
   const handleUploadImage = useCallback(
     async (file?: File) => {
       if (file && user) {
         const uploadResult = await uploadToFirebase(file);
         if (uploadResult) {
-          await updateProfile({ photoURL: downloadUrl });
+          console.log(uploadResult, downloadUrl, handleUpdate);
+          await handleUpdate({ photoURL: downloadUrl });
         }
       }
     },
-    [user, uploadToFirebase, updateProfile, downloadUrl]
+    [user, uploadToFirebase, handleUpdate, downloadUrl]
   );
 
   if (!user) {
@@ -42,7 +45,7 @@ const UserAvatarUploader: React.FC<UserAvatarUploaderProps> = ({}) => {
   }
 
   return (
-    <div style={{ position: "relative" }}>
+    <Box position="relative" height="100%" width="100%">
       <label htmlFor="avatar-uploader">
         <input
           ref={inputRef}
@@ -54,46 +57,56 @@ const UserAvatarUploader: React.FC<UserAvatarUploaderProps> = ({}) => {
           }
           style={{ display: "none" }}
         />
-        {uploading || loadingUpdateProfile ? (
-          <CircularProgress />
+        {updating || uploading ? (
+          <Box
+            height="100%"
+            width="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <CircularProgress />
+          </Box>
         ) : (
           <UserAvatar user={user} />
         )}
       </label>
 
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        height="100%"
-        width="100%"
-        borderRadius="50%"
-        onClick={() => {
-          inputRef.current?.click();
-        }}
-        sx={{
-          background: "rgba(0, 0, 0, 0.5)",
-          opacity: 0,
-          transition: "500ms",
-          cursor: "pointer",
-          ":hover": {
-            opacity: 1,
-          },
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            color: "white",
+      {!updating && !uploading && (
+        <Box
+          position="absolute"
+          top={0}
+          left={0}
+          height="100%"
+          width="100%"
+          borderRadius="50%"
+          onClick={() => {
+            inputRef.current?.click();
+          }}
+          sx={{
+            background: "rgba(0, 0, 0, 0.5)",
+            opacity: 0,
+            transition: "500ms",
+            cursor: "pointer",
+            ":hover": {
+              opacity: 1,
+            },
           }}
         >
-          <UploadIcon />
-        </div>
-      </Box>
-    </div>
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              color: "white",
+            }}
+          >
+            <UploadIcon />
+          </div>
+        </Box>
+      )}
+    </Box>
   );
 };
 

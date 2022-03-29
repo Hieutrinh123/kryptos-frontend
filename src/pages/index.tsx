@@ -34,10 +34,10 @@ const HomePage: NextPage<HomePageProps> = ({
     <FullLayout>
       <Box
         sx={(theme) => ({
-          "& > *:nth-child(odd)": {
+          "& > *:nth-of-type(odd)": {
             backgroundColor: theme.palette.background.secondary,
           },
-          "& > *:nth-child(even)": {
+          "& > *:nth-of-type(even)": {
             backgroundColor: theme.palette.background.default,
           },
         })}

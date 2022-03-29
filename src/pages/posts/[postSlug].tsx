@@ -1,7 +1,9 @@
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
 import { getPostDetail, listAllPostSlugs } from "@/api/posts";
+import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import BlogLikeButton from "@/containers/BlogLikeButton";
+import CommentListing from "@/containers/CommentListing";
 import PostBanner from "@/containers/PostBanner";
 import PostContent from "@/containers/PostContent";
 import PostTableOfContent from "@/containers/PostTableOfContent";
@@ -38,19 +40,41 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
         <Stack direction={{ mobile: "column", desktop: "row" }} spacing={4}>
           <Box flex={3}>
             <Stack spacing={3}>
-              <Card sx={{ padding: 6 }}>
-                <PostContent postHTML={post.html} />
+              <Card
+                sx={(theme) => ({
+                  padding: 6,
+                  [theme.breakpoints.down("desktop")]: {
+                    padding: 3,
+                  },
+                })}
+              >
+                <Box marginBottom={6}>
+                  <PostContent postHTML={post.html} />
+                </Box>
+                {post.primary_author && (
+                  <AuthorInformation
+                    author={post.primary_author}
+                    variant="compact"
+                    withoutPaper
+                  />
+                )}
               </Card>
-              <Card sx={{ padding: 4 }}>
-                <Stack direction="row" spacing={2}>
-                  <BlogBookmarkButton
-                    post={post}
-                    variant={isMobile ? "compact" : "full"}
-                  />
-                  <BlogLikeButton
-                    post={post}
-                    variant={isMobile ? "compact" : "full"}
-                  />
+              <Card sx={{ padding: 3 }}>
+                <Stack spacing={3}>
+                  <Stack direction="row" spacing={2}>
+                    <BlogBookmarkButton
+                      post={post}
+                      variant={isMobile ? "compact" : "full"}
+                    />
+                    <BlogLikeButton
+                      post={post}
+                      variant={isMobile ? "compact" : "full"}
+                    />
+                  </Stack>
+                  <Typography variant="h6" fontWeight="bolder">
+                    Bình luận của độc giả
+                  </Typography>
+                  <CommentListing post={post} />
                 </Stack>
               </Card>
             </Stack>

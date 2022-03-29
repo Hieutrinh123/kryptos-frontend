@@ -1,3 +1,4 @@
+import LimitedInput from "@/components/LimitedInput";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
@@ -5,82 +6,64 @@ import { CircularProgress, OutlinedTextFieldProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import React, { useEffect, useState } from "react";
 
 interface SwitchModeTextFieldProps
   extends Omit<OutlinedTextFieldProps, "variant"> {
   defaultValue: string;
   onSave: (value: string) => void;
-  loading?: boolean;
+  saving?: boolean;
   maximumLength?: number;
 }
 
 const SwitchModeTextField: React.FC<SwitchModeTextFieldProps> = ({
   defaultValue,
   onSave,
-  loading,
+  saving,
   children,
   maximumLength,
   ...props
 }) => {
   const [value, setValue] = useState<string>(defaultValue.toString());
+
   useEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState("");
+  const [startedSaving, setStartedSaving] = useState(false);
 
   useEffect(() => {
-    if (isEditing && isSaving && !loading) {
+    if (isEditing && startedSaving && !saving) {
       // finished saving
-      setIsSaving(false);
+      setStartedSaving(false);
       setIsEditing(false);
     }
-  }, [isEditing, isSaving, loading]);
-
-  const handleChange = (newValue: string) => {
-    if (
-      maximumLength &&
-      newValue.length > maximumLength &&
-      newValue.length > value.length
-    ) {
-      setError(`Maximum length of ${maximumLength} characters exceeded.`);
-      setValue(newValue.slice(0, maximumLength));
-      return;
-    }
-    if (error) {
-      setError("");
-    }
-    setValue(newValue);
-  };
-
-  const handleSave = () => {
-    setIsSaving(true);
-    onSave(value);
-  };
+  }, [isEditing, saving, startedSaving]);
 
   if (isEditing) {
     return (
       <Stack direction="row" spacing={2}>
         <Box flexGrow={1}>
-          <TextField
+          <LimitedInput
             {...props}
             variant="outlined"
-            onChange={(event) => handleChange(event.target.value)}
-            error={!!error}
-            helperText={error}
+            maximumLength={maximumLength}
+            onChange={(event) => setValue(event.target.value)}
             value={value}
             fullWidth
           />
         </Box>
-        {loading ? (
+        {saving ? (
           <CircularProgress />
         ) : (
           <Stack direction="row" spacing={1} alignItems="flex-start">
-            <IconButton onClick={handleSave}>
+            <IconButton
+              onClick={() => {
+                setStartedSaving(true);
+                onSave(value);
+              }}
+            >
               <CheckIcon />
             </IconButton>
             <IconButton onClick={() => setIsEditing(false)}>

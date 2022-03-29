@@ -1,33 +1,30 @@
-import { useIsMobile } from "#/styles/responsive";
-import AuthorAvatar from "@/containers/AuthorAvatar";
-import Grid from "@/components/Grid";
-import { Button, Paper, Stack, Typography } from "@mui/material";
-
-import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import CompactAuthorInformation from "./CompactAuthorInformation";
+import FullAuthorInformation from "./FullAuthorInformation";
 import { Author } from "@tryghost/content-api";
 import React from "react";
 
 interface AuthorInformationProps {
   author: Author;
+  variant: "full" | "compact";
+  withoutPaper?: boolean;
 }
 
-const SubscribeButton: React.FC = ({}) => {
-  return (
-    <Button
-      variant="contained"
-      sx={{
-        height: "48px",
-        borderRadius: "12px",
-        width: "100%",
-      }}
-    >
-      <span>Đã theo dõi</span>
-    </Button>
-  );
-};
+const AuthorInformation: React.FC<AuthorInformationProps> = ({
+  author,
+  variant = "full",
+  withoutPaper,
+}) => {
+  const content =
+    variant === "full" ? (
+      <FullAuthorInformation author={author} />
+    ) : (
+      <CompactAuthorInformation author={author} />
+    );
 
-const AuthorInformation: React.FC<AuthorInformationProps> = ({ author }) => {
-  const isMobile = useIsMobile();
+  if (withoutPaper) {
+    return content;
+  }
 
   return (
     <Paper
@@ -36,41 +33,7 @@ const AuthorInformation: React.FC<AuthorInformationProps> = ({ author }) => {
         padding: 3,
       }}
     >
-      <Grid container spacing={4}>
-        <Grid item mobile={12} desktop={5}>
-          <Stack direction="row" spacing={5}>
-            <Box maxWidth={140} maxHeight={140} flexBasis={140}>
-              <AuthorAvatar author={author} />
-            </Box>
-            <Stack spacing={2} flexGrow={1}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Tác giả
-              </Typography>
-              <Typography variant="h5" fontWeight="bolder">
-                {author.name ?? "Author"}
-              </Typography>
-              {!isMobile && <SubscribeButton />}
-            </Stack>
-          </Stack>
-        </Grid>
-
-        {isMobile && (
-          <Grid item mobile={12}>
-            <SubscribeButton />
-          </Grid>
-        )}
-
-        <Grid item mobile={12} desktop={7}>
-          <Stack spacing={1}>
-            <Typography variant="subtitle1" fontWeight="bold">
-              Giới thiệu
-            </Typography>
-            <Typography component="sub" variant="subtitle1">
-              {author.bio ?? ""}
-            </Typography>
-          </Stack>
-        </Grid>
-      </Grid>
+      {content}
     </Paper>
   );
 };

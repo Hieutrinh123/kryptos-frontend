@@ -13,6 +13,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({}) => {
         display="flex"
         justifyContent="center"
         alignItems="center"
+        paddingY={10}
       >
         <CircularProgress />
       </Box>

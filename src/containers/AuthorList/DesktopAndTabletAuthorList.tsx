@@ -15,7 +15,7 @@ const DesktopAndTabletAuthorList: React.FC<DesktopAndTabletAuthorListProps> = ({
     <Box>
       <Grid container spacing={4} rowSpacing={4} justifyContent="center">
         {authors.map((author, index) => (
-          <Grid item tablet={3} desktop={2} key={index}>
+          <Grid item tablet={4} desktop={2} key={index}>
             <AuthorCard author={author} />
           </Grid>
         ))}

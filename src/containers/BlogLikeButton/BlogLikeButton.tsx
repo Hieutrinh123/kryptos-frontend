@@ -1,4 +1,4 @@
-import { useLikePost } from "#/hooks/firestore/usePostInteraction";
+import {useLikePost} from "@/api/hooks/firestore/usePostInteraction";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";

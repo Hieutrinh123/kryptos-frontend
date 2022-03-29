@@ -1,4 +1,3 @@
-import { grey } from "#/styles/colors";
 import MobileAuthenticationMenu from "@/containers/Header/MobileHeaderContent/MobileAuthenticationMenu";
 import MobileSettingsMenu from "@/containers/Header/MobileHeaderContent/MobileSettingsMenu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -46,7 +45,10 @@ export const MobileDrawer = ({}) => {
       <SwipeableDrawer
         anchor="right"
         PaperProps={{
-          sx: { width: "100%", borderRadius: 0, background: grey["500"] },
+          sx: {
+            width: "100%",
+            borderRadius: 0,
+          },
         }}
         open={isMenuOpen}
         disableBackdropTransition={!iOS}

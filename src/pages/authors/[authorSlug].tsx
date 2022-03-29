@@ -47,7 +47,7 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
     <FullLayout>
       <Container>
         <Box mt={4}>
-          <AuthorInformation author={author} />
+          <AuthorInformation author={author} variant="full"/>
         </Box>
 
         <Box mt={8}>

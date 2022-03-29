@@ -1,11 +1,12 @@
 import { getInitials } from "#/utils/naming";
+import { UserData } from "@/api/hooks/firestore/useUserData";
 import { User } from "@firebase/auth";
 import Avatar, { AvatarProps } from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 import React from "react";
 
 interface UserAvatarProps {
-  user: User;
+  user: User | UserData;
   sx?: AvatarProps["sx"];
 }
 

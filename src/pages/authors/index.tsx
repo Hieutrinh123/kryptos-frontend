@@ -1,8 +1,8 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { useRouterPage } from "#/hooks/useRouterPage";
 import { listAuthors, useAuthorList } from "@/api/author";
-import AuthorCard from "@/containers/AuthorCard";
 import RouterPagination from "@/components/RouterPagination";
+import AuthorInformation from "@/containers/AuthorInformation";
 import FullLayout from "@/layouts/FullLayout";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
@@ -25,16 +25,22 @@ const AuthorListPage: NextPage<AuthorListPageProps> = ({
 
   return (
     <FullLayout>
-      <Container>
-        <Typography variant="h3" textAlign="center" mt={3}>
-          Các tác giả
-        </Typography>
-        <Stack spacing={3} mt={3}>
-          {authors.map((author) => (
-            <AuthorCard author={author} key={author.slug} variant="detailed" />
-          ))}
+      <Container sx={{ paddingY: 3 }}>
+        <Stack spacing={3}>
+          <Typography variant="h3" textAlign="center" mt={3}>
+            Các tác giả
+          </Typography>
+          <Stack spacing={3} mt={3}>
+            {authors.map((author) => (
+              <AuthorInformation
+                author={author}
+                key={author.slug}
+                variant="compact"
+              />
+            ))}
+          </Stack>
+          <RouterPagination count={totalPageCount} basePath={`authors`} />
         </Stack>
-        <RouterPagination count={totalPageCount} basePath={`authors`} />
       </Container>
     </FullLayout>
   );

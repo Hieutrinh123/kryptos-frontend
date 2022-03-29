@@ -1,10 +1,7 @@
-import { useAuthStateWithRedirect } from "#/hooks/auth/useFirebaseAuthState";
-import { useFirebaseUpdateProfile } from "#/hooks/auth/useFirebaseUpdateProfile";
 import {
-  useCreateNewExtraDataIfNotExisting,
-  useUpdateUserExtraData,
-  useUserExtraData,
-} from "#/hooks/firestore/useUserExtraData";
+  useUpdateUserData,
+  useUserData,
+} from "@/api/hooks/firestore/useUserData";
 import Grid from "@/components/Grid";
 import SwitchModeTextField from "@/components/SwitchModeTextField";
 import UserAvatarUploader from "@/containers/UserAvatarUploader";
@@ -20,24 +17,16 @@ interface UserInformationManagementProps {}
 const UserInformationManagement: React.FC<
   UserInformationManagementProps
 > = ({}) => {
-  const { user, loading: loadingUser } = useAuthStateWithRedirect();
+  const { user, data: userData, loading: loadingUserData } = useUserData();
 
-  const { data: userExtraData, loading: loadingUserExtraData } =
-    useUserExtraData();
-
-  useCreateNewExtraDataIfNotExisting();
-
-  const { update: updateProfile, loading: loadingUpdateProfile } =
-    useFirebaseUpdateProfile();
-
-  const { update: updateUserExtraData, loading: loadingUpdateExtraData } =
-    useUpdateUserExtraData();
+  const { handleUpdate: updateUserData, updating: loadingUpdateUserData } =
+    useUpdateUserData();
 
   if (!user) {
     return null;
   }
 
-  if (loadingUser) {
+  if (loadingUserData) {
     return (
       <Paper
         elevation={1}
@@ -59,7 +48,7 @@ const UserInformationManagement: React.FC<
     >
       <Grid container spacing={4}>
         <Grid item mobile={12} tablet={3} desktop={2}>
-          <Box maxWidth={120} maxHeight={120} flexBasis={120}>
+          <Box width={120} flexBasis={120} height={120}>
             <UserAvatarUploader />
           </Box>
         </Grid>
@@ -67,8 +56,8 @@ const UserInformationManagement: React.FC<
           <Stack spacing={1}>
             <SwitchModeTextField
               defaultValue={user.displayName ?? ""}
-              onSave={(name) => updateProfile({ displayName: name })}
-              loading={loadingUpdateProfile}
+              onSave={(name) => updateUserData({ displayName: name })}
+              saving={loadingUpdateUserData}
               label="Tên người dùng"
             >
               <Typography variant="h5" fontWeight="bolder">
@@ -83,9 +72,9 @@ const UserInformationManagement: React.FC<
               <Typography component="span">{user.email}</Typography>
             </p>
             <SwitchModeTextField
-              defaultValue={userExtraData?.phoneNumber ?? ""}
-              onSave={(phoneNumber) => updateUserExtraData({ phoneNumber })}
-              loading={loadingUpdateExtraData}
+              defaultValue={userData?.phoneNumber ?? ""}
+              onSave={(phoneNumber) => updateUserData({ phoneNumber })}
+              saving={loadingUpdateUserData}
               label="Số điện thoại"
             >
               <p>
@@ -94,18 +83,18 @@ const UserInformationManagement: React.FC<
                 </Typography>
 
                 <Typography component="span">
-                  {userExtraData?.phoneNumber ?? "Chưa cập nhật"}
+                  {userData?.phoneNumber ?? "Chưa cập nhật"}
                 </Typography>
               </p>
             </SwitchModeTextField>
           </Stack>
         </Grid>
         <Grid item mobile={12} tablet={12} desktop={6}>
-          {!loadingUserExtraData && userExtraData ? (
+          {!loadingUserData && userData ? (
             <SwitchModeTextField
-              defaultValue={userExtraData.bio ?? ""}
-              onSave={(bio) => updateUserExtraData({ bio })}
-              loading={loadingUpdateExtraData}
+              defaultValue={userData.bio ?? ""}
+              onSave={(bio) => updateUserData({ bio })}
+              saving={loadingUpdateUserData}
               multiline
               maximumLength={300}
               minRows={5}
@@ -115,7 +104,7 @@ const UserInformationManagement: React.FC<
                 <Typography variant="h5" fontWeight="bolder">
                   Giới thiệu
                 </Typography>
-                <Typography variant="body1">{userExtraData.bio}</Typography>
+                <Typography variant="body1">{userData.bio}</Typography>
               </Stack>
             </SwitchModeTextField>
           ) : (

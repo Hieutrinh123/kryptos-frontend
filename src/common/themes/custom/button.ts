@@ -26,7 +26,7 @@ export const CommonMuiButton: Components["MuiButton"] = {
       position: "relative",
       zIndex: 100,
       "&:before": {
-        borderRadius: 24,
+        borderRadius: "inherit",
         backgroundImage: boldGlassGradient,
         content: '""',
         display: "block",

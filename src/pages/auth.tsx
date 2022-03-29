@@ -1,6 +1,5 @@
-import { useFirebaseAuthState } from "#/hooks/auth/useFirebaseAuthState";
+import { useUserData } from "#/../api/hooks/firestore/useUserData";
 import { useShowAlert } from "#/hooks/useShowAlert";
-import { useUserExtraData } from "#/hooks/firestore/useUserExtraData";
 import EmailAuthenticationForm from "@/containers/AuthenticationForm/EmailAuthenticationForm";
 import SocialAuthenticationForm from "@/containers/AuthenticationForm/SocialAuthenticationForm";
 import Box from "@mui/material/Box";
@@ -8,6 +7,7 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import _ from "lodash";
 import { NextPage } from "next";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
@@ -27,31 +27,33 @@ const LoginPageLogo: React.FC = () => (
 
 const LoginPage: NextPage = () => {
   const router = useRouter();
-  const { user, loading: loadingUser } = useFirebaseAuthState();
-  const { data: userExtraData, loading: loadingExtraData } = useUserExtraData();
+  const { user, loading: loadingUser, isNew } = useUserData();
   const showAlert = useShowAlert();
-
   useEffect(() => {
-    if (!loadingUser && !loadingExtraData && user) {
-      if (userExtraData) {
-        router
-          .replace("/")
-          .then(() => showAlert("Đăng nhập thành công", "success"));
-      } else {
+    if (!loadingUser && user && !_.isNil(isNew)) {
+      if (isNew) {
         router
           .replace("/profile")
           .then(() =>
-            showAlert(
-              "Chào mừng đến với KryptosNews. Hãy cập nhật một số thông tin cá nhân của bạn",
-              "info"
-            )
+            showAlert("Hãy cập nhật thông tin cá nhân của bạn", "success")
           );
+      } else {
+        router
+          .replace("/")
+          .then(() => showAlert("Đăng nhập thành công", "success"));
       }
     }
-  }, [loadingUser, user, router, loadingExtraData, userExtraData, showAlert]);
+  }, [isNew, loadingUser, router, showAlert, user]);
 
   return (
-    <Box bgcolor="background.secondary" py={4}>
+    <Box
+      bgcolor="background.secondary"
+      py={4}
+      minHeight="100vh"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Container maxWidth="md">
         <Stack spacing={4} alignItems="center">
           <LoginPageLogo />

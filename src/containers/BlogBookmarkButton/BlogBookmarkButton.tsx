@@ -1,4 +1,4 @@
-import { useBookmarkPost } from "#/hooks/firestore/usePostInteraction";
+import {useBookmarkPost} from "@/api/hooks/firestore/usePostInteraction";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -31,19 +31,17 @@ const CompactBlogBookmarkButton: React.FC<InnerBlogBookmarkButtonProps> = ({
 }) => {
   const { bookmarked, toggleBookmark, loading } = useBookmarkPost(post);
 
-  if (loading) {
-    return <CircularProgress />;
-  }
-
   return (
     <IconButton
       color={bookmarked ? "primary" : "secondary"}
       onClick={(event) => {
-        event.stopPropagation();
-        toggleBookmark();
+        if (!loading) {
+          event.stopPropagation();
+          toggleBookmark();
+        }
       }}
     >
-      <BookmarkBorderIcon />
+      {loading ? <CircularProgress /> : <BookmarkBorderIcon />}
     </IconButton>
   );
 };

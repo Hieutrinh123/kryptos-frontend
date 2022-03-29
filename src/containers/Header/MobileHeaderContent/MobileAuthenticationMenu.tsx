@@ -1,16 +1,17 @@
-import { useFirebaseAuthState } from "#/hooks/auth/useFirebaseAuthState";
-import { grey } from "#/styles/colors";
 import { getInitials } from "#/utils/naming";
+import {useFirebaseAuthState} from "@/api/hooks/auth/useFirebaseAuthState";
 import AuthenticationMenu from "@/containers/AuthenticationMenu";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, ListItemIcon } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import LoginIcon from "@mui/icons-material/Login";
+import NextLink from "next/link";
 import React from "react";
 
 interface MobileAuthenticationMenuProps {
@@ -29,14 +30,26 @@ const MobileAuthenticationMenu: React.FC<MobileAuthenticationMenuProps> = ({
     return <CircularProgress />;
   }
   if (!user) {
-    return null;
+    return (
+      <NextLink href="/auth" passHref>
+        <ListItemButton sx={{ height: 80 }}>
+          <ListItemText
+            primary="Đăng nhập"
+            primaryTypographyProps={{ textAlign: "right" }}
+            secondaryTypographyProps={{ textAlign: "right" }}
+            sx={{ marginRight: 4 }}
+          />
+
+          <ListItemIcon>
+            <LoginIcon fontSize="large" />
+          </ListItemIcon>
+        </ListItemButton>
+      </NextLink>
+    );
   }
   return (
     <>
-      <ListItemButton
-        onClick={open ? onClose : onOpen}
-        sx={{ background: grey["600"], height: 80 }}
-      >
+      <ListItemButton onClick={open ? onClose : onOpen} sx={{ height: 80 }}>
         <Box marginRight={4}>{open ? <ExpandLess /> : <ExpandMore />}</Box>
         <ListItemText
           primary="Tài khoản của tôi"

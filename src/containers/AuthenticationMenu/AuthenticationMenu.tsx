@@ -1,5 +1,5 @@
-import { useFirebaseAuthState } from "#/hooks/auth/useFirebaseAuthState";
 import { getInitials } from "#/utils/naming";
+import {useFirebaseAuthState} from "@/api/hooks/auth/useFirebaseAuthState";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";

@@ -13,23 +13,23 @@ export function usePostList(
   limit: number = 1
 ) {
   const [posts, setPosts] = useState(initialPosts);
-  const [loading, setLoading] = useState(false);
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     if (page === 1) {
       setPosts(initialPosts);
     } else {
-      setLoading(true);
+      setUpdating(true);
       listPosts(page, limit).then((posts) => {
         setPosts(posts);
-        setLoading(false);
+        setUpdating(false);
       });
     }
   }, [page, limit, initialPosts]);
 
   return {
     posts,
-    loading,
+    updating,
   };
 }
 

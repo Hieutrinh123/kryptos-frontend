@@ -1,11 +1,12 @@
 import { cloudFirestore } from "#/config/firebase";
-import { useFirebaseAuthState } from "#/hooks/auth/useFirebaseAuthState";
+import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
 import { useShowAlert } from "#/hooks/useShowAlert";
 import { User } from "@firebase/auth";
 import { doc, setDoc } from "@firebase/firestore";
 import { PostOrPage } from "@tryghost/content-api";
 import { useCallback, useState } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useIsMounted } from "usehooks-ts";
 
 export interface UserPostInteraction {
   bookmarked?: boolean;
@@ -27,6 +28,7 @@ export function usePostInteraction(post: PostOrPage) {
 }
 
 export function useUpdatePostInteraction(post: PostOrPage) {
+  const checkIsMounted = useIsMounted();
   const { user } = useFirebaseAuthState();
   const documentRef = getDocumentRef(user, post);
 
@@ -43,11 +45,13 @@ export function useUpdatePostInteraction(post: PostOrPage) {
           const error = e as Error;
           showAlert(error.message, "error");
         } finally {
-          setLoading(false);
+          if (checkIsMounted()) {
+            setLoading(false);
+          }
         }
       }
     },
-    [documentRef, showAlert]
+    [checkIsMounted, documentRef, showAlert]
   );
   return {
     updatePostInteraction,

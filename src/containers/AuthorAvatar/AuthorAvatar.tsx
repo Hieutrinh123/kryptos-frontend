@@ -1,8 +1,8 @@
-import {getInitials} from "#/utils/naming";
+import { getInitials } from "#/utils/naming";
+import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 import { SxProps } from "@mui/system";
 import { Author } from "@tryghost/content-api";
-import Avatar from "@mui/material/Avatar";
 import React from "react";
 
 interface AuthorAvatarProps {
@@ -14,7 +14,6 @@ const StyledAvatar = styled(Avatar)({
   height: "100%",
   width: "100%",
 });
-
 
 const AuthorAvatar: React.FC<AuthorAvatarProps> = ({ author, sx }) => {
   return (

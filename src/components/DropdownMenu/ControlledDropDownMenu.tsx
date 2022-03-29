@@ -35,10 +35,10 @@ const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
   if (buttonBuilder) {
     buttonComponent = buttonBuilder(
       {
-        ref: buttonRef,
         ...bindToggle(popupState),
         className: isOpen ? "Mui-selected" : "",
       },
+      buttonRef,
       isOpen
     );
   } else {

@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 import { usePopupState } from "material-ui-popup-state/hooks";
-import Link from "next/link";
+import NextLink from "next/link";
 import React from "react";
 
 interface DesktopNavMenuProps {
@@ -25,27 +25,25 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ category }) => {
         offsetY={0}
       >
         {category.subcategories.map((subcategory) => (
-          <Link
+          <NextLink
             passHref
             href={"/categories/" + subcategory.slug}
             key={subcategory.slug}
           >
-            <a onClick={popupState.close}>
-              <MenuItem>
-                <MuiLink>{subcategory.title}</MuiLink>
-              </MenuItem>
-            </a>
-          </Link>
+            <MenuItem>
+              <MuiLink onClick={popupState.close}>{subcategory.title}</MuiLink>
+            </MenuItem>
+          </NextLink>
         ))}
       </DropdownMenu>
     );
   }
   return (
-    <Link passHref href={"/categories/" + category.slug}>
+    <NextLink passHref href={"/categories/" + category.slug}>
       <Button variant="text" color="secondary">
         <span>{category.title}</span>
       </Button>
-    </Link>
+    </NextLink>
   );
 };
 

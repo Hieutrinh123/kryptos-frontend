@@ -3,7 +3,11 @@ export const CommonMuiFilledInput: Components["MuiFilledInput"] = {
   styleOverrides: {
     root: {
       borderBottom: "none",
+      borderRadius: 12,
     },
+  },
+  defaultProps: {
+    disableUnderline: true,
   },
 };
 export const LightModeMuiFilledInput: Components["MuiFilledInput"] = {
