@@ -1,6 +1,7 @@
 import { glassGradient } from "#/styles/gradients";
 import { useIsDesktop } from "#/styles/responsive";
 import Grid from "@/components/Grid";
+import PostStatistic from "@/container/PostStatistic";
 import AuthorChip from "@/containers/AuthorChip";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
@@ -29,6 +30,7 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
         >
           <Grid item mobile={12} tablet={6}>
             <PostTitle post={post} />
+            <PostStatistic post={post} />
           </Grid>
           <Grid item mobile={12} tablet={6} width="100%">
             <Box

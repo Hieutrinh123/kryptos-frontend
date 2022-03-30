@@ -1,4 +1,5 @@
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
+import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
 import { getPostDetail, listAllPostSlugs } from "@/api/posts";
 import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
@@ -27,6 +28,7 @@ interface BlogViewPageProps {
 const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
   const isDesktop = useIsDesktop();
   const isMobile = useIsMobile();
+  const { user } = useFirebaseAuthState();
   if (!post) {
     return null;
   }
@@ -61,16 +63,18 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
               </Card>
               <Card sx={{ padding: 3 }}>
                 <Stack spacing={3}>
-                  <Stack direction="row" spacing={2}>
-                    <BlogBookmarkButton
-                      post={post}
-                      variant={isMobile ? "compact" : "full"}
-                    />
-                    <BlogLikeButton
-                      post={post}
-                      variant={isMobile ? "compact" : "full"}
-                    />
-                  </Stack>
+                  {user && (
+                    <Stack direction="row" spacing={2}>
+                      <BlogBookmarkButton
+                        post={post}
+                        variant={isMobile ? "compact" : "full"}
+                      />
+                      <BlogLikeButton
+                        post={post}
+                        variant={isMobile ? "compact" : "full"}
+                      />
+                    </Stack>
+                  )}
                   <Typography variant="h6" fontWeight="bolder">
                     Bình luận của độc giả
                   </Typography>

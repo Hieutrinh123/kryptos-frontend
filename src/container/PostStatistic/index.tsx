@@ -1,0 +1,1 @@
+import PostStatistic from './PostStatistic'; export default PostStatistic;
