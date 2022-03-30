@@ -1,8 +1,12 @@
 import { grey } from "#/styles/colors";
 import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
 import { useCommenter } from "@/api/hooks/firestore/useCommenter";
-import { CommentData } from "@/api/hooks/firestore/useCommentList";
+import {
+  CommentData,
+  useUpdateComment,
+} from "@/api/hooks/firestore/useCommentList";
 import Grid from "@/components/Grid";
+import SwitchModeTextField from "@/components/SwitchModeTextField";
 import ReplyListing from "@/containers/CommentListing/ReplyListing";
 import UserAvatar from "@/containers/UserAvatar";
 import { QueryDocumentSnapshot } from "@firebase/firestore";
@@ -26,12 +30,28 @@ const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
   const comment = commentSnapshot.data();
   const { user } = useFirebaseAuthState();
   const { commenter } = useCommenter(comment);
+  const { updateComment: handleUpdateComment, loading: updatingComment } =
+    useUpdateComment(commentSnapshot.ref);
+
+  const currentUserIsCommenter = user?.uid === comment.uid;
+
   const { value: showReplyInput, toggle: toggleReplyInput } = useBoolean(false);
   if (!commenter) {
     return null;
   }
 
   const showReplyButton = !isReply && user;
+
+  const commentContent = (
+    <Box
+      padding={2}
+      flexGrow={1}
+      bgcolor="background.default"
+      borderRadius="24px"
+    >
+      <Typography>{comment.content}</Typography>
+    </Box>
+  );
 
   return (
     <Box>
@@ -54,14 +74,17 @@ const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
           mobile={showReplyButton ? 11 : 12}
           tablet={showReplyButton ? 7 : 8}
         >
-          <Box
-            padding={2}
-            flexGrow={1}
-            bgcolor="background.default"
-            borderRadius="24px"
-          >
-            <Typography>{comment.content}</Typography>
-          </Box>
+          {currentUserIsCommenter ? (
+            <SwitchModeTextField
+              defaultValue={comment.content}
+              onSave={handleUpdateComment}
+              saving={updatingComment}
+            >
+              {commentContent}
+            </SwitchModeTextField>
+          ) : (
+            commentContent
+          )}
         </Grid>
         {showReplyButton && (
           <Grid item mobile={1}>

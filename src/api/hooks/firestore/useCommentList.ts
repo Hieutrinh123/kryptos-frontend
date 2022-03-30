@@ -6,10 +6,12 @@ import {
   collection,
   CollectionReference,
   DocumentData,
+  DocumentReference,
   QueryDocumentSnapshot,
   serverTimestamp,
   SnapshotOptions,
   Timestamp,
+  updateDoc,
 } from "@firebase/firestore";
 import { PostOrPage } from "@tryghost/content-api";
 import { useCallback, useState } from "react";
@@ -84,6 +86,38 @@ export function useAddComment(collectionRef: CollectionReference<CommentData>) {
   );
   return {
     addComment,
+    loading,
+  };
+}
+
+export function useUpdateComment(
+  documentRef: DocumentReference<CommentData>
+) {
+  const { user } = useFirebaseAuthState();
+  const [loading, setLoading] = useState<boolean>(false);
+  const showAlert = useShowAlert();
+
+  const updateComment = useCallback(
+    async (commentContent: string) => {
+      if (!user) {
+        return;
+      }
+      setLoading(true);
+      try {
+        await updateDoc<CommentData>(documentRef, {
+          content: commentContent,
+        });
+      } catch (e) {
+        const error = e as Error;
+        showAlert(error.message, "error");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [documentRef, showAlert, user]
+  );
+  return {
+    updateComment,
     loading,
   };
 }
