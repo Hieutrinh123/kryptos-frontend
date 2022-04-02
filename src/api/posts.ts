@@ -1,91 +1,92 @@
-import { Category } from "#/config/navigation";
-import { PostOrPage, PostsOrPages } from "@tryghost/content-api";
-import { useEffect, useState } from "react";
-import { api } from "./api";
+import { Category } from "#/config/category";
+import { contentToExcerpt } from "#/utils/contentToExcerpt";
+import { axiosInstance } from "./api";
+import { Author } from "./author";
+import { ListingOptions, ListResult, StrapiImage } from "./strapi";
 
-export async function getPostDetail(slug: string): Promise<PostOrPage> {
-  return await api.posts.read({ slug }, { include: ["tags", "authors"] });
+interface Localization {
+  id: number;
+  slug: string;
+  locale: string;
 }
 
-export function usePostList(
-  initialPosts: PostsOrPages,
-  page: number,
-  limit: number = 1
-) {
-  const [posts, setPosts] = useState(initialPosts);
-  const [updating, setUpdating] = useState(false);
-
-  useEffect(() => {
-    if (page === 1) {
-      setPosts(initialPosts);
-    } else {
-      setUpdating(true);
-      listPosts(page, limit).then((posts) => {
-        setPosts(posts);
-        setUpdating(false);
-      });
-    }
-  }, [page, limit, initialPosts]);
-
-  return {
-    posts,
-    updating,
-  };
+export interface Post {
+  id: number;
+  title: string;
+  slug: string;
+  content: string;
+  publishedAt: string;
+  locale: string;
+  thumbnail?: StrapiImage;
+  localizations: Localization[];
+  author: Author;
+  excerpt?: string;
+  category?: Category;
 }
 
-export function listPosts(page: number, limit: number = 10) {
-  return api.posts.browse({ page, limit, include: ["authors", "tags"] });
+export function getExcerpt(post: Post): string {
+  return post.excerpt ? post.excerpt : contentToExcerpt(post.content);
+}
+
+export type PostListingResult = ListResult<Post>;
+
+export async function getPostDetail(slug: string): Promise<Post> {
+  const response = await axiosInstance.get<Post>(`/posts/${slug}`);
+  return response.data;
+}
+
+export async function listPosts(options: ListingOptions<Post>) {
+  const response = await axiosInstance.get<PostListingResult>(`/posts/`, {
+    params: options,
+  });
+  return response.data;
 }
 
 export async function listAllPostSlugs() {
   let slugs: string[] = [];
   for (let page = 1; ; ++page) {
-    const posts = await api.posts.browse({ page });
-    if (!posts) {
-      continue;
-    }
+    const postListing = await listPosts({
+      pagination: { page, pageSize: 100 },
+    });
+    const posts = postListing.results;
     slugs = slugs.concat(posts.map((post) => post.slug));
-    if (!posts.meta.pagination.next) {
+    if (postListing.pagination.page >= postListing.pagination.pageCount) {
       break;
     }
   }
   return slugs;
 }
 
-export async function listPostsByCategorySlug(
-  categorySlug: string,
-  page: number,
-  limit: number = 10
-): Promise<PostsOrPages> {
-  return api.posts.browse({
-    page,
-    limit,
-    filter: `tags:[${categorySlug}]`,
-    include: ["authors", "tags"],
-  });
-}
-
 export function listHighlightedPosts() {
-  return api.posts.browse({ limit: 6 });
+  return listPosts({
+    sort: "publishedAt:desc",
+    pagination: { page: 1, pageSize: 6 },
+  });
 }
 
 export function listPostsByCategory(
   category: Category,
-  page: number = 1,
-  limit: number = 10
+  page: number,
+  pageSize: number
 ) {
-  let allTags: string;
+  let allCategorySlugs: string[];
   if (!category.subcategories) {
-    allTags = category.slug;
+    allCategorySlugs = [category.slug];
   } else {
-    allTags = category.subcategories
-      .map((subcategory) => subcategory.slug)
-      .join(",");
+    allCategorySlugs = category.subcategories.map(
+      (subcategory) => subcategory.slug
+    );
   }
-  return api.posts.browse({
-    limit,
-    page,
-    include: ["authors", "tags"],
-    filter: `tags:[${allTags}]`,
+
+  return listPosts({
+    sort: "publishedAt:desc",
+    pagination: { page, pageSize },
+    filters: {
+      category: {
+        slug: {
+          $in: allCategorySlugs,
+        },
+      },
+    },
   });
 }

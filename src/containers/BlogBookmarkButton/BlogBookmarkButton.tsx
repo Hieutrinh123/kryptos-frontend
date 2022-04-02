@@ -1,14 +1,14 @@
-import {useBookmarkPost} from "@/api/hooks/firestore/usePostInteraction";
+import { useBookmarkPost } from "@/api/hooks/firestore/usePostInteraction";
+import { Post } from "@/api/posts";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import { PostOrPage } from "@tryghost/content-api";
 import React from "react";
 
 interface BlogBookmarkButton {
-  post: PostOrPage;
+  post: Post;
   variant: "compact" | "full";
 }
 
@@ -23,7 +23,7 @@ const BlogBookmarkButton: React.FC<BlogBookmarkButton> = ({
 };
 
 interface InnerBlogBookmarkButtonProps {
-  post: PostOrPage;
+  post: Post;
 }
 
 const CompactBlogBookmarkButton: React.FC<InnerBlogBookmarkButtonProps> = ({

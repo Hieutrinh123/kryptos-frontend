@@ -1,41 +1,60 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
-import { getAllLeafCategories } from "#/config/navigation";
+import { getAllLeafCategories } from "#/config/category";
 import { POSTS_PER_PAGE } from "#/config/posts";
-import { useIsMobile } from "#/styles/responsive";
 import { useRouterPage } from "#/hooks/useRouterPage";
-import { listAuthors } from "@/api/author";
-import { listPostsByCategorySlug, usePostList } from "@/api/posts";
-import BlogPostList from "@/containers/BlogPostList";
+import { useIsMobile } from "#/styles/responsive";
+import { AuthorListingResult, listAuthors } from "@/api/author";
+import { getPageSettings } from "@/api/pageSettings";
+import { listPosts, PostListingResult } from "@/api/posts";
+import { Locale } from "@/api/strapi";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorList from "@/containers/AuthorList";
+import BlogPostList from "@/containers/BlogPostList";
 import FullLayout from "@/layouts/FullLayout";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Authors, PostsOrPages } from "@tryghost/content-api";
 import _ from "lodash";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import NextLink from "next/link";
+import { useEffect, useState } from "react";
 
 interface CategoryBlogListPageProps {
   categorySlug: string;
-  authors: Authors;
-  totalPageCount: number;
-  initialPosts: PostsOrPages;
+  authors: AuthorListingResult;
+  initialPosts: PostListingResult;
 }
 
 const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
   categorySlug,
   authors,
   initialPosts,
-  totalPageCount,
 }) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const page = useRouterPage();
-  const { posts, updating } = usePostList(initialPosts, page, POSTS_PER_PAGE);
 
-  if (!posts || updating) {
+  const [postListResult, setPostListResult] = useState(initialPosts);
+  const [updating, setUpdating] = useState(false);
+
+  useEffect(() => {
+    if (page === 1) {
+      setPostListResult(initialPosts);
+    } else {
+      setUpdating(true);
+      listPosts({
+        pagination: { page, pageSize: POSTS_PER_PAGE },
+      }).then((posts) => {
+        setPostListResult(posts);
+        setUpdating(false);
+      });
+    }
+  }, [page, initialPosts, categorySlug]);
+
+  if (!postListResult || updating) {
     return null;
   }
   return (
@@ -43,22 +62,22 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
       <Container sx={{ marginY: 6 }}>
         <Stack spacing={5}>
           <Typography variant="h3" fontWeight={900} textAlign="center">
-            Các bài viết
+            {t("Posts")}
           </Typography>
 
-          <BlogPostList posts={posts} mobileCarousel={false} />
+          <BlogPostList posts={postListResult.results} mobileCarousel={false} />
           <RouterPagination
-            count={totalPageCount}
+            count={initialPosts.pagination.pageCount}
             basePath={`/categories/${categorySlug}`}
           />
           {!isMobile && (
             <>
               <Typography variant="h3" fontWeight={900} textAlign="center">
-                Các tác giả
+                {t("Authors")}
               </Typography>
-              <AuthorList authors={authors} />
+              <AuthorList authors={authors.results} />
               <NextLink href="/authors" passHref>
-                <Link textAlign="center">Xem thêm</Link>
+                <Link textAlign="center">{t("View More")}</Link>
               </NextLink>
             </>
           )}
@@ -81,7 +100,15 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
   }
 
   const authors = await listAuthors(1, AUTHORS_PER_PAGE);
-  const posts = await listPostsByCategorySlug(categorySlug, 1, POSTS_PER_PAGE);
+  const posts = await listPosts({
+    pagination: { page: 1, pageSize: POSTS_PER_PAGE },
+    locale: context.locale as Locale,
+    filters: {
+      category: {
+        slug: categorySlug,
+      },
+    },
+  });
 
   if (_.isNil(posts)) {
     return {
@@ -91,10 +118,11 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale as Locale)),
+      pageSettings: await getPageSettings(context.locale as Locale),
       authors,
       initialPosts: posts,
       categorySlug: categorySlug,
-      totalPageCount: posts.meta.pagination.pages,
     },
     revalidate: 3600,
   };

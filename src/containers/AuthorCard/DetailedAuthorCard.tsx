@@ -1,4 +1,4 @@
-import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";
+import { contentToExcerpt } from "#/utils/contentToExcerpt";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Author } from "@tryghost/content-api";
+import { Author } from "@/api/author";
 import NextLink from "next/link";
 import React from "react";
 
@@ -16,7 +16,7 @@ interface DetailedAuthorCardProps {
 
 const DetailedAuthorCard: React.FC<DetailedAuthorCardProps> = ({ author }) => {
   return (
-    <NextLink href={"/authors/" + author.slug} passHref>
+    <NextLink href={`/authors/${author.id}`} passHref>
       <a>
         <Card
           sx={{
@@ -35,7 +35,7 @@ const DetailedAuthorCard: React.FC<DetailedAuthorCardProps> = ({ author }) => {
             <CardContent sx={{ marginTop: 3, padding: "0 !important" }}>
               <Typography variant="h5">{author.name}</Typography>
               <Typography variant="subtitle1">
-                {limitParagraphWordCount(author.bio, 20)}
+                {contentToExcerpt(author.bio, 20)}
               </Typography>
             </CardContent>
           </Stack>

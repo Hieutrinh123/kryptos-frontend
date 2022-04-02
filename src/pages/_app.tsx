@@ -2,11 +2,13 @@ import { AlertProvider } from "#/hooks/useShowAlert";
 import { SVGGradient } from "#/styles/gradients";
 import { ThemeModeProvider } from "#/themes";
 import createEmotionCache from "#/utils/createEmotionCache";
+import { PageSettings, PageSettingsProvider } from "@/api/pageSettings";
 import "@/common/styles/globals.scss";
 import LoadingScreen from "@/containers/LoadingScreen";
 import { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
+import { appWithTranslation } from "next-i18next";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -14,6 +16,7 @@ import React, { useEffect, useState } from "react";
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
+  pageSettings: PageSettings;
 }
 
 const clientSideEmotionCache = createEmotionCache();
@@ -79,14 +82,16 @@ function MyApp({
       <SVGGradient />
       <CacheProvider value={emotionCache}>
         <ThemeModeProvider>
-          <AlertProvider>
-            <CssBaseline enableColorScheme />
-            {loading ? <LoadingScreen /> : <Component {...pageProps} />}
-          </AlertProvider>
+          <PageSettingsProvider settings={pageProps.pageSettings}>
+            <AlertProvider>
+              <CssBaseline enableColorScheme />
+              {loading ? <LoadingScreen /> : <Component {...pageProps} />}
+            </AlertProvider>
+          </PageSettingsProvider>
         </ThemeModeProvider>
       </CacheProvider>
     </>
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

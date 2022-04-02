@@ -1,19 +1,16 @@
 import { cloudFirestore } from "#/config/firebase";
 import { useShowAlert, useShowAlertEffect } from "#/hooks/useShowAlert";
 import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
+import { Post } from "@/api/posts";
 import {
   addDoc,
   collection,
   CollectionReference,
-  DocumentData,
   DocumentReference,
-  QueryDocumentSnapshot,
   serverTimestamp,
-  SnapshotOptions,
   Timestamp,
   updateDoc,
 } from "@firebase/firestore";
-import { PostOrPage } from "@tryghost/content-api";
 import { useCallback, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 
@@ -23,34 +20,16 @@ export interface CommentData {
   timestamp?: Timestamp;
 }
 
-export const commentConverter = {
-  toFirestore(comment: CommentData): DocumentData {
-    return {
-      content: comment.content,
-      uid: comment.uid,
-      timestamp: comment.timestamp,
-    };
-  },
-  fromFirestore(
-    snapshot: QueryDocumentSnapshot,
-    options: SnapshotOptions
-  ): CommentData {
-    const data = snapshot.data(options)!;
-    return {
-      content: data.content,
-      uid: data.uid,
-      timestamp: data.timestamp,
-    };
-  },
-};
-
-export function getCommentCollectionRef(post: PostOrPage) {
-  return collection(cloudFirestore, "posts", post.id, "comments").withConverter(
-    commentConverter
-  );
+export function getCommentCollectionRef(post: Post) {
+  return collection(
+    cloudFirestore,
+    "posts",
+    post.id.toString(),
+    "comments"
+  ) as CollectionReference<CommentData>;
 }
 
-export function useCommentSnapshotList(post: PostOrPage) {
+export function useCommentSnapshotList(post: Post) {
   const commentCollectionRef = getCommentCollectionRef(post);
   const [commentSnapshots, loading, error] =
     useCollection<CommentData>(commentCollectionRef);
@@ -90,9 +69,7 @@ export function useAddComment(collectionRef: CollectionReference<CommentData>) {
   };
 }
 
-export function useUpdateComment(
-  documentRef: DocumentReference<CommentData>
-) {
+export function useUpdateComment(documentRef: DocumentReference<CommentData>) {
   const { user } = useFirebaseAuthState();
   const [loading, setLoading] = useState<boolean>(false);
   const showAlert = useShowAlert();

@@ -1,11 +1,11 @@
 import { useIsMobile } from "#/styles/responsive";
+import { Author } from "@/api/author";
 import MobileAuthorList from "@/containers/AuthorList/MobileAuthorList";
-import DesktopAndTabletAuthorList from "./DesktopAndTabletAuthorList";
-import { Authors } from "@tryghost/content-api";
 import React from "react";
+import DesktopAndTabletAuthorList from "./DesktopAndTabletAuthorList";
 
 interface AuthorListProps {
-  authors: Authors;
+  authors: Author[];
 }
 
 const AuthorList: React.FC<AuthorListProps> = ({ authors }) => {

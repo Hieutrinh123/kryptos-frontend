@@ -1,17 +1,15 @@
-import {carouselTimeout, carouselTransitionTime} from "#/config/carousel";
+import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
+import { Post } from "@/api/posts";
 import BlogPostCard from "@/containers/BlogCard";
 import Box from "@mui/material/Box";
-import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 import Slider from "react-slick";
 
 interface CarouselPostListProps {
-  posts: PostsOrPages;
+  posts: Post[];
 }
 
-const CarouselPostList: React.FC<CarouselPostListProps> = ({
-  posts,
-}) => {
+const CarouselPostList: React.FC<CarouselPostListProps> = ({ posts }) => {
   return (
     <Slider
       dots

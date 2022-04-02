@@ -1,5 +1,6 @@
-import { Category } from "#/config/navigation";
+import { Category } from "#/config/category";
 import { Box, Link, Stack } from "@mui/material";
+import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import React from "react";
 
@@ -8,6 +9,7 @@ interface FooterLinkGroupProps {
 }
 
 const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -17,7 +19,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
     >
       <NextLink href={"/categories/" + category.slug} passHref>
         <Link underline="none" fontWeight="bold" color="white">
-          {category.title}
+          {t(category.title)}
         </Link>
       </NextLink>
       {category.subcategories && (
@@ -34,7 +36,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
             <li key={index}>
               <NextLink href={"/categories/" + subcategory.slug} passHref>
                 <Link underline="none" color="white">
-                  {subcategory.title}
+                  {t(subcategory.title)}
                 </Link>
               </NextLink>
             </li>

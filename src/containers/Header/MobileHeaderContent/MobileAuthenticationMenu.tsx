@@ -27,10 +27,10 @@ const MobileAuthenticationMenu: React.FC<MobileAuthenticationMenuProps> = ({
 }) => {
   const { user, loading } = useFirebaseAuthState();
   useEffect(() => {
-    if (!loading && !user) {
+    if (!loading && !user && open) {
       onClose();
     }
-  }, [loading, onClose, user]);
+  }, [loading, onClose, open, user]);
   if (loading) {
     return <CircularProgress />;
   }

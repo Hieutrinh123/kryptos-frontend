@@ -9,11 +9,11 @@ import ViewCountIcon from "@mui/icons-material/Visibility";
 import { CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { PostOrPage } from "@tryghost/content-api";
+import { Post } from "@/api/posts";
 import React from "react";
 
 interface PostStatisticProps {
-  post: PostOrPage;
+  post: Post;
 }
 
 const PostStatistic: React.FC<PostStatisticProps> = ({ post }) => {

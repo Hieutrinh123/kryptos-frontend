@@ -1,7 +1,7 @@
+import { Author } from "@/api/author";
 import Paper from "@mui/material/Paper";
 import CompactAuthorInformation from "./CompactAuthorInformation";
 import FullAuthorInformation from "./FullAuthorInformation";
-import { Author } from "@tryghost/content-api";
 import React from "react";
 
 interface AuthorInformationProps {

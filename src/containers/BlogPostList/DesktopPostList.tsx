@@ -1,12 +1,12 @@
-import { BlogPostCardVariant } from "@/containers/BlogCard/BlogPostCard";
+import { Post } from "@/api/posts";
 import Grid from "@/components/Grid";
 import BlogPostCard from "@/containers/BlogCard";
+import { BlogPostCardVariant } from "@/containers/BlogCard/BlogPostCard";
 import Box from "@mui/material/Box";
-import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 
 interface ComputerAndTabletPostListProps {
-  posts: PostsOrPages;
+  posts: Post[];
   variant: BlogPostCardVariant;
 }
 

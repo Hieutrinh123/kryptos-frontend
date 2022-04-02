@@ -1,7 +1,7 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
 import { toolbarHeight } from "#/config/toolbar";
 import { glassGradientWithAlpha } from "#/styles/gradients";
-import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";
+import { resolveImageUrl } from "@/api/strapi";
 import { BlurBackdrop } from "@/containers/HomePageSections/HighlightedPostsSection/BlurBackdrop";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import Box from "@mui/material/Box";
@@ -10,13 +10,13 @@ import IconButton from "@mui/material/IconButton";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { PostOrPage } from "@tryghost/content-api";
+import { getExcerpt, Post } from "@/api/posts";
 import Image from "next/image";
 import NextLink from "next/link";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface MainCarouselProps {
-  posts: PostOrPage[];
+  posts: Post[];
 }
 
 const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
@@ -79,7 +79,7 @@ export default MainCarousel;
 interface MainCarouselItemProps {
   shown: boolean;
   root: HTMLElement | null;
-  post: PostOrPage;
+  post: Post;
 }
 
 const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
@@ -106,9 +106,9 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
           },
         }}
       >
-        {post?.feature_image && (
+        {post?.thumbnail && (
           <Image
-            src={post?.feature_image}
+            src={resolveImageUrl(post.thumbnail)}
             alt="Thumbnail"
             layout="fill"
             quality={100}
@@ -136,7 +136,7 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
 };
 
 interface PostDescriptionProps {
-  post: PostOrPage;
+  post: Post;
 }
 
 const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
@@ -153,7 +153,7 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
         {post.title}
       </Typography>
       <Typography variant="subtitle1" color="white">
-        {limitParagraphWordCount(post.excerpt ?? "")}
+        {getExcerpt(post)}
       </Typography>
       <NextLink href={`/posts/${post.slug}`} passHref>
         <Button

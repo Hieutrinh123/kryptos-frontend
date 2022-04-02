@@ -1,12 +1,12 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
+import {Author} from "@/api/author";
 import AuthorCard from "@/containers/AuthorCard";
 import Box from "@mui/material/Box";
-import { Authors } from "@tryghost/content-api";
 import React from "react";
 import Slider from "react-slick";
 
 interface MobileAuthorListProps {
-  authors: Authors;
+  authors: Author[];
 }
 
 const MobileAuthorList: React.FC<MobileAuthorListProps> = ({ authors }) => {

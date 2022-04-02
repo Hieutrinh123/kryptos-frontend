@@ -1,45 +1,55 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { useRouterPage } from "#/hooks/useRouterPage";
-import { listAuthors, useAuthorList } from "@/api/author";
+import { AuthorListingResult, listAuthors } from "@/api/author";
+import {getPageSettings} from "@/api/pageSettings";
+import { Locale } from "@/api/strapi";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorInformation from "@/containers/AuthorInformation";
 import FullLayout from "@/layouts/FullLayout";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Authors } from "@tryghost/content-api";
 import { GetServerSideProps, NextPage } from "next";
-import React from "react";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import React, { useEffect, useState } from "react";
 
 interface AuthorListPageProps {
-  initialAuthors: Authors;
-  totalPageCount: number;
+  initialAuthors: AuthorListingResult;
 }
 
-const AuthorListPage: NextPage<AuthorListPageProps> = ({
-  initialAuthors,
-  totalPageCount,
-}) => {
+const AuthorListPage: NextPage<AuthorListPageProps> = ({ initialAuthors }) => {
   const page = useRouterPage();
-  const authors = useAuthorList(initialAuthors, page, AUTHORS_PER_PAGE);
+  const { t } = useTranslation();
+  const [authors, setAuthors] = useState(initialAuthors);
+  useEffect(() => {
+    if (page === 1) {
+      setAuthors(initialAuthors);
+    } else {
+      listAuthors(page, AUTHORS_PER_PAGE).then(setAuthors);
+    }
+  }, [page, initialAuthors]);
 
   return (
     <FullLayout>
       <Container sx={{ paddingY: 3 }}>
         <Stack spacing={3}>
           <Typography variant="h3" textAlign="center" mt={3}>
-            Các tác giả
+            {t("Authors")}
           </Typography>
           <Stack spacing={3} mt={3}>
-            {authors.map((author) => (
+            {authors.results.map((author) => (
               <AuthorInformation
                 author={author}
-                key={author.slug}
+                key={author.id}
                 variant="compact"
               />
             ))}
           </Stack>
-          <RouterPagination count={totalPageCount} basePath={`authors`} />
+          <RouterPagination
+            count={authors.pagination.pageCount}
+            basePath={`authors`}
+          />
         </Stack>
       </Container>
     </FullLayout>
@@ -48,14 +58,15 @@ const AuthorListPage: NextPage<AuthorListPageProps> = ({
 
 export default AuthorListPage;
 
-export const getStaticProps: GetServerSideProps<
-  AuthorListPageProps
-> = async () => {
+export const getStaticProps: GetServerSideProps<AuthorListPageProps> = async (
+  context
+) => {
   const authors = await listAuthors(1, AUTHORS_PER_PAGE);
   return {
     props: {
+      ...(await serverSideTranslations(context.locale as Locale)),
+      pageSettings: await getPageSettings(context.locale as Locale),
       initialAuthors: authors,
-      totalPageCount: authors.meta.pagination.pages,
     },
   };
 };

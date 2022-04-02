@@ -3,12 +3,12 @@ import Divider from "@mui/material/Divider";
 import CommentInput from "./CommentInput";
 import { CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { PostOrPage } from "@tryghost/content-api";
+import { Post } from "@/api/posts";
 import React from "react";
 import SingleCommentDisplay from "./SingleCommentDisplay";
 
 interface CommentListingProps {
-  post: PostOrPage;
+  post: Post;
 }
 
 const CommentListing: React.FC<CommentListingProps> = ({ post }) => {

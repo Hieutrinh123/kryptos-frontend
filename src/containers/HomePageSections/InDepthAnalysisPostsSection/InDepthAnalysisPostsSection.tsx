@@ -4,18 +4,18 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { PostsOrPages } from "@tryghost/content-api";
+import { PostListingResult } from "@/api/posts";
 import React from "react";
 
 interface InDepthAnalysisPostsSectionProps {
-  posts: PostsOrPages;
+  posts: PostListingResult;
 }
 
 const InDepthAnalysisPostsSection: React.FC<
   InDepthAnalysisPostsSectionProps
 > = ({ posts }) => {
   const isDesktop = useIsDesktop();
-  const postCount = posts.length;
+  const postCount = posts.results.length;
   if (postCount <= 0) {
     return null;
   }
@@ -26,7 +26,7 @@ const InDepthAnalysisPostsSection: React.FC<
           <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
             Phân tích chuyên sâu
           </Typography>
-          <BlogPostList posts={posts} desktopVariant="short" />
+          <BlogPostList posts={posts.results} desktopVariant="short" />
         </Stack>
       </Container>
     </Box>

@@ -1,4 +1,5 @@
 const path = require("path");
+const { i18n } = require("./next-i18next.config");
 
 /** @type {import('next').NextConfig} */
 module.exports = {
@@ -30,8 +31,9 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ["via.placeholder.com", "admin.kryptos.news"],
+    domains: ["admin.kryptos.news", "localhost"],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 3600,
   },
+  i18n,
 };

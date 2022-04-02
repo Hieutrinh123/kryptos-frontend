@@ -1,5 +1,5 @@
-import { CATEGORIES } from "#/config/navigation";
-import {useFirebaseAuthState} from "@/api/hooks/auth/useFirebaseAuthState";
+import { CATEGORIES } from "#/config/category";
+import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
 import DropdownMenu from "@/components/DropdownMenu";
 import Logo from "@/components/Logo/Logo";
 import AuthenticationMenu from "@/containers/AuthenticationMenu";
@@ -12,11 +12,14 @@ import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import React from "react";
 
 const DesktopHeaderContent = () => {
   const { user } = useFirebaseAuthState();
+  const { t } = useTranslation();
+
   return (
     <>
       <Logo />
@@ -51,7 +54,7 @@ const DesktopHeaderContent = () => {
         ) : (
           <NextLink href="/auth" passHref>
             <Button variant="contained" color="primary">
-              <span>Đăng nhập</span>
+              <span>{t("Sign In")}</span>
             </Button>
           </NextLink>
         )}
