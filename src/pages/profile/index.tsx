@@ -1,8 +1,12 @@
 import { useAuthStateWithRedirect } from "@/api/hooks/auth/useFirebaseAuthState";
+import { getPageSettings } from "@/api/pageSettings";
+import { Locale } from "@/api/strapi";
 import UserInformationManagement from "@/containers/UserInformationManagement";
 import FullLayout from "@/layouts/FullLayout";
 import { Container } from "@mui/material";
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import React from "react";
 
 interface ProfilePageProps {}
 
@@ -18,3 +22,12 @@ const ProfilePage: NextPage<ProfilePageProps> = ({}) => {
 };
 
 export default ProfilePage;
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale as Locale)),
+      pageSettings: await getPageSettings(context.locale as Locale),
+    },
+  };
+};

@@ -1,4 +1,4 @@
-import { PostOrPage } from "@tryghost/content-api";
+import { Post } from "@/api/posts";
 import * as tocbot from "tocbot";
 import styles from "./PostTableOfContent.module.scss";
 import React, { useEffect } from "react";
@@ -13,7 +13,7 @@ const TOCBOT_OPTIONS = {
 };
 
 interface PostTableOfContentProps {
-  post: PostOrPage;
+  post: Post;
 }
 
 const PostTableOfContent: React.FC<PostTableOfContentProps> = ({ post }) => {

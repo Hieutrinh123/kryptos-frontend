@@ -1,11 +1,11 @@
 import { useIsMobile } from "@/common/styles/responsive";
-import { PostsOrPages } from "@tryghost/content-api";
+import { PostListingResult } from "@/api/posts";
 import React from "react";
 import ComputerFavouritePosts from "./ComputerFavouritePosts";
 import MobileFavouritePosts from "./MobileFavouritePosts";
 
 interface FavouritePostsProps {
-  posts: PostsOrPages;
+  posts: PostListingResult;
 }
 
 const FavouritePosts: React.FC<FavouritePostsProps> = ({ posts }) => {

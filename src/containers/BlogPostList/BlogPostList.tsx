@@ -1,12 +1,12 @@
 import { useIsDesktop } from "#/styles/responsive";
+import { Post } from "@/api/posts";
 import { BlogPostCardVariant } from "@/containers/BlogCard/BlogPostCard";
-import { PostsOrPages } from "@tryghost/content-api";
 import React from "react";
 import GridPostList from "./DesktopPostList";
 import CarouselPostList from "./CarouselPostList";
 
 interface ListPostProps {
-  posts: PostsOrPages;
+  posts: Post[];
   desktopVariant?: BlogPostCardVariant;
   mobileCarousel?: boolean;
 }

@@ -1,4 +1,5 @@
-import { CATEGORIES } from "#/config/navigation";
+import { CATEGORIES } from "#/config/category";
+import { usePageSettings } from "@/api/pageSettings";
 import Grid from "@/components/Grid";
 import Logo from "@/components/Logo/Logo";
 import SocialLinks from "@/containers/SocialLinks";
@@ -13,6 +14,7 @@ import FooterLinkGroup from "./FooterLinkGroup";
 interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = ({}) => {
+  const pageSettings = usePageSettings();
   return (
     <Box
       component="footer"
@@ -27,11 +29,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
             <Stack spacing={3}>
               <Logo color="white" />
 
-              <Typography color="white">
-                Kryptos là kênh cung cấp dữ liệu, tin tức và nghiên cứu để độc
-                giả đi đầu xu thế thị trường tiền điện tử và đưa ra các quyết
-                định đầu tư tốt nhất
-              </Typography>
+              <Typography color="white">{pageSettings.introduction}</Typography>
 
               <SocialLinks color="#fff" />
             </Stack>

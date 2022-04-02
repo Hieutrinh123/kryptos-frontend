@@ -1,6 +1,8 @@
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
 import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
-import { getPostDetail, listAllPostSlugs } from "@/api/posts";
+import { getPageSettings } from "@/api/pageSettings";
+import { getPostDetail, listAllPostSlugs, Post } from "@/api/posts";
+import { Locale } from "@/api/strapi";
 import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import BlogLikeButton from "@/containers/BlogLikeButton";
@@ -16,13 +18,13 @@ import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { PostOrPage } from "@tryghost/content-api";
 import _ from "lodash";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React from "react";
 
 interface BlogViewPageProps {
-  post: PostOrPage;
+  post: Post;
 }
 
 const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
@@ -32,6 +34,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
   if (!post) {
     return null;
   }
+
   return (
     <FullLayout>
       <PostBanner post={post} />
@@ -51,15 +54,13 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
                 })}
               >
                 <Box marginBottom={6}>
-                  <PostContent postHTML={post.html} />
+                  <PostContent postHTML={post.content} />
                 </Box>
-                {post.primary_author && (
-                  <AuthorInformation
-                    author={post.primary_author}
-                    variant="compact"
-                    withoutPaper
-                  />
-                )}
+                <AuthorInformation
+                  author={post.author}
+                  variant="compact"
+                  withoutPaper
+                />
               </Card>
               <Card sx={{ padding: 3 }}>
                 <Stack spacing={3}>
@@ -94,7 +95,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
 };
 
 interface PostSideBarProps {
-  post: PostOrPage;
+  post: Post;
 }
 
 const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
@@ -119,11 +120,9 @@ const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
           Tags
         </Typography>
         <Stack direction="row" flexWrap="wrap">
-          {post?.tags?.map((tag) => (
-            <Box paddingRight={2} paddingBottom={2} key={tag.id}>
-              <Chip label={tag.name} />
-            </Box>
-          ))}
+          <Box paddingRight={2} paddingBottom={2}>
+            {post.category && <Chip label={post.category.title} />}
+          </Box>
         </Stack>
       </Card>
     </Stack>
@@ -148,7 +147,11 @@ export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
     };
   }
   return {
-    props: { post },
+    props: {
+      ...(await serverSideTranslations(context.locale as Locale)),
+      pageSettings: await getPageSettings(context.locale as Locale),
+      post,
+    },
     revalidate: 900,
   };
 };

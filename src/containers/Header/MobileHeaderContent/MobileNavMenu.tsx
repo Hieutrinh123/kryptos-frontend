@@ -1,5 +1,5 @@
 import React from "react";
-import { CATEGORIES } from "#/config/navigation";
+import { CATEGORIES } from "#/config/category";
 import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";

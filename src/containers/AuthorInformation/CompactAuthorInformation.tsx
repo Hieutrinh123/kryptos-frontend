@@ -1,3 +1,4 @@
+import { Author } from "@/api/author";
 import Grid from "@/components/Grid";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import AuthorStatistic from "@/containers/AuthorInformation/AuthorStatistic";
@@ -7,7 +8,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Author } from "@tryghost/content-api";
+import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import React from "react";
 
@@ -18,6 +19,7 @@ interface CompactAuthorInformationProps {
 const CompactAuthorInformation: React.FC<CompactAuthorInformationProps> = ({
   author,
 }) => {
+  const { t } = useTranslation();
   return (
     <Grid container rowSpacing={2} columnSpacing={4}>
       <Grid item mobile={12} tablet={8} desktop={6}>
@@ -27,10 +29,10 @@ const CompactAuthorInformation: React.FC<CompactAuthorInformationProps> = ({
           </Box>
           <Box flexGrow={1}>
             <Typography variant="subtitle1" fontWeight="bold">
-              Tác giả
+              {t("Author")}
             </Typography>
             <Typography variant="h5" fontWeight="bolder" marginBottom={2}>
-              {author.name ?? "Author"}
+              {author.name}
             </Typography>
 
             <AuthorStatistic author={author} />
@@ -52,14 +54,14 @@ const CompactAuthorInformation: React.FC<CompactAuthorInformationProps> = ({
           </Grid>
 
           <Grid item mobile={12} desktop={6}>
-            <NextLink href={`/authors/${author.slug}`} passHref>
+            <NextLink href={`/authors/${author.id}`} passHref>
               <Button
                 color="secondary"
                 variant="contained"
                 fullWidth
                 sx={{ height: "48px", borderRadius: "12px" }}
               >
-                Xem thêm
+                {t("View More")}
               </Button>
             </NextLink>
           </Grid>

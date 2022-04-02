@@ -11,26 +11,26 @@ export interface Subcategory {
 
 export const PROJECT_ANALYSIS_CATEGORY = {
   slug: "project-analysis",
-  title: "Phân tích dự án",
+  title: "Project Analysis",
 };
 
 export const UPDATE_CATEGORY = {
-  title: "Cập nhật",
+  title: "Update",
   slug: "update",
   subcategories: [
     {
       slug: "on-chain-analysis",
-      title: "Phân tích On-chain",
+      title: "On-Chain Analysis",
     },
     {
       slug: "technical-analysis",
-      title: "Phân tích kỹ thuật",
+      title: "Technical Analysis",
     },
   ],
 };
 
 export const ECOSYSTEM_CATEGORY = {
-  title: "Hệ sinh thái",
+  title: "Ecosystem",
   slug: "ecosystem",
   subcategories: [
     {
@@ -59,13 +59,13 @@ export const ECOSYSTEM_CATEGORY = {
     },
     {
       slug: "others",
-      title: "Khác",
+      title: "Others",
     },
   ],
 };
 
 export const INDEPTH_ANALYSIS_CATEGORY = {
-  title: "Phân tích chuyên sâu",
+  title: "In-depth Analysis",
   slug: "indepth-analysis",
   subcategories: [
     {
@@ -82,11 +82,11 @@ export const INDEPTH_ANALYSIS_CATEGORY = {
     },
     {
       slug: "infrastructure",
-      title: "Cơ sở hạ tầng",
+      title: "Infrastructure",
     },
     {
       slug: "macro-economy",
-      title: "Tình hình vĩ mô",
+      title: "Macro-economy",
     },
   ],
 };

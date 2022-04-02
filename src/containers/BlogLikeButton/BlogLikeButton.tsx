@@ -4,11 +4,11 @@ import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import { PostOrPage } from "@tryghost/content-api";
+import { Post } from "@/api/posts";
 import React from "react";
 
 interface BlogLikeButton {
-  post: PostOrPage;
+  post: Post;
   variant: "compact" | "full";
 }
 
@@ -23,7 +23,7 @@ const BlogLikeButton: React.FC<BlogLikeButton> = ({
 };
 
 interface InnerBlogLikeButtonProps {
-  post: PostOrPage;
+  post: Post;
 }
 
 const CompactBlogLikeButton: React.FC<InnerBlogLikeButtonProps> = ({

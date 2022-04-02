@@ -1,5 +1,5 @@
 import { getInitials } from "#/utils/naming";
-import {useFirebaseAuthState} from "@/api/hooks/auth/useFirebaseAuthState";
+import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
@@ -11,6 +11,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import React from "react";
 
@@ -23,6 +24,7 @@ const AuthenticationMenu: React.FC<AuthenticationMenuProps> = ({
   width,
   hideInfo,
 }) => {
+  const { t } = useTranslation();
   const { user, loading, signOut } = useFirebaseAuthState();
 
   if (!user) {
@@ -53,7 +55,7 @@ const AuthenticationMenu: React.FC<AuthenticationMenuProps> = ({
             <ListItemIcon>
               <AccountCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Tài khoản của tôi" />
+            <ListItemText primary={t("My Account")} />
           </ListItemButton>
         </NextLink>
       </ListItem>
@@ -63,7 +65,7 @@ const AuthenticationMenu: React.FC<AuthenticationMenuProps> = ({
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
-          <ListItemText primary="Đăng xuất" />
+          <ListItemText primary={t("Sign Out")} />
         </ListItemButton>
       </ListItem>
     </List>

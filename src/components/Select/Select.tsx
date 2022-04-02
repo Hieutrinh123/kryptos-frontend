@@ -5,7 +5,7 @@ import SelectUnstyled, {
   SelectUnstyledProps,
 } from "@mui/base/SelectUnstyled";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-import { darken } from "@mui/material";
+import { darken, SelectProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import Stack from "@mui/material/Stack";
@@ -96,7 +96,11 @@ export const Option = styled(OptionUnstyled)(
   `
 );
 
-export default function CustomSelect(props: SelectUnstyledProps<string>) {
+interface CustomSelectProps extends SelectUnstyledProps<string> {
+  sx: SelectProps["sx"];
+}
+
+export default function CustomSelect(props: CustomSelectProps) {
   const components: SelectUnstyledProps<string>["components"] = {
     Root: RootElement,
     Listbox: StyledListbox,
@@ -104,8 +108,9 @@ export default function CustomSelect(props: SelectUnstyledProps<string>) {
       return (
         <Popper
           {...popperProps}
-          placement="bottom"
+          placement="top"
           disablePortal
+          style={{ width: "100%" }}
           modifiers={[
             {
               name: "flip",

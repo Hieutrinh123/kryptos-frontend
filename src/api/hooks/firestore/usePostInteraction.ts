@@ -5,12 +5,13 @@ import { User } from "@firebase/auth";
 import {
   collectionGroup,
   doc,
+  DocumentReference,
   getDocs,
   query,
   setDoc,
   where,
 } from "@firebase/firestore";
-import { PostOrPage } from "@tryghost/content-api";
+import { Post } from "@/api/posts";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useIsMounted } from "usehooks-ts";
@@ -21,20 +22,23 @@ export interface UserPostInteraction {
   viewed?: boolean;
 }
 
-export function useInteractionReference(
-  user: User | undefined,
-  post: PostOrPage
-) {
+export function useInteractionReference(user: User | undefined, post: Post) {
   return useMemo(
     () =>
       user
-        ? doc(cloudFirestore, "users", user.uid, "post_interaction", post.id)
+        ? (doc(
+            cloudFirestore,
+            "users",
+            user.uid,
+            "post_interaction",
+            post.id.toString()
+          ) as DocumentReference<UserPostInteraction>)
         : undefined,
     [user, post]
   );
 }
 
-export function usePostInteraction(post: PostOrPage) {
+export function usePostInteraction(post: Post) {
   const { user } = useFirebaseAuthState();
   const checkIsMounted = useIsMounted();
   const documentRef = useInteractionReference(user, post);
@@ -73,7 +77,7 @@ export function usePostInteraction(post: PostOrPage) {
     handleUpdateInteraction,
   };
 }
-export function useBookmarkPost(post: PostOrPage) {
+export function useBookmarkPost(post: Post) {
   const { interaction, loading, handleUpdateInteraction, updating } =
     usePostInteraction(post);
 
@@ -98,7 +102,7 @@ export function useBookmarkPost(post: PostOrPage) {
   };
 }
 
-export function useLikePost(post: PostOrPage) {
+export function useLikePost(post: Post) {
   const { interaction, loading, handleUpdateInteraction, updating } =
     usePostInteraction(post);
 
@@ -124,7 +128,7 @@ export function useLikePost(post: PostOrPage) {
 }
 
 export function useCountInteraction(
-  post: PostOrPage,
+  post: Post,
   field: keyof UserPostInteraction
 ) {
   const postQuery = useMemo(
@@ -151,11 +155,11 @@ export function useCountInteraction(
   };
 }
 
-export function usePostLikeCount(post: PostOrPage) {
+export function usePostLikeCount(post: Post) {
   return useCountInteraction(post, "liked");
 }
 
-export function usePostViewCount(post: PostOrPage) {
+export function usePostViewCount(post: Post) {
   const { handleUpdateInteraction, updating } = usePostInteraction(post);
   const { count, loading } = useCountInteraction(post, "viewed");
 

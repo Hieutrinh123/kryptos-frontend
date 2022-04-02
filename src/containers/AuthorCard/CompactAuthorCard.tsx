@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Author } from "@tryghost/content-api";
+import { Author } from "@/api/author";
 import NextLink from "next/link";
 import React from "react";
 
@@ -13,7 +13,7 @@ interface CompactAuthorCardProps {
 
 const CompactAuthorCard: React.FC<CompactAuthorCardProps> = ({ author }) => {
   return (
-    <NextLink href={`/authors/${author.slug}`} passHref>
+    <NextLink href={`/authors/${author.id}`} passHref>
       <a>
         <Card
           sx={{

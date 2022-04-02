@@ -1,4 +1,5 @@
 import { useIsMobile } from "#/styles/responsive";
+import { Author } from "@/api/author";
 import Grid from "@/components/Grid";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import AuthorStatistic from "@/containers/AuthorInformation/AuthorStatistic";
@@ -7,7 +8,7 @@ import AuthorSubscribeButton from "@/containers/AuthorSubscribeButton";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Author } from "@tryghost/content-api";
+import { useTranslation } from "next-i18next";
 import React from "react";
 
 interface FullAuthorInformationProps {
@@ -17,6 +18,7 @@ interface FullAuthorInformationProps {
 const FullAuthorInformation: React.FC<FullAuthorInformationProps> = ({
   author,
 }) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const avatarSize = isMobile ? 80 : 140;
@@ -33,10 +35,10 @@ const FullAuthorInformation: React.FC<FullAuthorInformationProps> = ({
           </Box>
           <Stack flexGrow={1}>
             <Typography variant="subtitle1" fontWeight="bold">
-              Tác giả
+              {t("Author")}
             </Typography>
             <Typography variant="h5" fontWeight="bolder">
-              {author.name ?? "Author"}
+              {author.name}
             </Typography>
 
             {!isMobile && (
@@ -63,7 +65,7 @@ const FullAuthorInformation: React.FC<FullAuthorInformationProps> = ({
       <Grid item mobile={12} desktop={7}>
         <Stack spacing={1}>
           <Typography variant="subtitle1" fontWeight="bold">
-            Giới thiệu
+            {t("Biography")}
           </Typography>
           <Typography component="sub" variant="subtitle1">
             {author.bio ?? ""}

@@ -1,19 +1,19 @@
 import { toolbarHeight } from "#/config/toolbar";
 import { grey } from "#/styles/colors";
 import { useIsMobile } from "#/styles/responsive";
-import { limitParagraphWordCount } from "#/utils/limitParagraphWordCount";
-import Slide from "@mui/material/Slide";
+import { getExcerpt, Post } from "@/api/posts";
+import { resolveImageUrl } from "@/api/strapi";
 import Box from "@mui/material/Box";
+import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import { PostOrPage } from "@tryghost/content-api";
 import NextImage from "next/image";
 import NextLink from "next/link";
 import React, { useRef, useState } from "react";
 
 interface SidePostsProps {
-  posts: PostOrPage[];
+  posts: Post[];
 }
 
 const SidePosts: React.FC<SidePostsProps> = ({ posts }) => {
@@ -27,7 +27,7 @@ const SidePosts: React.FC<SidePostsProps> = ({ posts }) => {
 };
 
 interface SingleSidePostProps {
-  post: PostOrPage;
+  post: Post;
 }
 const SingleSidePost: React.FC<SingleSidePostProps> = ({ post }) => {
   const isMobile = useIsMobile();
@@ -45,10 +45,10 @@ const SingleSidePost: React.FC<SingleSidePostProps> = ({ post }) => {
     >
       <NextLink href={`/posts/${post.slug}`} passHref>
         <a>
-          {post.feature_image && (
+          {post.thumbnail && (
             <NextImage
-              src={post.feature_image}
-              alt={post.feature_image_alt ?? "thumbnail"}
+              src={resolveImageUrl(post.thumbnail)}
+              alt={post.thumbnail.alternativeText ?? "thumbnail"}
               layout="fill"
               objectFit="cover"
             />
@@ -96,7 +96,7 @@ const SingleSidePost: React.FC<SingleSidePostProps> = ({ post }) => {
               bgcolor={alpha(grey[500], 0.8)}
             >
               <Typography color="white" variant="body1">
-                {limitParagraphWordCount(post.excerpt, 20)}
+                {getExcerpt(post)}
               </Typography>
             </Box>
           </Slide>

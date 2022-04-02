@@ -28,6 +28,7 @@ export const MobileDrawer = ({}) => {
   };
 
   const closePane = () => {
+    console.log("closing");
     setCurrentPane("nav");
   };
 

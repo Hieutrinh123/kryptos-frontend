@@ -1,11 +1,11 @@
+import { Author } from "@/api/author";
 import AuthorCard from "@/containers/AuthorCard";
 import Grid from "@/components/Grid";
 import { Box } from "@mui/material";
-import { Authors } from "@tryghost/content-api";
 import React from "react";
 
 interface DesktopAndTabletAuthorListProps {
-  authors: Authors;
+  authors: Author[];
 }
 
 const DesktopAndTabletAuthorList: React.FC<DesktopAndTabletAuthorListProps> = ({

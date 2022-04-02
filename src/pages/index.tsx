@@ -3,8 +3,14 @@ import {
   INDEPTH_ANALYSIS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
   UPDATE_CATEGORY,
-} from "#/config/navigation";
-import { listHighlightedPosts, listPostsByCategory } from "@/api/posts";
+} from "#/config/category";
+import {getPageSettings} from "@/api/pageSettings";
+import {
+  listHighlightedPosts,
+  listPostsByCategory,
+  PostListingResult,
+} from "@/api/posts";
+import { Locale } from "@/api/strapi";
 import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
 import HighlightedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
@@ -12,15 +18,15 @@ import InDepthAnalysisPostsSection from "@/containers/HomePageSections/InDepthAn
 import UpdatePostsSection from "@/containers/HomePageSections/UpdatePostsSection";
 import FullLayout from "@/layouts/FullLayout";
 import Box from "@mui/material/Box";
-import { PostsOrPages } from "@tryghost/content-api";
 import { GetStaticProps, NextPage } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface HomePageProps {
-  posts: PostsOrPages;
-  updatePosts: PostsOrPages;
-  analysisPosts: PostsOrPages;
-  ecosystemPosts: PostsOrPages;
-  inDepthPosts: PostsOrPages;
+  posts: PostListingResult;
+  updatePosts: PostListingResult;
+  analysisPosts: PostListingResult;
+  ecosystemPosts: PostListingResult;
+  inDepthPosts: PostListingResult;
 }
 
 const HomePage: NextPage<HomePageProps> = ({
@@ -54,7 +60,7 @@ const HomePage: NextPage<HomePageProps> = ({
 
 export default HomePage;
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+export const getStaticProps: GetStaticProps<HomePageProps> = async (context) => {
   const posts = await listHighlightedPosts();
   const updatePosts = await listPostsByCategory(UPDATE_CATEGORY, 1, 5);
   const analysisPosts = await listPostsByCategory(
@@ -71,6 +77,8 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale as Locale)),
+      pageSettings: await getPageSettings(context.locale as Locale),
       posts,
       updatePosts,
       ecosystemPosts,
