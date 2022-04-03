@@ -12,11 +12,12 @@ const FeaturedPostsSection: React.FC<FeaturedPostsSectionProps> = ({
   posts,
 }) => {
   const postCount = posts.length;
-  console.log(postCount);
-  if (posts.length < 3) {
+  if (postCount === 0) {
     return null;
   }
-
+  if (postCount <= 3) {
+    return <MainCarousel posts={posts} />;
+  }
   const mainPosts = posts.slice(0, postCount - 3);
   const sidePosts = posts.slice(postCount - 3, postCount);
   return (

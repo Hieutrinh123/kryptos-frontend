@@ -32,7 +32,6 @@ const UserAvatarUploader: React.FC<UserAvatarUploaderProps> = ({}) => {
       if (file && user) {
         const uploadResult = await uploadToFirebase(file);
         if (uploadResult) {
-          console.log(uploadResult, downloadUrl, handleUpdate);
           await handleUpdate({ photoURL: downloadUrl });
         }
       }

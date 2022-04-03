@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { getExcerpt, Post } from "@/api/posts";
 import Image from "next/image";
 import NextLink from "next/link";
+import { Textfit } from "react-textfit";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface MainCarouselProps {
@@ -41,7 +42,7 @@ const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
   return (
     <Box
       ref={rootRef}
-      height={{ mobile: `calc(100vh - ${toolbarHeight}px)`, desktop: "100%" }}
+      height={`calc(100vh - ${toolbarHeight}px)`}
       sx={{
         overflow: "hidden",
         position: "relative",
@@ -149,8 +150,15 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
       spacing={2}
       alignItems="start"
     >
-      <Typography variant="h1" fontWeight="bold" color="white">
-        {post.title}
+      <Typography
+        variant="h1"
+        fontWeight="bold"
+        color="white"
+        width="100%"
+      >
+        <Textfit mode="multi" max={60} style={{ height: "30vh" }}>
+          {post.title}
+        </Textfit>
       </Typography>
       <Typography variant="subtitle1" color="white">
         {getExcerpt(post)}

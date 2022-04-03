@@ -76,7 +76,6 @@ export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
     };
   }
   const author = await getAuthor(authorId);
-  console.log("authorId", authorId, author);
   const posts = await listPostsFromAuthor(authorId, {
     pagination: { page: 1, pageSize: AUTHOR_POSTS_PER_PAGE },
     locale: "all",

@@ -73,7 +73,6 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (
     1,
     6
   );
-  console.log(pageSettings);
   return {
     props: {
       ...(await serverSideTranslations(context.locale as Locale)),
