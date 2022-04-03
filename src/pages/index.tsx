@@ -4,16 +4,12 @@ import {
   PROJECT_ANALYSIS_CATEGORY,
   UPDATE_CATEGORY,
 } from "#/config/category";
-import {getPageSettings} from "@/api/pageSettings";
-import {
-  listHighlightedPosts,
-  listPostsByCategory,
-  PostListingResult,
-} from "@/api/posts";
+import { getPageSettings } from "@/api/pageSettings";
+import { listPostsByCategory, Post } from "@/api/posts";
 import { Locale } from "@/api/strapi";
 import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
-import HighlightedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
+import FeaturedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
 import InDepthAnalysisPostsSection from "@/containers/HomePageSections/InDepthAnalysisPostsSection";
 import UpdatePostsSection from "@/containers/HomePageSections/UpdatePostsSection";
 import FullLayout from "@/layouts/FullLayout";
@@ -22,15 +18,15 @@ import { GetStaticProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface HomePageProps {
-  posts: PostListingResult;
-  updatePosts: PostListingResult;
-  analysisPosts: PostListingResult;
-  ecosystemPosts: PostListingResult;
-  inDepthPosts: PostListingResult;
+  featuredPosts: Post[];
+  updatePosts: Post[];
+  analysisPosts: Post[];
+  ecosystemPosts: Post[];
+  inDepthPosts: Post[];
 }
 
 const HomePage: NextPage<HomePageProps> = ({
-  posts,
+  featuredPosts,
   updatePosts,
   analysisPosts,
   ecosystemPosts,
@@ -48,7 +44,7 @@ const HomePage: NextPage<HomePageProps> = ({
           },
         })}
       >
-        <HighlightedPostsSection posts={posts} />
+        <FeaturedPostsSection posts={featuredPosts} />
         <UpdatePostsSection posts={updatePosts} />
         <AnalysisPostsSection posts={analysisPosts} />
         <EcosystemPostsSection posts={ecosystemPosts} />
@@ -60,8 +56,11 @@ const HomePage: NextPage<HomePageProps> = ({
 
 export default HomePage;
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async (context) => {
-  const posts = await listHighlightedPosts();
+export const getStaticProps: GetStaticProps<HomePageProps> = async (
+  context
+) => {
+  const pageSettings = await getPageSettings(context.locale as Locale);
+
   const updatePosts = await listPostsByCategory(UPDATE_CATEGORY, 1, 5);
   const analysisPosts = await listPostsByCategory(
     PROJECT_ANALYSIS_CATEGORY,
@@ -74,16 +73,16 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (context) => 
     1,
     6
   );
-
+  console.log(pageSettings);
   return {
     props: {
       ...(await serverSideTranslations(context.locale as Locale)),
-      pageSettings: await getPageSettings(context.locale as Locale),
-      posts,
-      updatePosts,
-      ecosystemPosts,
-      analysisPosts,
-      inDepthPosts,
+      pageSettings,
+      featuredPosts: pageSettings.featured_posts ?? [],
+      updatePosts: updatePosts.results,
+      ecosystemPosts: ecosystemPosts.results,
+      analysisPosts: analysisPosts.results,
+      inDepthPosts: inDepthPosts.results,
     },
     revalidate: 3600,
   };

@@ -1,3 +1,3 @@
-import HighlightedPostsSection from "./HighlightedPostsSection";
+import FeaturedPostsSection from "./FeaturedPostsSection";
 
-export default HighlightedPostsSection;
+export default FeaturedPostsSection;

@@ -7,6 +7,7 @@
   "Project Analysis": "Phân tích dự án",
   "Update": "Cập nhật",
   "On-Chain Analysis": "Phân tích On-Chain",
+  "On-chain Analysis": "Phân tích On-Chain",
   "Technical Analysis": "Phân tích kỹ thuật",
   "Ecosystem": "Hệ sinh thái",
   "Binance Smart Chain": "Binance Smart Chain",
@@ -23,5 +24,18 @@
   "Infrastructure": "Cơ sở hạ tầng",
   "Macro-economy": "Kinh tế vĩ mô",
   "Sign In": "Đăng nhập",
-  "Newest Updates": "Những cập nhật mới nhất"
+  "Newest Updates": "Những cập nhật mới nhất",
+  "This post is also available in the following languages": "Bài viết có các bản dịch ở các ngôn ngữ sau",
+  "Languages": "Ngôn ngữ",
+  "Language": "Ngôn ngữ",
+  "English": "Tiếng Anh",
+  "Vietnamese": "Tiếng Việt",
+  "Biography": "Tiểu sử",
+  "Post published by": "Bài viết được đăng bởi",
+  "Background": "Nền",
+  "This post is written in": "Bài viết được viết bằng ngôn ngữ",
+  "Reader's Comments": "Bình luận của độc giả",
+  "Share": "Chia sẻ",
+  "Table of Contents": "Mục lục",
+  "Tags": "Thẻ bài viết"
 }

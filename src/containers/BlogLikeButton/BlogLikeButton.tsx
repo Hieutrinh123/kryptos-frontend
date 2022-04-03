@@ -1,10 +1,11 @@
-import {useLikePost} from "@/api/hooks/firestore/usePostInteraction";
+import { useLikePost } from "@/api/hooks/firestore/usePostInteraction";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { Post } from "@/api/posts";
+import { useTranslation } from "next-i18next";
 import React from "react";
 
 interface BlogLikeButton {
@@ -49,6 +50,7 @@ const CompactBlogLikeButton: React.FC<InnerBlogLikeButtonProps> = ({
 };
 
 const FullBlogLikeButton: React.FC<InnerBlogLikeButtonProps> = ({ post }) => {
+  const { t } = useTranslation();
   const { liked, toggleLike, loading } = useLikePost(post);
 
   return (
@@ -72,7 +74,7 @@ const FullBlogLikeButton: React.FC<InnerBlogLikeButtonProps> = ({ post }) => {
         {loading ? <CircularProgress size={24} /> : <FavoriteIcon />}
 
         <span style={{ width: 120 }}>
-          {liked ? "Bỏ thích" : "Thích bài viết"}
+          {liked ? t("Unlike") : t("Like Post")}
         </span>
       </Stack>
     </Button>

@@ -20,6 +20,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import _ from "lodash";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React from "react";
 
@@ -31,6 +32,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
   const isDesktop = useIsDesktop();
   const isMobile = useIsMobile();
   const { user } = useFirebaseAuthState();
+  const { t } = useTranslation();
   if (!post) {
     return null;
   }
@@ -54,7 +56,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
                 })}
               >
                 <Box marginBottom={6}>
-                  <PostContent postHTML={post.content} />
+                  <PostContent markdownContent={post.content} />
                 </Box>
                 <AuthorInformation
                   author={post.author}
@@ -77,7 +79,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
                     </Stack>
                   )}
                   <Typography variant="h6" fontWeight="bolder">
-                    Bình luận của độc giả
+                    {t("Reader's Comments")}
                   </Typography>
                   <CommentListing post={post} />
                 </Stack>
@@ -99,29 +101,31 @@ interface PostSideBarProps {
 }
 
 const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
+  const { t } = useTranslation();
+
   return (
     <Stack spacing={4} position="sticky" top={100}>
       <Card sx={{ padding: 3 }}>
         <Typography variant="h6" mb={2}>
-          Share
+          {t("Share")}
         </Typography>
         <SocialLinks />
       </Card>
 
       <Card sx={{ padding: 3 }}>
         <Typography variant="h6" mb={2}>
-          Mục lục bài viết
+          {t("Table of Contents")}
         </Typography>
         <PostTableOfContent post={post} />
       </Card>
 
       <Card sx={{ padding: 3 }}>
         <Typography variant="h6" mb={2}>
-          Tags
+          {t("Tags")}
         </Typography>
         <Stack direction="row" flexWrap="wrap">
           <Box paddingRight={2} paddingBottom={2}>
-            {post.category && <Chip label={post.category.title} />}
+            {post.category && <Chip label={t(post.category.title)} />}
           </Box>
         </Stack>
       </Card>

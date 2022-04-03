@@ -12,6 +12,7 @@ import {
   where,
 } from "@firebase/firestore";
 import { Post } from "@/api/posts";
+import { useTranslation } from "next-i18next";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useIsMounted } from "usehooks-ts";
@@ -20,6 +21,7 @@ export interface UserPostInteraction {
   bookmarked?: boolean;
   liked?: boolean;
   viewed?: boolean;
+  id: number;
 }
 
 export function useInteractionReference(user: User | undefined, post: Post) {
@@ -49,13 +51,17 @@ export function usePostInteraction(post: Post) {
   const showAlert = useShowAlert();
 
   const handleUpdateInteraction = useCallback(
-    async (interaction: UserPostInteraction) => {
+    async (interaction: Partial<UserPostInteraction>) => {
       if (documentRef) {
         setUpdating(true);
         try {
-          await setDoc<UserPostInteraction>(documentRef, interaction, {
-            merge: true,
-          });
+          await setDoc<UserPostInteraction>(
+            documentRef,
+            { ...interaction, id: post.id },
+            {
+              merge: true,
+            }
+          );
         } catch (e) {
           const error = e as Error;
           showAlert(error.message, "error");
@@ -103,6 +109,7 @@ export function useBookmarkPost(post: Post) {
 }
 
 export function useLikePost(post: Post) {
+  const { t } = useTranslation();
   const { interaction, loading, handleUpdateInteraction, updating } =
     usePostInteraction(post);
 
@@ -113,9 +120,9 @@ export function useLikePost(post: Post) {
   const toggleLike = useCallback(() => {
     handleUpdateInteraction({ liked: !liked }).then(() => {
       if (liked) {
-        showAlert("Đã bỏ thích bài viết", "success");
+        showAlert(t("Post Unliked"), "success");
       } else {
-        showAlert("Đã thích bài viết", "success");
+        showAlert(t("Post Liked"), "success");
       }
     });
   }, [liked, showAlert, handleUpdateInteraction]);
@@ -135,9 +142,10 @@ export function useCountInteraction(
     () =>
       query(
         collectionGroup(cloudFirestore, "post_interaction"),
-        where(field, "==", true)
+        where(field, "==", true),
+        where("id", "==", post.id)
       ),
-    [field]
+    [field, post.id]
   );
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);

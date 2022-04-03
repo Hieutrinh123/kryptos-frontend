@@ -4,11 +4,11 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { PostListingResult } from "@/api/posts";
+import { Post } from "@/api/posts";
 import React from "react";
 
 interface EcosystemPostsSectionProps {
-  posts: PostListingResult;
+  posts: Post[];
 }
 
 const EcosystemPostsSection: React.FC<EcosystemPostsSectionProps> = ({
@@ -16,7 +16,7 @@ const EcosystemPostsSection: React.FC<EcosystemPostsSectionProps> = ({
 }) => {
   const isDesktop = useIsDesktop();
 
-  const postCount = posts.results.length;
+  const postCount = posts.length;
   if (postCount <= 0) {
     return null;
   }
@@ -27,7 +27,7 @@ const EcosystemPostsSection: React.FC<EcosystemPostsSectionProps> = ({
           <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
             Hệ sinh thái
           </Typography>
-          <BlogPostList posts={posts.results} desktopVariant="short" />
+          <BlogPostList posts={posts} desktopVariant="short" />
         </Stack>
       </Container>
     </Box>

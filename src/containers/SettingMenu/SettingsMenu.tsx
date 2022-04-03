@@ -1,8 +1,9 @@
 import { ThemeModeContext } from "#/themes";
+import { getLocaleName } from "#/utils/getLocaleName";
 import { PaletteMode } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
-import MenuItem from "@mui/material/MenuItem";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
@@ -16,19 +17,18 @@ interface SettingsMenuProps {}
 const SettingsMenu: React.FC<SettingsMenuProps> = ({}) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const [cookies, setCookie] = useCookies(["NEXT_LOCALE"]);
+  const [, setCookie] = useCookies(["NEXT_LOCALE"]);
   return (
     <Stack padding={2} spacing={2}>
-      <Typography fontWeight="bold">{t("Color Mode")}</Typography>
+      <Typography fontWeight="bold">{t("Background")}</Typography>
       <ThemeToggleButton />
       <Typography fontWeight="bold">{t("Language")}</Typography>
       <Select
         sx={{ height: 50 }}
-        defaultValue={cookies["NEXT_LOCALE"]}
+        defaultValue={router.locale}
         onChange={(event) => {
           const value = event.target.value;
           if (value) {
-            console.log(value);
             setCookie("NEXT_LOCALE", value);
             return router.replace(
               { pathname: router.pathname, query: router.query },
@@ -38,8 +38,11 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({}) => {
           }
         }}
       >
-        <MenuItem value="en">{t("English")}</MenuItem>
-        <MenuItem value="vi">{t("Vietnamese")}</MenuItem>
+        {router.locales?.map((locale) => (
+          <MenuItem value={locale} key={locale}>
+            {t(getLocaleName(locale))}
+          </MenuItem>
+        ))}
       </Select>
     </Stack>
   );

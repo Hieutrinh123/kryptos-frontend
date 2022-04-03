@@ -4,18 +4,18 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { PostListingResult } from "@/api/posts";
+import { Post } from "@/api/posts";
 import React from "react";
 
 interface AnalysisPostsSectionProps {
-  posts: PostListingResult;
+  posts: Post[];
 }
 
 const AnalysisPostsSection: React.FC<AnalysisPostsSectionProps> = ({
   posts,
 }) => {
   const isMobile = useIsMobile();
-  const postCount = posts.results.length;
+  const postCount = posts.length;
   if (postCount <= 0) {
     return null;
   }
@@ -26,7 +26,7 @@ const AnalysisPostsSection: React.FC<AnalysisPostsSectionProps> = ({
           <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
             Phân tích dự án
           </Typography>
-          <BlogPostList posts={posts.results} desktopVariant="tall" />
+          <BlogPostList posts={posts} desktopVariant="tall" />
         </Stack>
       </Container>
     </Box>

@@ -6,9 +6,9 @@ import React, { useContext } from "react";
 export interface PageSettings {
   locale: Locale;
   introduction: string;
-  featured_posts: Post[];
+  featured_posts?: Post[];
 }
-export async function getPageSettings(locale: Locale) {
+export async function getPageSettings(locale: Locale): Promise<PageSettings> {
   const response = await axiosInstance.get<PageSettings>("page-setting", {
     params: {
       locale: locale,

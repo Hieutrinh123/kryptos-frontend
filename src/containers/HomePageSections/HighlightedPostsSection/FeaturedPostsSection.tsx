@@ -1,23 +1,24 @@
+import { Post } from "@/api/posts";
 import Grid from "@/components/Grid";
 import MainCarousel from "@/containers/HomePageSections/HighlightedPostsSection/MainCarousel";
 import SidePosts from "@/containers/HomePageSections/HighlightedPostsSection/SidePosts";
-import { PostListingResult } from "@/api/posts";
 import React from "react";
 
-interface HighlightedPostsSectionProps {
-  posts: PostListingResult;
+interface FeaturedPostsSectionProps {
+  posts: Post[];
 }
 
-const HighlightedPostsSection: React.FC<HighlightedPostsSectionProps> = ({
+const FeaturedPostsSection: React.FC<FeaturedPostsSectionProps> = ({
   posts,
 }) => {
-  const postCount = posts.results.length;
-  if (posts.results.length < 3) {
+  const postCount = posts.length;
+  console.log(postCount);
+  if (posts.length < 3) {
     return null;
   }
 
-  const mainPosts = posts.results.slice(0, postCount - 3);
-  const sidePosts = posts.results.slice(postCount - 3, postCount);
+  const mainPosts = posts.slice(0, postCount - 3);
+  const sidePosts = posts.slice(postCount - 3, postCount);
   return (
     <Grid container spacing={0}>
       <Grid item mobile={12} desktop={9}>
@@ -30,4 +31,4 @@ const HighlightedPostsSection: React.FC<HighlightedPostsSectionProps> = ({
   );
 };
 
-export default HighlightedPostsSection;
+export default FeaturedPostsSection;

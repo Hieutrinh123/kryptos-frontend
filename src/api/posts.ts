@@ -57,7 +57,7 @@ export async function listAllPostSlugs() {
   return slugs;
 }
 
-export function listHighlightedPosts() {
+export function listFeaturedPosts() {
   return listPosts({
     sort: "publishedAt:desc",
     pagination: { page: 1, pageSize: 6 },

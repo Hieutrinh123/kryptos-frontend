@@ -1,22 +1,22 @@
 import { useIsDesktop } from "#/styles/responsive";
+import { Post } from "@/api/posts";
 import BlogPostCard from "@/containers/BlogCard";
 import BlogPostList from "@/containers/BlogPostList";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { PostListingResult } from "@/api/posts";
 import { useTranslation } from "next-i18next";
 import React from "react";
 
 interface UpdatePostsSectionProps {
-  posts: PostListingResult;
+  posts: Post[];
 }
 
 const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({ posts }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
-  const postCount = posts.results.length;
+  const postCount = posts.length;
   if (postCount <= 0) {
     return null;
   }
@@ -37,21 +37,13 @@ const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({ posts }) => {
             </Box>
             {isDesktop && (
               <Box flex={8}>
-                <BlogPostCard
-                  post={posts.results[0]}
-                  variant="side"
-                  imageWidth={250}
-                />
+                <BlogPostCard post={posts[0]} variant="side" imageWidth={250} />
               </Box>
             )}
           </Stack>
 
           <BlogPostList
-            posts={
-              isDesktop
-                ? posts.results.slice(1, posts.results.length)
-                : posts.results
-            }
+            posts={isDesktop ? posts.slice(1, posts.length) : posts}
             desktopVariant="side"
           />
         </Stack>
