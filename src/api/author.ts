@@ -27,7 +27,7 @@ export async function listAuthors(
     });
     return response.data;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     throw e;
   }
 }
@@ -37,7 +37,7 @@ export async function getAuthor(id: number): Promise<Author> {
     const response = await axiosInstance.get<Author>(`/authors/${id}`);
     return response.data;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     throw e;
   }
 }
