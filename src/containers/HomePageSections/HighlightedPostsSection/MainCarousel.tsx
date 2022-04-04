@@ -150,13 +150,12 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
       spacing={2}
       alignItems="start"
     >
-      <Typography
-        variant="h1"
-        fontWeight="bold"
-        color="white"
-        width="100%"
-      >
-        <Textfit mode="multi" max={60} style={{ height: "30vh" }}>
+      <Typography variant="h1" fontWeight="bold" color="white" width="100%">
+        <Textfit
+          mode="multi"
+          max={80}
+          style={{ minHeight: "10vh", maxHeight: "30vh" }}
+        >
           {post.title}
         </Textfit>
       </Typography>

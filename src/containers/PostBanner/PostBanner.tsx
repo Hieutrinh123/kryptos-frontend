@@ -1,26 +1,18 @@
 import { glassGradient } from "#/styles/gradients";
 import { useIsDesktop } from "#/styles/responsive";
-import { getLocaleIcon, getLocaleName } from "#/utils/getLocaleName";
+import { Post } from "@/api/posts";
 import { resolveImageUrl } from "@/api/strapi";
 import Grid from "@/components/Grid";
-import PostStatistic from "@/containers/PostStatistic";
 import AuthorChip from "@/containers/AuthorChip";
+import PostStatistic from "@/containers/PostStatistic";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import List from "@mui/material/List";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Post } from "@/api/posts";
 import { useTranslation } from "next-i18next";
 import NextImage from "next/image";
 import React from "react";
-import NextLink from "next/link";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListSubheader from "@mui/material/ListSubheader";
 
 interface PostBannerProps {
   post: Post;
@@ -42,7 +34,6 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
             <Stack spacing={3}>
               <PostTitle post={post} />
               <PostStatistic post={post} />
-              <PostLocalizationLinks post={post} />
             </Stack>
           </Grid>
           <Grid item mobile={12} tablet={6} width="100%">
@@ -106,39 +97,5 @@ const PostTitle: React.FC<{ post: Post }> = ({ post }) => {
         </Stack>
       </Stack>
     </Container>
-  );
-};
-
-const PostLocalizationLinks: React.FC<{ post: Post }> = ({ post }) => {
-  const { t } = useTranslation();
-  if (!post.localizations || post.localizations.length === 0) {
-    return null;
-  }
-
-  return (
-    <Stack>
-      <List
-        subheader={
-          <ListSubheader disableGutters>
-            {t("This post is written in") + " " + t(getLocaleName(post.locale))}
-            <br />
-            {t("This post is also available in the following languages")}
-          </ListSubheader>
-        }
-      >
-        {post.localizations.map((localization) => (
-          <ListItem key={localization.id}>
-            <NextLink href={`/posts/${localization.slug}`} passHref>
-              <ListItemButton component="a">
-                <ListItemIcon>
-                  {getLocaleIcon(localization.locale)}
-                </ListItemIcon>
-                <ListItemText primary={t(getLocaleName(localization.locale))} />
-              </ListItemButton>
-            </NextLink>
-          </ListItem>
-        ))}
-      </List>
-    </Stack>
   );
 };

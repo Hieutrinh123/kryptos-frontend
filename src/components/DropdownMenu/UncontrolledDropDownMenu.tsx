@@ -7,6 +7,7 @@ import React from "react";
 
 export interface UncontrolledDropDownMenuProps extends Omit<MenuProps, "open"> {
   title?: string;
+  titleNode?: React.ReactNode;
   buttonBuilder?: (
     buttonProps: ButtonProps,
     ref: React.Ref<HTMLButtonElement>,

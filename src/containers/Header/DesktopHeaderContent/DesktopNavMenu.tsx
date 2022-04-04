@@ -3,6 +3,7 @@ import DropdownMenu from "@/components/DropdownMenu";
 import Button from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
 import { usePopupState } from "material-ui-popup-state/hooks";
 import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
@@ -22,7 +23,11 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ category }) => {
     return (
       <DropdownMenu
         popupState={popupState}
-        title={t(category.title)}
+        titleNode={
+          <Typography fontSize="small" fontWeight="bold">
+            {t(category.title)}
+          </Typography>
+        }
         offsetX={-20}
         offsetY={0}
       >
@@ -45,7 +50,9 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ category }) => {
   return (
     <NextLink passHref href={"/categories/" + category.slug}>
       <Button variant="text" color="secondary">
-        <span>{t(category.title)}</span>
+        <Typography fontSize="small" fontWeight="bold">
+          {t(category.title)}
+        </Typography>
       </Button>
     </NextLink>
   );

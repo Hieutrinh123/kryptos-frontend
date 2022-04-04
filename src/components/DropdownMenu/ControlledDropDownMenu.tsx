@@ -16,6 +16,7 @@ interface ControlledDropDownMenuProps extends UncontrolledDropDownMenuProps {
 
 const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
   title,
+  titleNode,
   buttonBuilder,
   children,
   offsetX,
@@ -50,7 +51,7 @@ const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
         {...bindToggle(popupState)}
         ref={buttonRef}
       >
-        <Box marginRight={1}>{title}</Box>
+        <Box marginRight={1}>{titleNode ?? title}</Box>
         <MenuArrow isOpen={isOpen} />
       </Button>
     );

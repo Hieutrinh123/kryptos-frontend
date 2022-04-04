@@ -1,6 +1,7 @@
 import {
   ECOSYSTEM_CATEGORY,
-  INDEPTH_ANALYSIS_CATEGORY,
+  IN_DEPTH_ANALYSIS_CATEGORY,
+  NEWS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
   UPDATE_CATEGORY,
 } from "#/config/category";
@@ -19,6 +20,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface HomePageProps {
   featuredPosts: Post[];
+  newsPosts: Post[];
   updatePosts: Post[];
   analysisPosts: Post[];
   ecosystemPosts: Post[];
@@ -27,6 +29,7 @@ interface HomePageProps {
 
 const HomePage: NextPage<HomePageProps> = ({
   featuredPosts,
+  newsPosts,
   updatePosts,
   analysisPosts,
   ecosystemPosts,
@@ -45,6 +48,7 @@ const HomePage: NextPage<HomePageProps> = ({
         })}
       >
         <FeaturedPostsSection posts={featuredPosts} />
+        <UpdatePostsSection title="News" posts={newsPosts} />
         <UpdatePostsSection posts={updatePosts} />
         <AnalysisPostsSection posts={analysisPosts} />
         <EcosystemPostsSection posts={ecosystemPosts} />
@@ -61,6 +65,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (
 ) => {
   const pageSettings = await getPageSettings(context.locale as Locale);
 
+  const newsPosts = await listPostsByCategory(NEWS_CATEGORY, 1, 5);
   const updatePosts = await listPostsByCategory(UPDATE_CATEGORY, 1, 5);
   const analysisPosts = await listPostsByCategory(
     PROJECT_ANALYSIS_CATEGORY,
@@ -69,7 +74,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (
   );
   const ecosystemPosts = await listPostsByCategory(ECOSYSTEM_CATEGORY, 1, 6);
   const inDepthPosts = await listPostsByCategory(
-    INDEPTH_ANALYSIS_CATEGORY,
+    IN_DEPTH_ANALYSIS_CATEGORY,
     1,
     6
   );
@@ -78,6 +83,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (
       ...(await serverSideTranslations(context.locale as Locale)),
       pageSettings,
       featuredPosts: pageSettings.featured_posts ?? [],
+      newsPosts: newsPosts.results,
       updatePosts: updatePosts.results,
       ecosystemPosts: ecosystemPosts.results,
       analysisPosts: analysisPosts.results,

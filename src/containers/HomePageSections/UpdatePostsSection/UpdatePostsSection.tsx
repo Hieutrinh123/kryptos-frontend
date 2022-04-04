@@ -11,9 +11,13 @@ import React from "react";
 
 interface UpdatePostsSectionProps {
   posts: Post[];
+  title?: string;
 }
 
-const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({ posts }) => {
+const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({
+  posts,
+  title = "Newest Updates",
+}) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
   const postCount = posts.length;
@@ -32,7 +36,7 @@ const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({ posts }) => {
                 mb={3}
                 fontWeight="bolder"
               >
-                {t("Newest Updates")}
+                {t(title)}
               </Typography>
             </Box>
             {isDesktop && (

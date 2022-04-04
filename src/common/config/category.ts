@@ -9,6 +9,11 @@ export interface Subcategory {
   title: string;
 }
 
+export const NEWS_CATEGORY = {
+  slug: "news",
+  title: "News",
+};
+
 export const PROJECT_ANALYSIS_CATEGORY = {
   slug: "project-analysis",
   title: "Project Analysis",
@@ -64,9 +69,9 @@ export const ECOSYSTEM_CATEGORY = {
   ],
 };
 
-export const INDEPTH_ANALYSIS_CATEGORY = {
+export const IN_DEPTH_ANALYSIS_CATEGORY = {
   title: "In-depth Analysis",
-  slug: "indepth-analysis",
+  slug: "in-depth-analysis",
   subcategories: [
     {
       slug: "de-fi",
@@ -92,10 +97,11 @@ export const INDEPTH_ANALYSIS_CATEGORY = {
 };
 
 export const CATEGORIES: Category[] = [
+  NEWS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
   UPDATE_CATEGORY,
   ECOSYSTEM_CATEGORY,
-  INDEPTH_ANALYSIS_CATEGORY,
+  IN_DEPTH_ANALYSIS_CATEGORY,
 ];
 
 export function getAllLeafCategories() {
