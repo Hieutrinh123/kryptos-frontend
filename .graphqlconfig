@@ -1,0 +1,16 @@
+{
+  "name": "Untitled GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://directus.dev.youngit.org/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Authorization": "Bearer ${env:GRAPHQL_ACCESS_TOKEN}"
+        },
+        "introspect": false
+      }
+    }
+  }
+}
