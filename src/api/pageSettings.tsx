@@ -1,7 +1,6 @@
 import { axiosInstance } from "@/api/api";
-import { Post } from "@/api/posts";
-import { Locale } from "@/api/strapi";
 import React, { useContext } from "react";
+import { Locale, Post } from "./types";
 
 export interface PageSettings {
   locale: Locale;

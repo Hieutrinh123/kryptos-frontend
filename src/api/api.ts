@@ -1,5 +1,6 @@
+import { DirectusCollections } from "@/api/types";
+import { Directus } from "@directus/sdk";
 import axios from "axios";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import qs from "qs";
 
 export const axiosInstance = axios.create({
@@ -9,15 +10,16 @@ export const axiosInstance = axios.create({
   },
 });
 
-export const dataApolloClient = new ApolloClient({
-  uri: (process.env.NEXT_PUBLIC_DIRECTUS_URL ?? "") + "/graphql",
-  cache: new InMemoryCache(),
-});
+export const serverDirectus = new Directus<DirectusCollections>(
+  process.env.NEXT_PUBLIC_DIRECTUS_URL ?? "",
+  {
+    auth: {
+      mode: "json",
+      staticToken: process.env.DIRECTUS_ACCESS_TOKEN,
+    },
+  }
+);
 
-export const managementApolloClient = new ApolloClient({
-  uri: (process.env.NEXT_PUBLIC_DIRECTUS_URL ?? "") + "/graphql/system",
-  cache: new InMemoryCache(),
-  headers: {
-    Authorization: `Bearer ${process.env.DIRECTUS_ACCESS_TOKEN}`,
-  },
-});
+export const clientDirectus = new Directus<DirectusCollections>(
+  process.env.NEXT_PUBLIC_DIRECTUS_URL ?? ""
+);

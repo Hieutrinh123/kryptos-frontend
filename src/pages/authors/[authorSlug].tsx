@@ -1,16 +1,15 @@
-import { AUTHOR_POSTS_PER_PAGE } from "#/config/authors";
 import {
-  Author,
-  getAllAuthorIds,
+  getAllAuthorSlugs,
   getAuthor,
+  getAuthorName,
   listPostsFromAuthor,
 } from "@/api/authors";
 import { getPageSettings } from "@/api/pageSettings";
 import { PostListingResult } from "@/api/posts";
-import { Locale } from "@/api/strapi";
+import { Locale } from "@/api/types";
+import { Author } from "@/api/types";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorInformation from "@/containers/AuthorInformation";
-import BlogPostList from "@/containers/BlogPostList";
 import FullLayout from "@/layouts/FullLayout";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -43,15 +42,14 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
 
         <Box mt={8}>
           <Typography variant="h3" align="center">
-            Bài viết của {author.name ?? "Authors"}
+            Bài viết của {getAuthorName(author) ?? "Authors"}
           </Typography>
         </Box>
 
         <Stack mt={4} spacing={2}>
-          <BlogPostList posts={initialPosts.results} />
           <RouterPagination
             count={totalPageCount}
-            basePath={`/authors/${author.id}`}
+            basePath={`/authors/${author.slug}`}
           />
         </Stack>
       </Container>
@@ -64,22 +62,15 @@ export default AuthorProfilePage;
 export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
   context
 ) => {
-  const authorIdStr = context.params?.authorId as string;
-
-  if (!authorIdStr) {
-    return { notFound: true };
-  }
-  const authorId = parseInt(authorIdStr);
-  if (isNaN(authorId)) {
+  const authorSlug = context.params?.authorSlug as string;
+  if (!authorSlug) {
     return {
       notFound: true,
     };
   }
-  const author = await getAuthor(authorId);
-  const posts = await listPostsFromAuthor(authorId, {
-    pagination: { page: 1, pageSize: AUTHOR_POSTS_PER_PAGE },
-    locale: "all",
-  });
+
+  const author = await getAuthor(authorSlug);
+  const posts = await listPostsFromAuthor(authorSlug);
 
   return {
     props: {
@@ -93,10 +84,10 @@ export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const authorSlugs = await getAllAuthorIds();
-  const paths = authorSlugs.map((authorId) => ({
+  const authorSlugs = await getAllAuthorSlugs();
+  const paths = authorSlugs.map((authorSlug) => ({
     params: {
-      authorId: authorId.toString(),
+      authorSlug,
     },
   }));
 

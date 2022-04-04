@@ -1,73 +1,51 @@
-import {axiosInstance} from "@/api/api";
-import {Post, PostListingResult} from "@/api/posts";
-import {ListingOptions, ListResult, CMSImage} from "./strapi";
-
-export interface Author {
-  id: number;
-  bio: string;
-  postCount: number;
-  name: string;
-  avatar?: CMSImage;
-}
+import { directusGetByUniqueField, directusListItem } from "@/api/directus";
+import { PostListingResult } from "@/api/posts";
+import { Author, ListResult } from "./types";
 
 export type AuthorListingResult = ListResult<Author>;
 
 export async function listAuthors(
   page: number,
-  pageSize: number
+  limit: number
 ): Promise<AuthorListingResult> {
-  try {
-    const response = await axiosInstance.get<AuthorListingResult>("/authors", {
-      params: {
-        pagination: {
-          page,
-          pageSize,
-        },
-      },
-    });
-    return response.data;
-  } catch (e) {
-    console.error(e);
-    throw e;
-  }
+  return directusListItem("directus_users", page, limit);
 }
 
-export async function getAuthor(id: number): Promise<Author> {
-  try {
-    const response = await axiosInstance.get<Author>(`/authors/${id}`);
-    return response.data;
-  } catch (e) {
-    console.error(e);
-    throw e;
-  }
+export async function getAuthor(slug: string): Promise<Author> {
+  return directusGetByUniqueField("directus_users", "slug", slug);
 }
 
-export async function getAllAuthorIds() {
-  let ids: number[] = [];
+export function getAuthorName(author: Author): string {
+  return author.first_name + " " + author.last_name;
+}
+
+export async function getAllAuthorSlugs() {
+  let slugs: string[] = [];
   for (let page = 1; ; ++page) {
     const authorListResult = await listAuthors(page, 100);
-    if (!authorListResult) {
+    if (!authorListResult || !authorListResult.data) {
       continue;
     }
-    ids = ids.concat(authorListResult.results.map((author) => author.id));
+    slugs = slugs.concat(authorListResult.data.map((author) => author.slug));
     if (
       authorListResult.pagination.page >= authorListResult.pagination.pageCount
     ) {
       break;
     }
   }
-  return ids;
+  return slugs;
 }
 
 export async function listPostsFromAuthor(
-  authorId: number,
-  options: ListingOptions<Post>
+  authorSlug: string
 ): Promise<PostListingResult> {
-  const response = await axiosInstance.get<PostListingResult>(
-    `/authors/${authorId}/posts`,
-    {
-      params: options,
-    }
-  );
-  return response.data;
+  return {
+    data: [],
+    pagination: {
+      page: 0,
+      total: 0,
+      pageSize: 0,
+      pageCount: 0,
+    },
+  };
 }

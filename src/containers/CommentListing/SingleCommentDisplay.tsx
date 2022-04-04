@@ -1,10 +1,10 @@
 import { grey } from "#/styles/colors";
-import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
-import { useCommenter } from "@/api/hooks/firestore/useCommenter";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
+import { useCommenter } from "@/firebase/firestore/useCommenter";
 import {
   CommentData,
   useUpdateComment,
-} from "@/api/hooks/firestore/useCommentList";
+} from "@/firebase/firestore/useCommentList";
 import Grid from "@/components/Grid";
 import SwitchModeTextField from "@/components/SwitchModeTextField";
 import ReplyListing from "@/containers/CommentListing/ReplyListing";

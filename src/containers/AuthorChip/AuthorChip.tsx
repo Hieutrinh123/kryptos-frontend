@@ -1,6 +1,7 @@
+import { getAuthorName } from "@/api/authors";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import Chip from "@mui/material/Chip";
-import { Author } from "@/api/authors";
+import { Author } from "@/api/types";
 import React, { useRef } from "react";
 import { useHover } from "usehooks-ts";
 import NextLink from "next/link";
@@ -15,11 +16,11 @@ const AuthorChip: React.FC<AuthorChipProps> = ({ author }) => {
   const isHover = useHover(chipRef);
 
   return (
-    <NextLink href={`/authors/${author.id}`} passHref>
+    <NextLink href={`/authors/${author.slug}`} passHref>
       <a>
         <Chip
           ref={chipRef}
-          label={author.name}
+          label={getAuthorName(author)}
           color={isHover ? "primary" : "default"}
           sx={{
             cursor: "pointer",

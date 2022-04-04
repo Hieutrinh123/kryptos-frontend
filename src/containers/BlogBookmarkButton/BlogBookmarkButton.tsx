@@ -1,5 +1,5 @@
-import { useBookmarkPost } from "@/api/hooks/firestore/usePostInteraction";
-import { Post } from "@/api/posts";
+import { Post } from "@/api/types";
+import { useBookmarkPost } from "@/firebase/firestore/usePostInteraction";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";

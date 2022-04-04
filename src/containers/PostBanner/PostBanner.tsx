@@ -1,7 +1,7 @@
 import { glassGradient } from "#/styles/gradients";
 import { useIsDesktop } from "#/styles/responsive";
-import { Post } from "@/api/posts";
-import { resolveImageUrl } from "@/api/strapi";
+import { resolveImageUrl } from "@/api/directus";
+import { Post } from "@/api/types";
 import Grid from "@/components/Grid";
 import AuthorChip from "@/containers/AuthorChip";
 import PostStatistic from "@/containers/PostStatistic";
@@ -31,10 +31,12 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
           rowSpacing={6}
         >
           <Grid item mobile={12} tablet={6}>
-            <Stack spacing={3}>
-              <PostTitle post={post} />
-              <PostStatistic post={post} />
-            </Stack>
+            <Container disableGutters={isDesktop}>
+              <Stack spacing={3}>
+                <PostTitle post={post} />
+                <PostStatistic post={post} />
+              </Stack>
+            </Container>
           </Grid>
           <Grid item mobile={12} tablet={6} width="100%">
             <Box
@@ -49,10 +51,12 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
               })}
               borderRadius={6}
             >
-              {post.thumbnail && (
+              {post.posts_id.thumbnail && (
                 <NextImage
-                  src={resolveImageUrl(post.thumbnail)}
-                  alt={post.thumbnail.alternativeText ?? "Post's thumbnail"}
+                  src={resolveImageUrl(post.posts_id.thumbnail)}
+                  alt={
+                    post.posts_id.thumbnail.description ?? "Post's thumbnail"
+                  }
                   layout="fill"
                   objectFit="contain"
                 />
@@ -68,34 +72,31 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
 export default PostBanner;
 
 const PostTitle: React.FC<{ post: Post }> = ({ post }) => {
-  const isDesktop = useIsDesktop();
   const { t } = useTranslation();
   return (
-    <Container disableGutters={isDesktop}>
-      <Stack spacing={2} alignItems="flex-start">
-        {post.category && (
-          <Chip
-            label={
-              <Typography variant="body1" fontWeight="bold" color="white">
-                {t(post.category.title)}
-              </Typography>
-            }
-            sx={(theme) => ({
-              padding: theme.spacing(2, 4),
-              background: glassGradient,
-            })}
-          />
-        )}
+    <Stack spacing={2} alignItems="flex-start">
+      {post.posts_id.categories && (
+        <Chip
+          label={
+            <Typography variant="body1" fontWeight="bold" color="white">
+              {t(post.posts_id.categories[0])}
+            </Typography>
+          }
+          sx={(theme) => ({
+            padding: theme.spacing(2, 4),
+            background: glassGradient,
+          })}
+        />
+      )}
 
-        <Typography variant="h2" fontWeight="bolder">
-          {post.title}
-        </Typography>
+      <Typography variant="h2" fontWeight="bolder">
+        {post.title}
+      </Typography>
 
-        <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-          <Typography variant="subtitle1">{t("Post published by")}</Typography>
-          <AuthorChip author={post.author} />
-        </Stack>
+      <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+        <Typography variant="subtitle1">{t("Post published by")}</Typography>
+        <AuthorChip author={post.author} />
       </Stack>
-    </Container>
+    </Stack>
   );
 };

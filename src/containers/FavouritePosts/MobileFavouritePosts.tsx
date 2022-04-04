@@ -60,7 +60,7 @@ const MobileFavouritePosts: React.FC<MobileFavouritePostsProps> = ({
           slidesToScroll={1}
           initialSlide={2}
         >
-          {posts.results.map((post) => (
+          {posts.data.map((post) => (
             <Box sx={{ marginRight: 2 }} key={post.slug}>
               <BlogCard post={post} />
             </Box>

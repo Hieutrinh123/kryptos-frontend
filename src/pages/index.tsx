@@ -6,8 +6,8 @@ import {
   UPDATE_CATEGORY,
 } from "#/config/category";
 import { getPageSettings } from "@/api/pageSettings";
-import { listPostsByCategory, Post } from "@/api/posts";
-import { Locale } from "@/api/strapi";
+import { listPostsByCategory } from "@/api/posts";
+import { Locale, Post } from "@/api/types";
 import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
 import FeaturedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
@@ -83,11 +83,11 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (
       ...(await serverSideTranslations(context.locale as Locale)),
       pageSettings,
       featuredPosts: pageSettings.featured_posts ?? [],
-      newsPosts: newsPosts.results,
-      updatePosts: updatePosts.results,
-      ecosystemPosts: ecosystemPosts.results,
-      analysisPosts: analysisPosts.results,
-      inDepthPosts: inDepthPosts.results,
+      newsPosts: newsPosts.data,
+      updatePosts: updatePosts.data,
+      ecosystemPosts: ecosystemPosts.data,
+      analysisPosts: analysisPosts.data,
+      inDepthPosts: inDepthPosts.data,
     },
     revalidate: 3600,
   };

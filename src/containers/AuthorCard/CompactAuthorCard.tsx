@@ -1,9 +1,10 @@
+import { getAuthorName } from "@/api/authors";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Author } from "@/api/authors";
+import { Author } from "@/api/types";
 import NextLink from "next/link";
 import React from "react";
 
@@ -13,13 +14,13 @@ interface CompactAuthorCardProps {
 
 const CompactAuthorCard: React.FC<CompactAuthorCardProps> = ({ author }) => {
   return (
-    <NextLink href={`/authors/${author.id}`} passHref>
+    <NextLink href={`/authors/${author.slug}`} passHref>
       <a>
         <Card
           sx={{
             display: "flex",
             alignItems: "center",
-            flexDirection: "column ",
+            flexDirection: "column",
             padding: 3,
           }}
         >
@@ -28,7 +29,7 @@ const CompactAuthorCard: React.FC<CompactAuthorCardProps> = ({ author }) => {
           </CardMedia>
           <CardContent sx={{ marginTop: 3, padding: "0 !important" }}>
             <Typography variant="h5" component="div">
-              {author.name}
+              {getAuthorName(author)}
             </Typography>
           </CardContent>
         </Card>

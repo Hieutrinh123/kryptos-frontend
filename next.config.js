@@ -31,7 +31,7 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ["admin.kryptos.news", "localhost"],
+    domains: ["admin.kryptos.news", "directus.dev.youngit.org", "localhost"],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 3600,
   },

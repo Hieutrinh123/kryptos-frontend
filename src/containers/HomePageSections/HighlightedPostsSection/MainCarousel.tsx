@@ -1,7 +1,8 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
 import { toolbarHeight } from "#/config/toolbar";
 import { glassGradientWithAlpha } from "#/styles/gradients";
-import { resolveImageUrl } from "@/api/strapi";
+import { resolveImageUrl } from "@/api/directus";
+import { Post } from "@/api/types";
 import { BlurBackdrop } from "@/containers/HomePageSections/HighlightedPostsSection/BlurBackdrop";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import Box from "@mui/material/Box";
@@ -10,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { getExcerpt, Post } from "@/api/posts";
+import { getExcerpt } from "@/api/posts";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Textfit } from "react-textfit";
@@ -107,9 +108,9 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
           },
         }}
       >
-        {post?.thumbnail && (
+        {post.posts_id.thumbnail && (
           <Image
-            src={resolveImageUrl(post.thumbnail)}
+            src={resolveImageUrl(post.posts_id.thumbnail)}
             alt="Thumbnail"
             layout="fill"
             quality={100}
