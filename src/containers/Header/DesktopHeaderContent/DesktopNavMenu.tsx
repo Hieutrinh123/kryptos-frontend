@@ -24,7 +24,7 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ category }) => {
       <DropdownMenu
         popupState={popupState}
         titleNode={
-          <Typography fontSize="small" fontWeight="bold">
+          <Typography fontSize={16} fontWeight="bold">
             {t(category.title)}
           </Typography>
         }
@@ -50,7 +50,7 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ category }) => {
   return (
     <NextLink passHref href={"/categories/" + category.slug}>
       <Button variant="text" color="secondary">
-        <Typography fontSize="small" fontWeight="bold">
+        <Typography fontSize={16} fontWeight="bold">
           {t(category.title)}
         </Typography>
       </Button>
