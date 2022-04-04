@@ -1,5 +1,5 @@
 import { getInitials } from "#/utils/naming";
-import { Author } from "@/api/author";
+import { Author } from "@/api/authors";
 import { resolveImageUrl } from "@/api/strapi";
 import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";

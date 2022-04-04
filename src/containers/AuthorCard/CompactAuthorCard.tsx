@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Author } from "@/api/author";
+import { Author } from "@/api/authors";
 import NextLink from "next/link";
 import React from "react";
 

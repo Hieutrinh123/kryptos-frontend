@@ -1,13 +1,13 @@
 import {axiosInstance} from "@/api/api";
 import {Post, PostListingResult} from "@/api/posts";
-import {ListingOptions, ListResult, StrapiImage} from "./strapi";
+import {ListingOptions, ListResult, CMSImage} from "./strapi";
 
 export interface Author {
   id: number;
   bio: string;
   postCount: number;
   name: string;
-  avatar?: StrapiImage;
+  avatar?: CMSImage;
 }
 
 export type AuthorListingResult = ListResult<Author>;

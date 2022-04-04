@@ -1,5 +1,5 @@
 import { useIsMobile } from "#/styles/responsive";
-import { Author } from "@/api/author";
+import { Author } from "@/api/authors";
 import Grid from "@/components/Grid";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import AuthorStatistic from "@/containers/AuthorInformation/AuthorStatistic";

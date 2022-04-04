@@ -1,4 +1,4 @@
-import { Author } from "@/api/author";
+import { Author } from "@/api/authors";
 import AuthorCard from "@/containers/AuthorCard";
 import Grid from "@/components/Grid";
 import { Box } from "@mui/material";

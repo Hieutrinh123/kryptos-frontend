@@ -8,6 +8,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.10",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.8.2",
     "@emotion/server": "^11.4.0",
@@ -17,6 +18,7 @@
     "axios": "^0.26.1",
     "firebase": "^9.6.9",
     "firebase-admin": "^10.0.2",
+    "graphql": "^16.3.0",
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.6",
     "material-ui-popup-state": "^2.0.0",
