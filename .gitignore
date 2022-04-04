@@ -37,3 +37,5 @@ yarn-error.log*
 .idea
 .eslintcache
 .env
+
+graphql/schema

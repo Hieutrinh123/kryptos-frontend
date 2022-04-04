@@ -1,8 +1,8 @@
 import { Category } from "#/config/category";
 import { contentToExcerpt } from "#/utils/contentToExcerpt";
 import { axiosInstance } from "./api";
-import { Author } from "./author";
-import { ListingOptions, ListResult, StrapiImage } from "./strapi";
+import { Author } from "./authors";
+import { ListingOptions, ListResult, CMSImage } from "./strapi";
 
 interface Localization {
   id: number;
@@ -17,7 +17,7 @@ export interface Post {
   content: string;
   publishedAt: string;
   locale: string;
-  thumbnail?: StrapiImage;
+  thumbnail?: CMSImage;
   localizations: Localization[];
   author: Author;
   excerpt?: string;

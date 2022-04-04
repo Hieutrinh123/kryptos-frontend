@@ -1,15 +1,24 @@
 {
   "name": "Untitled GraphQL Schema",
-  "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
-      "Default GraphQL Endpoint": {
-        "url": "https://directus.dev.youngit.org/graphql",
+      "Directus Data Endpoint": {
+        "schemaPath": "graphql/data.graphql",
+        "url": "${env:NEXT_PUBLIC_DIRECTUS_URL}/graphql",
         "headers": {
           "user-agent": "JS GraphQL",
-          "Authorization": "Bearer ${env:GRAPHQL_ACCESS_TOKEN}"
+          "Authorization": "Bearer ${env:DIRECTUS_ACCESS_TOKEN}"
         },
-        "introspect": false
+        "introspect": true
+      },
+      "Directus Management Endpoint": {
+        "schemaPath": "graphql/admin.graphql",
+        "url": "${env:NEXT_PUBLIC_DIRECTUS_URL}/graphql/system",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Authorization": "Bearer ${env:DIRECTUS_ACCESS_TOKEN}"
+        },
+        "introspect": true
       }
     }
   }

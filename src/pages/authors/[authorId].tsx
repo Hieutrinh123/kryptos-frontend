@@ -4,7 +4,7 @@ import {
   getAllAuthorIds,
   getAuthor,
   listPostsFromAuthor,
-} from "@/api/author";
+} from "@/api/authors";
 import { getPageSettings } from "@/api/pageSettings";
 import { PostListingResult } from "@/api/posts";
 import { Locale } from "@/api/strapi";

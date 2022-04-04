@@ -3,7 +3,7 @@ import { getAllLeafCategories } from "#/config/category";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useRouterPage } from "#/hooks/useRouterPage";
 import { useIsMobile } from "#/styles/responsive";
-import { AuthorListingResult, listAuthors } from "@/api/author";
+import { AuthorListingResult, listAuthors } from "@/api/authors";
 import { getPageSettings } from "@/api/pageSettings";
 import { listPosts, PostListingResult } from "@/api/posts";
 import { Locale } from "@/api/strapi";

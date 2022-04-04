@@ -1,6 +1,6 @@
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import Chip from "@mui/material/Chip";
-import { Author } from "@/api/author";
+import { Author } from "@/api/authors";
 import React, { useRef } from "react";
 import { useHover } from "usehooks-ts";
 import NextLink from "next/link";

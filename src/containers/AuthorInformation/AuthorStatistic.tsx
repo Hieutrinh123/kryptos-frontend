@@ -1,4 +1,4 @@
-import { Author } from "@/api/author";
+import { Author } from "@/api/authors";
 import LikeIcon from "@mui/icons-material/FavoriteBorder";
 import PostCountIcon from "@mui/icons-material/FilterNone";
 import FollowCountIcon from "@mui/icons-material/PeopleOutline";

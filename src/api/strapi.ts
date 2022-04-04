@@ -1,4 +1,4 @@
-export interface StrapiImage {
+export interface CMSImage {
   id: number;
   name: string;
   alternativeText: string;
@@ -8,9 +8,9 @@ export interface StrapiImage {
   url: string;
 }
 
-export function resolveImageUrl<T extends StrapiImage | undefined>(
+export function resolveImageUrl<T extends CMSImage | undefined>(
   image: T
-): T extends StrapiImage ? string : undefined {
+): T extends CMSImage ? string : undefined {
   if (!image) {
     return undefined as any;
   }

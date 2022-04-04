@@ -1,6 +1,6 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { useRouterPage } from "#/hooks/useRouterPage";
-import { AuthorListingResult, listAuthors } from "@/api/author";
+import { AuthorListingResult, listAuthors } from "@/api/authors";
 import {getPageSettings} from "@/api/pageSettings";
 import { Locale } from "@/api/strapi";
 import RouterPagination from "@/components/RouterPagination";
