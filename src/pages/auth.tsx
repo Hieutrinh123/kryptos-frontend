@@ -1,7 +1,7 @@
-import { useUserData } from "#/../api/hooks/firestore/useUserData";
 import { useShowAlert } from "#/hooks/useShowAlert";
 import EmailAuthenticationForm from "@/containers/AuthenticationForm/EmailAuthenticationForm";
 import SocialAuthenticationForm from "@/containers/AuthenticationForm/SocialAuthenticationForm";
+import { useUserData } from "@/firebase/firestore/useUserData";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";

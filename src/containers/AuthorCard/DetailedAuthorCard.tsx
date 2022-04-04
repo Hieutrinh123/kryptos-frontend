@@ -1,4 +1,5 @@
 import { contentToExcerpt } from "#/utils/contentToExcerpt";
+import { getAuthorName } from "@/api/authors";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -6,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Author } from "@/api/authors";
+import { Author } from "@/api/types";
 import NextLink from "next/link";
 import React from "react";
 
@@ -16,7 +17,7 @@ interface DetailedAuthorCardProps {
 
 const DetailedAuthorCard: React.FC<DetailedAuthorCardProps> = ({ author }) => {
   return (
-    <NextLink href={`/authors/${author.id}`} passHref>
+    <NextLink href={`/authors/${author.slug}`} passHref>
       <a>
         <Card
           sx={{
@@ -33,9 +34,9 @@ const DetailedAuthorCard: React.FC<DetailedAuthorCardProps> = ({ author }) => {
               </Box>
             </CardMedia>
             <CardContent sx={{ marginTop: 3, padding: "0 !important" }}>
-              <Typography variant="h5">{author.name}</Typography>
+              <Typography variant="h5">{getAuthorName(author)}</Typography>
               <Typography variant="subtitle1">
-                {contentToExcerpt(author.bio, 20)}
+                {contentToExcerpt(author.description ?? "", 20)}
               </Typography>
             </CardContent>
           </Stack>

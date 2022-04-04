@@ -1,7 +1,7 @@
 import {
   useUpdateUserData,
   useUserData,
-} from "@/api/hooks/firestore/useUserData";
+} from "@/firebase/firestore/useUserData";
 import Grid from "@/components/Grid";
 import SwitchModeTextField from "@/components/SwitchModeTextField";
 import UserAvatarUploader from "@/containers/UserAvatarUploader";

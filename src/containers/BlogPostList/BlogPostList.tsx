@@ -1,9 +1,9 @@
 import { useIsDesktop } from "#/styles/responsive";
-import { Post } from "@/api/posts";
+import { Post } from "@/api/types";
 import { BlogPostCardVariant } from "@/containers/BlogCard/BlogPostCard";
 import React from "react";
-import GridPostList from "./DesktopPostList";
 import CarouselPostList from "./CarouselPostList";
+import GridPostList from "./DesktopPostList";
 
 interface ListPostProps {
   posts: Post[];

@@ -1,8 +1,8 @@
-import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import {
   CommentData,
   useAddComment,
-} from "@/api/hooks/firestore/useCommentList";
+} from "@/firebase/firestore/useCommentList";
 import LimitedInput from "@/components/LimitedInput";
 import UserAvatar from "@/containers/UserAvatar";
 import { CollectionReference } from "@firebase/firestore";

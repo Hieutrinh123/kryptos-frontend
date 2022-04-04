@@ -1,4 +1,4 @@
-import { Author } from "@/api/authors";
+import { Author } from "@/api/types";
 import LikeIcon from "@mui/icons-material/FavoriteBorder";
 import PostCountIcon from "@mui/icons-material/FilterNone";
 import FollowCountIcon from "@mui/icons-material/PeopleOutline";
@@ -20,7 +20,7 @@ const AuthorStatistic: React.FC<AuthorStatisticProps> = ({ author }) => {
 
       <Stack spacing={1} direction="row" alignItems="center">
         <PostCountIcon fontSize="small" />
-        <Typography fontSize="smaller">{author.postCount}</Typography>
+        <Typography fontSize="smaller">0</Typography>
       </Stack>
 
       <Stack spacing={1} direction="row" alignItems="center">

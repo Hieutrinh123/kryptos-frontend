@@ -1,8 +1,7 @@
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
-import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
 import { getPageSettings } from "@/api/pageSettings";
-import { getPostDetail, listAllPostSlugs, Post } from "@/api/posts";
-import { Locale } from "@/api/strapi";
+import { getPost, listAllPostSlugs } from "@/api/posts";
+import { Locale, Post } from "@/api/types";
 import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import BlogLikeButton from "@/containers/BlogLikeButton";
@@ -11,6 +10,7 @@ import PostBanner from "@/containers/PostBanner";
 import PostContent from "@/containers/PostContent";
 import PostTableOfContent from "@/containers/PostTableOfContent";
 import SocialLinks from "@/containers/SocialLinks";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import FullLayout from "@/layouts/FullLayout";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -56,7 +56,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
                 })}
               >
                 <Box marginBottom={6}>
-                  <PostContent markdownContent={post.content} />
+                  <PostContent content={post.content} />
                 </Box>
                 <AuthorInformation
                   author={post.author}
@@ -125,7 +125,11 @@ const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
         </Typography>
         <Stack direction="row" flexWrap="wrap">
           <Box paddingRight={2} paddingBottom={2}>
-            {post.category && <Chip label={t(post.category.title)} />}
+            {post.posts_id.categories?.map((tag) => (
+              <Box paddingRight={2} paddingBottom={2} key={tag}>
+                <Chip label={tag} />
+              </Box>
+            ))}
           </Box>
         </Stack>
       </Card>
@@ -144,7 +148,7 @@ export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
       notFound: true,
     };
   }
-  const post = await getPostDetail(postSlug as string);
+  const post = await getPost(postSlug as string);
   if (_.isNil(post)) {
     return {
       notFound: true,

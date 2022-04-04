@@ -1,5 +1,5 @@
 import { getInitials } from "#/utils/naming";
-import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import AuthenticationMenu from "@/containers/AuthenticationMenu";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";

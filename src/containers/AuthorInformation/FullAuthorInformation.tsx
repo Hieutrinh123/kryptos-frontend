@@ -1,5 +1,6 @@
 import { useIsMobile } from "#/styles/responsive";
-import { Author } from "@/api/authors";
+import { getAuthorName } from "@/api/authors";
+import { Author } from "@/api/types";
 import Grid from "@/components/Grid";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import AuthorStatistic from "@/containers/AuthorInformation/AuthorStatistic";
@@ -37,8 +38,9 @@ const FullAuthorInformation: React.FC<FullAuthorInformationProps> = ({
             <Typography variant="subtitle1" fontWeight="bold">
               {t("Author")}
             </Typography>
+
             <Typography variant="h5" fontWeight="bolder">
-              {author.name}
+              {getAuthorName(author)}
             </Typography>
 
             {!isMobile && (
@@ -68,7 +70,7 @@ const FullAuthorInformation: React.FC<FullAuthorInformationProps> = ({
             {t("Biography")}
           </Typography>
           <Typography component="sub" variant="subtitle1">
-            {author.bio ?? ""}
+            {author.description ?? ""}
           </Typography>
         </Stack>
       </Grid>

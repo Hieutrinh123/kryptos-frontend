@@ -1,4 +1,4 @@
-import { Post } from "@/api/posts";
+import { Post } from "@/api/types";
 import * as tocbot from "tocbot";
 import styles from "./PostTableOfContent.module.scss";
 import React, { useEffect } from "react";

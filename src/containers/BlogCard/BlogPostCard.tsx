@@ -1,6 +1,8 @@
 import { textColorGradient } from "#/styles/gradients";
 import { useIsMobile } from "#/styles/responsive";
-import { resolveImageUrl } from "@/api/strapi";
+import { getAuthorName } from "@/api/authors";
+import { resolveImageUrl } from "@/api/directus";
+import { Post } from "@/api/types";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import Box from "@mui/material/Box";
@@ -9,7 +11,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Post } from "@/api/posts";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -46,7 +47,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
       >
         <CardMedia
           component="img"
-          src={resolveImageUrl(post.thumbnail)}
+          src={resolveImageUrl(post.posts_id.thumbnail)}
           sx={{
             aspectRatio: variant === "short" ? "2 / 1" : "1 / 1",
             width: variant === "side" ? imageWidth : undefined,
@@ -70,7 +71,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
           <Stack spacing={1} height="100%">
             <Stack spacing={1} flexGrow={1}>
               <Typography variant="subtitle1" sx={{ ...textColorGradient }}>
-                {post.category?.title}
+                {JSON.stringify(post.posts_id.categories)}
               </Typography>
               <Typography variant="h5" fontWeight="bolder">
                 {post.title}
@@ -94,7 +95,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                       sx={{ maxWidth: "24px", height: "24px" }}
                     />
                     <Typography variant="subtitle1">
-                      {post.author.name ?? "Authors"}
+                      {getAuthorName(post.author)}
                     </Typography>
                   </>
                 )}
@@ -102,8 +103,8 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                 <Typography color="text.disabled">•</Typography>
 
                 <Typography variant="subtitle1" color="text.disabled">
-                  {post.publishedAt &&
-                    new Date(post.publishedAt).toLocaleDateString()}
+                  {post.posts_id.updated_at &&
+                    new Date(post.posts_id.updated_at).toLocaleDateString()}
                 </Typography>
               </Stack>
               {!isMobile && (

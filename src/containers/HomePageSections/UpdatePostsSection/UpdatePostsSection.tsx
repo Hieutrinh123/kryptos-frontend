@@ -1,5 +1,5 @@
 import { useIsDesktop } from "#/styles/responsive";
-import { Post } from "@/api/posts";
+import { Post } from "@/api/types";
 import BlogPostCard from "@/containers/BlogCard";
 import BlogPostList from "@/containers/BlogPostList";
 import Box from "@mui/material/Box";

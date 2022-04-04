@@ -1,5 +1,5 @@
 import { getInitials } from "#/utils/naming";
-import { UserData } from "@/api/hooks/firestore/useUserData";
+import { UserData } from "@/firebase/firestore/useUserData";
 import { User } from "@firebase/auth";
 import Avatar, { AvatarProps } from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";

@@ -1,5 +1,5 @@
-import { CommentData } from "@/api/hooks/firestore/useCommentList";
-import { useCommentReplyList } from "@/api/hooks/firestore/useCommentReplyList";
+import { CommentData } from "@/firebase/firestore/useCommentList";
+import { useCommentReplyList } from "@/firebase/firestore/useCommentReplyList";
 import CommentInput from "@/containers/CommentListing/CommentInput";
 import { DocumentReference } from "@firebase/firestore";
 import { CircularProgress } from "@mui/material";

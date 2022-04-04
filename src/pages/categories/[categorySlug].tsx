@@ -6,7 +6,7 @@ import { useIsMobile } from "#/styles/responsive";
 import { AuthorListingResult, listAuthors } from "@/api/authors";
 import { getPageSettings } from "@/api/pageSettings";
 import { listPosts, PostListingResult } from "@/api/posts";
-import { Locale } from "@/api/strapi";
+import { Locale } from "@/api/types";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorList from "@/containers/AuthorList";
 import BlogPostList from "@/containers/BlogPostList";
@@ -45,9 +45,7 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
       setPostListResult(initialPosts);
     } else {
       setUpdating(true);
-      listPosts({
-        pagination: { page, pageSize: POSTS_PER_PAGE },
-      }).then((posts) => {
+      listPosts(page, POSTS_PER_PAGE).then((posts) => {
         setPostListResult(posts);
         setUpdating(false);
       });
@@ -65,7 +63,7 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
             {t("Posts")}
           </Typography>
 
-          <BlogPostList posts={postListResult.results} mobileCarousel={false} />
+          <BlogPostList posts={postListResult.data} mobileCarousel={false} />
           <RouterPagination
             count={initialPosts.pagination.pageCount}
             basePath={`/categories/${categorySlug}`}
@@ -75,7 +73,7 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
               <Typography variant="h3" fontWeight={900} textAlign="center">
                 {t("Authors")}
               </Typography>
-              <AuthorList authors={authors.results} />
+              <AuthorList authors={authors.data} />
               <NextLink href="/authors" passHref>
                 <Link textAlign="center">{t("View More")}</Link>
               </NextLink>
@@ -100,15 +98,7 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
   }
 
   const authors = await listAuthors(1, AUTHORS_PER_PAGE);
-  const posts = await listPosts({
-    pagination: { page: 1, pageSize: POSTS_PER_PAGE },
-    locale: context.locale as Locale,
-    filters: {
-      category: {
-        slug: categorySlug,
-      },
-    },
-  });
+  const posts = await listPosts(1, POSTS_PER_PAGE);
 
   if (_.isNil(posts)) {
     return {

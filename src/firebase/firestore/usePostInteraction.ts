@@ -1,5 +1,6 @@
 import { cloudFirestore } from "#/config/firebase";
 import { useShowAlert } from "#/hooks/useShowAlert";
+import { Post } from "@/api/types";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import { User } from "@firebase/auth";
 import {
@@ -11,7 +12,6 @@ import {
   setDoc,
   where,
 } from "@firebase/firestore";
-import { Post } from "@/api/posts";
 import { useTranslation } from "next-i18next";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
@@ -21,10 +21,13 @@ export interface UserPostInteraction {
   bookmarked?: boolean;
   liked?: boolean;
   viewed?: boolean;
-  id: number;
+  id: string;
 }
 
-export function useInteractionReference(user: User | undefined, post: Post) {
+export function useInteractionReference(
+  user: User | undefined,
+  post: Post
+) {
   return useMemo(
     () =>
       user
@@ -57,7 +60,7 @@ export function usePostInteraction(post: Post) {
         try {
           await setDoc<UserPostInteraction>(
             documentRef,
-            { ...interaction, id: post.id },
+            { ...interaction, id: post.id.toString() },
             {
               merge: true,
             }
@@ -120,9 +123,9 @@ export function useLikePost(post: Post) {
   const toggleLike = useCallback(() => {
     handleUpdateInteraction({ liked: !liked }).then(() => {
       if (liked) {
-        showAlert(t("Post Unliked"), "success");
+        showAlert(t("LocalizedPost Unliked"), "success");
       } else {
-        showAlert(t("Post Liked"), "success");
+        showAlert(t("LocalizedPost Liked"), "success");
       }
     });
   }, [handleUpdateInteraction, liked, showAlert, t]);
@@ -143,7 +146,7 @@ export function useCountInteraction(
       query(
         collectionGroup(cloudFirestore, "post_interaction"),
         where(field, "==", true),
-        where("id", "==", post.id)
+        where("id", "==", post.id.toString())
       ),
     [field, post.id]
   );
