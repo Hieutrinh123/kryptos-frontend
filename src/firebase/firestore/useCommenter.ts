@@ -1,4 +1,4 @@
-import { cloudFirestore } from "#/config/firebase";
+import { cloudFirestore } from "@/firebase/firebase";
 import { useShowAlertEffect } from "#/hooks/useShowAlert";
 import { UserData } from "@/firebase/firestore/useUserData";
 import { doc } from "@firebase/firestore";

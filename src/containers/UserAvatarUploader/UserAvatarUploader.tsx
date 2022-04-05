@@ -1,4 +1,4 @@
-import { firebaseStorage } from "#/config/firebase";
+import { firebaseStorage } from "@/firebase/firebase";
 import {useFirebaseAuthState} from "@/firebase/auth/useFirebaseAuthState";
 import {useUpdateUserData} from "@/firebase/firestore/useUserData";
 import { useFirebaseUploadFile } from "@/firebase/useFirebaseUploadFile";

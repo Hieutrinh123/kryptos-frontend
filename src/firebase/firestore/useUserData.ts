@@ -1,4 +1,4 @@
-import { cloudFirestore, firebaseAuth } from "#/config/firebase";
+import { cloudFirestore, firebaseAuth } from "@/firebase/firebase";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import { useShowAlert, useShowAlertEffect } from "#/hooks/useShowAlert";
 import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
