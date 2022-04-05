@@ -10,7 +10,11 @@ interface FooterLinkGroupProps {
   disableRoot?: boolean;
   prefix?: string;
 }
-const multipleSlashRegex = /\/+/g;
+
+export function normalizeSlash(s: string): string {
+  const multipleSlashRegex = /\/+/g;
+  return s.replace(multipleSlashRegex, "/");
+}
 const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({
   navOption,
   disableRoot,
@@ -31,10 +35,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({
         </Typography>
       ) : (
         <NextLink
-          href={`/${prefix}/${navOption.slug}`.replaceAll(
-            multipleSlashRegex,
-            "/"
-          )}
+          href={normalizeSlash(`/${prefix}/${navOption.slug}`)}
           passHref
         >
           <Link
@@ -60,10 +61,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({
           {navOption.subcategories.map((subcategory, index) => (
             <li key={index}>
               <NextLink
-                href={`/${prefix}/${subcategory.slug}`.replaceAll(
-                  multipleSlashRegex,
-                  "/"
-                )}
+                href={normalizeSlash(`/${prefix}/${subcategory.slug}`)}
                 passHref
               >
                 <Link underline="none" color="white">
