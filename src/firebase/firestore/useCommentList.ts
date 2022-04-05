@@ -1,7 +1,7 @@
-import { cloudFirestore } from "#/config/firebase";
+import { cloudFirestore } from "@/firebase/firebase";
 import { useShowAlert, useShowAlertEffect } from "#/hooks/useShowAlert";
-import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
-import { Post } from "@/api/posts";
+import { Post } from "@/api";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import {
   addDoc,
   collection,

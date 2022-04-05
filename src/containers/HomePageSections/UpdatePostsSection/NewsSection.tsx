@@ -1,5 +1,5 @@
 import { useIsDesktop } from "#/styles/responsive";
-import { Post } from "@/api/posts";
+import { Post } from "@/api";
 import BlogPostCard from "@/containers/BlogCard";
 import BlogPostList from "@/containers/BlogPostList";
 import Box from "@mui/material/Box";
@@ -9,15 +9,11 @@ import Typography from "@mui/material/Typography";
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-interface UpdatePostsSectionProps {
+interface NewsSectionProps {
   posts: Post[];
-  title?: string;
 }
 
-const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({
-  posts,
-  title = "Newest Updates",
-}) => {
+const NewsSection: React.FC<NewsSectionProps> = ({ posts }) => {
   const isDesktop = useIsDesktop();
   const { t } = useTranslation();
   const postCount = posts.length;
@@ -36,19 +32,23 @@ const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({
                 mb={3}
                 fontWeight="bolder"
               >
-                {t(title)}
+                {t("News")}
               </Typography>
             </Box>
             {isDesktop && (
               <Box flex={8}>
-                <BlogPostCard post={posts[0]} variant="side" imageWidth={250} />
+                <BlogPostCard
+                  post={posts[0]}
+                  variant="horizontal"
+                  imageWidth={250}
+                />
               </Box>
             )}
           </Stack>
 
           <BlogPostList
             posts={isDesktop ? posts.slice(1, posts.length) : posts}
-            desktopVariant="side"
+            desktopVariant="horizontal"
           />
         </Stack>
       </Container>
@@ -56,4 +56,4 @@ const UpdatePostsSection: React.FC<UpdatePostsSectionProps> = ({
   );
 };
 
-export default UpdatePostsSection;
+export default NewsSection;

@@ -1,2 +1,2 @@
-export const carouselTimeout = -1;
+export const carouselTimeout = 5000;
 export const carouselTransitionTime = 500;

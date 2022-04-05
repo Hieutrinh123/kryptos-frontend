@@ -1,6 +1,9 @@
 import { textColorGradient } from "#/styles/gradients";
 import { useIsMobile } from "#/styles/responsive";
-import { resolveImageUrl } from "@/api/strapi";
+import { getAuthorName } from "@/api";
+import { resolveImageUrl } from "@/api";
+import { Post } from "@/api";
+import { grey } from "@/common/styles/colors";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import Box from "@mui/material/Box";
@@ -9,9 +12,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Post } from "@/api/posts";
 import { useRouter } from "next/router";
 import React from "react";
+import { Textfit } from "react-textfit";
 
 interface BlogPostCard {
   post: Post;
@@ -19,7 +22,7 @@ interface BlogPostCard {
   imageWidth?: number;
 }
 
-export type BlogPostCardVariant = "side" | "tall" | "short";
+export type BlogPostCardVariant = "horizontal" | "vertical";
 
 const BlogPostCard: React.FC<BlogPostCard> = ({
   post,
@@ -31,16 +34,18 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
 
   return (
     <Card
-      sx={{
+      sx={(theme) => ({
+        backgroundColor: theme.palette.mode === "dark" ? grey["700"] : "white",
+        boxShadow: 3,
         cursor: "pointer",
         ":hover": {
           boxShadow: 5,
         },
-      }}
+      })}
       onClick={() => router.push(`/posts/${post.slug}`)}
     >
       <Stack
-        direction={variant === "side" ? "row" : "column"}
+        direction={variant === "horizontal" ? "row" : "column"}
         alignItems="stretch"
         position="relative"
       >
@@ -48,8 +53,9 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
           component="img"
           src={resolveImageUrl(post.thumbnail)}
           sx={{
-            aspectRatio: variant === "short" ? "2 / 1" : "1 / 1",
-            width: variant === "side" ? imageWidth : undefined,
+            boxShadow: 1,
+            aspectRatio: variant === "horizontal" ? "1 / 1" : "2 / 1",
+            width: variant === "horizontal" ? imageWidth : undefined,
           }}
         />
         {isMobile && (
@@ -69,11 +75,15 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
         >
           <Stack spacing={1} height="100%">
             <Stack spacing={1} flexGrow={1}>
-              <Typography variant="subtitle1" sx={{ ...textColorGradient }}>
-                {post.category?.title}
-              </Typography>
+              {post.categories.length > 0 && (
+                <Typography variant="subtitle1" sx={{ ...textColorGradient }}>
+                  {post.categories[0].name}
+                </Typography>
+              )}
               <Typography variant="h5" fontWeight="bolder">
-                {post.title}
+                <Textfit mode="multi" max={32} style={{ height: 100 }}>
+                  {post.title}
+                </Textfit>
               </Typography>
             </Stack>
             <Stack
@@ -94,7 +104,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                       sx={{ maxWidth: "24px", height: "24px" }}
                     />
                     <Typography variant="subtitle1">
-                      {post.author.name ?? "Authors"}
+                      {getAuthorName(post.author)}
                     </Typography>
                   </>
                 )}
@@ -102,8 +112,8 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                 <Typography color="text.disabled">•</Typography>
 
                 <Typography variant="subtitle1" color="text.disabled">
-                  {post.publishedAt &&
-                    new Date(post.publishedAt).toLocaleDateString()}
+                  {post.updated_at &&
+                    new Date(post.updated_at).toLocaleDateString()}
                 </Typography>
               </Stack>
               {!isMobile && (

@@ -1,8 +1,9 @@
 import { toolbarHeight } from "#/config/toolbar";
 import { grey } from "#/styles/colors";
 import { useIsMobile } from "#/styles/responsive";
-import { getExcerpt, Post } from "@/api/posts";
-import { resolveImageUrl } from "@/api/strapi";
+import { resolveImageUrl } from "@/api";
+import { getExcerpt } from "@/api";
+import { Post } from "@/api";
 import Box from "@mui/material/Box";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
@@ -48,7 +49,7 @@ const SingleSidePost: React.FC<SingleSidePostProps> = ({ post }) => {
           {post.thumbnail && (
             <NextImage
               src={resolveImageUrl(post.thumbnail)}
-              alt={post.thumbnail.alternativeText ?? "thumbnail"}
+              alt={post.thumbnail.description ?? "thumbnail"}
               layout="fill"
               objectFit="cover"
             />

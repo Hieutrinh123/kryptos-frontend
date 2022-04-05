@@ -1,4 +1,5 @@
-import { Author } from "@/api/author";
+import { getAuthorName } from "@/api";
+import { Author } from "@/api";
 import Grid from "@/components/Grid";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import AuthorStatistic from "@/containers/AuthorInformation/AuthorStatistic";
@@ -32,7 +33,7 @@ const CompactAuthorInformation: React.FC<CompactAuthorInformationProps> = ({
               {t("Author")}
             </Typography>
             <Typography variant="h5" fontWeight="bolder" marginBottom={2}>
-              {author.name}
+              {getAuthorName(author)}
             </Typography>
 
             <AuthorStatistic author={author} />
@@ -54,7 +55,7 @@ const CompactAuthorInformation: React.FC<CompactAuthorInformationProps> = ({
           </Grid>
 
           <Grid item mobile={12} desktop={6}>
-            <NextLink href={`/authors/${author.id}`} passHref>
+            <NextLink href={`/authors/${author.slug}`} passHref>
               <Button
                 color="secondary"
                 variant="contained"

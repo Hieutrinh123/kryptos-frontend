@@ -1,10 +1,10 @@
-import { useLikePost } from "@/api/hooks/firestore/usePostInteraction";
+import { Post } from "@/api";
+import { useLikePost } from "@/firebase/firestore/usePostInteraction";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import { Post } from "@/api/posts";
 import { useTranslation } from "next-i18next";
 import React from "react";
 

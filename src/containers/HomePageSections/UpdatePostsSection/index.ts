@@ -1,2 +1,2 @@
-import UpdatePostsSection from "./UpdatePostsSection";
-export default UpdatePostsSection;
+import NewsSection from "./NewsSection";
+export default NewsSection;

@@ -1,5 +1,5 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
-import {Author} from "@/api/author";
+import { Author } from "@/api";
 import AuthorCard from "@/containers/AuthorCard";
 import Box from "@mui/material/Box";
 import React from "react";

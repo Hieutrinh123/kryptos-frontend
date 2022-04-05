@@ -1,18 +1,17 @@
+import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import {
+  Category,
   ECOSYSTEM_CATEGORY,
   IN_DEPTH_ANALYSIS_CATEGORY,
   NEWS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
-  UPDATE_CATEGORY,
 } from "#/config/category";
-import { getPageSettings } from "@/api/pageSettings";
-import { listPostsByCategory, Post } from "@/api/posts";
-import { Locale } from "@/api/strapi";
+import { getPageSettings, listPostsByCategory, Locale, Post } from "@/api";
 import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
 import FeaturedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
 import InDepthAnalysisPostsSection from "@/containers/HomePageSections/InDepthAnalysisPostsSection";
-import UpdatePostsSection from "@/containers/HomePageSections/UpdatePostsSection";
+import NewsSection from "@/containers/HomePageSections/UpdatePostsSection";
 import FullLayout from "@/layouts/FullLayout";
 import Box from "@mui/material/Box";
 import { GetStaticProps, NextPage } from "next";
@@ -21,7 +20,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 interface HomePageProps {
   featuredPosts: Post[];
   newsPosts: Post[];
-  updatePosts: Post[];
   analysisPosts: Post[];
   ecosystemPosts: Post[];
   inDepthPosts: Post[];
@@ -30,7 +28,6 @@ interface HomePageProps {
 const HomePage: NextPage<HomePageProps> = ({
   featuredPosts,
   newsPosts,
-  updatePosts,
   analysisPosts,
   ecosystemPosts,
   inDepthPosts,
@@ -48,8 +45,7 @@ const HomePage: NextPage<HomePageProps> = ({
         })}
       >
         <FeaturedPostsSection posts={featuredPosts} />
-        <UpdatePostsSection title="News" posts={newsPosts} />
-        <UpdatePostsSection posts={updatePosts} />
+        <NewsSection posts={newsPosts} />
         <AnalysisPostsSection posts={analysisPosts} />
         <EcosystemPostsSection posts={ecosystemPosts} />
         <InDepthAnalysisPostsSection posts={inDepthPosts} />
@@ -60,35 +56,63 @@ const HomePage: NextPage<HomePageProps> = ({
 
 export default HomePage;
 
+function wrappedListPostsByCategory(
+  category: Category,
+  locale: Locale,
+  page: number,
+  limit: number
+) {
+  let categorySlugs = [category.slug];
+  if (category.subcategories) {
+    categorySlugs = categorySlugs.concat(
+      category.subcategories.map((subcategory) => subcategory.slug)
+    );
+  }
+  return listPostsByCategory(categorySlugs, locale, page, limit);
+}
+
 export const getStaticProps: GetStaticProps<HomePageProps> = async (
   context
 ) => {
-  const pageSettings = await getPageSettings(context.locale as Locale);
+  const locale = context.locale as Locale;
 
-  const newsPosts = await listPostsByCategory(NEWS_CATEGORY, 1, 5);
-  const updatePosts = await listPostsByCategory(UPDATE_CATEGORY, 1, 5);
-  const analysisPosts = await listPostsByCategory(
+  const pageSettings = await getPageSettings(locale);
+
+  const newsPosts = await wrappedListPostsByCategory(
+    NEWS_CATEGORY,
+    locale,
+    1,
+    5
+  );
+  const analysisPosts = await wrappedListPostsByCategory(
     PROJECT_ANALYSIS_CATEGORY,
+    locale,
     1,
     3
   );
-  const ecosystemPosts = await listPostsByCategory(ECOSYSTEM_CATEGORY, 1, 6);
-  const inDepthPosts = await listPostsByCategory(
-    IN_DEPTH_ANALYSIS_CATEGORY,
+  const ecosystemPosts = await wrappedListPostsByCategory(
+    ECOSYSTEM_CATEGORY,
+    locale,
     1,
     6
   );
+  const inDepthPosts = await wrappedListPostsByCategory(
+    IN_DEPTH_ANALYSIS_CATEGORY,
+    locale,
+    1,
+    6
+  );
+
   return {
     props: {
       ...(await serverSideTranslations(context.locale as Locale)),
       pageSettings,
       featuredPosts: pageSettings.featured_posts ?? [],
-      newsPosts: newsPosts.results,
-      updatePosts: updatePosts.results,
-      ecosystemPosts: ecosystemPosts.results,
-      analysisPosts: analysisPosts.results,
-      inDepthPosts: inDepthPosts.results,
+      newsPosts: newsPosts.data,
+      ecosystemPosts: ecosystemPosts.data,
+      analysisPosts: analysisPosts.data,
+      inDepthPosts: inDepthPosts.data,
     },
-    revalidate: 3600,
+    revalidate: REVALIDATE_STATIC_FILE_TIME,
   };
 };

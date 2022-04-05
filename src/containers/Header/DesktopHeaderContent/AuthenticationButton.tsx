@@ -1,4 +1,4 @@
-import { firebaseAuth } from "#/config/firebase";
+import { firebaseAuth } from "@/firebase/firebase";
 import UserAvatar from "@/containers/UserAvatar";
 import { CircularProgress } from "@mui/material";
 import Button, { ButtonProps } from "@mui/material/Button";

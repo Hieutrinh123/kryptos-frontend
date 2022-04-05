@@ -1,5 +1,5 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
-import { Post } from "@/api/posts";
+import { Post } from "@/api";
 import BlogPostCard from "@/containers/BlogCard";
 import Box from "@mui/material/Box";
 import React from "react";
@@ -26,7 +26,7 @@ const CarouselPostList: React.FC<CarouselPostListProps> = ({ posts }) => {
     >
       {posts.map((post) => (
         <Box key={post.id} paddingX={2}>
-          <BlogPostCard post={post} variant="short" />
+          <BlogPostCard post={post} variant="vertical" />
         </Box>
       ))}
     </Slider>

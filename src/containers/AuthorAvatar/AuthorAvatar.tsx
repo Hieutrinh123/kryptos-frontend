@@ -1,6 +1,5 @@
 import { getInitials } from "#/utils/naming";
-import { Author } from "@/api/author";
-import { resolveImageUrl } from "@/api/strapi";
+import { Author, getAuthorName, resolveImageUrl } from "@/api";
 import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 import { SxProps } from "@mui/system";
@@ -19,8 +18,8 @@ const StyledAvatar = styled(Avatar)({
 const AuthorAvatar: React.FC<AuthorAvatarProps> = ({ author, sx }) => {
   const avatarUrl = resolveImageUrl(author.avatar);
   return (
-    <StyledAvatar src={avatarUrl} alt={author.name} sx={sx}>
-      {getInitials(author.name)}
+    <StyledAvatar src={avatarUrl} alt={getAuthorName(author)} sx={sx}>
+      {getInitials(getAuthorName(author))}
     </StyledAvatar>
   );
 };

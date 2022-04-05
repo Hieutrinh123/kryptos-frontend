@@ -1,4 +1,4 @@
-import { firebaseAuth } from "#/config/firebase";
+import { firebaseAuth } from "@/firebase/firebase";
 import { useShowAlertEffect } from "#/hooks/useShowAlert";
 import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
 import EmailFormFields from "@/containers/AuthenticationForm/EmailFormFields";

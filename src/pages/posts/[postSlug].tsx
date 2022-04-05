@@ -1,8 +1,6 @@
+import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
-import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
-import { getPageSettings } from "@/api/pageSettings";
-import { getPostDetail, listAllPostSlugs, Post } from "@/api/posts";
-import { Locale } from "@/api/strapi";
+import { getPageSettings, getPostBySlug, listAllPostSlugs, Locale, Post } from "@/api";
 import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import BlogLikeButton from "@/containers/BlogLikeButton";
@@ -11,11 +9,11 @@ import PostBanner from "@/containers/PostBanner";
 import PostContent from "@/containers/PostContent";
 import PostTableOfContent from "@/containers/PostTableOfContent";
 import SocialLinks from "@/containers/SocialLinks";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import FullLayout from "@/layouts/FullLayout";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import _ from "lodash";
@@ -56,7 +54,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
                 })}
               >
                 <Box marginBottom={6}>
-                  <PostContent markdownContent={post.content} />
+                  <PostContent content={post.content} />
                 </Box>
                 <AuthorInformation
                   author={post.author}
@@ -102,7 +100,6 @@ interface PostSideBarProps {
 
 const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
   const { t } = useTranslation();
-
   return (
     <Stack spacing={4} position="sticky" top={100}>
       <Card sx={{ padding: 3 }}>
@@ -117,17 +114,6 @@ const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
           {t("Table of Contents")}
         </Typography>
         <PostTableOfContent post={post} />
-      </Card>
-
-      <Card sx={{ padding: 3 }}>
-        <Typography variant="h6" mb={2}>
-          {t("Tags")}
-        </Typography>
-        <Stack direction="row" flexWrap="wrap">
-          <Box paddingRight={2} paddingBottom={2}>
-            {post.category && <Chip label={t(post.category.title)} />}
-          </Box>
-        </Stack>
       </Card>
     </Stack>
   );
@@ -144,7 +130,7 @@ export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
       notFound: true,
     };
   }
-  const post = await getPostDetail(postSlug as string);
+  const post = await getPostBySlug(postSlug as string);
   if (_.isNil(post)) {
     return {
       notFound: true,
@@ -156,7 +142,7 @@ export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
       pageSettings: await getPageSettings(context.locale as Locale),
       post,
     },
-    revalidate: 900,
+    revalidate: REVALIDATE_STATIC_FILE_TIME,
   };
 };
 

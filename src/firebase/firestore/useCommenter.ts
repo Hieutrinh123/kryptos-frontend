@@ -1,6 +1,6 @@
-import { cloudFirestore } from "#/config/firebase";
+import { cloudFirestore } from "@/firebase/firebase";
 import { useShowAlertEffect } from "#/hooks/useShowAlert";
-import { UserData } from "@/api/hooks/firestore/useUserData";
+import { UserData } from "@/firebase/firestore/useUserData";
 import { doc } from "@firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import type { CommentData } from "./useCommentList";

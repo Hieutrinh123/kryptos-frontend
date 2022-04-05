@@ -1,4 +1,4 @@
-import { Post } from "@/api/posts";
+import { Post } from "@/api";
 import * as tocbot from "tocbot";
 import styles from "./PostTableOfContent.module.scss";
 import React, { useEffect } from "react";
@@ -8,7 +8,7 @@ const TOCBOT_OPTIONS = {
   contentSelector: ".js-toc-content",
   headingSelector: "h1, h2, h3",
   activeLinkClass: "active-header",
-  headingsOffset: 1,
+  headingsOffset: 100,
   scrollSmooth: true,
   scrollSmoothOffset: -100,
 };

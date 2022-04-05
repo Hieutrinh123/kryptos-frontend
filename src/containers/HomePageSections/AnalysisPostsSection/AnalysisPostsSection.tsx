@@ -1,10 +1,10 @@
 import { useIsMobile } from "#/styles/responsive";
+import { Post } from "@/api";
 import BlogPostList from "@/containers/BlogPostList";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Post } from "@/api/posts";
 import React from "react";
 
 interface AnalysisPostsSectionProps {
@@ -26,7 +26,7 @@ const AnalysisPostsSection: React.FC<AnalysisPostsSectionProps> = ({
           <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
             Phân tích dự án
           </Typography>
-          <BlogPostList posts={posts} desktopVariant="tall" />
+          <BlogPostList posts={posts} desktopVariant="vertical" />
         </Stack>
       </Container>
     </Box>

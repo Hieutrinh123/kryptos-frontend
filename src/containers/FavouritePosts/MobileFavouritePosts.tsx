@@ -4,7 +4,7 @@ import ArrowDropUpOutlinedIcon from "@mui/icons-material/ArrowDropUpOutlined";
 import { Box, TextField, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { PostListingResult } from "@/api/posts";
+import { PostListingResult } from "@/api";
 import React from "react";
 import Slider from "react-slick";
 
@@ -60,7 +60,7 @@ const MobileFavouritePosts: React.FC<MobileFavouritePostsProps> = ({
           slidesToScroll={1}
           initialSlide={2}
         >
-          {posts.results.map((post) => (
+          {posts.data.map((post) => (
             <Box sx={{ marginRight: 2 }} key={post.slug}>
               <BlogCard post={post} />
             </Box>

@@ -1,8 +1,8 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { useRouterPage } from "#/hooks/useRouterPage";
-import { AuthorListingResult, listAuthors } from "@/api/author";
-import {getPageSettings} from "@/api/pageSettings";
-import { Locale } from "@/api/strapi";
+import { AuthorListingResult, listAuthors } from "@/api";
+import { getPageSettings } from "@/api";
+import { Locale } from "@/api";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorInformation from "@/containers/AuthorInformation";
 import FullLayout from "@/layouts/FullLayout";
@@ -38,7 +38,7 @@ const AuthorListPage: NextPage<AuthorListPageProps> = ({ initialAuthors }) => {
             {t("Authors")}
           </Typography>
           <Stack spacing={3} mt={3}>
-            {authors.results.map((author) => (
+            {authors.data.map((author) => (
               <AuthorInformation
                 author={author}
                 key={author.id}

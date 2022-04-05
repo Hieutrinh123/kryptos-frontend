@@ -1,4 +1,4 @@
-import { Author } from "@/api/author";
+import { Author } from "@/api";
 import Paper from "@mui/material/Paper";
 import CompactAuthorInformation from "./CompactAuthorInformation";
 import FullAuthorInformation from "./FullAuthorInformation";

@@ -1,5 +1,5 @@
 import { CATEGORIES } from "#/config/category";
-import { useFirebaseAuthState } from "@/api/hooks/auth/useFirebaseAuthState";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import DropdownMenu from "@/components/DropdownMenu";
 import Logo from "@/components/Logo/Logo";
 import AuthenticationMenu from "@/containers/AuthenticationMenu";

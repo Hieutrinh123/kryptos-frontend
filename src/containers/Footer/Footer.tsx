@@ -1,5 +1,5 @@
 import { CATEGORIES } from "#/config/category";
-import { usePageSettings } from "@/api/pageSettings";
+import { usePageSettings } from "@/api";
 import Grid from "@/components/Grid";
 import Logo from "@/components/Logo/Logo";
 import SocialLinks from "@/containers/SocialLinks";
@@ -23,7 +23,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
         py: theme.spacing(8),
       })}
     >
-      <Container>
+      <Container maxWidth={false} sx={{ paddingX: 4 }}>
         <Grid container spacing={5}>
           <Grid item mobile={12} desktop={4}>
             <Stack spacing={3}>
@@ -49,8 +49,21 @@ const Footer: React.FC<FooterProps> = ({}) => {
                 },
               })}
             >
-              {CATEGORIES.map((navOption, index) => (
-                <FooterLinkGroup key={index} category={navOption} />
+              <FooterLinkGroup
+                prefix=""
+                disableRoot
+                navOption={{
+                  slug: "overview",
+                  title: "Overview",
+                  subcategories: [
+                    { slug: "about-kryptos", title: "About Kryptos" },
+                    { slug: "jobs", title: "Jobs" },
+                    { slug: "products", title: "Products" },
+                  ],
+                }}
+              />
+              {CATEGORIES.map((category, index) => (
+                <FooterLinkGroup key={index} navOption={category} />
               ))}
             </Box>
           </Grid>

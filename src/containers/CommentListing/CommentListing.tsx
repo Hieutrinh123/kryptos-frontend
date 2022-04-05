@@ -1,9 +1,9 @@
-import { useCommentSnapshotList } from "@/api/hooks/firestore/useCommentList";
+import { Post } from "@/api";
+import { useCommentSnapshotList } from "@/firebase/firestore/useCommentList";
 import Divider from "@mui/material/Divider";
 import CommentInput from "./CommentInput";
 import { CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { Post } from "@/api/posts";
 import React from "react";
 import SingleCommentDisplay from "./SingleCommentDisplay";
 
