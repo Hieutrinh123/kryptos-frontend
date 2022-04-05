@@ -8,7 +8,7 @@ const TOCBOT_OPTIONS = {
   contentSelector: ".js-toc-content",
   headingSelector: "h1, h2, h3",
   activeLinkClass: "active-header",
-  headingsOffset: 1,
+  headingsOffset: 100,
   scrollSmooth: true,
   scrollSmoothOffset: -100,
 };

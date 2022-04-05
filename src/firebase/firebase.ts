@@ -10,7 +10,7 @@ import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyBxtYDhEh1y1gCkIXGNzdLpUPG1-pFrB68",
 
-  authDomain: "coinblog-2c68c.firebaseapp.com",
+  authDomain: "auth.kryptos.news",
 
   projectId: "coinblog-2c68c",
 

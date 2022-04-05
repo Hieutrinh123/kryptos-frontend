@@ -48,7 +48,6 @@ export async function listAllPostSlugs() {
       break;
     }
   }
-  console.log(slugs);
   return slugs.filter((value) => !_.isNil(value));
 }
 
@@ -62,14 +61,21 @@ export async function listPostsByCategory(
   });
 }
 
-export async function getPostBySlug(slug: string): Promise<Post> {
-  const localizedPost = await directusGetFirstItem("posts_translations", {
-    filter: {
-      slug: {
-        _eq: slug,
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+  try {
+    const localizedPost = await directusGetFirstItem("posts_translations", {
+      filter: {
+        slug: {
+          _eq: slug,
+        },
+        status: {
+          _eq: "published",
+        },
       },
-    },
-    fields: localizedPostFields,
-  });
-  return flattenLocalizedPost(localizedPost);
+      fields: localizedPostFields,
+    });
+    return flattenLocalizedPost(localizedPost);
+  } catch (e) {
+    return null;
+  }
 }
