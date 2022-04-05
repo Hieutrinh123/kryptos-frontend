@@ -8,8 +8,8 @@ import {
 } from "./commonTypes";
 import { directusGetFirstItem } from "./directus";
 import {
-  flattenLocalizedPost,
-  localizedPostFields,
+  flattenPostTranslation,
+  postTranslationFields,
   Post,
   PostTranslation,
 } from "./posts";
@@ -20,7 +20,7 @@ export interface RootPageSettings {
   facebook_url?: string;
 }
 
-export interface LocalizedPageSettings {
+export interface PageSettingTranslation {
   page_settings_id: RootPageSettings;
   languages_code: LanguageCode;
   introduction: string;
@@ -30,7 +30,7 @@ export interface LocalizedPageSettings {
 const pageSettingsFields = [
   ...joinSubfield("languages_code", languageCodeFields),
   "introduction",
-  ...joinSubfield("featured_posts.posts_translations_id", localizedPostFields),
+  ...joinSubfield("featured_posts.posts_translations_id", postTranslationFields),
   ...joinSubfield("page_settings_id", [
     "telegram_url",
     "twitter_url",
@@ -39,7 +39,7 @@ const pageSettingsFields = [
 ];
 
 export type PageSettings = Omit<
-  LocalizedPageSettings,
+  PageSettingTranslation,
   "page_settings_id" | "featured_posts"
 > &
   RootPageSettings & {
@@ -61,7 +61,7 @@ export async function getPageSettings(locale: Locale): Promise<PageSettings> {
     ...settings.page_settings_id,
     ...settings,
     featured_posts: settings.featured_posts?.map((link) => {
-      return flattenLocalizedPost(link.posts_translations_id);
+      return flattenPostTranslation(link.posts_translations_id);
     }),
   };
 }

@@ -2,6 +2,7 @@ import { contentToExcerpt } from "#/utils/contentToExcerpt";
 import { ID } from "@directus/sdk";
 import _ from "lodash";
 import { Author, authorFields } from "../authors/authorTypes";
+import type { Category } from "../categories/categoryTypes";
 import {
   joinSubfield,
   LanguageCode,
@@ -10,11 +11,6 @@ import {
   Status,
 } from "../commonTypes";
 import { DirectusFile, fileFields } from "../files";
-
-export interface Category {
-  slug: string;
-  name: string;
-}
 
 export interface PostRoot {
   id: ID;
@@ -44,7 +40,7 @@ export interface PostTranslation {
   updated_at: string;
 }
 
-export const localizedPostFields = [
+export const postTranslationFields = [
   ...joinSubfield("posts_id", postRootFields),
   "id",
   "slug",
@@ -69,7 +65,7 @@ export function getExcerpt(post: Post): string {
   return post.excerpt ? post.excerpt : contentToExcerpt(post.content);
 }
 
-export function flattenLocalizedPost(localizedPost: PostTranslation): Post {
+export function flattenPostTranslation(localizedPost: PostTranslation): Post {
   return {
     ..._.omit(localizedPost, "posts_id"),
     ...localizedPost.posts_id,

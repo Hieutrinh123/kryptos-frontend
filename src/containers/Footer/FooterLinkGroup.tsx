@@ -1,14 +1,22 @@
 import { Category } from "#/config/category";
 import { Box, Link, Stack } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import React from "react";
 
 interface FooterLinkGroupProps {
-  category: Category;
+  navOption: Category;
+  disableRoot?: boolean;
+  prefix?: string;
 }
-
-const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
+const multipleSlashRegex = /\/+/g;
+const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({
+  navOption,
+  disableRoot,
+  prefix = "categories",
+}) => {
+  // Todo: make this element not using Category type, but accept a general NavigationOptions type
   const { t } = useTranslation();
   return (
     <Box
@@ -17,12 +25,29 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
         display: "inline-block",
       }}
     >
-      <NextLink href={"/categories/" + category.slug} passHref>
-        <Link underline="none" fontWeight="bold" color="white">
-          {t(category.title)}
-        </Link>
-      </NextLink>
-      {category.subcategories && (
+      {disableRoot ? (
+        <Typography fontWeight="bolder" fontSize={17} color="white">
+          {t(navOption.title)}
+        </Typography>
+      ) : (
+        <NextLink
+          href={`/${prefix}/${navOption.slug}`.replaceAll(
+            multipleSlashRegex,
+            "/"
+          )}
+          passHref
+        >
+          <Link
+            underline="none"
+            fontWeight="bolder"
+            fontSize={17}
+            color="white"
+          >
+            {t(navOption.title)}
+          </Link>
+        </NextLink>
+      )}
+      {navOption.subcategories && (
         <Stack
           component="ul"
           spacing={1}
@@ -32,9 +57,15 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ category }) => {
             padding: 0,
           }}
         >
-          {category.subcategories.map((subcategory, index) => (
+          {navOption.subcategories.map((subcategory, index) => (
             <li key={index}>
-              <NextLink href={"/categories/" + subcategory.slug} passHref>
+              <NextLink
+                href={`/${prefix}/${subcategory.slug}`.replaceAll(
+                  multipleSlashRegex,
+                  "/"
+                )}
+                passHref
+              >
                 <Link underline="none" color="white">
                   {t(subcategory.title)}
                 </Link>

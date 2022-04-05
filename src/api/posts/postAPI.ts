@@ -1,14 +1,12 @@
-import { Category } from "#/config/category";
-
 import { QueryMany } from "@directus/sdk";
 import _ from "lodash";
 import { directusGetFirstItem, directusListItem } from "../directus";
 import {
-  flattenLocalizedPost,
-  localizedPostFields,
+  flattenPostTranslation,
   Post,
   PostListingResult,
   PostTranslation,
+  postTranslationFields,
 } from "./postTypes";
 
 export async function listPosts(
@@ -17,7 +15,8 @@ export async function listPosts(
   query?: QueryMany<PostTranslation>
 ): Promise<PostListingResult> {
   const defaultQuery: QueryMany<PostTranslation> = {
-    fields: localizedPostFields,
+    fields: postTranslationFields,
+    sort: ["-updated_at"],
     filter: {
       status: {
         _eq: "published",
@@ -34,7 +33,7 @@ export async function listPosts(
   );
   return {
     pagination: localizedPosts.pagination,
-    data: localizedPosts.data.map(flattenLocalizedPost),
+    data: localizedPosts.data.map(flattenPostTranslation),
   };
 }
 
@@ -51,16 +50,6 @@ export async function listAllPostSlugs() {
   return slugs.filter((value) => !_.isNil(value));
 }
 
-export async function listPostsByCategory(
-  category: Category,
-  page: number,
-  limit: number
-) {
-  return await listPosts(page, limit, {
-    sort: ["-updated_at"],
-  });
-}
-
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
     const localizedPost = await directusGetFirstItem("posts_translations", {
@@ -72,9 +61,9 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
           _eq: "published",
         },
       },
-      fields: localizedPostFields,
+      fields: postTranslationFields,
     });
-    return flattenLocalizedPost(localizedPost);
+    return flattenPostTranslation(localizedPost);
   } catch (e) {
     return null;
   }

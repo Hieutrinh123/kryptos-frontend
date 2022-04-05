@@ -1,5 +1,6 @@
 import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import {
+  Category,
   ECOSYSTEM_CATEGORY,
   IN_DEPTH_ANALYSIS_CATEGORY,
   NEWS_CATEGORY,
@@ -55,23 +56,53 @@ const HomePage: NextPage<HomePageProps> = ({
 
 export default HomePage;
 
+function wrappedListPostsByCategory(
+  category: Category,
+  locale: Locale,
+  page: number,
+  limit: number
+) {
+  let categorySlugs = [category.slug];
+  if (category.subcategories) {
+    categorySlugs = categorySlugs.concat(
+      category.subcategories.map((subcategory) => subcategory.slug)
+    );
+  }
+  return listPostsByCategory(categorySlugs, locale, page, limit);
+}
+
 export const getStaticProps: GetStaticProps<HomePageProps> = async (
   context
 ) => {
-  const pageSettings = await getPageSettings(context.locale as Locale);
+  const locale = context.locale as Locale;
 
-  const newsPosts = await listPostsByCategory(NEWS_CATEGORY, 1, 5);
-  const analysisPosts = await listPostsByCategory(
+  const pageSettings = await getPageSettings(locale);
+
+  const newsPosts = await wrappedListPostsByCategory(
+    NEWS_CATEGORY,
+    locale,
+    1,
+    5
+  );
+  const analysisPosts = await wrappedListPostsByCategory(
     PROJECT_ANALYSIS_CATEGORY,
+    locale,
     1,
     3
   );
-  const ecosystemPosts = await listPostsByCategory(ECOSYSTEM_CATEGORY, 1, 6);
-  const inDepthPosts = await listPostsByCategory(
-    IN_DEPTH_ANALYSIS_CATEGORY,
+  const ecosystemPosts = await wrappedListPostsByCategory(
+    ECOSYSTEM_CATEGORY,
+    locale,
     1,
     6
   );
+  const inDepthPosts = await wrappedListPostsByCategory(
+    IN_DEPTH_ANALYSIS_CATEGORY,
+    locale,
+    1,
+    6
+  );
+
   return {
     props: {
       ...(await serverSideTranslations(context.locale as Locale)),
