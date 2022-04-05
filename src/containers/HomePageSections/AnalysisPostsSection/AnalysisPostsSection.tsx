@@ -26,7 +26,7 @@ const AnalysisPostsSection: React.FC<AnalysisPostsSectionProps> = ({
           <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
             Phân tích dự án
           </Typography>
-          <BlogPostList posts={posts} desktopVariant="tall" />
+          <BlogPostList posts={posts} desktopVariant="vertical" />
         </Stack>
       </Container>
     </Box>

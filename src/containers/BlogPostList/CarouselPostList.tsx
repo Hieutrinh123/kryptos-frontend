@@ -26,7 +26,7 @@ const CarouselPostList: React.FC<CarouselPostListProps> = ({ posts }) => {
     >
       {posts.map((post) => (
         <Box key={post.id} paddingX={2}>
-          <BlogPostCard post={post} variant="short" />
+          <BlogPostCard post={post} variant="vertical" />
         </Box>
       ))}
     </Slider>

@@ -13,6 +13,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import React from "react";
+import { Textfit } from "react-textfit";
 
 interface BlogPostCard {
   post: Post;
@@ -20,7 +21,7 @@ interface BlogPostCard {
   imageWidth?: number;
 }
 
-export type BlogPostCardVariant = "side" | "tall" | "short";
+export type BlogPostCardVariant = "horizontal" | "vertical";
 
 const BlogPostCard: React.FC<BlogPostCard> = ({
   post,
@@ -41,7 +42,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
       onClick={() => router.push(`/posts/${post.slug}`)}
     >
       <Stack
-        direction={variant === "side" ? "row" : "column"}
+        direction={variant === "horizontal" ? "row" : "column"}
         alignItems="stretch"
         position="relative"
       >
@@ -49,8 +50,9 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
           component="img"
           src={resolveImageUrl(post.thumbnail)}
           sx={{
-            aspectRatio: variant === "short" ? "2 / 1" : "1 / 1",
-            width: variant === "side" ? imageWidth : undefined,
+            boxShadow: 1,
+            aspectRatio: "1 / 1",
+            width: variant === "horizontal" ? imageWidth : undefined,
           }}
         />
         {isMobile && (
@@ -76,7 +78,9 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                 </Typography>
               )}
               <Typography variant="h5" fontWeight="bolder">
-                {post.title}
+                <Textfit mode="multi" max={32} style={{ height: 100 }}>
+                  {post.title}
+                </Textfit>
               </Typography>
             </Stack>
             <Stack

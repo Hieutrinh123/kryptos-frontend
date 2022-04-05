@@ -14,7 +14,7 @@ interface ListPostProps {
 const BlogPostList: React.FC<ListPostProps> = ({
   posts,
   mobileCarousel = true,
-  desktopVariant = "short",
+  desktopVariant = "vertical",
 }) => {
   const isDesktop = useIsDesktop();
 

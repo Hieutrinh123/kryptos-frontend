@@ -26,7 +26,7 @@ const InDepthAnalysisPostsSection: React.FC<
           <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
             Phân tích chuyên sâu
           </Typography>
-          <BlogPostList posts={posts} desktopVariant="short" />
+          <BlogPostList posts={posts} desktopVariant="vertical" />
         </Stack>
       </Container>
     </Box>

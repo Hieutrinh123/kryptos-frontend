@@ -37,14 +37,18 @@ const NewsSection: React.FC<NewsSectionProps> = ({ posts }) => {
             </Box>
             {isDesktop && (
               <Box flex={8}>
-                <BlogPostCard post={posts[0]} variant="side" imageWidth={250} />
+                <BlogPostCard
+                  post={posts[0]}
+                  variant="horizontal"
+                  imageWidth={250}
+                />
               </Box>
             )}
           </Stack>
 
           <BlogPostList
             posts={isDesktop ? posts.slice(1, posts.length) : posts}
-            desktopVariant="side"
+            desktopVariant="horizontal"
           />
         </Stack>
       </Container>

@@ -27,7 +27,7 @@ const EcosystemPostsSection: React.FC<EcosystemPostsSectionProps> = ({
           <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
             Hệ sinh thái
           </Typography>
-          <BlogPostList posts={posts} desktopVariant="short" />
+          <BlogPostList posts={posts} desktopVariant="vertical" />
         </Stack>
       </Container>
     </Box>

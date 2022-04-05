@@ -22,7 +22,7 @@ const DesktopPostList: React.FC<ComputerAndTabletPostListProps> = ({
             item
             mobile={12}
             tablet={6}
-            desktop={variant === "side" ? 6 : 4}
+            desktop={variant === "horizontal" ? 6 : 4}
             key={post.id}
           >
             <BlogPostCard post={post} variant={variant} />
