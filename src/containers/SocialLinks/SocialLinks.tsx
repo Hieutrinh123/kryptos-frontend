@@ -1,5 +1,5 @@
-import { DISCORD_LINK, FACEBOOK_LINK, TWITTER_LINK } from "#/config/social";
-import DiscordIcon from "@/components/DiscordIcon";
+import { usePageSettings } from "@/api";
+import TelegramIcon from "@mui/icons-material/Telegram";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Stack from "@mui/material/Stack";
@@ -11,19 +11,26 @@ interface SocialLinksProps {
 }
 
 const SocialLinks: React.FC<SocialLinksProps> = ({ color }) => {
+  const pageSettings = usePageSettings();
   return (
     <Stack direction="row" spacing={2} alignItems="center">
-      <SingleSocialLink href={FACEBOOK_LINK} color={color}>
-        <FacebookRoundedIcon />
-      </SingleSocialLink>
+      {pageSettings.facebook_url && (
+        <SingleSocialLink href={pageSettings.facebook_url} color={color}>
+          <FacebookRoundedIcon />
+        </SingleSocialLink>
+      )}
 
-      <SingleSocialLink href={TWITTER_LINK} color={color}>
-        <TwitterIcon />
-      </SingleSocialLink>
+      {pageSettings.twitter_url && (
+        <SingleSocialLink href={pageSettings.twitter_url} color={color}>
+          <TwitterIcon />
+        </SingleSocialLink>
+      )}
 
-      <SingleSocialLink href={DISCORD_LINK} color={color}>
-        <DiscordIcon />
-      </SingleSocialLink>
+      {pageSettings.telegram_url && (
+        <SingleSocialLink href={pageSettings.telegram_url} color={color}>
+          <TelegramIcon />
+        </SingleSocialLink>
+      )}
     </Stack>
   );
 };

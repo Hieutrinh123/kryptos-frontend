@@ -1,6 +1,12 @@
 import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
-import { getPageSettings, getPostBySlug, listAllPostSlugs, Locale, Post } from "@/api";
+import {
+  getPageSettings,
+  getPostBySlug,
+  listAllPostSlugs,
+  Locale,
+  Post,
+} from "@/api";
 import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import BlogLikeButton from "@/containers/BlogLikeButton";
@@ -8,7 +14,7 @@ import CommentListing from "@/containers/CommentListing";
 import PostBanner from "@/containers/PostBanner";
 import PostContent from "@/containers/PostContent";
 import PostTableOfContent from "@/containers/PostTableOfContent";
-import SocialLinks from "@/containers/SocialLinks";
+import ShareLinks from "@/containers/ShareLinks";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import FullLayout from "@/layouts/FullLayout";
 import { Container } from "@mui/material";
@@ -40,6 +46,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
       <PostBanner post={post} />
       <Container
         disableGutters={!isDesktop}
+        maxWidth="xl"
         sx={{ paddingTop: 4, paddingBottom: 6 }}
       >
         <Stack direction={{ mobile: "column", desktop: "row" }} spacing={4}>
@@ -48,7 +55,7 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
               <Card
                 sx={(theme) => ({
                   padding: 6,
-                  [theme.breakpoints.down("desktop")]: {
+                  [theme.breakpoints.down("tablet")]: {
                     padding: 3,
                   },
                 })}
@@ -62,10 +69,21 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
                   withoutPaper
                 />
               </Card>
-              <Card sx={{ padding: 3 }}>
+              <Card
+                sx={(theme) => ({
+                  padding: 6,
+                  [theme.breakpoints.down("tablet")]: {
+                    padding: 3,
+                  },
+                })}
+              >
                 <Stack spacing={3}>
                   {user && (
-                    <Stack direction="row" spacing={2}>
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      justifyContent={"center"}
+                    >
                       <BlogBookmarkButton
                         post={post}
                         variant={isMobile ? "compact" : "full"}
@@ -100,20 +118,30 @@ interface PostSideBarProps {
 
 const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
   const { t } = useTranslation();
+  const isDesktop = useIsDesktop();
   return (
     <Stack spacing={4} position="sticky" top={100}>
-      <Card sx={{ padding: 3 }}>
+      {isDesktop && (
+        <Card sx={{ padding: 3 }}>
+          <Typography variant="h6" mb={2}>
+            {t("Table of Contents")}
+          </Typography>
+          <PostTableOfContent post={post} />
+        </Card>
+      )}
+
+      <Card
+        sx={(theme) => ({
+          padding: 6,
+          [theme.breakpoints.down("tablet")]: {
+            padding: 3,
+          },
+        })}
+      >
         <Typography variant="h6" mb={2}>
           {t("Share")}
         </Typography>
-        <SocialLinks />
-      </Card>
-
-      <Card sx={{ padding: 3 }}>
-        <Typography variant="h6" mb={2}>
-          {t("Table of Contents")}
-        </Typography>
-        <PostTableOfContent post={post} />
+        <ShareLinks post={post} />
       </Card>
     </Stack>
   );

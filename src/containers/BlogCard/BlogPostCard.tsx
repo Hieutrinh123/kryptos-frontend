@@ -94,7 +94,6 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
               <Stack
                 direction="row"
                 spacing={2}
-                flexGrow={1}
                 alignItems="center"
               >
                 {post.author && (

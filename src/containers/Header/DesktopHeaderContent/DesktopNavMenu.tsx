@@ -1,4 +1,4 @@
-import { Category } from "#/config/category";
+import { Navigation } from "#/config/navigation";
 import DropdownMenu from "@/components/DropdownMenu";
 import Button from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
@@ -10,28 +10,28 @@ import NextLink from "next/link";
 import React from "react";
 
 interface DesktopNavMenuProps {
-  category: Category;
+  navigation: Navigation;
 }
-const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ category }) => {
+const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ navigation }) => {
   const { t } = useTranslation();
   const popupState = usePopupState({
-    popupId: "nav-menu-" + category.slug,
+    popupId: "nav-menu-" + navigation.slug,
     variant: "popover",
   });
 
-  if (category.subcategories) {
+  if (navigation.subnavigations) {
     return (
       <DropdownMenu
         popupState={popupState}
         titleNode={
           <Typography fontSize={16} fontWeight="bold">
-            {t(category.title)}
+            {t(navigation.title)}
           </Typography>
         }
         offsetX={-20}
         offsetY={0}
       >
-        {category.subcategories.map((subcategory) => (
+        {navigation.subnavigations.map((subcategory) => (
           <NextLink
             passHref
             href={"/categories/" + subcategory.slug}
@@ -48,10 +48,10 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ category }) => {
     );
   }
   return (
-    <NextLink passHref href={"/categories/" + category.slug}>
+    <NextLink passHref href={"/categories/" + navigation.slug}>
       <Button variant="text" color="secondary">
         <Typography fontSize={16} fontWeight="bold">
-          {t(category.title)}
+          {t(navigation.title)}
         </Typography>
       </Button>
     </NextLink>

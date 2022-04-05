@@ -1,11 +1,11 @@
 import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import {
-  Category,
+  Navigation,
   ECOSYSTEM_CATEGORY,
   IN_DEPTH_ANALYSIS_CATEGORY,
   NEWS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
-} from "#/config/category";
+} from "#/config/navigation";
 import { getPageSettings, listPostsByCategory, Locale, Post } from "@/api";
 import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
@@ -57,15 +57,15 @@ const HomePage: NextPage<HomePageProps> = ({
 export default HomePage;
 
 function wrappedListPostsByCategory(
-  category: Category,
+  category: Navigation,
   locale: Locale,
   page: number,
   limit: number
 ) {
-  let categorySlugs = [category.slug];
-  if (category.subcategories) {
+  let categorySlugs = category.slug ? [category.slug] : [];
+  if (category.subnavigations) {
     categorySlugs = categorySlugs.concat(
-      category.subcategories.map((subcategory) => subcategory.slug)
+      category.subnavigations.map((subcategory) => subcategory.slug)
     );
   }
   return listPostsByCategory(categorySlugs, locale, page, limit);

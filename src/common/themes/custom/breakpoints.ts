@@ -4,7 +4,7 @@ declare module "@mui/material/styles" {
     sm: false;
     md: true;
     lg: true;
-    xl: false;
+    xl: true;
     mobile: true;
     tablet: true;
     desktop: true;
@@ -19,5 +19,6 @@ export const breakpoints = {
     mobile: 0,
     tablet: 600,
     desktop: 1120,
+    xl: 1400,
   },
 };
