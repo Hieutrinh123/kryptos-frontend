@@ -3,6 +3,7 @@ import { useIsMobile } from "#/styles/responsive";
 import { getAuthorName } from "@/api";
 import { resolveImageUrl } from "@/api";
 import { Post } from "@/api";
+import { grey } from "@/common/styles/colors";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import Box from "@mui/material/Box";
@@ -33,12 +34,14 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
 
   return (
     <Card
-      sx={{
+      sx={(theme) => ({
+        backgroundColor: theme.palette.mode === "dark" ? grey["700"] : "white",
+        boxShadow: 3,
         cursor: "pointer",
         ":hover": {
           boxShadow: 5,
         },
-      }}
+      })}
       onClick={() => router.push(`/posts/${post.slug}`)}
     >
       <Stack
@@ -51,7 +54,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
           src={resolveImageUrl(post.thumbnail)}
           sx={{
             boxShadow: 1,
-            aspectRatio: "1 / 1",
+            aspectRatio: variant === "horizontal" ? "1 / 1" : "2 / 1",
             width: variant === "horizontal" ? imageWidth : undefined,
           }}
         />

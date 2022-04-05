@@ -145,7 +145,8 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
   return (
     <Stack
       position="absolute"
-      top={{ mobile: "30vh", desktop: "20vh" }}
+      height="100%"
+      paddingTop={6}
       left={{ mobile: "5vh", desktop: "20vh" }}
       maxWidth="50vh"
       spacing={4}

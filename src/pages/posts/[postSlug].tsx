@@ -1,8 +1,6 @@
 import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
-import { getPageSettings } from "@/api";
-import { getPostBySlug, listAllPostSlugs } from "@/api";
-import { Locale, Post } from "@/api";
+import { getPageSettings, getPostBySlug, listAllPostSlugs, Locale, Post } from "@/api";
 import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import BlogLikeButton from "@/containers/BlogLikeButton";
@@ -16,7 +14,6 @@ import FullLayout from "@/layouts/FullLayout";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import _ from "lodash";
@@ -117,21 +114,6 @@ const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
           {t("Table of Contents")}
         </Typography>
         <PostTableOfContent post={post} />
-      </Card>
-
-      <Card sx={{ padding: 3 }}>
-        <Typography variant="h6" mb={2}>
-          {t("Tags")}
-        </Typography>
-        <Stack direction="row" flexWrap="wrap">
-          <Box paddingRight={2} paddingBottom={2}>
-            {post.categories?.map((category) => (
-              <Box paddingRight={2} paddingBottom={2} key={category.slug}>
-                <Chip label={category.name} />
-              </Box>
-            ))}
-          </Box>
-        </Stack>
       </Card>
     </Stack>
   );

@@ -16,15 +16,19 @@ export type DirectusCollections = Omit<DirectusCollectionsRaw, never>;
 
 function getDirectusOptions(): DirectusOptions {
   if (process.env.DIRECTUS_ACCESS_TOKEN) {
-    console.log("getting server side directus instance");
     return {
       auth: {
         mode: "json",
         staticToken: process.env.DIRECTUS_ACCESS_TOKEN,
       },
+      transport: {
+        url: process.env.NEXT_PUBLIC_DIRECTUS_URL ?? "",
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      },
     };
   }
-  console.log("getting client side directus instance");
   return {};
 }
 
