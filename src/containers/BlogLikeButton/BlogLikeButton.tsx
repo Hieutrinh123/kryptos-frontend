@@ -1,4 +1,4 @@
-import { Post } from "@/api/types";
+import { Post } from "@/api";
 import { useLikePost } from "@/firebase/firestore/usePostInteraction";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CircularProgress } from "@mui/material";

@@ -1,15 +1,16 @@
 import {
+  Author,
   getAllAuthorSlugs,
   getAuthor,
   getAuthorName,
+  getPageSettings,
   listPostsFromAuthor,
-} from "@/api/authors";
-import { getPageSettings } from "@/api/pageSettings";
-import { PostListingResult } from "@/api/posts";
-import { Locale } from "@/api/types";
-import { Author } from "@/api/types";
+  Locale,
+  PostListingResult,
+} from "@/api";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorInformation from "@/containers/AuthorInformation";
+import BlogPostList from "@/containers/BlogPostList";
 import FullLayout from "@/layouts/FullLayout";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -47,6 +48,7 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
         </Box>
 
         <Stack mt={4} spacing={2}>
+          <BlogPostList posts={initialPosts.data} />
           <RouterPagination
             count={totalPageCount}
             basePath={`/authors/${author.slug}`}

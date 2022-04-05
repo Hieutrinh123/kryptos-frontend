@@ -1,8 +1,6 @@
-import { directusGetByUniqueField, directusListItem } from "@/api/directus";
-import { PostListingResult } from "@/api/posts";
-import { Author, ListResult } from "./types";
-
-export type AuthorListingResult = ListResult<Author>;
+import { Author, authorFields, AuthorListingResult } from "./authorTypes";
+import { PostListingResult } from "../posts";
+import { directusGetFirstItem, directusListItem } from "../directus";
 
 export async function listAuthors(
   page: number,
@@ -12,11 +10,14 @@ export async function listAuthors(
 }
 
 export async function getAuthor(slug: string): Promise<Author> {
-  return directusGetByUniqueField("directus_users", "slug", slug);
-}
-
-export function getAuthorName(author: Author): string {
-  return author.first_name + " " + author.last_name;
+  return directusGetFirstItem("directus_users", {
+    filter: {
+      slug: {
+        _eq: slug,
+      },
+    },
+    fields: authorFields,
+  });
 }
 
 export async function getAllAuthorSlugs() {
@@ -39,6 +40,7 @@ export async function getAllAuthorSlugs() {
 export async function listPostsFromAuthor(
   authorSlug: string
 ): Promise<PostListingResult> {
+  // Todo: reimplement list posts from author
   return {
     data: [],
     pagination: {

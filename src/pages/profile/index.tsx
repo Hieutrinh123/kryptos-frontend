@@ -1,6 +1,6 @@
-import { Locale } from "@/api/types";
+import { Locale } from "@/api";
 import { useAuthStateWithRedirect } from "@/firebase/auth/useFirebaseAuthState";
-import { getPageSettings } from "@/api/pageSettings";
+import { getPageSettings } from "@/api";
 import UserInformationManagement from "@/containers/UserInformationManagement";
 import FullLayout from "@/layouts/FullLayout";
 import { Container } from "@mui/material";

@@ -1,5 +1,5 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
-import { Post } from "@/api/types";
+import { Post } from "@/api";
 import BlogPostCard from "@/containers/BlogCard";
 import Box from "@mui/material/Box";
 import React from "react";

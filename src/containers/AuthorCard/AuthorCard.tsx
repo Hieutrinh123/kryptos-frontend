@@ -1,6 +1,6 @@
 import CompactAuthorCard from "@/containers/AuthorCard/CompactAuthorCard";
 import DetailedAuthorCard from "@/containers/AuthorCard/DetailedAuthorCard";
-import { Author } from "@/api/types";
+import { Author } from "@/api";
 import React from "react";
 
 interface AuthorCardProps {

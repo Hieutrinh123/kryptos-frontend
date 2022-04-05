@@ -1,4 +1,4 @@
-import { Post } from "@/api/types";
+import { Post } from "@/api";
 import { useCommentSnapshotList } from "@/firebase/firestore/useCommentList";
 import {
   usePostLikeCount,

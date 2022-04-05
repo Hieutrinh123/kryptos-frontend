@@ -1,5 +1,5 @@
 import { useIsMobile } from "#/styles/responsive";
-import { Author } from "@/api/types";
+import { Author } from "@/api";
 import MobileAuthorList from "@/containers/AuthorList/MobileAuthorList";
 import React from "react";
 import DesktopAndTabletAuthorList from "./DesktopAndTabletAuthorList";

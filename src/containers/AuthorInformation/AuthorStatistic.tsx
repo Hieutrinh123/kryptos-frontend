@@ -1,4 +1,4 @@
-import { Author } from "@/api/types";
+import { Author } from "@/api";
 import LikeIcon from "@mui/icons-material/FavoriteBorder";
 import PostCountIcon from "@mui/icons-material/FilterNone";
 import FollowCountIcon from "@mui/icons-material/PeopleOutline";
@@ -10,7 +10,7 @@ interface AuthorStatisticProps {
   author: Author;
 }
 
-const AuthorStatistic: React.FC<AuthorStatisticProps> = ({ author }) => {
+const AuthorStatistic: React.FC<AuthorStatisticProps> = ({}) => {
   return (
     <Stack direction="row" spacing={2}>
       <Stack spacing={1} direction="row" alignItems="center">

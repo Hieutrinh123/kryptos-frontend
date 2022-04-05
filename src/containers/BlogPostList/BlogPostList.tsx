@@ -1,5 +1,5 @@
 import { useIsDesktop } from "#/styles/responsive";
-import { Post } from "@/api/types";
+import { Post } from "@/api";
 import { BlogPostCardVariant } from "@/containers/BlogCard/BlogPostCard";
 import React from "react";
 import CarouselPostList from "./CarouselPostList";
