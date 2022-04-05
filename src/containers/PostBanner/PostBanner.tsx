@@ -73,7 +73,7 @@ const PostTitle: React.FC<{ post: Post }> = ({ post }) => {
   const { t } = useTranslation();
   return (
     <Stack spacing={2} alignItems="flex-start">
-      {post.categories && (
+      {post.categories.length > 0 && (
         <Chip
           label={
             <Typography variant="body1" fontWeight="bold" color="white">

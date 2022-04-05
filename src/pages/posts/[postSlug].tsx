@@ -103,7 +103,6 @@ interface PostSideBarProps {
 
 const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
   const { t } = useTranslation();
-
   return (
     <Stack spacing={4} position="sticky" top={100}>
       <Card sx={{ padding: 3 }}>
