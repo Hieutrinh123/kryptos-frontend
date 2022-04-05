@@ -1,5 +1,5 @@
 import { CATEGORIES } from "#/config/category";
-import { usePageSettings } from "@/api/pageSettings";
+import { usePageSettings } from "@/api";
 import Grid from "@/components/Grid";
 import Logo from "@/components/Logo/Logo";
 import SocialLinks from "@/containers/SocialLinks";

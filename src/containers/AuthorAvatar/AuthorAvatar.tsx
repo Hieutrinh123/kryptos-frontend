@@ -1,7 +1,5 @@
 import { getInitials } from "#/utils/naming";
-import { getAuthorName } from "@/api/authors";
-import { resolveImageUrl } from "@/api/directus";
-import { Author } from "@/api/types";
+import { Author, getAuthorName, resolveImageUrl } from "@/api";
 import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 import { SxProps } from "@mui/system";

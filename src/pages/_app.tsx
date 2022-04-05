@@ -2,7 +2,7 @@ import { AlertProvider } from "#/hooks/useShowAlert";
 import { SVGGradient } from "#/styles/gradients";
 import { ThemeModeProvider } from "#/themes";
 import createEmotionCache from "#/utils/createEmotionCache";
-import { PageSettings, PageSettingsProvider } from "@/api/pageSettings";
+import { PageSettings, PageSettingsProvider } from "@/api";
 import "@/common/styles/globals.scss";
 import LoadingScreen from "@/containers/LoadingScreen";
 import { EmotionCache } from "@emotion/cache";

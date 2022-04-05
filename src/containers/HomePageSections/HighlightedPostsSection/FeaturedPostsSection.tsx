@@ -1,4 +1,4 @@
-import { Post } from "@/api/types";
+import { Post } from "@/api";
 import Grid from "@/components/Grid";
 import MainCarousel from "@/containers/HomePageSections/HighlightedPostsSection/MainCarousel";
 import SidePosts from "@/containers/HomePageSections/HighlightedPostsSection/SidePosts";

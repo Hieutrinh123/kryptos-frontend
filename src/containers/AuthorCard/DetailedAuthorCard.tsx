@@ -1,5 +1,5 @@
 import { contentToExcerpt } from "#/utils/contentToExcerpt";
-import { getAuthorName } from "@/api/authors";
+import { getAuthorName } from "@/api";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Author } from "@/api/types";
+import { Author } from "@/api";
 import NextLink from "next/link";
 import React from "react";
 

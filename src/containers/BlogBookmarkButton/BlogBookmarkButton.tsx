@@ -1,4 +1,4 @@
-import { Post } from "@/api/types";
+import { Post } from "@/api";
 import { useBookmarkPost } from "@/firebase/firestore/usePostInteraction";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { CircularProgress } from "@mui/material";

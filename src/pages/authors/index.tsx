@@ -1,8 +1,8 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { useRouterPage } from "#/hooks/useRouterPage";
-import { AuthorListingResult, listAuthors } from "@/api/authors";
-import { getPageSettings } from "@/api/pageSettings";
-import { Locale } from "@/api/types";
+import { AuthorListingResult, listAuthors } from "@/api";
+import { getPageSettings } from "@/api";
+import { Locale } from "@/api";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorInformation from "@/containers/AuthorInformation";
 import FullLayout from "@/layouts/FullLayout";

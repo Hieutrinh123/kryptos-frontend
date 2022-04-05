@@ -1,7 +1,7 @@
-import { getAuthorName } from "@/api/authors";
+import { getAuthorName } from "@/api";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import Chip from "@mui/material/Chip";
-import { Author } from "@/api/types";
+import { Author } from "@/api";
 import React, { useRef } from "react";
 import { useHover } from "usehooks-ts";
 import NextLink from "next/link";

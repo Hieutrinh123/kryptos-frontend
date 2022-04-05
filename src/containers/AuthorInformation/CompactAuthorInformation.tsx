@@ -1,5 +1,5 @@
-import { getAuthorName } from "@/api/authors";
-import { Author } from "@/api/types";
+import { getAuthorName } from "@/api";
+import { Author } from "@/api";
 import Grid from "@/components/Grid";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import AuthorStatistic from "@/containers/AuthorInformation/AuthorStatistic";

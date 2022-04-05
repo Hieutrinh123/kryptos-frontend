@@ -1,4 +1,4 @@
-import { Post } from "@/api/types";
+import { Post } from "@/api";
 import Grid from "@/components/Grid";
 import BlogPostCard from "@/containers/BlogCard";
 import { BlogPostCardVariant } from "@/containers/BlogCard/BlogPostCard";

@@ -1,5 +1,5 @@
 import { useIsMobile } from "@/common/styles/responsive";
-import { PostListingResult } from "@/api/posts";
+import { PostListingResult } from "@/api";
 import React from "react";
 import ComputerFavouritePosts from "./ComputerFavouritePosts";
 import MobileFavouritePosts from "./MobileFavouritePosts";

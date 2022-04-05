@@ -1,7 +1,7 @@
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
-import { getPageSettings } from "@/api/pageSettings";
-import { getPost, listAllPostSlugs } from "@/api/posts";
-import { Locale, Post } from "@/api/types";
+import { getPageSettings } from "@/api";
+import { getPostBySlug, listAllPostSlugs } from "@/api";
+import { Locale, Post } from "@/api";
 import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import BlogLikeButton from "@/containers/BlogLikeButton";
@@ -125,7 +125,7 @@ const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
         </Typography>
         <Stack direction="row" flexWrap="wrap">
           <Box paddingRight={2} paddingBottom={2}>
-            {post.posts_id.categories?.map((tag) => (
+            {post.categories?.map((tag) => (
               <Box paddingRight={2} paddingBottom={2} key={tag}>
                 <Chip label={tag} />
               </Box>
@@ -148,7 +148,7 @@ export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
       notFound: true,
     };
   }
-  const post = await getPost(postSlug as string);
+  const post = await getPostBySlug(postSlug as string);
   if (_.isNil(post)) {
     return {
       notFound: true,

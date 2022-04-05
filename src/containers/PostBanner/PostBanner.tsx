@@ -1,7 +1,7 @@
 import { glassGradient } from "#/styles/gradients";
 import { useIsDesktop } from "#/styles/responsive";
-import { resolveImageUrl } from "@/api/directus";
-import { Post } from "@/api/types";
+import { resolveImageUrl } from "@/api";
+import { Post } from "@/api";
 import Grid from "@/components/Grid";
 import AuthorChip from "@/containers/AuthorChip";
 import PostStatistic from "@/containers/PostStatistic";
@@ -51,11 +51,11 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
               })}
               borderRadius={6}
             >
-              {post.posts_id.thumbnail && (
+              {post.thumbnail && (
                 <NextImage
-                  src={resolveImageUrl(post.posts_id.thumbnail)}
+                  src={resolveImageUrl(post.thumbnail)}
                   alt={
-                    post.posts_id.thumbnail.description ?? "Post's thumbnail"
+                    post.thumbnail.description ?? "Post's thumbnail"
                   }
                   layout="fill"
                   objectFit="contain"
@@ -75,11 +75,11 @@ const PostTitle: React.FC<{ post: Post }> = ({ post }) => {
   const { t } = useTranslation();
   return (
     <Stack spacing={2} alignItems="flex-start">
-      {post.posts_id.categories && (
+      {post.categories && (
         <Chip
           label={
             <Typography variant="body1" fontWeight="bold" color="white">
-              {t(post.posts_id.categories[0])}
+              {t(post.categories[0])}
             </Typography>
           }
           sx={(theme) => ({

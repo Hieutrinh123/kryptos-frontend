@@ -1,4 +1,4 @@
-import { useNotifications } from "@/api/notification";
+import { useNotifications } from "@/api";
 import ArrowForwardIos from "@mui/icons-material/ArrowForwardIos";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";

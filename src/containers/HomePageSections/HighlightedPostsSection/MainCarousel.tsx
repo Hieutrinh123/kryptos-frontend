@@ -1,8 +1,8 @@
 import { carouselTimeout, carouselTransitionTime } from "#/config/carousel";
 import { toolbarHeight } from "#/config/toolbar";
 import { glassGradientWithAlpha } from "#/styles/gradients";
-import { resolveImageUrl } from "@/api/directus";
-import { Post } from "@/api/types";
+import { resolveImageUrl } from "@/api";
+import { Post } from "@/api";
 import { BlurBackdrop } from "@/containers/HomePageSections/HighlightedPostsSection/BlurBackdrop";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import Box from "@mui/material/Box";
@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { getExcerpt } from "@/api/posts";
+import { getExcerpt } from "@/api";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Textfit } from "react-textfit";
@@ -108,9 +108,9 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
           },
         }}
       >
-        {post.posts_id.thumbnail && (
+        {post.thumbnail && (
           <Image
-            src={resolveImageUrl(post.posts_id.thumbnail)}
+            src={resolveImageUrl(post.thumbnail)}
             alt="Thumbnail"
             layout="fill"
             quality={100}
@@ -148,7 +148,7 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
       top={{ mobile: "30vh", desktop: "20vh" }}
       left={{ mobile: "5vh", desktop: "20vh" }}
       maxWidth="50vh"
-      spacing={2}
+      spacing={4}
       alignItems="start"
     >
       <Typography variant="h1" fontWeight="bold" color="white" width="100%">
