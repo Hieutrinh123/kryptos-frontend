@@ -19,7 +19,9 @@ export async function listPosts(
   const defaultQuery: QueryMany<PostTranslation> = {
     fields: localizedPostFields,
     filter: {
-      status: "published",
+      status: {
+        _eq: "published",
+      },
     },
   };
 
