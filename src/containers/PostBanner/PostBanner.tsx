@@ -54,9 +54,7 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
               {post.thumbnail && (
                 <NextImage
                   src={resolveImageUrl(post.thumbnail)}
-                  alt={
-                    post.thumbnail.description ?? "Post's thumbnail"
-                  }
+                  alt={post.thumbnail.description ?? "Post's thumbnail"}
                   layout="fill"
                   objectFit="contain"
                 />
@@ -79,7 +77,7 @@ const PostTitle: React.FC<{ post: Post }> = ({ post }) => {
         <Chip
           label={
             <Typography variant="body1" fontWeight="bold" color="white">
-              {t(post.categories[0])}
+              {t(post.categories[0].name)}
             </Typography>
           }
           sx={(theme) => ({

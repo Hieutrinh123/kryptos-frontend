@@ -70,7 +70,6 @@ export function getExcerpt(post: Post): string {
 }
 
 export function flattenLocalizedPost(localizedPost: PostTranslation): Post {
-  console.log(localizedPost.posts_id);
   return {
     ..._.omit(localizedPost, "posts_id"),
     ...localizedPost.posts_id,

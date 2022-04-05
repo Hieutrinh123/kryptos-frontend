@@ -46,7 +46,7 @@ export async function listAllPostSlugs() {
       break;
     }
   }
-  return slugs;
+  return slugs.filter((value) => !_.isNil(value));
 }
 
 export async function listPostsByCategory(
