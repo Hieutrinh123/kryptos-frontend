@@ -1,4 +1,5 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
+import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import { getAllLeafCategories } from "#/config/category";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useRouterPage } from "#/hooks/useRouterPage";
@@ -114,7 +115,7 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
       initialPosts: posts,
       categorySlug: categorySlug,
     },
-    revalidate: 3600,
+    revalidate: REVALIDATE_STATIC_FILE_TIME,
   };
 };
 

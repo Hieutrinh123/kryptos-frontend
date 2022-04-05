@@ -1,3 +1,4 @@
+import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import {
   ECOSYSTEM_CATEGORY,
   IN_DEPTH_ANALYSIS_CATEGORY,
@@ -81,6 +82,6 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (
       analysisPosts: analysisPosts.data,
       inDepthPosts: inDepthPosts.data,
     },
-    revalidate: 3600,
+    revalidate: REVALIDATE_STATIC_FILE_TIME,
   };
 };

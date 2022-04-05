@@ -1,0 +1,1 @@
+export const REVALIDATE_STATIC_FILE_TIME = 60;
