@@ -30,7 +30,6 @@ export async function listPosts(
     limit,
     mergedQuery
   );
-
   return {
     pagination: localizedPosts.pagination,
     data: localizedPosts.data.map(flattenLocalizedPost),

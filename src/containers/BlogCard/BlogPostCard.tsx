@@ -70,9 +70,11 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
         >
           <Stack spacing={1} height="100%">
             <Stack spacing={1} flexGrow={1}>
-              <Typography variant="subtitle1" sx={{ ...textColorGradient }}>
-                {JSON.stringify(post.categories)}
-              </Typography>
+              {post.categories.length > 0 && (
+                <Typography variant="subtitle1" sx={{ ...textColorGradient }}>
+                  {post.categories[0].name}
+                </Typography>
+              )}
               <Typography variant="h5" fontWeight="bolder">
                 {post.title}
               </Typography>

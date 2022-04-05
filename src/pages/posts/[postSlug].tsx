@@ -125,9 +125,9 @@ const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
         </Typography>
         <Stack direction="row" flexWrap="wrap">
           <Box paddingRight={2} paddingBottom={2}>
-            {post.categories?.map((tag) => (
-              <Box paddingRight={2} paddingBottom={2} key={tag}>
-                <Chip label={tag} />
+            {post.categories?.map((category) => (
+              <Box paddingRight={2} paddingBottom={2} key={category.slug}>
+                <Chip label={category.name} />
               </Box>
             ))}
           </Box>

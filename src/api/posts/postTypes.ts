@@ -11,17 +11,23 @@ import {
 } from "../commonTypes";
 import { DirectusFile, fileFields } from "../files";
 
+export interface Category {
+  slug: string;
+  name: string;
+}
+
 export interface PostRoot {
   id: ID;
   thumbnail: DirectusFile | null;
-  categories: string[];
+  categories: { categories_id: Category }[];
 }
 
 export const postRootFields = [
   "id",
   ...joinSubfield("thumbnail", fileFields),
   "status",
-  "categories",
+  "categories.categories_id.slug",
+  "categories.categories_id.name",
 ];
 
 export interface PostTranslation {
@@ -52,7 +58,10 @@ export const localizedPostFields = [
   "updated_at",
 ];
 
-export type Post = Omit<PostTranslation, "posts_id"> & PostRoot;
+export type Post = Omit<PostTranslation, "posts_id"> &
+  Omit<PostRoot, "categories"> & {
+    categories: Category[];
+  };
 
 export type PostListingResult = ListResult<Post>;
 
@@ -61,8 +70,12 @@ export function getExcerpt(post: Post): string {
 }
 
 export function flattenLocalizedPost(localizedPost: PostTranslation): Post {
+  console.log(localizedPost.posts_id);
   return {
     ..._.omit(localizedPost, "posts_id"),
     ...localizedPost.posts_id,
+    categories: localizedPost.posts_id.categories.map(
+      (item) => item.categories_id
+    ),
   };
 }
