@@ -53,6 +53,10 @@
   "Comment's Detail": "Nội dung bình luận",
   "Save Post": "Lưu bài viết",
   "Unsave": "Bỏ lưu",
+  "Post Saved": "Đã lưu bài viết",
+  "Post Unsaved": "Đã bỏ lưu bài viết",
   "Like Post": "Thích bài viết",
-  "Unlike": "Bỏ thích"
+  "Unlike": "Bỏ thích",
+  "Post Liked": "Đã thích bài viết",
+  "Post Unliked": "Đã bỏ thích bài viết"
 }

@@ -123,9 +123,9 @@ export function useLikePost(post: Post) {
   const toggleLike = useCallback(() => {
     handleUpdateInteraction({ liked: !liked }).then(() => {
       if (liked) {
-        showAlert(t("LocalizedPost Unliked"), "success");
+        showAlert(t("Post Unliked"), "success");
       } else {
-        showAlert(t("LocalizedPost Liked"), "success");
+        showAlert(t("Post Liked"), "success");
       }
     });
   }, [handleUpdateInteraction, liked, showAlert, t]);

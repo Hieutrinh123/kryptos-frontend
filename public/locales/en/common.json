@@ -53,6 +53,10 @@
   "Comment's Detail": "Comment's Detail",
   "Save Post": "Save Post",
   "Unsave": "Unsave",
+  "Post Saved": "Post Saved",
+  "Post Unsaved": "Post Unsaved",
   "Like Post": "Like Post",
-  "Unlike": "Unlike"
+  "Unlike": "Unlike",
+  "Post Liked": "Post Liked",
+  "Post Unliked": "Post Unliked"
 }
