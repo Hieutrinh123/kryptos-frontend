@@ -1,10 +1,10 @@
-export interface Category {
-  slug: string;
+export interface Navigation {
+  slug?: string;
   title: string;
-  subcategories?: Subcategory[];
+  subnavigations?: SubNavigation[];
 }
 
-export interface Subcategory {
+export interface SubNavigation {
   slug: string;
   title: string;
 }
@@ -19,25 +19,10 @@ export const PROJECT_ANALYSIS_CATEGORY = {
   title: "Project Analysis",
 };
 
-export const UPDATE_CATEGORY = {
-  title: "Update",
-  slug: "update",
-  subcategories: [
-    {
-      slug: "on-chain-analysis",
-      title: "On-Chain Analysis",
-    },
-    {
-      slug: "technical-analysis",
-      title: "Technical Analysis",
-    },
-  ],
-};
-
 export const ECOSYSTEM_CATEGORY = {
   title: "Ecosystem",
   slug: "ecosystem",
-  subcategories: [
+  subnavigations: [
     {
       slug: "binance-smart-chain",
       title: "Binance Smart Chain",
@@ -72,7 +57,7 @@ export const ECOSYSTEM_CATEGORY = {
 export const IN_DEPTH_ANALYSIS_CATEGORY = {
   title: "In-depth Analysis",
   slug: "in-depth-analysis",
-  subcategories: [
+  subnavigations: [
     {
       slug: "de-fi",
       title: "De-Fi",
@@ -96,18 +81,26 @@ export const IN_DEPTH_ANALYSIS_CATEGORY = {
   ],
 };
 
-export const CATEGORIES: Category[] = [
+export const NAVIGATIONS: Navigation[] = [
   NEWS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
-  UPDATE_CATEGORY,
   ECOSYSTEM_CATEGORY,
   IN_DEPTH_ANALYSIS_CATEGORY,
 ];
 
+export const OVERVIEW_NAVIGATION: Navigation = {
+  title: "Overview",
+  subnavigations: [
+    { slug: "about-kryptos", title: "About Kryptos" },
+    { slug: "jobs", title: "Jobs" },
+    { slug: "products", title: "Products" },
+  ],
+};
+
 export function getAllLeafCategories() {
-  return CATEGORIES.flatMap(
+  return NAVIGATIONS.flatMap(
     (category) =>
-      category.subcategories?.map((subcategory) => subcategory.slug) ?? [
+      category.subnavigations?.map((subcategory) => subcategory.slug) ?? [
         category.slug,
       ]
   );

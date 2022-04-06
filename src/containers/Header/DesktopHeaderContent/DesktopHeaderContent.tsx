@@ -1,11 +1,11 @@
-import { CATEGORIES } from "#/config/category";
-import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
+import { NAVIGATIONS, OVERVIEW_NAVIGATION } from "#/config/navigation";
 import DropdownMenu from "@/components/DropdownMenu";
 import Logo from "@/components/Logo/Logo";
 import AuthenticationMenu from "@/containers/AuthenticationMenu";
 import AuthenticationButton from "@/containers/Header/DesktopHeaderContent/AuthenticationButton";
 import NavMenu from "@/containers/Header/DesktopHeaderContent/DesktopNavMenu";
 import SettingsMenu from "@/containers/SettingMenu";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Stack } from "@mui/material";
@@ -25,8 +25,9 @@ const DesktopHeaderContent = () => {
       <Logo />
 
       <Stack flexGrow={1} direction="row" justifyContent="center" spacing={2}>
-        {CATEGORIES.map((category, index) => (
-          <NavMenu category={category} key={index} />
+        <NavMenu navigation={OVERVIEW_NAVIGATION} />
+        {NAVIGATIONS.map((category, index) => (
+          <NavMenu navigation={category} key={index} />
         ))}
       </Stack>
 

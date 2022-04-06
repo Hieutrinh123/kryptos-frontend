@@ -1,4 +1,5 @@
-import { Category } from "#/config/category";
+import { Navigation } from "#/config/navigation";
+import { joinPath } from "#/utils/path";
 import { Box, Link, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "next-i18next";
@@ -6,72 +7,66 @@ import NextLink from "next/link";
 import React from "react";
 
 interface FooterLinkGroupProps {
-  navOption: Category;
+  navOption: Navigation;
   disableRoot?: boolean;
   prefix?: string;
 }
 
-export function normalizeSlash(s: string): string {
-  const multipleSlashRegex = /\/+/g;
-  return s.replace(multipleSlashRegex, "/");
-}
 const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({
   navOption,
-  disableRoot,
-  prefix = "categories",
+  prefix = "",
 }) => {
-  // Todo: make this element not using Category type, but accept a general NavigationOptions type
   const { t } = useTranslation();
   return (
     <Box
       sx={{
         alignSelf: "flex-start",
         display: "inline-block",
+        marginBottom: 3,
       }}
     >
-      {disableRoot ? (
-        <Typography fontWeight="bolder" fontSize={17} color="white">
-          {t(navOption.title)}
-        </Typography>
-      ) : (
-        <NextLink
-          href={normalizeSlash(`/${prefix}/${navOption.slug}`)}
-          passHref
-        >
-          <Link
-            underline="none"
-            fontWeight="bolder"
-            fontSize={17}
-            color="white"
-          >
+      <Stack spacing={1}>
+        {navOption.slug ? (
+          <NextLink href={"/" + joinPath(prefix, navOption.slug)} passHref>
+            <Link
+              underline="none"
+              fontWeight="bolder"
+              fontSize={18}
+              color="white"
+            >
+              {t(navOption.title)}
+            </Link>
+          </NextLink>
+        ) : (
+          <Typography fontWeight="bolder" fontSize={18} color="white">
             {t(navOption.title)}
-          </Link>
-        </NextLink>
-      )}
-      {navOption.subcategories && (
-        <Stack
-          component="ul"
-          spacing={1}
-          sx={{
-            fontSize: "1rem",
-            listStyleType: "none",
-            padding: 0,
-          }}
-        >
-          {navOption.subcategories.map((subcategory, index) => (
-            <li key={index}>
-              <NextLink
-                href={normalizeSlash(`/${prefix}/${subcategory.slug}`)}
-                passHref
-              >
-                <Link underline="none" color="white">
-                  {t(subcategory.title)}
-                </Link>
-              </NextLink>
-            </li>
-          ))}
-        </Stack>
-      )}
+          </Typography>
+        )}
+        {navOption.subnavigations && (
+          <Stack
+            component="ul"
+            spacing={1}
+            sx={{
+              fontSize: "1rem",
+              listStyleType: "none",
+              padding: 0,
+            }}
+          >
+            {navOption.subnavigations.map((subnavigation) => (
+              <li key={subnavigation.slug}>
+                <NextLink
+                  href={"/" + joinPath(prefix, subnavigation.slug)}
+                  passHref
+                >
+                  <Link underline="none" color="white">
+                    {t(subnavigation.title)}
+                  </Link>
+                </NextLink>
+              </li>
+            ))}
+          </Stack>
+        )}
+      </Stack>
     </Box>
   );
 };

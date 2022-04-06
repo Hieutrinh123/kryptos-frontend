@@ -1,5 +1,5 @@
 import Logo from "@/components/Logo/Logo";
-import { MobileDrawer } from "@/containers/Header/MobileHeaderContent/MobileDrawer";
+import { MobileDrawer } from "./MobileDrawer";
 import Box from "@mui/material/Box";
 import React from "react";
 

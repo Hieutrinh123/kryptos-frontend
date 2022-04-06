@@ -11,6 +11,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import LoginIcon from "@mui/icons-material/Login";
+import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import React, { useEffect } from "react";
 
@@ -25,6 +26,7 @@ const MobileAuthenticationMenu: React.FC<MobileAuthenticationMenuProps> = ({
   onOpen,
   onClose,
 }) => {
+  const { t } = useTranslation();
   const { user, loading } = useFirebaseAuthState();
   useEffect(() => {
     if (!loading && !user && open) {
@@ -39,7 +41,7 @@ const MobileAuthenticationMenu: React.FC<MobileAuthenticationMenuProps> = ({
       <NextLink href="/auth" passHref>
         <ListItemButton sx={{ height: 80 }}>
           <ListItemText
-            primary="Đăng nhập"
+            primary={t("Sign In")}
             primaryTypographyProps={{ textAlign: "right" }}
             secondaryTypographyProps={{ textAlign: "right" }}
             sx={{ marginRight: 4 }}
@@ -57,7 +59,7 @@ const MobileAuthenticationMenu: React.FC<MobileAuthenticationMenuProps> = ({
       <ListItemButton onClick={open ? onClose : onOpen} sx={{ height: 80 }}>
         <Box marginRight={4}>{open ? <ExpandLess /> : <ExpandMore />}</Box>
         <ListItemText
-          primary="Tài khoản của tôi"
+          primary={t("My Account")}
           secondary={user.displayName}
           primaryTypographyProps={{ textAlign: "right" }}
           secondaryTypographyProps={{ textAlign: "right" }}

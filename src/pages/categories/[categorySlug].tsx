@@ -1,6 +1,6 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
-import { getAllLeafCategories } from "#/config/category";
+import { getAllLeafCategories } from "#/config/navigation";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useRouterPage } from "#/hooks/useRouterPage";
 import { useIsMobile } from "#/styles/responsive";

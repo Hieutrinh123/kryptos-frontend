@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <Box>
       <AppBar position="fixed" color="default" elevation={0}>
-        <Container maxWidth={false} sx={{ height: "100%" }}>
+        <Container maxWidth={false} sx={{ height: "100%", paddingX: 4 }}>
           <Toolbar disableGutters sx={{ height: "100%" }}>
             {isDesktop ? (
               <DesktopHeaderContent />

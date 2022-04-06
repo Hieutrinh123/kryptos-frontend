@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { Author, authorFields, AuthorListingResult } from "./authorTypes";
 import { PostListingResult } from "../posts";
 import { directusGetFirstItem, directusListItem } from "../directus";
@@ -34,7 +35,7 @@ export async function getAllAuthorSlugs() {
       break;
     }
   }
-  return slugs;
+  return slugs.filter((slug) => _.isNil(slug));
 }
 
 export async function listPostsFromAuthor(

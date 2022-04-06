@@ -1,4 +1,4 @@
-import { CATEGORIES } from "#/config/category";
+import { NAVIGATIONS, OVERVIEW_NAVIGATION } from "#/config/navigation";
 import { usePageSettings } from "@/api";
 import Grid from "@/components/Grid";
 import Logo from "@/components/Logo/Logo";
@@ -49,21 +49,13 @@ const Footer: React.FC<FooterProps> = ({}) => {
                 },
               })}
             >
-              <FooterLinkGroup
-                prefix=""
-                disableRoot
-                navOption={{
-                  slug: "overview",
-                  title: "Overview",
-                  subcategories: [
-                    { slug: "about-kryptos", title: "About Kryptos" },
-                    { slug: "jobs", title: "Jobs" },
-                    { slug: "products", title: "Products" },
-                  ],
-                }}
-              />
-              {CATEGORIES.map((category, index) => (
-                <FooterLinkGroup key={index} navOption={category} />
+              <FooterLinkGroup navOption={OVERVIEW_NAVIGATION} />
+              {NAVIGATIONS.map((category, index) => (
+                <FooterLinkGroup
+                  prefix="categories"
+                  key={index}
+                  navOption={category}
+                />
               ))}
             </Box>
           </Grid>
