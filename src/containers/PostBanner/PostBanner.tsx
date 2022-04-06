@@ -23,14 +23,14 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
 
   return (
     <Box paddingTop={4} paddingBottom={6} bgcolor="background.secondary">
-      <Container disableGutters={!isDesktop}>
+      <Container maxWidth="xl" disableGutters={!isDesktop}>
         <Grid
           container
           direction={{ mobile: "column-reverse", desktop: "row" }}
           alignItems={{ mobile: "flex-start", desktop: "center" }}
           rowSpacing={6}
         >
-          <Grid item mobile={12} tablet={6}>
+          <Grid item mobile={12} tablet={4}>
             <Container disableGutters={isDesktop}>
               <Stack spacing={3}>
                 <PostTitle post={post} />
@@ -38,7 +38,7 @@ const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
               </Stack>
             </Container>
           </Grid>
-          <Grid item mobile={12} tablet={6} width="100%">
+          <Grid item mobile={12} tablet={8} width="100%">
             <Box
               width="100%"
               height="400px"

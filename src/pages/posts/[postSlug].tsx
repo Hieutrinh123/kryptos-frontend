@@ -138,9 +138,6 @@ const PostSideBar: React.FC<PostSideBarProps> = ({ post }) => {
           },
         })}
       >
-        <Typography variant="h6" mb={2}>
-          {t("Share")}
-        </Typography>
         <ShareLinks post={post} />
       </Card>
     </Stack>
