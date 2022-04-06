@@ -48,9 +48,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
         position="relative"
         height="100%"
       >
-        <CardMedia
-          component="img"
-          src={resolveImageUrl(post.thumbnail)}
+        <Box
           sx={(theme) => ({
             [theme.breakpoints.down("tablet")]: {
               aspectRatio: "1 / 1",
@@ -58,8 +56,23 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
             boxShadow: 1,
             aspectRatio: variant === "horizontal" ? "1 / 1" : "2 / 1",
             width: variant === "horizontal" ? imageWidth : undefined,
+            overflow: "hidden",
           })}
-        />
+        >
+          <CardMedia
+            component="img"
+            src={resolveImageUrl(post.thumbnail)}
+            sx={{
+              height: "100%",
+              width: "100%",
+              transition: "0.5s",
+              ":hover": {
+                transform: "scale(1.5)",
+                transition: "0.5s",
+              },
+            }}
+          />
+        </Box>
         {isMobile && (
           <Box position="absolute" top={10} right={10}>
             <BlogBookmarkButton post={post} variant="compact" />
