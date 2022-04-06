@@ -17,7 +17,7 @@ import PostTableOfContent from "@/containers/PostTableOfContent";
 import ShareLinks from "@/containers/ShareLinks";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import FullLayout from "@/layouts/FullLayout";
-import { Container } from "@mui/material";
+import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
