@@ -1,5 +1,5 @@
 import { joinPath } from "#/utils/path";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 import React from "react";
 import {
   NAVIGATIONS,
@@ -43,6 +43,7 @@ const MobileNavLinkGroup: React.FC<MobileNavLinkGroupProps> = ({
   navigation,
   prefix = "categories",
 }) => {
+  const { t } = useTranslation();
   return (
     <Stack alignItems="flex-end" spacing={1}>
       {navigation.slug ? (

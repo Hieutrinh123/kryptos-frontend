@@ -87,7 +87,7 @@ const PostTitle: React.FC<{ post: Post }> = ({ post }) => {
         />
       )}
 
-      <Typography variant="h2" fontWeight="bolder">
+      <Typography variant="h1" fontSize={24} fontWeight="bolder">
         {post.title}
       </Typography>
 

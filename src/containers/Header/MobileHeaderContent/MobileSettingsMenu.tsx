@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { useTranslation } from "next-i18next";
 import React from "react";
 
 interface MobileSettingsMenuProps {
@@ -20,12 +21,13 @@ const MobileSettingsMenu: React.FC<MobileSettingsMenuProps> = ({
   onOpen,
   onClose,
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <ListItemButton onClick={open ? onClose : onOpen} sx={{ height: 80 }}>
         <Box marginRight={4}>{open ? <ExpandLess /> : <ExpandMore />}</Box>
         <ListItemText
-          primary="Cài đặt"
+          primary={t("Settings")}
           sx={{ marginRight: 4 }}
           primaryTypographyProps={{ textAlign: "right" }}
         />

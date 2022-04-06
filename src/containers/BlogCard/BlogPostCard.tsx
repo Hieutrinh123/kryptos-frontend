@@ -1,8 +1,6 @@
 import { textColorGradient } from "#/styles/gradients";
 import { useIsMobile } from "#/styles/responsive";
-import { getAuthorName } from "@/api";
-import { resolveImageUrl } from "@/api";
-import { Post } from "@/api";
+import { getAuthorName, Post, resolveImageUrl } from "@/api";
 import { grey } from "@/common/styles/colors";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
@@ -14,7 +12,6 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import React from "react";
-import { Textfit } from "react-textfit";
 
 interface BlogPostCard {
   post: Post;
@@ -41,6 +38,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
         ":hover": {
           boxShadow: 5,
         },
+        height: "100%",
       })}
       onClick={() => router.push(`/posts/${post.slug}`)}
     >
@@ -48,15 +46,19 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
         direction={variant === "horizontal" ? "row" : "column"}
         alignItems="stretch"
         position="relative"
+        height="100%"
       >
         <CardMedia
           component="img"
           src={resolveImageUrl(post.thumbnail)}
-          sx={{
+          sx={(theme) => ({
+            [theme.breakpoints.down("tablet")]: {
+              aspectRatio: "1 / 1",
+            },
             boxShadow: 1,
             aspectRatio: variant === "horizontal" ? "1 / 1" : "2 / 1",
             width: variant === "horizontal" ? imageWidth : undefined,
-          }}
+          })}
         />
         {isMobile && (
           <Box position="absolute" top={10} right={10}>
@@ -66,9 +68,6 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
 
         <CardContent
           sx={(theme) => ({
-            [theme.breakpoints.down("tablet")]: {
-              padding: `${theme.spacing(1)} !important`,
-            },
             padding: `${theme.spacing(2, 3, 2)} !important`,
             flexGrow: 1,
           })}
@@ -80,10 +79,8 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                   {post.categories[0].name}
                 </Typography>
               )}
-              <Typography variant="h5" fontWeight="bolder">
-                <Textfit mode="multi" max={32} style={{ height: 100 }}>
-                  {post.title}
-                </Textfit>
+              <Typography variant="h5" fontWeight="bolder" minHeight={100}>
+                {post.title}
               </Typography>
             </Stack>
             <Stack
@@ -91,11 +88,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-              >
+              <Stack direction="row" spacing={2} alignItems="center">
                 {post.author && (
                   <>
                     <AuthorAvatar

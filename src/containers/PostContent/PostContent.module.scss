@@ -1,4 +1,23 @@
 .post-content {
+  font-size: 14px;
+  h1 {
+    font-size: 18px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  h3 {
+    font-size: 15px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: bolder;
+  }
+
   > * {
     margin-bottom: 20px;
   }

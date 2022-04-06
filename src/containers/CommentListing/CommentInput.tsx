@@ -12,6 +12,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
 import NextLink from "next/link";
 
@@ -24,6 +25,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ collectionRef }) => {
   const { addComment, loading: addingComment } = useAddComment(collectionRef);
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
+  const { t } = useTranslation();
 
   const handleAddComment = () => {
     if (addingComment) {
@@ -39,8 +41,8 @@ const CommentInput: React.FC<CommentInputProps> = ({ collectionRef }) => {
   if (!user) {
     return (
       <NextLink href="/auth" passHref>
-        <Button variant="contained" color="primary" sx={{ padding: 2}}>
-          <span>Đăng nhập để bình luận</span>
+        <Button variant="contained" color="primary" sx={{ padding: 2 }}>
+          <span>{t("Sign In to Comment")}</span>
         </Button>
       </NextLink>
     );
@@ -48,7 +50,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ collectionRef }) => {
 
   return (
     <Stack spacing={2} direction="row">
-      <Typography fontWeight="bolder">Viết bình luận</Typography>
+      <Typography fontWeight="bolder">{t("Write Comment")}</Typography>
       <UserAvatar user={user} sx={{ width: 50, height: 50 }} />
       <LimitedInput
         value={value}
@@ -62,7 +64,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ collectionRef }) => {
         multiline
         fullWidth
         maximumLength={500}
-        label="Nội dung bình luận"
+        label={t("Comment's Detail")}
         maxRows={5}
       />
       <IconButton

@@ -16,7 +16,7 @@ const DesktopPostList: React.FC<ComputerAndTabletPostListProps> = ({
 }) => {
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignItems="stretch">
         {posts.map((post) => (
           <Grid
             item
