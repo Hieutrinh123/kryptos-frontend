@@ -25,46 +25,48 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({
         marginBottom: 3,
       }}
     >
-      {navOption.slug ? (
-        <NextLink href={"/" + joinPath(prefix, navOption.slug)} passHref>
-          <Link
-            underline="none"
-            fontWeight="bolder"
-            fontSize={18}
-            color="white"
-          >
+      <Stack spacing={1}>
+        {navOption.slug ? (
+          <NextLink href={"/" + joinPath(prefix, navOption.slug)} passHref>
+            <Link
+              underline="none"
+              fontWeight="bolder"
+              fontSize={18}
+              color="white"
+            >
+              {t(navOption.title)}
+            </Link>
+          </NextLink>
+        ) : (
+          <Typography fontWeight="bolder" fontSize={18} color="white">
             {t(navOption.title)}
-          </Link>
-        </NextLink>
-      ) : (
-        <Typography fontWeight="bolder" fontSize={18} color="white">
-          {t(navOption.title)}
-        </Typography>
-      )}
-      {navOption.subnavigations && (
-        <Stack
-          component="ul"
-          spacing={1}
-          sx={{
-            fontSize: "1rem",
-            listStyleType: "none",
-            padding: 0,
-          }}
-        >
-          {navOption.subnavigations.map((subnavigation) => (
-            <li key={subnavigation.slug}>
-              <NextLink
-                href={"/" + joinPath(prefix, subnavigation.slug)}
-                passHref
-              >
-                <Link underline="none" color="white">
-                  {t(subnavigation.title)}
-                </Link>
-              </NextLink>
-            </li>
-          ))}
-        </Stack>
-      )}
+          </Typography>
+        )}
+        {navOption.subnavigations && (
+          <Stack
+            component="ul"
+            spacing={1}
+            sx={{
+              fontSize: "1rem",
+              listStyleType: "none",
+              padding: 0,
+            }}
+          >
+            {navOption.subnavigations.map((subnavigation) => (
+              <li key={subnavigation.slug}>
+                <NextLink
+                  href={"/" + joinPath(prefix, subnavigation.slug)}
+                  passHref
+                >
+                  <Link underline="none" color="white">
+                    {t(subnavigation.title)}
+                  </Link>
+                </NextLink>
+              </li>
+            ))}
+          </Stack>
+        )}
+      </Stack>
     </Box>
   );
 };
