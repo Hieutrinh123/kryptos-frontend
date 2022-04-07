@@ -47,7 +47,7 @@ function MyApp({
   return (
     <>
       <Head>
-        <title>KryptosNews</title>
+        <title>Kryptos</title>
         <meta name="description" content="CoinBlog" />
         <meta httpEquiv="content-language" content="vi" />
         <meta name="ROBOTS" content="INDEX, FOLLOW" />

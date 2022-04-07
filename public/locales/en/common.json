@@ -58,5 +58,17 @@
   "Like Post": "Like Post",
   "Unlike": "Unlike",
   "Post Liked": "Post Liked",
-  "Post Unliked": "Post Unliked"
+  "Post Unliked": "Post Unliked",
+  "About Us": "About Us",
+  "about.introduction": "Kryptos is a research firm providing data, news and insightful research articles to keep our readers up-to-date with the ever-changing, innovative crypto market. We fully understand the pain point of new investors who are overwhelmed of the vast amount of knowledge in the space and we are dedicated to helping them on this exciting journey.",
+  "Our Services": "Our Services",
+  "Research": "Research",
+  "about.research": "We can provide data-driven, insightful and timely research report for your organization's specfic needs. Are you a GameFi project who want to do market research? Or are you a ecommerce platform who need to conduct competitive analysis?",
+  "Content Planning": "Content Planning",
+  "about.content": "Got stuck coming up with engaging content for your community. We got you cover with:",
+  "about.content.line-1": "Insightful infographic to capture your audience's attention.",
+  "about.content.line-2": "In-depth articles to educate your audience.",
+  "Marketing": "Marketing",
+  "about.marketing": "No need for research or content creation but feel overwhelmed with marketing? Book a meeting with our marketing agency, Kryptos Media, with years of experience in community building, IDO planning and partnerships managing.",
+  "Contact Us": "Contact Us"
 }

@@ -1,4 +1,5 @@
 import { Navigation } from "#/config/navigation";
+import { joinPath } from "#/utils/path";
 import DropdownMenu from "@/components/DropdownMenu";
 import Button from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
@@ -11,8 +12,12 @@ import React from "react";
 
 interface DesktopNavMenuProps {
   navigation: Navigation;
+  prefix: string;
 }
-const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ navigation }) => {
+const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({
+  navigation,
+  prefix = "",
+}) => {
   const { t } = useTranslation();
   const popupState = usePopupState({
     popupId: "nav-menu-" + navigation.slug,
@@ -34,7 +39,7 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ navigation }) => {
         {navigation.subnavigations.map((subcategory) => (
           <NextLink
             passHref
-            href={"/categories/" + subcategory.slug}
+            href={"/" + joinPath(prefix, subcategory.slug)}
             key={subcategory.slug}
           >
             <MenuItem>
