@@ -62,7 +62,7 @@ export type Post = Omit<PostTranslation, "posts_id"> &
 export type PostListingResult = ListResult<Post>;
 
 export function getExcerpt(post: Post): string {
-  return post.excerpt ? post.excerpt : contentToExcerpt(post.content);
+  return !_.isNil(post.excerpt) ? post.excerpt : contentToExcerpt(post.content);
 }
 
 export function flattenPostTranslation(localizedPost: PostTranslation): Post {

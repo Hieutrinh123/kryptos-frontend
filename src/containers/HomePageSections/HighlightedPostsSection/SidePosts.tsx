@@ -97,7 +97,7 @@ const SingleSidePost: React.FC<SingleSidePostProps> = ({ post }) => {
               bgcolor={alpha(grey[500], 0.8)}
             >
               <Typography color="white" variant="body1">
-                {getExcerpt(post)}
+                <div dangerouslySetInnerHTML={{ __html: getExcerpt(post) }} />
               </Typography>
             </Box>
           </Slide>

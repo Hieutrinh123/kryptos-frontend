@@ -162,7 +162,7 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
         </Textfit>
       </Typography>
       <Typography variant="subtitle1" color="white">
-        {getExcerpt(post)}
+        <div dangerouslySetInnerHTML={{ __html: getExcerpt(post) }} />
       </Typography>
       <NextLink href={`/posts/${post.slug}`} passHref>
         <Button
