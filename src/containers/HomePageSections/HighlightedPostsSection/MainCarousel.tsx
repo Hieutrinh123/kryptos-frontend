@@ -150,7 +150,7 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
       paddingBottom={14}
       paddingX={{ mobile: 6, desktop: 0 }}
       left={{ mobile: 0, desktop: "20vh" }}
-      width={{ mobile: "100%", tablet: "50vh", desktop: "50vh" }}
+      width={{ mobile: "100%", tablet: "50vh", desktop: "60vh" }}
       spacing={6}
       alignItems="start"
     >
@@ -164,7 +164,7 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
         <Textfit
           mode="multi"
           max={64}
-          style={{ minHeight: "10vh", maxHeight: "30vh" }}
+          style={{ minHeight: "10vh", maxHeight: "40vh" }}
         >
           {post.title}
         </Textfit>
