@@ -14,7 +14,7 @@ export const BlurBackdrop = () => {
       sx={(theme) => ({
         [theme.breakpoints.down("desktop")]: {
           top: "40vh",
-          left: 0,
+          left: "10vh",
         },
         top: "5vw",
         left: "20vw",

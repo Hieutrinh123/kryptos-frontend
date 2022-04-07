@@ -147,32 +147,42 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
       position="absolute"
       height="100%"
       paddingTop={6}
-      left={{ mobile: "5vh", desktop: "20vh" }}
-      maxWidth="50vh"
-      spacing={4}
+      paddingBottom={14}
+      paddingX={{ mobile: 6, desktop: 0 }}
+      left={{ mobile: 0, desktop: "20vh" }}
+      width={{ mobile: "100%", tablet: "50vh", desktop: "50vh" }}
+      spacing={6}
       alignItems="start"
     >
-      <Typography variant="h1" fontWeight="bold" color="white" width="100%">
+      <Typography
+        variant="h1"
+        fontWeight="bold"
+        color="white"
+        width="100%"
+        flexGrow={2}
+      >
         <Textfit
           mode="multi"
-          max={80}
+          max={64}
           style={{ minHeight: "10vh", maxHeight: "30vh" }}
         >
           {post.title}
         </Textfit>
       </Typography>
-      <Typography variant="subtitle1" color="white">
-        <div dangerouslySetInnerHTML={{ __html: getExcerpt(post) }} />
-      </Typography>
-      <NextLink href={`/posts/${post.slug}`} passHref>
-        <Button
-          variant="contained"
-          color="secondary"
-          sx={{ borderRadius: "6px", height: "48px" }}
-        >
-          <span>Xem thêm</span>
-        </Button>
-      </NextLink>
+      <Stack spacing={2} flexGrow={1} alignItems="start">
+        <Typography variant="subtitle1" color="white">
+          <div dangerouslySetInnerHTML={{ __html: getExcerpt(post) }} />
+        </Typography>
+        <NextLink href={`/posts/${post.slug}`} passHref>
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{ borderRadius: "6px", height: "48px" }}
+          >
+            <span>Xem thêm</span>
+          </Button>
+        </NextLink>
+      </Stack>
     </Stack>
   );
 };
