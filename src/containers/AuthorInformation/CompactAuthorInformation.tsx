@@ -3,7 +3,7 @@ import { Author } from "@/api";
 import Grid from "@/components/Grid";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import AuthorStatistic from "@/containers/AuthorInformation/AuthorStatistic";
-import AuthorSubscribeButton from "@/containers/AuthorSubscribeButton";
+import AuthorFollowButton from "@/containers/AuthorSubscribeButton";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -51,7 +51,7 @@ const CompactAuthorInformation: React.FC<CompactAuthorInformationProps> = ({
       >
         <Grid container spacing={2}>
           <Grid item mobile={12} desktop={6}>
-            <AuthorSubscribeButton fullWidth />
+            <AuthorFollowButton fullWidth author={author}/>
           </Grid>
 
           <Grid item mobile={12} desktop={6}>

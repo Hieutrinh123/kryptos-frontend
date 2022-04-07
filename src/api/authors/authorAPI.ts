@@ -1,13 +1,18 @@
+import { ListResult, RawAuthor } from "@/api";
 import _ from "lodash";
 import { Author, authorFields, AuthorListingResult } from "./authorTypes";
 import { listPosts, PostListingResult } from "../posts";
-import { directusGetFirstItem, directusListItem } from "../directus";
+import {
+  directusGetFirstItem,
+  directusInstance,
+  directusListItem,
+} from "../directus";
 
 export async function listAuthors(
   page: number,
   limit: number
 ): Promise<AuthorListingResult> {
-  return directusListItem("directus_users", page, limit, {
+  const authors = await directusListItem("directus_users", page, limit, {
     fields: authorFields,
     filter: {
       hidden: {
@@ -15,10 +20,12 @@ export async function listAuthors(
       },
     },
   });
+
+  return populateAuthorsWithCount(authors);
 }
 
 export async function getAuthor(slug: string): Promise<Author> {
-  return directusGetFirstItem("directus_users", {
+  const author = await directusGetFirstItem("directus_users", {
     filter: {
       slug: {
         _eq: slug,
@@ -26,6 +33,13 @@ export async function getAuthor(slug: string): Promise<Author> {
     },
     fields: authorFields,
   });
+
+  const postCounts = await countPostsGroupedByAuthors([author.slug]);
+
+  return {
+    ...author,
+    postCount: postCounts[author.id],
+  };
 }
 
 export async function getAllAuthorSlugs() {
@@ -59,4 +73,53 @@ export async function listPostsFromAuthor(
       },
     },
   });
+}
+
+async function populateAuthorsWithCount(authors: ListResult<RawAuthor>) {
+  const slugs = authors.data.map((author) => author.slug);
+  const postCounts = await countPostsGroupedByAuthors(slugs);
+  const authorsWithPostCount = authors.data.map((author) => ({
+    ...author,
+    postCount: postCounts[author.id] ?? 0,
+  }));
+
+  return {
+    data: authorsWithPostCount,
+    pagination: authors.pagination,
+  };
+}
+
+interface PostCountByAuthor {
+  author: string;
+  count: string;
+}
+
+async function countPostsGroupedByAuthors(authorSlugs: string[]) {
+  const results = await directusInstance
+    .items("posts_translations")
+    .readByQuery({
+      filter: {
+        author: {
+          slug: {
+            _in: authorSlugs,
+          },
+        },
+      },
+      // @ts-ignore Fixme: probably make a PR to Directus API
+      aggregate: {
+        count: "*",
+      },
+      groupBy: ["author"],
+    });
+
+  const countRecords = results.data as PostCountByAuthor[];
+
+  const countMap: { [id: string]: number } = {};
+
+  countRecords.forEach((countRecord) => {
+    const count = parseInt(countRecord.count);
+    countMap[countRecord.author] = isNaN(count) ? 0 : count;
+  });
+
+  return countMap;
 }

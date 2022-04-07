@@ -1,15 +1,18 @@
-import { ID } from "@directus/sdk";
 import { joinSubfield, ListResult } from "../commonTypes";
 import { DirectusFile, fileFields } from "../files";
 
-export interface Author {
-  id: ID;
+export interface RawAuthor {
+  id: string;
   avatar: DirectusFile | null;
   slug: string;
   first_name: string;
   last_name: string;
   description: string | null;
   hidden: boolean;
+}
+
+export interface Author extends RawAuthor {
+  postCount: number;
 }
 
 export const authorFields = [

@@ -1,7 +1,7 @@
 import { PostsToCategories } from "@/api/categories/postToCategoryTypes";
 import { PageSettingTranslation } from "@/api/pageSettings";
 import { Directus, DirectusOptions, QueryMany, TypeOf } from "@directus/sdk";
-import { Author } from "./authors/authorTypes";
+import { RawAuthor } from "./authors/authorTypes";
 import { ListResult, StringKey } from "./commonTypes";
 import { DirectusFile } from "./files";
 import { PostTranslation } from "./posts";
@@ -10,7 +10,7 @@ interface DirectusCollectionsRaw {
   posts_translations: PostTranslation;
   page_settings_translations: PageSettingTranslation;
   posts_categories: PostsToCategories;
-  directus_users: Author;
+  directus_users: RawAuthor;
   directus_files: DirectusFile;
 }
 

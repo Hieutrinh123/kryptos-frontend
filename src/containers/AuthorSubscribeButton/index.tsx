@@ -1,1 +1,1 @@
-import AuthorSubscribeButton from './AuthorSubscribeButton'; export default AuthorSubscribeButton;
+import AuthorFollowButton from './AuthorFollowButton'; export default AuthorFollowButton;

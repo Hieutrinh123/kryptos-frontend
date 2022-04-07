@@ -4,7 +4,7 @@ import { Author } from "@/api";
 import Grid from "@/components/Grid";
 import AuthorAvatar from "@/containers/AuthorAvatar";
 import AuthorStatistic from "@/containers/AuthorInformation/AuthorStatistic";
-import AuthorSubscribeButton from "@/containers/AuthorSubscribeButton";
+import AuthorFollowButton from "@/containers/AuthorSubscribeButton";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -48,7 +48,7 @@ const FullAuthorInformation: React.FC<FullAuthorInformationProps> = ({
                 <Box marginY={2}>
                   <AuthorStatistic author={author} />
                 </Box>
-                <AuthorSubscribeButton sx={{ maxWidth: 150 }} />
+                <AuthorFollowButton sx={{ maxWidth: 150 }} author={author} />
               </>
             )}
           </Stack>
@@ -60,7 +60,7 @@ const FullAuthorInformation: React.FC<FullAuthorInformationProps> = ({
           <Box marginY={2}>
             <AuthorStatistic author={author} />
           </Box>
-          <AuthorSubscribeButton />
+          <AuthorFollowButton author={author} />
         </Grid>
       )}
 
