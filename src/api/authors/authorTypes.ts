@@ -9,6 +9,7 @@ export interface Author {
   first_name: string;
   last_name: string;
   description: string | null;
+  hidden: boolean;
 }
 
 export const authorFields = [
@@ -18,6 +19,7 @@ export const authorFields = [
   "first_name",
   "last_name",
   "description",
+  "hidden",
 ];
 
 export type AuthorListingResult = ListResult<Author>;

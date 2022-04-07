@@ -7,7 +7,7 @@ import {
 } from "@/api";
 import { postToCategoryField } from "./postToCategoryTypes";
 
-export async function listPostsByCategory(
+export async function listPostsByCategories(
   categorySlugs: string[],
   locale: Locale,
   page: number,

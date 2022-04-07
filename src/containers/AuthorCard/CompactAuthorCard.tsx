@@ -22,13 +22,14 @@ const CompactAuthorCard: React.FC<CompactAuthorCardProps> = ({ author }) => {
             alignItems: "center",
             flexDirection: "column",
             padding: 3,
+            height: "100%",
           }}
         >
           <CardMedia>
             <AuthorAvatar author={author} sx={{ height: 80, width: 80 }} />
           </CardMedia>
           <CardContent sx={{ marginTop: 3, padding: "0 !important" }}>
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" component="div" textAlign="center">
               {getAuthorName(author)}
             </Typography>
           </CardContent>

@@ -13,7 +13,7 @@ export const fileFields = ["id", "title", "description", "width", "height"];
 export function resolveImageUrl<T extends DirectusFile | undefined | null>(
   image: T
 ): T extends DirectusFile ? string : undefined {
-  if (!image) {
+  if (!image || !image.id) {
     return undefined as any;
   }
   return (process.env.NEXT_PUBLIC_DIRECTUS_URL + "/assets/" + image.id) as any;

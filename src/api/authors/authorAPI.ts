@@ -1,13 +1,20 @@
 import _ from "lodash";
 import { Author, authorFields, AuthorListingResult } from "./authorTypes";
-import { PostListingResult } from "../posts";
+import { listPosts, PostListingResult } from "../posts";
 import { directusGetFirstItem, directusListItem } from "../directus";
 
 export async function listAuthors(
   page: number,
   limit: number
 ): Promise<AuthorListingResult> {
-  return directusListItem("directus_users", page, limit);
+  return directusListItem("directus_users", page, limit, {
+    fields: authorFields,
+    filter: {
+      hidden: {
+        _eq: false,
+      },
+    },
+  });
 }
 
 export async function getAuthor(slug: string): Promise<Author> {
@@ -39,16 +46,17 @@ export async function getAllAuthorSlugs() {
 }
 
 export async function listPostsFromAuthor(
-  authorSlug: string
+  authorSlug: string,
+  page: number,
+  limit: number
 ): Promise<PostListingResult> {
-  // Todo: reimplement list posts from author
-  return {
-    data: [],
-    pagination: {
-      page: 0,
-      total: 0,
-      pageSize: 0,
-      pageCount: 0,
+  return listPosts(page, limit, {
+    filter: {
+      author: {
+        slug: {
+          _eq: authorSlug,
+        },
+      },
     },
-  };
+  });
 }

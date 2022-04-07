@@ -6,7 +6,7 @@ import {
   NEWS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
 } from "#/config/navigation";
-import { getPageSettings, listPostsByCategory, Locale, Post } from "@/api";
+import { getPageSettings, listPostsByCategories, Locale, Post } from "@/api";
 import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
 import FeaturedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
@@ -68,7 +68,7 @@ function wrappedListPostsByCategory(
       category.subnavigations.map((subcategory) => subcategory.slug)
     );
   }
-  return listPostsByCategory(categorySlugs, locale, page, limit);
+  return listPostsByCategories(categorySlugs, locale, page, limit);
 }
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async (

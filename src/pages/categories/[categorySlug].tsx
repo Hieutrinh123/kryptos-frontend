@@ -4,7 +4,7 @@ import { getAllLeafCategories } from "#/config/navigation";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useRouterPage } from "#/hooks/useRouterPage";
 import { useIsMobile } from "#/styles/responsive";
-import { AuthorListingResult, listAuthors } from "@/api";
+import { AuthorListingResult, listAuthors, listPostsByCategories } from "@/api";
 import { getPageSettings } from "@/api";
 import { listPosts, PostListingResult } from "@/api";
 import { Locale } from "@/api";
@@ -65,6 +65,7 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
           </Typography>
 
           <BlogPostList posts={postListResult.data} mobileCarousel={false} />
+
           <RouterPagination
             count={initialPosts.pagination.pageCount}
             basePath={`/categories/${categorySlug}`}
@@ -99,7 +100,12 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
   }
 
   const authors = await listAuthors(1, AUTHORS_PER_PAGE);
-  const posts = await listPosts(1, POSTS_PER_PAGE);
+  const posts = await listPostsByCategories(
+    [categorySlug],
+    context.locale as Locale,
+    1,
+    POSTS_PER_PAGE
+  );
 
   if (_.isNil(posts)) {
     return {

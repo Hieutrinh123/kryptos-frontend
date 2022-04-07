@@ -1,3 +1,5 @@
+import { POSTS_PER_PAGE } from "#/config/posts";
+import { useStateWithPropsDefault } from "#/hooks/useStateWithPropsDefault";
 import {
   Author,
   getAllAuthorSlugs,
@@ -18,19 +20,32 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
 interface AuthorProfilePageProps {
   author: Author;
   initialPosts: PostListingResult;
-  totalPageCount: number;
 }
 
 const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
   author,
   initialPosts,
-  totalPageCount,
 }) => {
+  const [posts, setPosts] = useStateWithPropsDefault(initialPosts);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const authorSlug = router.query.authorSlug as string;
+    const page = parseInt((router.query.page as string) ?? "1");
+    if (page === 1) {
+      setPosts(initialPosts);
+    } else {
+      listPostsFromAuthor(authorSlug, page, POSTS_PER_PAGE).then(setPosts);
+    }
+  }, [initialPosts, router.query, setPosts]);
+
   if (!author) {
     return null;
   }
@@ -47,10 +62,10 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
           </Typography>
         </Box>
 
-        <Stack mt={4} spacing={2}>
-          <BlogPostList posts={initialPosts.data} />
+        <Stack mt={4} spacing={5}>
+          {posts && <BlogPostList posts={posts.data} />}
           <RouterPagination
-            count={totalPageCount}
+            count={initialPosts.pagination.pageCount}
             basePath={`/authors/${author.slug}`}
           />
         </Stack>
@@ -72,7 +87,7 @@ export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
   }
 
   const author = await getAuthor(authorSlug);
-  const posts = await listPostsFromAuthor(authorSlug);
+  const posts = await listPostsFromAuthor(authorSlug, 1, POSTS_PER_PAGE);
 
   return {
     props: {
@@ -80,7 +95,6 @@ export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
       pageSettings: await getPageSettings(context.locale as Locale),
       author,
       initialPosts: posts,
-      totalPageCount: posts.pagination.pageCount,
     },
   };
 };

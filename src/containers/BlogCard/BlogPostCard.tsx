@@ -54,6 +54,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
               aspectRatio: "1 / 1",
             },
             boxShadow: 1,
+            borderRadius: "24px",
             aspectRatio: variant === "horizontal" ? "1 / 1" : "2 / 1",
             width: variant === "horizontal" ? imageWidth : undefined,
             overflow: "hidden",

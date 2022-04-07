@@ -10,10 +10,11 @@ interface AuthorAvatarProps {
   sx?: SxProps;
 }
 
-const StyledAvatar = styled(Avatar)({
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
   height: "100%",
+  boxShadow: theme.shadows[1],
   width: "100%",
-});
+}));
 
 const AuthorAvatar: React.FC<AuthorAvatarProps> = ({ author, sx }) => {
   const avatarUrl = resolveImageUrl(author.avatar);

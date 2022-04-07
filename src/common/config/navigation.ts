@@ -92,8 +92,6 @@ export const OVERVIEW_NAVIGATION: Navigation = {
   title: "Overview",
   subnavigations: [
     { slug: "about-kryptos", title: "About Kryptos" },
-    { slug: "jobs", title: "Jobs" },
-    { slug: "products", title: "Products" },
   ],
 };
 
