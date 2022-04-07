@@ -91,7 +91,7 @@ const Body = () => {
         <DividerGrid />
 
         <Grid item mobile={12} tablet={6} desktop={7}>
-          <Stack spacing={2}>
+          <Stack spacing={2} alignItems="flex-start">
             <Typography variant="h3" fontWeight="bold">
               {t("Research")}
             </Typography>
@@ -110,7 +110,7 @@ const Body = () => {
         </Grid>
 
         <Grid item mobile={12} tablet={6} desktop={7}>
-          <Stack spacing={2}>
+          <Stack spacing={2} alignItems="flex-start">
             <Typography variant="h3" fontWeight="bold">
               {t("Content Planning")}
             </Typography>
@@ -128,7 +128,7 @@ const Body = () => {
         <DividerGrid />
 
         <Grid item mobile={12} tablet={6} desktop={7}>
-          <Stack spacing={2}>
+          <Stack spacing={2} alignItems="flex-start">
             <Typography variant="h3" fontWeight="bold">
               {t("Marketing")}
             </Typography>
@@ -154,7 +154,11 @@ const DividerGrid = () => (
 const ContactButton = () => {
   const { t } = useTranslation();
   return (
-    <Button color="primary" variant="contained" href="mailto:info@kryptos.media">
+    <Button
+      color="primary"
+      variant="contained"
+      href="mailto:info@kryptos.media"
+    >
       <span>{t("Contact Us")}</span>
     </Button>
   );
