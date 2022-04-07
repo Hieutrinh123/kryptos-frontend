@@ -4,9 +4,11 @@ export interface DirectusFile {
   id: ID;
   title: string;
   description: string;
+  width: number;
+  height: number;
 }
 
-export const fileFields = ["id", "title", "description"];
+export const fileFields = ["id", "title", "description", "width", "height"];
 
 export function resolveImageUrl<T extends DirectusFile | undefined | null>(
   image: T
