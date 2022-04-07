@@ -7,9 +7,11 @@ import {
   Locale,
   Post,
 } from "@/api";
+import { useRelatedPosts } from "@/api/posts/postHooks";
 import AuthorInformation from "@/containers/AuthorInformation";
 import BlogBookmarkButton from "@/containers/BlogBookmarkButton";
 import BlogLikeButton from "@/containers/BlogLikeButton";
+import BlogPostList from "@/containers/BlogPostList";
 import CommentListing from "@/containers/CommentListing";
 import PostBanner from "@/containers/PostBanner";
 import PostContent from "@/containers/PostContent";
@@ -17,6 +19,7 @@ import PostTableOfContent from "@/containers/PostTableOfContent";
 import ShareLinks from "@/containers/ShareLinks";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import FullLayout from "@/layouts/FullLayout";
+import { CircularProgress } from "@mui/material";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -37,6 +40,8 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
   const isMobile = useIsMobile();
   const { user } = useFirebaseAuthState();
   const { t } = useTranslation();
+  const [relatedPosts, loadingRelatedPosts] = useRelatedPosts(post);
+
   if (!post) {
     return null;
   }
@@ -106,6 +111,23 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
           <Box flex={1}>
             <PostSideBar post={post} />
           </Box>
+        </Stack>
+      </Container>
+
+      <Container
+        disableGutters={!isDesktop}
+        maxWidth="xl"
+        sx={{ paddingTop: 4, paddingBottom: 6 }}
+      >
+        <Stack spacing={2}>
+          <Typography variant="h3" fontWeight="bolder" textAlign="center">
+            {t("Related Posts")}
+          </Typography>
+          {loadingRelatedPosts ? (
+            <CircularProgress />
+          ) : (
+            relatedPosts && <BlogPostList posts={relatedPosts.data} />
+          )}
         </Stack>
       </Container>
     </FullLayout>
