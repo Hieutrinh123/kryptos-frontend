@@ -41,7 +41,7 @@ interface MobileNavLinkGroupProps {
 }
 const MobileNavLinkGroup: React.FC<MobileNavLinkGroupProps> = ({
   navigation,
-  prefix = "categories",
+  prefix = "",
 }) => {
   const { t } = useTranslation();
   return (

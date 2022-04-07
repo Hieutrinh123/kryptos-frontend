@@ -25,9 +25,9 @@ const DesktopHeaderContent = () => {
       <Logo />
 
       <Stack flexGrow={1} direction="row" justifyContent="center" spacing={2}>
-        <NavMenu navigation={OVERVIEW_NAVIGATION} />
+        <NavMenu prefix="" navigation={OVERVIEW_NAVIGATION} />
         {NAVIGATIONS.map((category, index) => (
-          <NavMenu navigation={category} key={index} />
+          <NavMenu prefix="categories" navigation={category} key={index} />
         ))}
       </Stack>
 

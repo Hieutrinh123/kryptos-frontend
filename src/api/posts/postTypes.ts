@@ -36,6 +36,7 @@ export interface PostTranslation {
   languages_code: LanguageCode;
   content: string;
   excerpt: string;
+  hide_excerpt?: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -52,6 +53,7 @@ export const postTranslationFields = [
   "excerpt",
   "created_at",
   "updated_at",
+  "hide_excerpt",
 ];
 
 export type Post = Omit<PostTranslation, "posts_id"> &
