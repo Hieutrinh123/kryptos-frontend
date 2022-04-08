@@ -1,25 +1,41 @@
-import { ListResult, RawAuthor } from "@/api";
+import { QueryMany } from "@directus/sdk";
 import _ from "lodash";
-import { Author, authorFields, AuthorListingResult } from "./authorTypes";
+import {
+  RawAuthor,
+  Author,
+  authorFields,
+  AuthorListingResult,
+} from "./authorTypes";
 import { listPosts, PostListingResult } from "../posts";
 import {
   directusGetFirstItem,
   directusInstance,
   directusListItem,
 } from "../directus";
+import { ListResult } from "../commonTypes";
 
 export async function listAuthors(
   page: number,
-  limit: number
+  limit: number,
+  query?: QueryMany<RawAuthor>
 ): Promise<AuthorListingResult> {
-  const authors = await directusListItem("directus_users", page, limit, {
-    fields: authorFields,
-    filter: {
-      hidden: {
-        _eq: false,
+  const mergedQuery = _.merge(
+    {
+      fields: authorFields,
+      filter: {
+        hidden: {
+          _eq: false,
+        },
       },
     },
-  });
+    query
+  );
+  const authors = await directusListItem(
+    "directus_users",
+    page,
+    limit,
+    mergedQuery
+  );
 
   return populateAuthorsWithCount(authors);
 }

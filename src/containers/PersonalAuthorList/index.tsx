@@ -1,0 +1,1 @@
+import PersonalAuthorList from './PersonalAuthorList'; export default PersonalAuthorList;

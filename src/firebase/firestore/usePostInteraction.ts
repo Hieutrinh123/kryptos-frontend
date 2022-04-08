@@ -5,16 +5,13 @@ import { cloudFirestore } from "@/firebase/firebase";
 import { useUserDocumentRef } from "@/firebase/firestore/useUserData";
 import { User } from "@firebase/auth";
 import {
+  collection,
   collectionGroup,
   doc,
-  documentId,
   DocumentReference,
-  endAt,
-  orderBy,
   Query,
   query,
   setDoc,
-  startAt,
   where,
 } from "@firebase/firestore";
 import { useTranslation } from "next-i18next";
@@ -150,10 +147,7 @@ export function usePostIdsWithInteraction(field: keyof UserPostInteraction): {
   const postQuery = useMemo(() => {
     if (userDocumentRef) {
       return query(
-        collectionGroup(cloudFirestore, "post_interaction"),
-        orderBy(documentId()),
-        startAt(userDocumentRef.path),
-        endAt(userDocumentRef.path + "\uf8ff"),
+        collection(userDocumentRef, "post_interaction"),
         where(field, "==", true)
       ) as Query<UserPostInteraction>;
     }

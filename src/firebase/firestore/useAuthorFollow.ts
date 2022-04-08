@@ -2,17 +2,23 @@ import { useShowAlert } from "#/hooks/useShowAlert";
 import { Author } from "@/api";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import { cloudFirestore } from "@/firebase/firebase";
+import { useUserDocumentRef } from "@/firebase/firestore/useUserData";
 import {
+  collection,
   collectionGroup,
   doc,
   DocumentReference,
   getDocs,
+  Query,
   query,
   setDoc,
   where,
 } from "@firebase/firestore";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import {
+  useCollectionOnce,
+  useDocumentData,
+} from "react-firebase-hooks/firestore";
 
 export interface AuthorFollow {
   authorId: string;
@@ -98,6 +104,31 @@ export function useCountFollow(author: Author) {
 
   return {
     count,
+    loading,
+  };
+}
+
+export function useFollowedAuthorIds(): {
+  ids: string[];
+  loading: boolean;
+} {
+  const userDocumentRef = useUserDocumentRef();
+  const postQuery = useMemo(() => {
+    if (userDocumentRef) {
+      return query(
+        collection(userDocumentRef, "author_interaction"),
+        where("followed", "==", true)
+      ) as Query<AuthorFollow>;
+    }
+    return undefined;
+  }, [userDocumentRef]);
+
+  const [snapshot, loading] = useCollectionOnce(postQuery);
+
+  const ids = snapshot?.docs.map((snapshot) => snapshot.data().authorId) ?? [];
+
+  return {
+    ids,
     loading,
   };
 }

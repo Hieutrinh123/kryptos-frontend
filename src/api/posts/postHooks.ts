@@ -1,10 +1,7 @@
-import {
-  listPosts,
-  listPostsByCategories,
-  Locale,
-  Post,
-  PostListingResult,
-} from "@/api";
+import { Locale } from "../commonTypes";
+import { listPostsByCategories } from "../categories";
+import { Post, PostListingResult } from "./postTypes";
+import { listPosts } from "./postAPI";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -15,13 +12,16 @@ export function useListPostsWithIds(
   limit: number
 ) {
   const [fetchedPosts, setFetchedPosts] = useState<PostListingResult>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const filteredIds = ids.filter((id) => !_.isNil(id));
     const numericIds = filteredIds.map((id) => parseInt(id));
     if (filteredIds.length) {
+      setLoading(true);
       listPosts(page, limit, { filter: { id: { _in: numericIds } } }).then(
         (posts) => {
+          setLoading(false);
           setFetchedPosts(posts);
         }
       );
@@ -29,7 +29,7 @@ export function useListPostsWithIds(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(ids), limit, page]);
 
-  return fetchedPosts;
+  return { posts: fetchedPosts, loading };
 }
 export function useRelatedPosts(
   post: Post

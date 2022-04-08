@@ -1,5 +1,6 @@
 import { getPageSettings, Locale } from "@/api";
 import Grid from "@/components/Grid";
+import PersonalAuthorList from "@/containers/PersonalAuthorList";
 import PersonalPostList from "@/containers/PersonalPostList";
 import UserInformationManagement from "@/containers/UserInformationManagement";
 import { useAuthStateWithRedirect } from "@/firebase/auth/useFirebaseAuthState";
@@ -37,6 +38,10 @@ const ProfilePage: NextPage<ProfilePageProps> = ({}) => {
                 <ListItemButton onClick={() => setPanel("bookmarked")}>
                   <ListItemText primary={t("Bookmarked Posts")} />
                 </ListItemButton>
+
+                <ListItemButton onClick={() => setPanel("following")}>
+                  <ListItemText primary={t("Following Authors")} />
+                </ListItemButton>
               </List>
             </Paper>
           </Grid>
@@ -58,6 +63,9 @@ const SubPanel: React.FC<{ panel: string }> = ({ panel }) => {
     return (
       <PersonalPostList title={t("Bookmarked Posts")} field="bookmarked" />
     );
+  }
+  if (panel === "following") {
+    return <PersonalAuthorList title={t("Following Authors")} />;
   }
   return null;
 };
