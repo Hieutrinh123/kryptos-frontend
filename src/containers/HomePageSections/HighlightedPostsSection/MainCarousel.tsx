@@ -12,6 +12,7 @@ import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { getExcerpt } from "@/api";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Textfit } from "react-textfit";
@@ -58,20 +59,22 @@ const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
         />
       ))}
 
-      <IconButton
-        onClick={handleNextSlide}
-        color="primary"
-        size="large"
-        sx={(theme) => ({
-          color: theme.palette.mode === "light" ? "black" : "white",
-          position: "absolute",
-          bottom: 30,
-          left: "50%",
-          transform: "translateX(-50%)",
-        })}
-      >
-        <KeyboardArrowDown />
-      </IconButton>
+      {posts.length > 1 && (
+        <IconButton
+          onClick={handleNextSlide}
+          color="primary"
+          size="large"
+          sx={(theme) => ({
+            color: theme.palette.mode === "light" ? "black" : "white",
+            position: "absolute",
+            bottom: 30,
+            left: "50%",
+            transform: "translateX(-50%)",
+          })}
+        >
+          <KeyboardArrowDown />
+        </IconButton>
+      )}
     </Box>
   );
 };
@@ -142,6 +145,7 @@ interface PostDescriptionProps {
 }
 
 const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
+  const { t } = useTranslation();
   return (
     <Stack
       position="absolute"
@@ -181,7 +185,7 @@ const PostDescription: React.FC<PostDescriptionProps> = ({ post }) => {
             color="secondary"
             sx={{ borderRadius: "6px", height: "48px" }}
           >
-            <span>Xem thêm</span>
+            <span>{t("View More")}</span>
           </Button>
         </NextLink>
       </Stack>

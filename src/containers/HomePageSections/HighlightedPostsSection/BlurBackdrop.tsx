@@ -19,7 +19,7 @@ export const BlurBackdrop = () => {
         top: "5vw",
         left: "20vw",
         transform: "translate(-50%, -50%)",
-        backgroundColor: alpha(theme.palette.grey["800"], 0.75),
+        backgroundColor: alpha("#001E6C", 0.75),
       })}
     />
   );
