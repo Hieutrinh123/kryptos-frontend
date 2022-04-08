@@ -88,7 +88,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async (
     PROJECT_ANALYSIS_CATEGORY,
     locale,
     1,
-    3
+    6
   );
   const ecosystemPosts = await wrappedListPostsByCategory(
     ECOSYSTEM_CATEGORY,
