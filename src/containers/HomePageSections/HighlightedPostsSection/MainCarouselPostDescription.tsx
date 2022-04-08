@@ -30,7 +30,7 @@ const MainCarouselPostDescription: React.FC<
         variant="h1"
         fontWeight="bold"
         color="white"
-        width={{ desktop: "80%", mobile: "100%" }}
+        width="100%"
         flexGrow={2}
       >
         <Textfit
