@@ -19,7 +19,8 @@ const MainCarouselPostDescription: React.FC<
     <Stack
       paddingTop={6}
       paddingBottom={14}
-      paddingX={6}
+      paddingLeft={{ mobile: 6, desktop: "100px" }}
+      paddingRight={{ mobile: 6, desktop: "180px" }}
       height="100%"
       width="100%"
       zIndex={10}
