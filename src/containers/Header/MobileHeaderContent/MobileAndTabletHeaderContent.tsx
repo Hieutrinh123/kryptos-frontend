@@ -1,21 +1,24 @@
 import Logo from "@/components/Logo/Logo";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import NextLink from "next/link";
 import { MobileDrawer } from "./MobileDrawer";
-import Box from "@mui/material/Box";
 import React from "react";
 
 const MobileAndTabletHeaderContent = () => {
   return (
     <>
       <Logo compact />
-      <Box
-        sx={{
-          display: "flex",
-          flex: 1,
-          flexDirection: "row-reverse",
-        }}
-      >
+      <Stack flex={1} alignItems="center" direction="row-reverse" spacing={1}>
         <MobileDrawer />
-      </Box>
+
+        <NextLink href="/search" passHref>
+          <IconButton color="primary" >
+            <SearchIcon />
+          </IconButton>
+        </NextLink>
+      </Stack>
     </>
   );
 };

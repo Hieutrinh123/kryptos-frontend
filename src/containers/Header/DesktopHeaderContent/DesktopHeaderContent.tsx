@@ -38,9 +38,11 @@ const DesktopHeaderContent = () => {
           gap: theme.spacing(2),
         })}
       >
-        <IconButton color="primary">
-          <SearchIcon />
-        </IconButton>
+        <NextLink href="/search" passHref>
+          <IconButton color="primary">
+            <SearchIcon />
+          </IconButton>
+        </NextLink>
 
         {user ? (
           <DropdownMenu
