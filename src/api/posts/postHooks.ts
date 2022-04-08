@@ -5,14 +5,25 @@ import {
   Post,
   PostListingResult,
 } from "@/api";
+import _ from "lodash";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export function usePosts(ids: number[]) {
+export function usePosts(ids: string[], page: number, limit: number) {
   const [fetchedPosts, setFetchedPosts] = useState<PostListingResult>();
+
   useEffect(() => {
-    listPosts(1, 3, { filter: { id: { _in: ids } } }).then(setFetchedPosts);
-  }, [ids]);
+    if (ids.length) {
+      const filteredIds = ids.filter((id) => !_.isNil(id));
+
+      listPosts(page, limit, { filter: { id: { _in: filteredIds } } }).then(
+        (posts) => {
+          setFetchedPosts(posts);
+        }
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(ids), limit, page]);
 
   return fetchedPosts;
 }

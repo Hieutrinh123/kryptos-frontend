@@ -1,3 +1,4 @@
+import { useIsMobile } from "#/styles/responsive";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
@@ -11,6 +12,7 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({ color, compact }) => {
+  const isMobile = useIsMobile();
   return (
     <NextLink href="/" passHref>
       <a>
@@ -20,7 +22,12 @@ const Logo: React.FC<LogoProps> = ({ color, compact }) => {
           alignItems="center"
           marginRight={2}
         >
-          <Image src={logo} alt="Logo" height={36} width={36} />
+          <Image
+            src={logo}
+            alt="Logo"
+            height={isMobile ? 24 : 36}
+            width={isMobile ? 24 : 36}
+          />
           {!compact && (
             <Typography
               variant="h6"

@@ -1,0 +1,1 @@
+import PersonalPostList from './PersonalPostList'; export default PersonalPostList;

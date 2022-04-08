@@ -1,10 +1,7 @@
-import {
-  useUpdateUserData,
-  useUserData,
-} from "@/firebase/firestore/useUserData";
 import Grid from "@/components/Grid";
 import SwitchModeTextField from "@/components/SwitchModeTextField";
 import UserAvatarUploader from "@/containers/UserAvatarUploader";
+import { useUpdateUserData, useUserData } from "@/firebase/firestore/useUserData";
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";

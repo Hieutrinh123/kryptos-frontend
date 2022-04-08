@@ -17,14 +17,17 @@ interface BlogPostCard {
   post: Post;
   variant?: BlogPostCardVariant;
   imageWidth?: number;
+  hideBookmarkButton?: boolean;
+  width?: number;
 }
 
 export type BlogPostCardVariant = "horizontal" | "vertical";
 
 const BlogPostCard: React.FC<BlogPostCard> = ({
   post,
-  variant = "short",
+  variant = "vertical",
   imageWidth = 200,
+  hideBookmarkButton,
 }) => {
   const isMobile = useIsMobile();
   const router = useRouter();
@@ -57,6 +60,8 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
             borderRadius: "24px",
             aspectRatio: variant === "horizontal" ? "1 / 1" : "2 / 1",
             width: variant === "horizontal" ? imageWidth : undefined,
+            flexBasis: variant === "horizontal" ? imageWidth : undefined,
+            flexShrink: 0,
             overflow: "hidden",
           })}
         >
@@ -74,7 +79,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
             }}
           />
         </Box>
-        {isMobile && (
+        {isMobile && !hideBookmarkButton && (
           <Box position="absolute" top={10} right={10}>
             <BlogBookmarkButton post={post} variant="compact" />
           </Box>
@@ -102,18 +107,19 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <Stack direction="row" spacing={2} alignItems="center">
-                {post.author && (
-                  <>
-                    <AuthorAvatar
-                      author={post.author}
-                      sx={{ maxWidth: "24px", height: "24px" }}
-                    />
-                    <Typography variant="subtitle1">
-                      {getAuthorName(post.author)}
-                    </Typography>
-                  </>
-                )}
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                flexGrow={1}
+              >
+                <AuthorAvatar
+                  author={post.author}
+                  sx={{ maxWidth: "24px", height: "24px" }}
+                />
+                <Typography variant="subtitle1">
+                  {getAuthorName(post.author)}
+                </Typography>
 
                 <Typography color="text.disabled">•</Typography>
 
@@ -122,7 +128,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                     new Date(post.updated_at).toLocaleDateString()}
                 </Typography>
               </Stack>
-              {!isMobile && (
+              {!isMobile && !hideBookmarkButton && (
                 <BlogBookmarkButton post={post} variant="compact" />
               )}
             </Stack>

@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "next-i18next";
 import React from "react";
 
 interface InDepthAnalysisPostsSectionProps {
@@ -16,6 +17,7 @@ const InDepthAnalysisPostsSection: React.FC<
 > = ({ posts }) => {
   const isDesktop = useIsDesktop();
   const postCount = posts.length;
+  const { t } = useTranslation();
   if (postCount <= 0) {
     return null;
   }
@@ -24,7 +26,7 @@ const InDepthAnalysisPostsSection: React.FC<
       <Container disableGutters={!isDesktop}>
         <Stack spacing={3}>
           <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
-            Phân tích chuyên sâu
+            {t("In-depth Analysis")}
           </Typography>
           <BlogPostList posts={posts} desktopVariant="vertical" />
         </Stack>

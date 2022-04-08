@@ -1,20 +1,23 @@
-import { cloudFirestore } from "@/firebase/firebase";
 import { useShowAlert } from "#/hooks/useShowAlert";
 import { Post } from "@/api";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
+import { cloudFirestore } from "@/firebase/firebase";
 import { User } from "@firebase/auth";
 import {
   collectionGroup,
   doc,
   DocumentReference,
-  getDocs,
+  Query,
   query,
   setDoc,
   where,
 } from "@firebase/firestore";
 import { useTranslation } from "next-i18next";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import {
+  useCollectionOnce,
+  useDocumentData,
+} from "react-firebase-hooks/firestore";
 import { useIsMounted } from "usehooks-ts";
 
 export interface UserPostInteraction {
@@ -24,10 +27,7 @@ export interface UserPostInteraction {
   id: string;
 }
 
-export function useInteractionReference(
-  user: User | undefined,
-  post: Post
-) {
+export function useInteractionReference(user: User | undefined, post: Post) {
   return useMemo(
     () =>
       user
@@ -137,7 +137,30 @@ export function useLikePost(post: Post) {
   };
 }
 
-export function useCountInteraction(
+export function usePostIdsWithInteraction(field: keyof UserPostInteraction): {
+  ids: string[];
+  loading: boolean;
+} {
+  const postQuery = useMemo(
+    () =>
+      query(
+        collectionGroup(cloudFirestore, "post_interaction"),
+        where(field, "==", true)
+      ) as Query<UserPostInteraction>,
+    [field]
+  );
+
+  const [snapshot, loading] = useCollectionOnce(postQuery);
+
+  const ids = snapshot?.docs.map((snapshot) => snapshot.data().id) ?? [];
+
+  return {
+    ids,
+    loading,
+  };
+}
+
+export function useListPostInteraction(
   post: Post,
   field: keyof UserPostInteraction
 ) {
@@ -147,36 +170,30 @@ export function useCountInteraction(
         collectionGroup(cloudFirestore, "post_interaction"),
         where(field, "==", true),
         where("id", "==", post.id.toString())
-      ),
+      ) as Query<UserPostInteraction>,
     [field, post.id]
   );
-  const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    getDocs(postQuery).then((snapshots) => {
-      setCount(snapshots.size);
-      setLoading(false);
-    });
-  }, [postQuery]);
+
+  const [snapshot, loading] = useCollectionOnce(postQuery);
 
   return {
-    count,
+    snapshot,
     loading,
   };
 }
 
 export function usePostLikeCount(post: Post) {
-  return useCountInteraction(post, "liked");
+  const { snapshot, loading } = useListPostInteraction(post, "liked");
+  return { count: snapshot?.size, loading };
 }
 
 export function usePostViewCount(post: Post) {
   const { handleUpdateInteraction, updating } = usePostInteraction(post);
-  const { count, loading } = useCountInteraction(post, "viewed");
+  const { snapshot, loading } = useListPostInteraction(post, "viewed");
 
   useEffect(() => {
     handleUpdateInteraction({ viewed: true }).then().catch(console.error);
   }, [handleUpdateInteraction]);
 
-  return { count, loading: loading || updating };
+  return { count: snapshot?.size, loading: loading || updating };
 }

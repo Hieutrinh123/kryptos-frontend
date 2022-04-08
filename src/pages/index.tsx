@@ -11,7 +11,7 @@ import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSec
 import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
 import FeaturedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
 import InDepthAnalysisPostsSection from "@/containers/HomePageSections/InDepthAnalysisPostsSection";
-import NewsSection from "@/containers/HomePageSections/UpdatePostsSection";
+import NewsSection from "@/containers/HomePageSections/NewsSection";
 import FullLayout from "@/layouts/FullLayout";
 import Box from "@mui/material/Box";
 import { GetStaticProps, NextPage } from "next";

@@ -1,6 +1,5 @@
 import { Author } from "@/api";
 import { useCountFollow } from "@/firebase/firestore/useAuthorFollow";
-import LikeIcon from "@mui/icons-material/FavoriteBorder";
 import PostCountIcon from "@mui/icons-material/FilterNone";
 import FollowCountIcon from "@mui/icons-material/PeopleOutline";
 import { CircularProgress } from "@mui/material";
@@ -26,11 +25,6 @@ const AuthorStatistic: React.FC<AuthorStatisticProps> = ({ author }) => {
       <Stack spacing={1} direction="row" alignItems="center">
         <PostCountIcon fontSize="small" />
         <Typography fontSize="smaller">{author.postCount}</Typography>
-      </Stack>
-
-      <Stack spacing={1} direction="row" alignItems="center">
-        <LikeIcon fontSize="small" />
-        <Typography fontSize="smaller">0</Typography>
       </Stack>
     </Stack>
   );

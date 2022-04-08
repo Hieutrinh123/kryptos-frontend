@@ -5,7 +5,7 @@ import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
 import { User } from "@firebase/auth";
 import { doc, setDoc, updateDoc } from "@firebase/firestore";
 import _ from "lodash";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useUpdateProfile } from "react-firebase-hooks/auth";
 import { useDocument } from "react-firebase-hooks/firestore";
 
@@ -16,8 +16,11 @@ export interface UserData {
   phoneNumber?: string;
 }
 
-function getUserDocumentRef(user: User | undefined) {
-  return user ? doc(cloudFirestore, "users", user.uid) : undefined;
+function useUserDocumentRef(user: User | undefined) {
+  return useMemo(
+    () => (user ? doc(cloudFirestore, "users", user.uid) : undefined),
+    [user]
+  );
 }
 
 function useFirebaseUpdateProfile() {
@@ -38,7 +41,7 @@ function useFirebaseUpdateProfile() {
 
 export function useUserData() {
   const { isNew, user, loading: loadingUser } = useFirebaseAuthState();
-  const documentRef = getUserDocumentRef(user);
+  const documentRef = useUserDocumentRef(user);
 
   const [snapshot, loadingUserData, error] = useDocument<UserData>(documentRef);
 
@@ -72,7 +75,7 @@ export function useUpdateUserData() {
   const { user } = useFirebaseAuthState();
   const { handleUpdate: handleUpdateProfile, updating: updatingProfile } =
     useFirebaseUpdateProfile();
-  const documentRef = getUserDocumentRef(user);
+  const documentRef = useUserDocumentRef(user);
 
   const [loading, setLoading] = useState<boolean>(false);
   const showAlert = useShowAlert();
