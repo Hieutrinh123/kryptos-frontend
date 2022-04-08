@@ -2,14 +2,19 @@ import { useShowAlert } from "#/hooks/useShowAlert";
 import { Post } from "@/api";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import { cloudFirestore } from "@/firebase/firebase";
+import { useUserDocumentRef } from "@/firebase/firestore/useUserData";
 import { User } from "@firebase/auth";
 import {
   collectionGroup,
   doc,
+  documentId,
   DocumentReference,
+  endAt,
+  orderBy,
   Query,
   query,
   setDoc,
+  startAt,
   where,
 } from "@firebase/firestore";
 import { useTranslation } from "next-i18next";
@@ -141,14 +146,19 @@ export function usePostIdsWithInteraction(field: keyof UserPostInteraction): {
   ids: string[];
   loading: boolean;
 } {
-  const postQuery = useMemo(
-    () =>
-      query(
+  const userDocumentRef = useUserDocumentRef();
+  const postQuery = useMemo(() => {
+    if (userDocumentRef) {
+      return query(
         collectionGroup(cloudFirestore, "post_interaction"),
+        orderBy(documentId()),
+        startAt(userDocumentRef.path),
+        endAt(userDocumentRef.path + "\uf8ff"),
         where(field, "==", true)
-      ) as Query<UserPostInteraction>,
-    [field]
-  );
+      ) as Query<UserPostInteraction>;
+    }
+    return undefined;
+  }, [field, userDocumentRef]);
 
   const [snapshot, loading] = useCollectionOnce(postQuery);
 

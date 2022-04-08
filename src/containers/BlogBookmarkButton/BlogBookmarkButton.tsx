@@ -42,7 +42,7 @@ const CompactBlogBookmarkButton: React.FC<InnerBlogBookmarkButtonProps> = ({
         }
       }}
     >
-      {loading ? <CircularProgress /> : <BookmarkBorderIcon />}
+      {loading ? <CircularProgress size={24}/> : <BookmarkBorderIcon />}
     </IconButton>
   );
 };

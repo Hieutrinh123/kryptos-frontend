@@ -1,10 +1,10 @@
-import { cloudFirestore, firebaseAuth } from "@/firebase/firebase";
-import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import { useShowAlert, useShowAlertEffect } from "#/hooks/useShowAlert";
 import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
-import { User } from "@firebase/auth";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
+import { cloudFirestore, firebaseAuth } from "@/firebase/firebase";
 import { doc, setDoc, updateDoc } from "@firebase/firestore";
 import _ from "lodash";
+import { useTranslation } from "next-i18next";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useUpdateProfile } from "react-firebase-hooks/auth";
 import { useDocument } from "react-firebase-hooks/firestore";
@@ -16,7 +16,8 @@ export interface UserData {
   phoneNumber?: string;
 }
 
-function useUserDocumentRef(user: User | undefined) {
+export function useUserDocumentRef() {
+  const { user } = useFirebaseAuthState();
   return useMemo(
     () => (user ? doc(cloudFirestore, "users", user.uid) : undefined),
     [user]
@@ -41,7 +42,7 @@ function useFirebaseUpdateProfile() {
 
 export function useUserData() {
   const { isNew, user, loading: loadingUser } = useFirebaseAuthState();
-  const documentRef = useUserDocumentRef(user);
+  const documentRef = useUserDocumentRef();
 
   const [snapshot, loadingUserData, error] = useDocument<UserData>(documentRef);
 
@@ -72,10 +73,10 @@ export function useUserData() {
 }
 
 export function useUpdateUserData() {
-  const { user } = useFirebaseAuthState();
   const { handleUpdate: handleUpdateProfile, updating: updatingProfile } =
     useFirebaseUpdateProfile();
-  const documentRef = useUserDocumentRef(user);
+  const documentRef = useUserDocumentRef();
+  const { t } = useTranslation();
 
   const [loading, setLoading] = useState<boolean>(false);
   const showAlert = useShowAlert();
@@ -90,12 +91,12 @@ export function useUpdateUserData() {
           if (!_.isEmpty(profile)) {
             await handleUpdateProfile(profile);
           }
-          showAlert("Thay đổi thông tin cá nhân thành công.", "success");
+          showAlert(t("Successfully updated personal information"), "success");
         } catch (e) {
           const error = e as Error;
           console.error(e);
           showAlert(
-            "Lỗi khi cập nhật thông tin cá nhân: " + error.message,
+            t("Error while updating personal information: ") + error.message,
             "error"
           );
         } finally {
@@ -103,7 +104,7 @@ export function useUpdateUserData() {
         }
       }
     },
-    [documentRef, handleUpdateProfile, showAlert]
+    [documentRef, handleUpdateProfile, showAlert, t]
   );
 
   return {

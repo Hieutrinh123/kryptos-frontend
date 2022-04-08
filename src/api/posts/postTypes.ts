@@ -74,5 +74,6 @@ export function flattenPostTranslation(localizedPost: PostTranslation): Post {
     categories: localizedPost.posts_id.categories.map(
       (item) => item.categories_id
     ),
+    id: localizedPost.id,
   };
 }

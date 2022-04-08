@@ -10,6 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -31,6 +32,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
 }) => {
   const isMobile = useIsMobile();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <Card
@@ -95,7 +97,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
             <Stack spacing={1} flexGrow={1}>
               {post.categories.length > 0 && (
                 <Typography variant="subtitle1" sx={{ ...textColorGradient }}>
-                  {post.categories[0].name}
+                  {t(post.categories[0].name)}
                 </Typography>
               )}
               <Typography variant="h5" fontWeight="bolder" minHeight={100}>

@@ -9,14 +9,18 @@ import _ from "lodash";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export function usePosts(ids: string[], page: number, limit: number) {
+export function useListPostsWithIds(
+  ids: string[],
+  page: number,
+  limit: number
+) {
   const [fetchedPosts, setFetchedPosts] = useState<PostListingResult>();
 
   useEffect(() => {
-    if (ids.length) {
-      const filteredIds = ids.filter((id) => !_.isNil(id));
-
-      listPosts(page, limit, { filter: { id: { _in: filteredIds } } }).then(
+    const filteredIds = ids.filter((id) => !_.isNil(id));
+    const numericIds = filteredIds.map((id) => parseInt(id));
+    if (filteredIds.length) {
+      listPosts(page, limit, { filter: { id: { _in: numericIds } } }).then(
         (posts) => {
           setFetchedPosts(posts);
         }

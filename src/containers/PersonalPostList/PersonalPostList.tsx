@@ -1,6 +1,6 @@
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useIsDesktop } from "#/styles/responsive";
-import { usePosts } from "@/api/posts/postHooks";
+import { useListPostsWithIds } from "@/api/posts/postHooks";
 import { usePostIdsWithInteraction } from "@/firebase/firestore/usePostInteraction";
 import { Box, Pagination } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -21,9 +21,10 @@ const PersonalPostList: React.FC<UserInformationManagement> = ({
 }) => {
   const [page, setPage] = useState(1);
   const { ids: postIds, loading } = usePostIdsWithInteraction(field);
-  const posts = usePosts(postIds, page, POSTS_PER_PAGE);
+  console.log(postIds);
+  const posts = useListPostsWithIds(postIds, page, POSTS_PER_PAGE);
   const isDesktop = useIsDesktop();
-const { t } = useTranslation();
+  const { t } = useTranslation();
 
   if (loading) {
     return <CircularProgress />;
