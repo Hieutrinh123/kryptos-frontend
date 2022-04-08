@@ -80,6 +80,7 @@ export function useCountFollow(author: Author) {
     () =>
       query(
         collectionGroup(cloudFirestore, "author_interaction"),
+        where("followed", "==", true),
         where("authorId", "==", author.id.toString())
       ),
     [author.id]

@@ -95,6 +95,9 @@ interface PostCountByAuthor {
 }
 
 async function countPostsGroupedByAuthors(authorSlugs: string[]) {
+  if (authorSlugs.length <= 0) {
+    return {};
+  }
   const results = await directusInstance
     .items("posts_translations")
     .readByQuery({
