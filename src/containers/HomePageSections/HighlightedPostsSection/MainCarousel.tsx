@@ -1,7 +1,7 @@
 import { carouselTimeout } from "#/config/carousel";
 import { toolbarHeight } from "#/config/toolbar";
 import { Post } from "@/api";
-import MainCarouselItem from "@/containers/HomePageSections/HighlightedPostsSection/MainCarouselItem";
+import MainCarouselItem from "./MainCarouselItem";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -42,6 +42,7 @@ const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
       {posts.map((post, index) => (
         <MainCarouselItem
           key={index}
+          first={index === 0}
           shown={index === currentSlideIndex}
           root={rootRef.current}
           post={post}

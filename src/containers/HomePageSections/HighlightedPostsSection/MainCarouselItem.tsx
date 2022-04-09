@@ -6,10 +6,11 @@ import { BlurBackdrop } from "@/containers/HomePageSections/HighlightedPostsSect
 import MainCarouselPostDescription from "@/containers/HomePageSections/HighlightedPostsSection/MainCarouselPostDescription";
 import Box from "@mui/material/Box";
 import Slide from "@mui/material/Slide";
-import Image from "next/image";
+import NextImage from "next/image";
 import React from "react";
 
 interface MainCarouselItemProps {
+  first: boolean;
   shown: boolean;
   root: HTMLElement | null;
   post: Post;
@@ -17,6 +18,7 @@ interface MainCarouselItemProps {
 
 const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
   shown,
+  first,
   root,
   post,
 }) => {
@@ -45,8 +47,9 @@ const MainCarouselItem: React.FC<MainCarouselItemProps> = ({
         }}
       >
         {post.thumbnail && (
-          <Image
+          <NextImage
             src={resolveImageUrl(post.thumbnail)}
+            priority={first}
             alt="Thumbnail"
             layout="fill"
             quality={100}

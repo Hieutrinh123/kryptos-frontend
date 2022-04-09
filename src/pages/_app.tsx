@@ -3,7 +3,7 @@ import { SVGGradient } from "#/styles/gradients";
 import { ThemeModeProvider } from "#/themes";
 import createEmotionCache from "#/utils/createEmotionCache";
 import { PageSettings, PageSettingsProvider } from "@/api";
-import "@/common/styles/globals.scss";
+import "#/styles/globals.scss";
 import LoadingScreen from "@/containers/LoadingScreen";
 import { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
@@ -59,6 +59,7 @@ function MyApp({
         <meta property="og:site_name" content="CoinBlog" />
         <meta name="geo.region" content="VN" />
         <meta httpEquiv="Content-Type" content="text/html" charSet="UTF-8" />
+
         <link
           rel="apple-touch-icon"
           sizes="180x180"

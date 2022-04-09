@@ -1,6 +1,6 @@
 import createEmotionCache from "#/utils/createEmotionCache";
 import createEmotionServer from "@emotion/server/create-instance";
-import Document, {Head, Html, Main, NextScript} from "next/document";
+import Document, { Head, Html, Main, NextScript } from "next/document";
 import * as React from "react";
 
 export default class MyDocument extends Document {
@@ -8,9 +8,11 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,900;1,400&display=swap"
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
         </Head>
         <body>

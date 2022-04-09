@@ -1,7 +1,7 @@
 import { useIsMobile } from "#/styles/responsive";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Image from "next/image";
+import NextImage from "next/image";
 import NextLink from "next/link";
 import logo from "public/logo.png";
 import React from "react";
@@ -22,9 +22,10 @@ const Logo: React.FC<LogoProps> = ({ color, compact }) => {
           alignItems="center"
           marginRight={2}
         >
-          <Image
+          <NextImage
             src={logo}
             alt="Logo"
+            layout="fixed"
             height={isMobile ? 24 : 36}
             width={isMobile ? 24 : 36}
           />

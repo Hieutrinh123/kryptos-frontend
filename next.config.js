@@ -1,8 +1,11 @@
 const path = require("path");
 const { i18n } = require("./next-i18next.config");
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+const config = {
   reactStrictMode: true,
   webpack: (config) => {
     // Important: return the modified config
@@ -37,3 +40,5 @@ module.exports = {
   },
   i18n,
 };
+
+module.exports = withBundleAnalyzer(config);
