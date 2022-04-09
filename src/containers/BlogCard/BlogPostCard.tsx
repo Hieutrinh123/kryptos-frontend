@@ -12,6 +12,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import NextImage from "next/image";
 import React from "react";
 
 interface BlogPostCard {
@@ -33,6 +34,7 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
   const isMobile = useIsMobile();
   const router = useRouter();
   const { t } = useTranslation();
+  const thumbnailUrl = resolveImageUrl(post.thumbnail);
 
   return (
     <Card
@@ -68,9 +70,9 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
           })}
         >
           <CardMedia
-            component="img"
-            src={resolveImageUrl(post.thumbnail)}
+            component="div"
             sx={{
+              position: "relative",
               height: "100%",
               width: "100%",
               transition: "0.5s",
@@ -79,7 +81,11 @@ const BlogPostCard: React.FC<BlogPostCard> = ({
                 transition: "0.5s",
               },
             }}
-          />
+          >
+            {thumbnailUrl ? (
+              <NextImage src={thumbnailUrl} layout="fill" objectFit="cover" />
+            ) : null}
+          </CardMedia>
         </Box>
         {isMobile && !hideBookmarkButton && (
           <Box position="absolute" top={10} right={10}>

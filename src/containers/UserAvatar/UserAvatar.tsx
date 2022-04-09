@@ -3,6 +3,7 @@ import { UserData } from "@/firebase/firestore/useUserData";
 import { User } from "@firebase/auth";
 import Avatar, { AvatarProps } from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
+import NextImage from "next/image";
 import React from "react";
 
 interface UserAvatarProps {
@@ -22,7 +23,15 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user, sx }) => {
       alt={`${user.displayName}'s avatar`}
       sx={sx}
     >
-      {getInitials(user.displayName)}
+      {user.photoURL ? (
+        <NextImage
+          src={user.photoURL}
+          alt={`${user.displayName}'s avatar`}
+          layout="fill"
+        />
+      ) : (
+        getInitials(user.displayName)
+      )}
     </StyledAvatar>
   );
 };

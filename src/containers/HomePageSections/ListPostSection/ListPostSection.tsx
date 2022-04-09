@@ -1,32 +1,38 @@
-import { useIsMobile } from "#/styles/responsive";
+import { useIsDesktop } from "#/styles/responsive";
 import { Post } from "@/api";
 import BlogPostList from "@/containers/BlogPostList";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useTranslation } from "next-i18next";
 import React from "react";
 
-interface AnalysisPostsSectionProps {
+interface ListPostsSectionProps {
+  title: string;
   posts: Post[];
 }
 
-const AnalysisPostsSection: React.FC<AnalysisPostsSectionProps> = ({
+const ListPostsSection: React.FC<ListPostsSectionProps> = ({
   posts,
+  title,
 }) => {
-  const isMobile = useIsMobile();
-  const { t } = useTranslation();
+  const isDesktop = useIsDesktop();
   const postCount = posts.length;
   if (postCount <= 0) {
     return null;
   }
   return (
     <Box paddingY={6}>
-      <Container disableGutters={isMobile}>
+      <Container disableGutters={!isDesktop}>
         <Stack spacing={3}>
-          <Typography variant="h4" mb={3} fontWeight="bolder" align="center">
-            {t("Project Analysis")}
+          <Typography
+            variant="h2"
+            fontSize={{ mobile: 28, tablet: 48 }}
+            mb={3}
+            fontWeight="bolder"
+            align="center"
+          >
+            {title}
           </Typography>
           <BlogPostList posts={posts} desktopVariant="vertical" />
         </Stack>
@@ -35,4 +41,4 @@ const AnalysisPostsSection: React.FC<AnalysisPostsSectionProps> = ({
   );
 };
 
-export default AnalysisPostsSection;
+export default ListPostsSection;

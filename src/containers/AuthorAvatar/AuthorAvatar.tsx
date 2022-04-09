@@ -4,6 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import { SxProps } from "@mui/system";
+import NextImage from "next/image";
 import React from "react";
 
 interface AuthorAvatarProps {
@@ -21,8 +22,12 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
 const AuthorAvatar: React.FC<AuthorAvatarProps> = ({ author, sx, badge }) => {
   const avatarUrl = resolveImageUrl(author.avatar);
   const result = (
-    <StyledAvatar src={avatarUrl} alt={getAuthorName(author)} sx={sx}>
-      {getInitials(getAuthorName(author))}
+    <StyledAvatar alt={getAuthorName(author)} sx={sx}>
+      {avatarUrl ? (
+        <NextImage src={avatarUrl} alt={getAuthorName(author)} layout="fill" />
+      ) : (
+        getInitials(getAuthorName(author))
+      )}
     </StyledAvatar>
   );
   if (badge) {

@@ -1,20 +1,19 @@
 import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import {
-  Navigation,
   ECOSYSTEM_CATEGORY,
   IN_DEPTH_ANALYSIS_CATEGORY,
+  Navigation,
   NEWS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
 } from "#/config/navigation";
 import { getPageSettings, listPostsByCategories, Locale, Post } from "@/api";
-import AnalysisPostsSection from "@/containers/HomePageSections/AnalysisPostsSection";
-import EcosystemPostsSection from "@/containers/HomePageSections/EcosystemPostsSection";
 import FeaturedPostsSection from "@/containers/HomePageSections/HighlightedPostsSection";
-import InDepthAnalysisPostsSection from "@/containers/HomePageSections/InDepthAnalysisPostsSection";
+import ListPostsSection from "@/containers/HomePageSections/ListPostSection";
 import NewsSection from "@/containers/HomePageSections/NewsSection";
 import FullLayout from "@/layouts/FullLayout";
 import Box from "@mui/material/Box";
 import { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface HomePageProps {
@@ -32,6 +31,7 @@ const HomePage: NextPage<HomePageProps> = ({
   ecosystemPosts,
   inDepthPosts,
 }) => {
+  const { t } = useTranslation();
   return (
     <FullLayout>
       <Box
@@ -46,9 +46,9 @@ const HomePage: NextPage<HomePageProps> = ({
       >
         <FeaturedPostsSection posts={featuredPosts} />
         <NewsSection posts={newsPosts} />
-        <AnalysisPostsSection posts={analysisPosts} />
-        <EcosystemPostsSection posts={ecosystemPosts} />
-        <InDepthAnalysisPostsSection posts={inDepthPosts} />
+        <ListPostsSection posts={analysisPosts} title={t("Project Analysis")} />
+        <ListPostsSection posts={ecosystemPosts} title={t("Ecosystem")} />
+        <ListPostsSection posts={inDepthPosts} title={t("In-depth Analysis")} />
       </Box>
     </FullLayout>
   );

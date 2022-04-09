@@ -28,8 +28,10 @@ const NewsSection: React.FC<NewsSectionProps> = ({ posts }) => {
           <Stack direction="row">
             <Box flex={4} paddingX={isDesktop ? 0 : 4}>
               <Typography
-                variant={isDesktop ? "h2" : "h3"}
+                variant="h2"
                 mb={3}
+                fontSize={{ mobile: 36, tablet: 60, desktop: 72 }}
+                align={isDesktop ? "left" : "center"}
                 fontWeight="bolder"
               >
                 {t("News")}

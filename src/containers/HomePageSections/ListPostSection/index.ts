@@ -1,0 +1,1 @@
+import ListPostsSection from './ListPostSection'; export default ListPostsSection;
