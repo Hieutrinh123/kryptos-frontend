@@ -81,5 +81,8 @@
   "Error while updating personal information: ": "Error while updating personal information: ",
   "Search": "Search",
   "Input Search Terms": "Input Search Terms",
-  "No match found": "No match found"
+  "No match found": "No match found",
+  "has created a new post": "has created a new post",
+  "No Notification": "Không có thông báo",
+  "Newest Notifications": "Newest Notifications"
 }

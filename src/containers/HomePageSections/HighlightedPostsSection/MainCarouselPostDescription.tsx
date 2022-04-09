@@ -25,24 +25,19 @@ const MainCarouselPostDescription: React.FC<
       width="100%"
       zIndex={10}
       spacing={6}
+      justifyContent="center"
       alignItems="start"
     >
-      <Typography
-        variant="h1"
-        fontWeight="bold"
-        color="white"
-        width="100%"
-        flexGrow={2}
-      >
+      <Typography variant="h1" fontWeight="bold" color="white" width="100%">
         <Textfit
           mode="multi"
           max={64}
-          style={{ minHeight: "10vh", maxHeight: "30vh" }}
+          style={{ minHeight: "10vh", maxHeight: "20vh" }}
         >
           {post.title}
         </Textfit>
       </Typography>
-      <Stack spacing={2} flexGrow={1} alignItems="start">
+      <Stack spacing={2} alignItems="start">
         {!post.hide_excerpt && (
           <Typography variant="subtitle1" color="white">
             <div dangerouslySetInnerHTML={{ __html: getExcerpt(post) }} />

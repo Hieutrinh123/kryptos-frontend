@@ -81,5 +81,8 @@
   "Error while updating personal information: ": "Lỗi khi cập nhật thông tin cá nhân: ",
   "Search": "Tìm kiếm",
   "Input Search Terms": "Nhập nội dung tìm kiếm",
-  "No match found": "Không tìm thấy kết quả nào"
+  "No match found": "Không tìm thấy kết quả nào",
+  "has created a new post": "đã đăng một bài viết mới",
+  "No Notification": "Không có thông báo",
+  "Newest Notifications": "Thông báo mới nhất"
 }

@@ -11,25 +11,28 @@ export function useListPostsWithIds(
   page: number,
   limit: number
 ) {
-  const [fetchedPosts, setFetchedPosts] = useState<PostListingResult>();
+  const [posts, setPosts] = useState<PostListingResult>();
   const [loading, setLoading] = useState(false);
 
+  const filteredIds = ids.filter((id) => !_.isNil(id));
+  const numericIds = filteredIds.map((id) => parseInt(id));
+
   useEffect(() => {
-    const filteredIds = ids.filter((id) => !_.isNil(id));
-    const numericIds = filteredIds.map((id) => parseInt(id));
-    if (filteredIds.length) {
+    if (numericIds.length) {
       setLoading(true);
-      listPosts(page, limit, { filter: { id: { _in: numericIds } } }).then(
-        (posts) => {
+      const slicedIds = numericIds.slice((page - 1) * limit, page * limit);
+      listPosts(1, limit, { filter: { id: { _in: slicedIds } } })
+        .then((fetchedPosts) => {
+          setPosts(fetchedPosts);
+        })
+        .finally(() => {
           setLoading(false);
-          setFetchedPosts(posts);
-        }
-      );
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(ids), limit, page]);
+  }, [JSON.stringify(numericIds), limit, page]);
 
-  return { posts: fetchedPosts, loading };
+  return { posts, loading };
 }
 export function useRelatedPosts(
   post: Post

@@ -36,10 +36,13 @@ const SearchPage: NextPage = ({}) => {
       setLoading(true);
       listPosts(1, POSTS_PER_PAGE, {
         search: searchInput,
-      }).then((fetchedPosts) => {
-        setLoading(false);
-        setPosts(fetchedPosts);
-      });
+      })
+        .then((fetchedPosts) => {
+          setPosts(fetchedPosts);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, [searchInput]);
   return (

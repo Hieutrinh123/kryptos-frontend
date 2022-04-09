@@ -18,16 +18,20 @@ export function useListAuthorsWithIds(
 
     if (filteredIds.length) {
       setLoading(true);
-      listAuthors(page, limit, {
+      const slicedIds = filteredIds.slice((page - 1) * limit, page * limit);
+      listAuthors(1, limit, {
         filter: {
           id: {
-            _in: filteredIds,
+            _in: slicedIds,
           },
         },
-      }).then((fetchedAuthors) => {
-        setAuthors(fetchedAuthors);
-        setLoading(false);
-      });
+      })
+        .then((fetchedAuthors) => {
+          setAuthors(fetchedAuthors);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(ids), limit, page]);
