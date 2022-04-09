@@ -1,4 +1,3 @@
-import { getAnalytics } from "@firebase/analytics";
 import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "@firebase/storage";
 import { initializeApp } from "firebase/app";
@@ -20,6 +19,8 @@ const firebaseConfig = {
   messagingSenderId: "832632593443",
 
   appId: "1:832632593443:web:437d3aabf9722f7bdc2596",
+
+  measurementId: "G-4HHQ534D0S",
 };
 
 // Initialize Firebase
@@ -31,5 +32,3 @@ export const firebaseAuth = getAuth(firebaseApp);
 export const firebaseStorage = getStorage(firebaseApp);
 
 export const cloudFirestore = getFirestore(firebaseApp);
-
-export const googleAnalytics = getAnalytics(firebaseApp);

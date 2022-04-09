@@ -12,6 +12,7 @@ import { appWithTranslation } from "next-i18next";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Script from "next/script";
 import React, { useEffect, useState } from "react";
 
 interface MyAppProps extends AppProps {
@@ -32,7 +33,13 @@ function MyApp({
   useEffect(() => {
     const handleStart = (url: string) =>
       url !== router.asPath && setLoading(true);
-    const handleComplete = () => setLoading(false);
+    const handleComplete = (url: string) => {
+      // @ts-ignore
+      window.gtag("config", "G-4HHQ534D0S", {
+        page_path: url,
+      });
+      setLoading(false);
+    };
 
     router.events.on("routeChangeStart", handleStart);
     router.events.on("routeChangeComplete", handleComplete);
@@ -46,6 +53,18 @@ function MyApp({
   }, [router]);
   return (
     <>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-4HHQ534D0S"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-4HHQ534D0S');
+            `}
+      </Script>
       <Head>
         <title>Kryptos</title>
         <meta name="description" content="CoinBlog" />
