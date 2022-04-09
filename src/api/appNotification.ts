@@ -19,12 +19,17 @@ function useLastNotificationSeen() {
       time = new Date(0);
     }
     setTime(time);
+  }, []);
+  return time ?? new Date(0);
+}
+
+export function useSeenNotification() {
+  useEffect(() => {
     localStorage.setItem(
       "last_notification_seen_time",
       new Date().toISOString()
     );
   }, []);
-  return time ?? new Date(0);
 }
 
 interface HookResult {
@@ -54,7 +59,7 @@ export function useNotifications(): HookResult {
       })
         .then((fetchedPosts) => {
           const newNotifications = fetchedPosts.data.map((post) => {
-            const postUpdateTime = new Date(post.updated_at);
+            const postUpdateTime = new Date(post.updated_at + "Z");
             return {
               post,
               viewed: lastSeenTime > postUpdateTime,

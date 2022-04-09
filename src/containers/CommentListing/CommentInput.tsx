@@ -32,7 +32,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ collectionRef }) => {
       return;
     }
     if (!value) {
-      setError("Không được để trống nội dung bình luận");
+      setError(t("Can't leave the comment input empty"));
       return;
     }
     return addComment(value);
@@ -49,31 +49,37 @@ const CommentInput: React.FC<CommentInputProps> = ({ collectionRef }) => {
   }
 
   return (
-    <Stack spacing={2} direction="row">
+    <Stack
+      spacing={2}
+      direction={{ mobile: "column", tablet: "row" }}
+      alignItems="center"
+    >
       <Typography fontWeight="bolder">{t("Write Comment")}</Typography>
-      <UserAvatar user={user} sx={{ width: 50, height: 50 }} />
-      <LimitedInput
-        value={value}
-        variant="filled"
-        onChange={(event) => {
-          setValue(event.target.value);
-          setError("");
-        }}
-        error={!!error}
-        helperText={error}
-        multiline
-        fullWidth
-        maximumLength={500}
-        label={t("Comment's Detail")}
-        maxRows={5}
-      />
-      <IconButton
-        color="primary"
-        sx={{ height: 50, width: 50 }}
-        onClick={handleAddComment}
-      >
-        {addingComment ? <CircularProgress /> : <SendIcon />}
-      </IconButton>
+      <Stack spacing={2} direction="row" flex={1} alignItems="center">
+        <UserAvatar user={user} sx={{ width: 50, height: 50 }} />
+        <LimitedInput
+          value={value}
+          variant="filled"
+          onChange={(event) => {
+            setValue(event.target.value);
+            setError("");
+          }}
+          error={!!error}
+          helperText={error}
+          multiline
+          fullWidth
+          maximumLength={500}
+          label={t("Comment's Detail")}
+          maxRows={5}
+        />
+        <IconButton
+          color="primary"
+          sx={{ height: 50, width: 50 }}
+          onClick={handleAddComment}
+        >
+          {addingComment ? <CircularProgress /> : <SendIcon />}
+        </IconButton>
+      </Stack>
     </Stack>
   );
 };

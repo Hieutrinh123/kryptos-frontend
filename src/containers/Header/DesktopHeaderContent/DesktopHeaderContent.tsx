@@ -1,5 +1,4 @@
 import { NAVIGATIONS, OVERVIEW_NAVIGATION } from "#/config/navigation";
-import { useNotifications } from "@/api";
 import DropdownMenu from "@/components/DropdownMenu";
 import Logo from "@/components/Logo/Logo";
 import AuthenticationMenu from "@/containers/AuthenticationMenu";
@@ -8,28 +7,19 @@ import NavMenu from "@/containers/Header/DesktopHeaderContent/DesktopNavMenu";
 import NotificationMenu from "@/containers/NotificationMenu";
 import SettingsMenu from "@/containers/SettingMenu";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
-import NotificationsButton from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
-import Stack from "@mui/material/Stack";
-import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
 import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import React from "react";
-import { grey } from "#/styles/colors";
 
 const DesktopHeaderContent = () => {
   const { user } = useFirebaseAuthState();
   const { t } = useTranslation();
-  const {
-    notifications,
-    loading: loadingNotifications,
-    hasUnread,
-  } = useNotifications();
 
   return (
     <>
@@ -55,40 +45,7 @@ const DesktopHeaderContent = () => {
           </IconButton>
         </NextLink>
 
-        <DropdownMenu
-          offsetY={20}
-          buttonBuilder={(buttonProps, ref) => {
-            if (loadingNotifications) {
-              return <CircularProgress />;
-            }
-            return (
-              <Badge
-                variant="dot"
-                color="primary"
-                overlap="circular"
-                componentsProps={{
-                  badge: {
-                    style: {
-                      display: hasUnread ? "unset" : "none",
-                      zIndex: 100,
-                    },
-                  },
-                }}
-              >
-                <IconButton color="primary" {...buttonProps} ref={ref}>
-                  <NotificationsButton />
-                </IconButton>
-              </Badge>
-            );
-          }}
-          PaperProps={{
-            sx: {
-              bgcolor: grey["400"],
-            },
-          }}
-        >
-          <NotificationMenu notifications={notifications} />
-        </DropdownMenu>
+        <NotificationMenu />
 
         {user ? (
           <DropdownMenu

@@ -1,36 +1,63 @@
-import { AppNotification } from "@/api";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import { useTranslation } from "next-i18next";
+import { grey } from "#/styles/colors";
+import { useNotifications } from "@/api";
+import DropdownMenu from "@/components/DropdownMenu";
+import NotificationMenuContent from "@/containers/NotificationMenu/NotificationMenuContent";
+import NotificationsButton from "@mui/icons-material/Notifications";
+import Badge from "@mui/material/Badge";
+import CircularProgress from "@mui/material/CircularProgress";
+import IconButton from "@mui/material/IconButton";
 import React from "react";
-import NotificationList from "./NotificationList";
 
-interface NotificationMenuProps {
-  notifications: AppNotification[] | undefined;
-}
+interface NotificationMenuProps {}
 
-const NotificationMenu: React.FC<NotificationMenuProps> = ({
-  notifications
-}) => {
-  const { t } = useTranslation();
+const NotificationMenu: React.FC<NotificationMenuProps> = ({}) => {
+  const {
+    notifications,
+    loading: loadingNotifications,
+    hasUnread,
+  } = useNotifications();
+
   return (
-    <Stack
-      padding={4}
-      maxHeight={500}
-      width={500}
-      sx={{ overflowY: "scroll" }}
-      spacing={4}
+    <DropdownMenu
+      offsetY={20}
+      buttonBuilder={(buttonProps, ref) => {
+        return (
+          <Badge
+            variant="dot"
+            color="primary"
+            overlap="circular"
+            componentsProps={{
+              badge: {
+                style: {
+                  display: hasUnread ? "unset" : "none",
+                  zIndex: 100,
+                },
+              },
+            }}
+          >
+            <IconButton
+              color="primary"
+              {...buttonProps}
+              ref={ref}
+              disabled={loadingNotifications}
+            >
+              {loadingNotifications ? (
+                <CircularProgress size={24}/>
+              ) : (
+                <NotificationsButton />
+              )}
+            </IconButton>
+          </Badge>
+        );
+      }}
+      PaperProps={{
+        sx: {
+          bgcolor: grey["400"],
+        },
+      }}
     >
-      <Typography
-        fontSize={36}
-        textAlign="center"
-        fontWeight="bolder"
-        color="white"
-      >
-        {t("Newest Notifications")}
-      </Typography>
-      <NotificationList notifications={notifications} />
-    </Stack>
+      <NotificationMenuContent notifications={notifications} />
+    </DropdownMenu>
   );
 };
 

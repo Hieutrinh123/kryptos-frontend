@@ -55,7 +55,7 @@ const NotificationList: React.FC<ListNotificationProps> = ({
                 sx={{ flex: "unset" }}
                 secondaryTypographyProps={{ color: "#BDBDBD" }}
                 secondary={getLocalizedRelativeTime(
-                  new Date(notification.post.created_at),
+                  new Date(notification.post.updated_at + "Z"),
                   router.locale as Locale
                 )}
               />

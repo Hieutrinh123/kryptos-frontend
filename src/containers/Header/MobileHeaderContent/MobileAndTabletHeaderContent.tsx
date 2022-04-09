@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo/Logo";
+import NotificationDrawer from "@/containers/NotificationMenu/NotificationDrawer";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
@@ -14,10 +15,12 @@ const MobileAndTabletHeaderContent = () => {
         <MobileDrawer />
 
         <NextLink href="/search" passHref>
-          <IconButton color="primary" >
+          <IconButton color="primary">
             <SearchIcon />
           </IconButton>
         </NextLink>
+
+        <NotificationDrawer />
       </Stack>
     </>
   );
