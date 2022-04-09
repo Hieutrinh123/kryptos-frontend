@@ -1,3 +1,4 @@
+import { getAnalytics } from "@firebase/analytics";
 import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "@firebase/storage";
 import { initializeApp } from "firebase/app";
@@ -30,3 +31,5 @@ export const firebaseAuth = getAuth(firebaseApp);
 export const firebaseStorage = getStorage(firebaseApp);
 
 export const cloudFirestore = getFirestore(firebaseApp);
+
+export const googleAnalytics = getAnalytics(firebaseApp);
