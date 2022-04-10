@@ -1,4 +1,5 @@
 import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
+import { usePostUrl } from "#/hooks/usePostUrl";
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
 import {
   getPageSettings,
@@ -6,6 +7,7 @@ import {
   listAllPostSlugs,
   Locale,
   Post,
+  resolveImageUrl,
 } from "@/api";
 import { useRelatedPosts } from "@/api/posts/postHooks";
 import AuthorInformation from "@/containers/AuthorInformation";
@@ -29,6 +31,7 @@ import _ from "lodash";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NextSeo } from "next-seo";
 import React from "react";
 
 interface BlogViewPageProps {
@@ -41,96 +44,112 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
   const { user } = useFirebaseAuthState();
   const { t } = useTranslation();
   const [relatedPosts, loadingRelatedPosts] = useRelatedPosts(post);
+  const pageUrl = usePostUrl(post);
 
   if (!post) {
     return null;
   }
-
+  const defaultPageUrl = `https://www.kryptos.news/posts/${post.slug}`;
+  const thumbnailUrl = resolveImageUrl(post.thumbnail);
   return (
-    <FullLayout>
-      <PostBanner post={post} />
-      <Container
-        disableGutters={!isDesktop}
-        maxWidth="xl"
-        sx={{ paddingTop: 4, paddingBottom: 6 }}
-      >
-        <Stack direction={{ mobile: "column", desktop: "row" }} spacing={4}>
-          <Box flex={3}>
-            <Stack spacing={3}>
-              <Card
-                sx={(theme) => ({
-                  padding: 6,
-                  [theme.breakpoints.down("tablet")]: {
-                    padding: 3,
-                  },
-                })}
-              >
-                <Box marginBottom={6}>
-                  <PostContent content={post.content} />
-                </Box>
-                <AuthorInformation
-                  author={post.author}
-                  variant="compact"
-                  withoutPaper
-                />
-              </Card>
-              <Card
-                sx={(theme) => ({
-                  padding: 6,
-                  [theme.breakpoints.down("tablet")]: {
-                    padding: 3,
-                  },
-                })}
-              >
-                <Stack spacing={3}>
-                  {user && (
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      justifyContent={"center"}
-                    >
-                      <BlogBookmarkButton
-                        post={post}
-                        variant={isMobile ? "compact" : "full"}
-                      />
-                      <BlogLikeButton
-                        post={post}
-                        variant={isMobile ? "compact" : "full"}
-                      />
-                    </Stack>
-                  )}
-                  <Typography variant="h6" fontWeight="bolder">
-                    {t("Reader's Comments")}
-                  </Typography>
-                  <CommentListing post={post} />
-                </Stack>
-              </Card>
-            </Stack>
-          </Box>
+    <>
+      <NextSeo
+        title={post.title}
+        description={post.excerpt}
+        canonical={pageUrl ?? defaultPageUrl}
+        openGraph={{
+          url: pageUrl,
+          title: post.title,
+          description: post.excerpt,
+          images: thumbnailUrl ? [{ url: thumbnailUrl }] : [],
+          site_name: "Kryptos",
+        }}
+      />
+      <FullLayout>
+        <PostBanner post={post} />
+        <Container
+          disableGutters={!isDesktop}
+          maxWidth="xl"
+          sx={{ paddingTop: 4, paddingBottom: 6 }}
+        >
+          <Stack direction={{ mobile: "column", desktop: "row" }} spacing={4}>
+            <Box flex={3}>
+              <Stack spacing={3}>
+                <Card
+                  sx={(theme) => ({
+                    padding: 6,
+                    [theme.breakpoints.down("tablet")]: {
+                      padding: 3,
+                    },
+                  })}
+                >
+                  <Box marginBottom={6}>
+                    <PostContent content={post.content} />
+                  </Box>
+                  <AuthorInformation
+                    author={post.author}
+                    variant="compact"
+                    withoutPaper
+                  />
+                </Card>
+                <Card
+                  sx={(theme) => ({
+                    padding: 6,
+                    [theme.breakpoints.down("tablet")]: {
+                      padding: 3,
+                    },
+                  })}
+                >
+                  <Stack spacing={3}>
+                    {user && (
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        justifyContent={"center"}
+                      >
+                        <BlogBookmarkButton
+                          post={post}
+                          variant={isMobile ? "compact" : "full"}
+                        />
+                        <BlogLikeButton
+                          post={post}
+                          variant={isMobile ? "compact" : "full"}
+                        />
+                      </Stack>
+                    )}
+                    <Typography variant="h6" fontWeight="bolder">
+                      {t("Reader's Comments")}
+                    </Typography>
+                    <CommentListing post={post} />
+                  </Stack>
+                </Card>
+              </Stack>
+            </Box>
 
-          <Box flex={1}>
-            <PostSideBar post={post} />
-          </Box>
-        </Stack>
-      </Container>
+            <Box flex={1}>
+              <PostSideBar post={post} />
+            </Box>
+          </Stack>
+        </Container>
 
-      <Container
-        disableGutters={!isDesktop}
-        maxWidth="xl"
-        sx={{ paddingTop: 4, paddingBottom: 6 }}
-      >
-        <Stack spacing={2}>
-          <Typography variant="h3" fontWeight="bolder" textAlign="center">
-            {t("Related Posts")}
-          </Typography>
-          {loadingRelatedPosts ? (
-            <CircularProgress />
-          ) : (
-            relatedPosts && <BlogPostList posts={relatedPosts.data} />
-          )}
-        </Stack>
-      </Container>
-    </FullLayout>
+        <Container
+          disableGutters={!isDesktop}
+          maxWidth="xl"
+          sx={{ paddingTop: 4, paddingBottom: 6 }}
+        >
+          <Stack spacing={2}>
+            <Typography variant="h3" fontWeight="bolder" textAlign="center">
+              {t("Related Posts")}
+            </Typography>
+            {loadingRelatedPosts ? (
+              <CircularProgress />
+            ) : (
+              relatedPosts && <BlogPostList posts={relatedPosts.data} />
+            )}
+          </Stack>
+        </Container>
+      </FullLayout>
+    </>
   );
 };
 

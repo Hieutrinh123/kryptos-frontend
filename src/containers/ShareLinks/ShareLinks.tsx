@@ -1,51 +1,58 @@
+import { usePostUrl } from "#/hooks/usePostUrl";
 import { useIsDesktop } from "#/styles/responsive";
 import { Post } from "@/api";
-import TelegramIcon from "@mui/icons-material/Telegram";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import TelegramIcon from "@mui/icons-material/Telegram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { Button, Tooltip } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 
 interface ShareLinksProps {
   post: Post;
 }
-function useFacebookShareLink(post: Post) {
-  const [result, setResult] = useState("");
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const pageLink = `${location.protocol}//${location.host}/posts/${post.slug}`;
 
+function useFacebookShareLink(post: Post): string | undefined {
+  const pageUrl = usePostUrl(post);
+  return useMemo(() => {
+    if (pageUrl) {
       const url = new URL("https://www.facebook.com/sharer/sharer.php");
-      url.searchParams.set("u", pageLink);
-
-      setResult(url.toString());
+      url.searchParams.set("u", pageUrl);
+      return url.toString();
     }
-  }, [post.slug]);
-  return result;
+  }, [pageUrl]);
 }
 
-function useTwitterShareLink(post: Post) {
-  const [result, setResult] = useState("");
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const pageLink = `${location.protocol}//${location.host}/posts/${post.slug}`;
+function useTwitterShareLink(post: Post): string | undefined {
+  const pageUrl = usePostUrl(post);
+  return useMemo(() => {
+    if (pageUrl) {
+      const url = new URL("https://twitter.com/intent/tweet");
+      url.searchParams.set("text", "Check out this post on KryptosNews");
+      url.searchParams.set("url", pageUrl);
+      return url.toString();
+    }
+  }, [pageUrl]);
+}
 
+function useTelegramShareLink(post: Post): string | undefined {
+  const pageUrl = usePostUrl(post);
+  return useMemo(() => {
+    if (pageUrl) {
       const url = new URL("https://telegram.me/share/url");
       url.searchParams.set("text", "Check out this post on KryptosNews");
-      url.searchParams.set("url", pageLink);
-
-      setResult(url.toString());
+      url.searchParams.set("url", pageUrl);
+      return url.toString();
     }
-  }, [post.slug]);
-  return result;
+  }, [pageUrl]);
 }
 
 const ShareLinks: React.FC<ShareLinksProps> = ({ post }) => {
   const facebookShareLink = useFacebookShareLink(post);
   const twitterShareLink = useTwitterShareLink(post);
+  const telegramShareLink = useTelegramShareLink(post);
   const { t } = useTranslation();
   const isDesktop = useIsDesktop();
 
@@ -58,21 +65,21 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ post }) => {
     >
       <SocialShareLink
         title={t("Share on Facebook")}
-        link={facebookShareLink}
+        href={facebookShareLink}
         compact={isDesktop}
       >
         <FacebookRoundedIcon />
       </SocialShareLink>
       <SocialShareLink
         title={t("Share on Twitter")}
-        link={twitterShareLink}
+        href={twitterShareLink}
         compact={isDesktop}
       >
         <TwitterIcon />
       </SocialShareLink>
       <SocialShareLink
         title={t("Share on Telegram")}
-        link={twitterShareLink}
+        href={telegramShareLink}
         compact={isDesktop}
       >
         <TelegramIcon />
@@ -83,20 +90,23 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ post }) => {
 
 interface SocialShareLinkProps {
   title: string;
-  link: string;
+  href: string | undefined;
   compact?: boolean;
 }
 const SocialShareLink: React.FC<SocialShareLinkProps> = ({
   title,
-  link,
+  href,
   compact,
   children,
 }) => {
+  if (!href) {
+    return null;
+  }
   return compact ? (
     <Tooltip title={title}>
       <IconButton
         color="primary"
-        href={link}
+        href={href}
         target="_blank"
         rel="noreferrer noopener"
       >
@@ -105,7 +115,7 @@ const SocialShareLink: React.FC<SocialShareLinkProps> = ({
     </Tooltip>
   ) : (
     <Button
-      href={link}
+      href={href}
       target="_blank"
       rel="noreferrer noopener"
       variant="contained"

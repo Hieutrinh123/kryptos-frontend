@@ -14,6 +14,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
+import { DefaultSeo } from "next-seo";
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
@@ -70,13 +71,11 @@ function MyApp({
         <meta name="description" content="CoinBlog" />
         <meta httpEquiv="content-language" content="vi" />
         <meta name="ROBOTS" content="INDEX, FOLLOW" />
-        <meta name="author" content="CoinBlog" />
+        <meta name="author" content="YoungIT" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="copyright" content="CoinBlog" />
+        <meta name="copyright" content="Kryptos" />
         <meta name="keywords" content="" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="CoinBlog" />
-        <meta name="geo.region" content="VN" />
+        <meta name="geo.region" content={router.locale?.toUpperCase()} />
         <meta httpEquiv="Content-Type" content="text/html" charSet="UTF-8" />
 
         <link
@@ -98,7 +97,22 @@ function MyApp({
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </Head>
-
+      <DefaultSeo
+        openGraph={{
+          type: "website",
+          locale: router.locale ?? router.defaultLocale ?? "vi",
+          url:
+            "https://www.kryptos.news/" +
+              (router.locale === router.defaultLocale ? "" : router.locale) ??
+            "",
+          site_name: "Kryptos",
+        }}
+        twitter={{
+          handle: "@kryptos_news",
+          site: "@kryptos_news",
+          cardType: "summary_large_image",
+        }}
+      />
       <SVGGradient />
       <CacheProvider value={emotionCache}>
         <ThemeModeProvider>
