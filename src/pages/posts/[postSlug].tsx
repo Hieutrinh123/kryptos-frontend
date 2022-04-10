@@ -1,5 +1,4 @@
 import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
-import { usePostUrl } from "#/hooks/usePostUrl";
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
 import {
   getPageSettings,
@@ -22,9 +21,9 @@ import ShareLinks from "@/containers/ShareLinks";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import FullLayout from "@/layouts/FullLayout";
 import { CircularProgress } from "@mui/material";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import _ from "lodash";
@@ -44,7 +43,6 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
   const { user } = useFirebaseAuthState();
   const { t } = useTranslation();
   const [relatedPosts, loadingRelatedPosts] = useRelatedPosts(post);
-  const pageUrl = usePostUrl(post);
 
   if (!post) {
     return null;
@@ -56,10 +54,11 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
       <NextSeo
         title={post.title}
         description={post.excerpt}
-        canonical={pageUrl ?? defaultPageUrl}
+        canonical={defaultPageUrl}
         openGraph={{
-          url: pageUrl,
+          url: defaultPageUrl,
           title: post.title,
+          type: "article",
           description: post.excerpt,
           images: thumbnailUrl ? [{ url: thumbnailUrl }] : [],
           site_name: "Kryptos",
