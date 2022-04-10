@@ -8,6 +8,7 @@ import LoadingScreen from "@/containers/LoadingScreen";
 import { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
+import _ from "lodash";
 import { appWithTranslation } from "next-i18next";
 import { AppProps } from "next/app";
 import Head from "next/head";
@@ -15,10 +16,13 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import { DefaultSeo } from "next-seo";
+import mainThumbnail from "public/mainThumbnail.png";
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
-  pageSettings: PageSettings;
+  pageProps: {
+    pageSettings: PageSettings;
+  };
 }
 
 const clientSideEmotionCache = createEmotionCache();
@@ -52,6 +56,10 @@ function MyApp({
       router.events.off("routeChangeError", handleComplete);
     };
   }, [router]);
+
+  const pageUrl =
+    "https://www.kryptos.news/" +
+      (router.locale === router.defaultLocale ? "" : router.locale) ?? "";
   return (
     <>
       <Script
@@ -98,14 +106,14 @@ function MyApp({
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </Head>
       <DefaultSeo
+        canonical="https://www.kryptos.news/"
+        title="Kryptos"
         openGraph={{
           type: "website",
           locale: router.locale ?? router.defaultLocale ?? "vi",
-          url:
-            "https://www.kryptos.news/" +
-              (router.locale === router.defaultLocale ? "" : router.locale) ??
-            "",
+          url: pageUrl,
           site_name: "Kryptos",
+          images: [{ url: "https://www.kryptos.news" + mainThumbnail.src }],
         }}
         twitter={{
           handle: "@kryptos_news",
@@ -119,7 +127,11 @@ function MyApp({
           <PageSettingsProvider settings={pageProps.pageSettings}>
             <AlertProvider>
               <CssBaseline enableColorScheme />
-              {loading ? <LoadingScreen /> : <Component {...pageProps} />}
+              {loading ? (
+                <LoadingScreen />
+              ) : (
+                <Component {..._.omit(pageProps, "pageSettings")} />
+              )}
             </AlertProvider>
           </PageSettingsProvider>
         </ThemeModeProvider>
