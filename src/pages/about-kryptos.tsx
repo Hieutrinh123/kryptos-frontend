@@ -1,4 +1,3 @@
-import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import { getPageSettings, Locale } from "@/api";
 import Grid from "@/components/Grid";
 import FullLayout from "@/layouts/FullLayout";
@@ -12,11 +11,11 @@ import { GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import NextImage from "next/image";
-import { Textfit } from "react-textfit";
+import contentImage from "public/content.png";
 import fullLogo from "public/full-logo.png";
 import header from "public/header.png";
-import contentImage from "public/content.png";
 import research from "public/research.png";
+import { Textfit } from "react-textfit";
 
 const AboutUsPage: NextPage = ({}) => {
   return (
@@ -174,6 +173,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ...(await serverSideTranslations(context.locale as Locale)),
       pageSettings,
     },
-    revalidate: REVALIDATE_STATIC_FILE_TIME,
   };
 };
