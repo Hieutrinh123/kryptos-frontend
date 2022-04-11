@@ -3,6 +3,7 @@ import { Locale } from "@/api";
 import EmailAuthenticationForm from "@/containers/AuthenticationForm/EmailAuthenticationForm";
 import SocialAuthenticationForm from "@/containers/AuthenticationForm/SocialAuthenticationForm";
 import { useUserData } from "@/firebase/firestore/useUserData";
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
@@ -52,12 +53,21 @@ const LoginPage: NextPage = () => {
   return (
     <Box
       bgcolor="background.secondary"
-      py={4}
+      p={4}
       minHeight="100vh"
       display="flex"
       justifyContent="center"
       alignItems="center"
     >
+      <Box top={20} left={20} position="absolute">
+        <Button
+          onClick={() => {
+            router.back();
+          }}
+        >
+          {t("Back")}
+        </Button>
+      </Box>
       <Container maxWidth="md">
         <Stack spacing={4} alignItems="center">
           <LoginPageLogo />

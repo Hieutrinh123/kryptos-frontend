@@ -1,4 +1,4 @@
-import { toolbarHeight } from "#/config/toolbar";
+import { useToolbarHeight } from "#/config/toolbar";
 import { grey } from "#/styles/colors";
 import { useIsMobile } from "#/styles/responsive";
 import { resolveImageUrl } from "@/api";
@@ -34,6 +34,7 @@ const SingleSidePost: React.FC<SingleSidePostProps> = ({ post }) => {
   const isMobile = useIsMobile();
   const [hover, setHover] = useState(false);
   const containerRef = useRef();
+  const toolbarHeight = useToolbarHeight();
   return (
     <Box
       minHeight={`calc((100vh - ${toolbarHeight}px) / 3)`}

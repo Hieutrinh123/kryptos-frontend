@@ -68,7 +68,6 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
         <PostBanner post={post} />
         <Container
           disableGutters={!isDesktop}
-          maxWidth="xl"
           sx={{ paddingTop: 4, paddingBottom: 6 }}
         >
           <Stack direction={{ mobile: "column", desktop: "row" }} spacing={4}>
@@ -133,7 +132,6 @@ const BlogViewPage: NextPage<BlogViewPageProps> = ({ post }) => {
 
         <Container
           disableGutters={!isDesktop}
-          maxWidth="xl"
           sx={{ paddingTop: 4, paddingBottom: 6 }}
         >
           <Stack spacing={2}>

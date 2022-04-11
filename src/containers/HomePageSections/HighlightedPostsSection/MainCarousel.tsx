@@ -1,5 +1,5 @@
 import { carouselTimeout } from "#/config/carousel";
-import { toolbarHeight } from "#/config/toolbar";
+import { useToolbarHeight } from "#/config/toolbar";
 import { Post } from "@/api";
 import MainCarouselItem from "./MainCarouselItem";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
@@ -13,6 +13,7 @@ interface MainCarouselProps {
 
 const MainCarousel: React.FC<MainCarouselProps> = ({ posts }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const toolbarHeight = useToolbarHeight();
 
   const handleNextSlide = useCallback(() => {
     setCurrentSlideIndex((oldIndex) => (oldIndex + 1) % posts.length);

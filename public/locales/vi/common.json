@@ -1,5 +1,6 @@
 {
   "Home": "Trang chủ",
+  "Back": "Trở lại",
   "Posts": "Các bài viết",
   "Authors": "Các tác giả",
   "View More": "Xem thêm",
@@ -83,6 +84,7 @@
   "Post Unsaved": "Đã bỏ lưu bài viết",
   "Like Post": "Thích bài viết",
   "Unlike": "Bỏ thích",
+  "Sign up to bookmark your posts": "Đăng nhập để lưu bài viết",
   "Post Liked": "Đã thích bài viết",
   "Post Unliked": "Đã bỏ thích bài viết",
   "About Us": "Về chúng tôi",

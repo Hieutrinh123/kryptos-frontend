@@ -15,8 +15,13 @@ interface PostBannerProps {
 const PostBanner: React.FC<PostBannerProps> = ({ post }) => {
   const isDesktop = useIsDesktop();
   return (
-    <Box paddingTop={4} paddingBottom={6} bgcolor="background.secondary">
-      <Container maxWidth="xl" disableGutters={!isDesktop}>
+    <Box
+      paddingTop={4}
+      paddingBottom={6}
+      paddingLeft={{ mobile: 4, tablet: 0 }}
+      bgcolor="background.secondary"
+    >
+      <Container disableGutters={!isDesktop}>
         <Grid
           container
           direction={{ mobile: "column-reverse", desktop: "row" }}

@@ -1,4 +1,5 @@
 import { grey } from "#/styles/colors";
+import { useIsMobile } from "#/styles/responsive";
 import { useNotifications } from "@/api";
 import NotificationMenuContent from "@/containers/NotificationMenu/NotificationMenuContent";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,6 +20,8 @@ const NotificationMenu: React.FC<NotificationMenuProps> = ({}) => {
     loading: loadingNotifications,
     hasUnread,
   } = useNotifications();
+
+  const isMobile = useIsMobile();
 
   const {
     value: isMenuOpen,
@@ -47,6 +50,7 @@ const NotificationMenu: React.FC<NotificationMenuProps> = ({}) => {
         <IconButton
           color="primary"
           disabled={loadingNotifications}
+          size={isMobile ? "small" : "medium"}
           onClick={openMenu}
         >
           {loadingNotifications ? (

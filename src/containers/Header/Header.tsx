@@ -1,3 +1,4 @@
+import { useToolbarHeight } from "#/config/toolbar";
 import { useIsDesktop } from "#/styles/responsive";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,12 +9,13 @@ import MobileAndTabletHeaderContent from "./MobileHeaderContent/MobileAndTabletH
 
 const Header = () => {
   const isDesktop = useIsDesktop();
+  const toolbarHeight = useToolbarHeight();
 
   return (
     <Box>
       <AppBar position="fixed" color="default" elevation={0}>
         <Container maxWidth={false} sx={{ height: "100%", paddingX: 4 }}>
-          <Toolbar disableGutters sx={{ height: "100%" }}>
+          <Toolbar disableGutters sx={{ height: toolbarHeight }}>
             {isDesktop ? (
               <DesktopHeaderContent />
             ) : (
@@ -22,7 +24,7 @@ const Header = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Toolbar />
+      <Toolbar disableGutters sx={{ height: toolbarHeight }} />
     </Box>
   );
 };

@@ -23,7 +23,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
         py: theme.spacing(8),
       })}
     >
-      <Container maxWidth={false} sx={{ paddingX: 4 }}>
+      <Container>
         <Grid container spacing={5}>
           <Grid item mobile={12} desktop={4}>
             <Stack spacing={3}>

@@ -22,7 +22,6 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({
   const popupState = usePopupState({
     popupId: "nav-menu-" + navigation.slug,
     variant: "popover",
-
   });
 
   if (navigation.subnavigations) {
@@ -34,6 +33,7 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({
             {t(navigation.title)}
           </Typography>
         }
+        hover
         offsetX={-20}
         offsetY={0}
       >
