@@ -1,5 +1,4 @@
 import { Post } from "@/api";
-import { useCommentSnapshotList } from "@/firebase/firestore/useCommentList";
 import {
   usePostLikeCount,
   usePostViewCount,
@@ -19,8 +18,6 @@ interface PostStatisticProps {
 const PostStatistic: React.FC<PostStatisticProps> = ({ post }) => {
   const { count: viewCount, loading: loadingViewCount } =
     usePostViewCount(post);
-  const { commentSnapshots, loading: loadingCommentCount } =
-    useCommentSnapshotList(post);
   const { count: likeCount, loading: loadingLikeCount } =
     usePostLikeCount(post);
   return (
@@ -34,13 +31,7 @@ const PostStatistic: React.FC<PostStatisticProps> = ({ post }) => {
 
       <Stack spacing={1} direction="row" alignItems="center">
         <CommentCountIcon fontSize="small" />
-        <Typography fontSize="smaller">
-          {loadingCommentCount ? (
-            <CircularProgress size={20} />
-          ) : (
-            commentSnapshots?.size ?? 0
-          )}
-        </Typography>
+        <Typography fontSize="smaller">0</Typography>
       </Stack>
 
       <Stack spacing={1} direction="row" alignItems="center">

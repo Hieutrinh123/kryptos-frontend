@@ -6,3 +6,4 @@ export * from "./pageSettings";
 export * from "./commonTypes";
 export * from "./files";
 export * from "./categories";
+export * from "./comments";

@@ -1,19 +1,12 @@
 import { contentToExcerpt } from "#/utils/contentToExcerpt";
-import { ID } from "@directus/sdk";
 import _ from "lodash";
 import { Author, authorFields } from "../authors/authorTypes";
 import type { Category } from "../categories/categoryTypes";
-import {
-  joinSubfield,
-  LanguageCode,
-  languageCodeFields,
-  ListResult,
-  Status,
-} from "../commonTypes";
+import { joinSubfield, LanguageCode, languageCodeFields, ListResult, Status } from "../commonTypes";
 import { DirectusFile, fileFields } from "../files";
 
 export interface PostRoot {
-  id: ID;
+  id: number;
   thumbnail: DirectusFile | null;
   categories: { categories_id: Category }[];
 }
@@ -28,7 +21,7 @@ export const postRootFields = [
 
 export interface PostTranslation {
   posts_id: PostRoot;
-  id: ID;
+  id: number;
   slug: string;
   title: string;
   status: Status;

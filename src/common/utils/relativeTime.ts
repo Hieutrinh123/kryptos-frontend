@@ -1,4 +1,5 @@
 import { Locale } from "@/api";
+import _ from "lodash";
 
 export function getRelativeTimeUntilNow(
   time: Date
@@ -25,14 +26,27 @@ export function getRelativeTimeUntilNow(
   }
 }
 
-export function getLocalizedRelativeTime(time: Date, locale: Locale): string {
+export function getLocalizedRelativeTime(
+  time: Date | string,
+  locale: Locale
+): string {
+  let date: Date;
+  if (_.isString(time)) {
+    if (!time.endsWith("Z")) {
+      date = new Date(time + "Z");
+    } else {
+      date = new Date(time);
+    }
+  } else {
+    date = time;
+  }
   const rtf = new Intl.RelativeTimeFormat(locale, {
     localeMatcher: "best fit",
     numeric: "auto",
     style: "long",
   });
 
-  const [difference, unit] = getRelativeTimeUntilNow(time);
+  const [difference, unit] = getRelativeTimeUntilNow(date);
 
   return rtf.format(-difference, unit);
 }

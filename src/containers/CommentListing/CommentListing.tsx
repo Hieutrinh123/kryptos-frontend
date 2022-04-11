@@ -1,10 +1,10 @@
-import { Post } from "@/api";
-import { useCommentSnapshotList } from "@/firebase/firestore/useCommentList";
+import { Post, useComments } from "@/api";
+import { Button, CircularProgress } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import CommentInput from "./CommentInput";
-import { CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import { useTranslation } from "next-i18next";
 import React from "react";
+import CommentInput from "./CommentInput";
 import SingleCommentDisplay from "./SingleCommentDisplay";
 
 interface CommentListingProps {
@@ -13,25 +13,27 @@ interface CommentListingProps {
 
 const CommentListing: React.FC<CommentListingProps> = ({ post }) => {
   const {
-    commentSnapshots,
-    loading: loadingComments,
-    commentCollectionRef,
-  } = useCommentSnapshotList(post);
-  if (!commentSnapshots) {
-    return null;
-  }
-  if (loadingComments) {
-    return <CircularProgress />;
-  }
+    fetching,
+    adding,
+    data: comments,
+    hasNextPage,
+    handleFetchNew,
+    handleAdd,
+  } = useComments(post.id);
+  const { t } = useTranslation();
   return (
     <Stack spacing={4}>
       <Stack spacing={3}>
-        {commentSnapshots.docs.map((commentSnapshot, index) => (
-          <SingleCommentDisplay commentSnapshot={commentSnapshot} key={index} />
+        {adding && <CircularProgress />}
+        {comments.map((comment, index) => (
+          <SingleCommentDisplay comment={comment} key={index} />
         ))}
+        {hasNextPage && !fetching && (
+          <Button onClick={handleFetchNew}>{t("Load more comments")}</Button>
+        )}
       </Stack>
       <Divider />
-      <CommentInput collectionRef={commentCollectionRef} />
+      <CommentInput adding={adding} handleAdd={handleAdd} />
     </Stack>
   );
 };

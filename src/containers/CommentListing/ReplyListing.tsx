@@ -1,45 +1,44 @@
-import { CommentData } from "@/firebase/firestore/useCommentList";
-import { useCommentReplyList } from "@/firebase/firestore/useCommentReplyList";
+import { useCommentReplies } from "@/api";
 import CommentInput from "@/containers/CommentListing/CommentInput";
-import { DocumentReference } from "@firebase/firestore";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import { useTranslation } from "next-i18next";
 import React from "react";
 import SingleCommentDisplay from "./SingleCommentDisplay";
 
 interface ReplyListingProps {
-  commentReference: DocumentReference<CommentData>;
+  commentId: number;
   showInput: boolean;
 }
 
 const ReplyListing: React.FC<ReplyListingProps> = ({
-  commentReference,
+  commentId,
   showInput,
 }) => {
   const {
-    replyCollection,
-    replySnapshots,
-    loading: loadingReplies,
-  } = useCommentReplyList(commentReference);
+    fetching,
+    adding,
+    data: replies,
+    handleAdd,
+    handleFetchNew,
+    hasNextPage,
+  } = useCommentReplies(commentId);
 
-  if (!replySnapshots) {
-    return null;
-  }
-  if (loadingReplies) {
-    return <CircularProgress />;
-  }
+  const { t } = useTranslation();
+
   return (
     <Stack spacing={3}>
       <Stack spacing={2}>
-        {replySnapshots.docs.map((replySnapshot, index) => (
-          <SingleCommentDisplay
-            commentSnapshot={replySnapshot}
-            isReply
-            key={index}
-          />
+        {adding && <CircularProgress />}
+        {replies.map((reply, index) => (
+          <SingleCommentDisplay comment={reply} isReply key={index} />
         ))}
+        {fetching && <CircularProgress />}
+        {hasNextPage && !fetching && (
+          <Button onClick={handleFetchNew}>{t("Load replies")}</Button>
+        )}
       </Stack>
-      {showInput && <CommentInput collectionRef={replyCollection} />}
+      {showInput && <CommentInput handleAdd={handleAdd} adding={adding} />}
     </Stack>
   );
 };

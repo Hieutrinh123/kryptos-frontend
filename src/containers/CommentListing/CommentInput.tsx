@@ -1,11 +1,6 @@
-import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
-import {
-  CommentData,
-  useAddComment,
-} from "@/firebase/firestore/useCommentList";
 import LimitedInput from "@/components/LimitedInput";
 import UserAvatar from "@/containers/UserAvatar";
-import { CollectionReference } from "@firebase/firestore";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -13,29 +8,32 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "next-i18next";
-import React, { useState } from "react";
 import NextLink from "next/link";
+import React, { useState } from "react";
 
 interface CommentInputProps {
-  collectionRef: CollectionReference<CommentData>;
+  handleAdd: ((content: string) => void) | undefined;
+  adding: boolean;
 }
 
-const CommentInput: React.FC<CommentInputProps> = ({ collectionRef }) => {
+const CommentInput: React.FC<CommentInputProps> = ({ handleAdd, adding }) => {
   const { user } = useFirebaseAuthState();
-  const { addComment, loading: addingComment } = useAddComment(collectionRef);
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const { t } = useTranslation();
 
   const handleAddComment = () => {
-    if (addingComment) {
+    if (adding) {
       return;
     }
     if (!value) {
       setError(t("Can't leave the comment input empty"));
       return;
     }
-    return addComment(value);
+    if (handleAdd) {
+      handleAdd(value);
+      setValue("");
+    }
   };
 
   if (!user) {
@@ -77,7 +75,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ collectionRef }) => {
           sx={{ height: 50, width: 50 }}
           onClick={handleAddComment}
         >
-          {addingComment ? <CircularProgress /> : <SendIcon />}
+          {adding ? <CircularProgress /> : <SendIcon />}
         </IconButton>
       </Stack>
     </Stack>

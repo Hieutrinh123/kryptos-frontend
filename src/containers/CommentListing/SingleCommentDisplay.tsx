@@ -1,57 +1,41 @@
 import { grey } from "#/styles/colors";
-import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
-import { useCommenter } from "@/firebase/firestore/useCommenter";
-import {
-  CommentData,
-  useUpdateComment,
-} from "@/firebase/firestore/useCommentList";
+import { getLocalizedRelativeTime } from "#/utils/relativeTime";
+import { IComment, Locale } from "@/api";
 import Grid from "@/components/Grid";
-import SwitchModeTextField from "@/components/SwitchModeTextField";
 import ReplyListing from "@/containers/CommentListing/ReplyListing";
 import UserAvatar from "@/containers/UserAvatar";
-import { QueryDocumentSnapshot } from "@firebase/firestore";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
+import { useCommenter } from "@/firebase/firestore/useCommenter";
 import ReplyIcon from "@mui/icons-material/Reply";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 import React from "react";
 import { useBoolean } from "usehooks-ts";
 
 interface SingleCommentDisplay {
-  commentSnapshot: QueryDocumentSnapshot<CommentData>;
+  comment: IComment;
   isReply?: boolean;
 }
 
 const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
-  commentSnapshot,
+  comment,
   isReply,
 }) => {
-  const comment = commentSnapshot.data();
   const { user } = useFirebaseAuthState();
   const { commenter } = useCommenter(comment);
-  const { updateComment: handleUpdateComment, loading: updatingComment } =
-    useUpdateComment(commentSnapshot.ref);
-
-  const currentUserIsCommenter = user?.uid === comment.uid;
-
+  const router = useRouter();
   const { value: showReplyInput, toggle: toggleReplyInput } = useBoolean(false);
+  const { t } = useTranslation();
+
   if (!commenter) {
     return null;
   }
 
   const showReplyButton = !isReply && user;
-
-  const commentContent = (
-    <Box
-      padding={2}
-      flexGrow={1}
-      bgcolor="background.default"
-      borderRadius="24px"
-    >
-      <Typography>{comment.content}</Typography>
-    </Box>
-  );
 
   return (
     <Box>
@@ -61,10 +45,17 @@ const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
             <UserAvatar user={commenter} sx={{ width: 50, height: 50 }} />
             <Stack>
               <Typography>{commenter.displayName}</Typography>
-              {comment.timestamp && (
+              {comment.date_created && (
                 <Typography color={grey["500"]} variant="caption">
-                  {comment.timestamp.toDate().toLocaleString()}
+                  {getLocalizedRelativeTime(
+                    comment.date_created,
+                    router.locale as Locale
+                  )}
                 </Typography>
+              )}
+
+              {!comment.approved && (
+                <Typography>{t("Unapproved comment")}</Typography>
               )}
             </Stack>
           </Stack>
@@ -74,17 +65,14 @@ const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
           mobile={showReplyButton ? 11 : 12}
           tablet={showReplyButton ? 7 : 8}
         >
-          {currentUserIsCommenter ? (
-            <SwitchModeTextField
-              defaultValue={comment.content}
-              onSave={handleUpdateComment}
-              saving={updatingComment}
-            >
-              {commentContent}
-            </SwitchModeTextField>
-          ) : (
-            commentContent
-          )}
+          <Box
+            padding={2}
+            flexGrow={1}
+            bgcolor="background.default"
+            borderRadius="24px"
+          >
+            <Typography>{comment.content}</Typography>
+          </Box>
         </Grid>
         {showReplyButton && (
           <Grid item mobile={1}>
@@ -97,10 +85,7 @@ const SingleCommentDisplay: React.FC<SingleCommentDisplay> = ({
           <>
             <Grid item mobile={1} />
             <Grid item mobile={11}>
-              <ReplyListing
-                commentReference={commentSnapshot.ref}
-                showInput={showReplyInput}
-              />
+              <ReplyListing commentId={comment.id} showInput={showReplyInput} />
             </Grid>
           </>
         )}

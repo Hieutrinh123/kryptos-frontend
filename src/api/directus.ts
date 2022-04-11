@@ -1,4 +1,5 @@
 import { PostsToCategories } from "@/api/categories/postToCategoryTypes";
+import { Comment, Reply } from "@/api/comments";
 import { PageSettingTranslation } from "@/api/pageSettings";
 import { Directus, DirectusOptions, QueryMany, TypeOf } from "@directus/sdk";
 import { RawAuthor } from "./authors/authorTypes";
@@ -7,6 +8,8 @@ import { DirectusFile } from "./files";
 import { PostTranslation } from "./posts";
 
 interface DirectusCollectionsRaw {
+  comments: Comment;
+  comment_replies: Reply;
   posts_translations: PostTranslation;
   page_settings_translations: PageSettingTranslation;
   posts_categories: PostsToCategories;
