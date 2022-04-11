@@ -1,7 +1,7 @@
 import { getPageSettings, Locale } from "@/api";
 import Grid from "@/components/Grid";
 import FullLayout from "@/layouts/FullLayout";
-import { Button } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
@@ -13,6 +13,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import NextImage from "next/image";
 import contentImage from "public/content.png";
 import fullLogo from "public/full-logo.png";
+import fullLogoDark from "public/full-logo-dark.png";
 import header from "public/header.png";
 import research from "public/research.png";
 import { Textfit } from "react-textfit";
@@ -25,6 +26,7 @@ const AboutUsPage: NextPage = ({}) => {
     </FullLayout>
   );
 };
+
 export default AboutUsPage;
 
 const Header = () => {
@@ -77,6 +79,7 @@ const Header = () => {
 };
 
 const Body = () => {
+  const theme = useTheme();
   const { t } = useTranslation();
   return (
     <Container maxWidth="desktop" sx={{ paddingY: 6 }}>
@@ -137,7 +140,11 @@ const Body = () => {
         </Grid>
 
         <Grid item mobile={12} tablet={6} desktop={5}>
-          <NextImage src={fullLogo} />
+          {theme.palette.mode === "light" ? (
+            <NextImage src={fullLogo} />
+          ) : (
+            <NextImage src={fullLogoDark} />
+          )}
         </Grid>
       </Grid>
     </Container>
