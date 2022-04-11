@@ -69,6 +69,7 @@ const SearchPage: NextPage = ({}) => {
               id="search-bar"
               value={searchInput}
               sx={{
+                color: "black",
                 bgcolor: "white !important",
                 ":focus": {
                   bgcolor: "white",

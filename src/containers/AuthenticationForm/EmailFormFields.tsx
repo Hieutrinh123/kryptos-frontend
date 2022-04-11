@@ -12,6 +12,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import { useTranslation } from "next-i18next";
 import React, { SyntheticEvent } from "react";
 import { useBoolean } from "usehooks-ts";
 
@@ -29,10 +30,12 @@ const EmailFormFields: React.FC<EmailFormFieldsProps> = ({
   const [email, setEmail, emailError, setEmailError] = useInputState("");
   const [password, setPassword, passwordError, setPasswordError] =
     useInputState("");
+  const { t } = useTranslation();
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     const { emailError, passwordError } = validateEmailPassword(
+      t,
       email,
       password
     );
@@ -50,7 +53,7 @@ const EmailFormFields: React.FC<EmailFormFieldsProps> = ({
     <form onSubmit={handleSubmit}>
       <Stack spacing={3} width={320}>
         <TextField
-          id="email-password"
+          id="email"
           label="Email"
           variant="filled"
           type="email"

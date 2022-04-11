@@ -59,6 +59,14 @@ export const IN_DEPTH_ANALYSIS_CATEGORY = {
   slug: "in-depth-analysis",
   subnavigations: [
     {
+      slug: "on-chain-analysis",
+      title: "On-chain Analysis",
+    },
+    {
+      slug: "technical-analysis",
+      title: "Technical Analysis",
+    },
+    {
       slug: "de-fi",
       title: "De-Fi",
     },
@@ -90,9 +98,7 @@ export const NAVIGATIONS: Navigation[] = [
 
 export const OVERVIEW_NAVIGATION: Navigation = {
   title: "Overview",
-  subnavigations: [
-    { slug: "about-kryptos", title: "About Kryptos" },
-  ],
+  subnavigations: [{ slug: "about-kryptos", title: "About Kryptos" }],
 };
 
 export function getAllLeafCategories() {

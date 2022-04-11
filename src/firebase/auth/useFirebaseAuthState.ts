@@ -1,6 +1,6 @@
 import { firebaseAuth } from "@/firebase/firebase";
 import { useShowAlertEffect } from "#/hooks/useShowAlert";
-import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
+import { useFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
 import { signOut } from "@firebase/auth";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -9,7 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export function useFirebaseAuthState() {
   const [user, loading, error] = useAuthState(firebaseAuth);
 
-  useShowAlertEffect(getFirebaseAuthErrorMessage(error), "error");
+  useShowAlertEffect(useFirebaseAuthErrorMessage(error), "error");
 
   const handleSignOut = () => signOut(firebaseAuth);
 
@@ -35,7 +35,7 @@ export function useAuthStateWithRedirect(redirectUrl?: string) {
     }
   }, [user, router, error, loading, redirectUrl]);
 
-  useShowAlertEffect(getFirebaseAuthErrorMessage(error), "error");
+  useShowAlertEffect(useFirebaseAuthErrorMessage(error), "error");
 
   return { user: user ?? undefined, updating: loading };
 }

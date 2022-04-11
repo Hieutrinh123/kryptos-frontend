@@ -3,6 +3,7 @@ import EmailSignUpForm from "@/containers/AuthenticationForm/EmailSignUpForm";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "next-i18next";
 import React from "react";
 import { useBoolean } from "usehooks-ts";
 
@@ -10,16 +11,17 @@ interface EmailAuthenticationFormProps {}
 const EmailAuthenticationForm: React.FC<
   EmailAuthenticationFormProps
 > = ({}) => {
+  const { t } = useTranslation();
   const { value: isSigningIn, toggle } = useBoolean(true);
   return (
     <Stack spacing={2} width={320} alignItems="center">
       <Typography variant="h4" fontWeight="bold">
-        {isSigningIn ? "Đăng nhập" : "Đăng ký"}
+        {isSigningIn ? t("Sign In") : t("Sign Up")}
       </Typography>
       <Typography variant="subtitle1">
         {isSigningIn
-          ? "Nhập email để đăng nhập vào tài khoản"
-          : "Nhập email và mật khẩu để đăng nhập"}
+          ? t("Input your email and password to sign in")
+          : t("Input your email and password to sign up")}
       </Typography>
 
       {isSigningIn ? <EmailSignInForm /> : <EmailSignUpForm />}
@@ -30,8 +32,8 @@ const EmailAuthenticationForm: React.FC<
         alignSelf="center"
       >
         {isSigningIn
-          ? "Chưa có tài khoản? Đăng ký"
-          : "Đã có tài khoản? Đăng nhập"}
+          ? t("Don't have an account? Sign up")
+          : t("Already had an account? Sign in")}
       </Link>
     </Stack>
   );

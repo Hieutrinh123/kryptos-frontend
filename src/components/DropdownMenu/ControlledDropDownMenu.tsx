@@ -2,12 +2,14 @@ import MenuArrow from "@/components/DropdownMenu/MenuArrow";
 import { UncontrolledDropDownMenuProps } from "@/components/DropdownMenu/UncontrolledDropDownMenu";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
 import {
+  bindHover,
   bindMenu,
-  bindToggle,
+  bindTrigger,
   PopupState,
 } from "material-ui-popup-state/hooks";
+
+import HoverMenu from "material-ui-popup-state/HoverMenu";
 import React, { useRef } from "react";
 
 interface ControlledDropDownMenuProps extends UncontrolledDropDownMenuProps {
@@ -26,17 +28,21 @@ const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
   ...otherMenuProps
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-
   const buttonWidth = buttonRef.current?.clientWidth;
   const menuMinWidth = buttonWidth ? buttonWidth + 100 : undefined;
 
   const isOpen = popupState.isOpen;
 
   let buttonComponent;
+
+  const trigger = bindTrigger(popupState);
+  const hover = bindHover(popupState);
+
   if (buttonBuilder) {
     buttonComponent = buttonBuilder(
       {
-        ...bindToggle(popupState),
+        ...trigger,
+        ...hover,
         className: isOpen ? "Mui-selected" : "",
       },
       buttonRef,
@@ -48,7 +54,8 @@ const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
         variant="text"
         color="secondary"
         className={isOpen ? "Mui-selected" : ""}
-        {...bindToggle(popupState)}
+        {...trigger}
+        {...hover}
         ref={buttonRef}
       >
         <Box marginRight={1}>{titleNode ?? title}</Box>
@@ -57,14 +64,20 @@ const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
     );
   }
   return (
-    <>
+    <div>
       {buttonComponent}
-      <Menu
+      <HoverMenu
+        hideBackdrop
         {...bindMenu(popupState)}
         {...otherMenuProps}
         style={{
           ...otherMenuProps.style,
           transform: `translate(${offsetX ?? 0}px, ${offsetY ?? 0}px)`,
+        }}
+        BackdropProps={{
+          sx: {
+            opacity: "0 !important",
+          },
         }}
         PaperProps={{
           ...PaperProps,
@@ -75,8 +88,8 @@ const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
         }}
       >
         {children}
-      </Menu>
-    </>
+      </HoverMenu>
+    </div>
   );
 };
 

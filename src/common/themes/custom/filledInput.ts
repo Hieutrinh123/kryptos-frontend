@@ -2,8 +2,8 @@ import { Components } from "@mui/material/styles/components";
 export const CommonMuiFilledInput: Components["MuiFilledInput"] = {
   styleOverrides: {
     root: {
-      borderBottom: "none",
-      borderRadius: 12,
+      borderRadius: "12px",
+      overflow: "hidden",
     },
   },
   defaultProps: {

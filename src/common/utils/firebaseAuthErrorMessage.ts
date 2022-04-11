@@ -1,9 +1,11 @@
 import { AuthError } from "@firebase/auth";
 import _ from "lodash";
+import { useTranslation } from "next-i18next";
 
-export function getFirebaseAuthErrorMessage(
+export function useFirebaseAuthErrorMessage(
   error?: Error | AuthError
 ): string | undefined {
+  const { t } = useTranslation();
   if (!error) {
     return undefined;
   }
@@ -14,9 +16,9 @@ export function getFirebaseAuthErrorMessage(
 
   switch (error.code) {
     case "auth/wrong-password":
-      return "Sai mật khẩu";
+      return t("Wrong Password");
     case "auth/invalid-display-name":
-      return "Tên người dùng không hợp lệ";
+      return t("Invalid Display Name");
     default:
       return error.code;
   }

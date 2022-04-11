@@ -1,7 +1,8 @@
 import { firebaseAuth } from "@/firebase/firebase";
 import { useShowAlertEffect } from "#/hooks/useShowAlert";
-import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
+import { useFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
 import EmailFormFields from "@/containers/AuthenticationForm/EmailFormFields";
+import { t } from "i18next";
 
 import React from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
@@ -18,14 +19,14 @@ const EmailSignUpForm: React.FC<EmailSignUpProps> = ({}) => {
     sendEmailVerification: true,
   });
 
-  useShowAlertEffect(getFirebaseAuthErrorMessage(emailSignUpError), "error");
+  useShowAlertEffect(useFirebaseAuthErrorMessage(emailSignUpError), "error");
 
   if (emailSignUpUser) {
     return null;
   }
   return (
     <EmailFormFields
-      submitButtonLabel="Đăng ký"
+      submitButtonLabel={t("Sign In")}
       onSubmit={signUpWithEmail}
       loading={emailSignUpLoading}
     />

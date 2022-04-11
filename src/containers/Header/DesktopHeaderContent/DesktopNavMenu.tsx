@@ -22,6 +22,7 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({
   const popupState = usePopupState({
     popupId: "nav-menu-" + navigation.slug,
     variant: "popover",
+
   });
 
   if (navigation.subnavigations) {

@@ -1,5 +1,5 @@
 import { useShowAlert, useShowAlertEffect } from "#/hooks/useShowAlert";
-import { getFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
+import { useFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
 import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
 import { cloudFirestore, firebaseAuth } from "@/firebase/firebase";
 import { doc, setDoc, updateDoc } from "@firebase/firestore";
@@ -28,7 +28,7 @@ function useFirebaseUpdateProfile() {
   const [handleUpdate, updating, updateProfileError] =
     useUpdateProfile(firebaseAuth);
 
-  useShowAlertEffect(getFirebaseAuthErrorMessage(updateProfileError), "error");
+  useShowAlertEffect(useFirebaseAuthErrorMessage(updateProfileError), "error");
 
   const wrappedUpdate: typeof handleUpdate = async (profile) => {
     await handleUpdate(profile);
