@@ -1,6 +1,7 @@
 import { firebaseAuth } from "@/firebase/firebase";
 import { useShowAlertEffect } from "#/hooks/useShowAlert";
 import { useFirebaseAuthErrorMessage } from "#/utils/firebaseAuthErrorMessage";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import GoogleIcon from "@mui/icons-material/Google";
 import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -46,7 +47,13 @@ const SocialAuthenticationForm: React.FC<
         {googleLoading ? (
           <CircularProgress size={20} />
         ) : (
-          <Stack direction="row" alignContent="center" spacing={2}>
+          <Stack
+            width="80%"
+            direction="row"
+            alignContent="center"
+            justifyContent="flex-start"
+            spacing={2}
+          >
             <GoogleIcon />
             <span>{t("Sign In with Google")}</span>
           </Stack>
@@ -62,8 +69,14 @@ const SocialAuthenticationForm: React.FC<
         {facebookLoading ? (
           <CircularProgress size={20} />
         ) : (
-          <Stack direction="row" alignContent="center" spacing={2}>
-            <GoogleIcon />
+          <Stack
+            width="80%"
+            direction="row"
+            alignContent="center"
+            justifyContent="flex-start"
+            spacing={2}
+          >
+            <FacebookRoundedIcon />
             <span>{t("Sign In with Facebook")}</span>
           </Stack>
         )}

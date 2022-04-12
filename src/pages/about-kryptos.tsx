@@ -140,11 +140,13 @@ const Body = () => {
         </Grid>
 
         <Grid item mobile={12} tablet={6} desktop={5}>
-          {theme.palette.mode === "light" ? (
-            <NextImage src={fullLogo} />
-          ) : (
-            <NextImage src={fullLogoDark} />
-          )}
+          <a href="https://kryptos.media">
+            {theme.palette.mode === "light" ? (
+              <NextImage src={fullLogo} />
+            ) : (
+              <NextImage src={fullLogoDark} />
+            )}
+          </a>
         </Grid>
       </Grid>
     </Container>
