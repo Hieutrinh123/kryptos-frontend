@@ -38,11 +38,12 @@ const NotificationMenu: React.FC<NotificationMenuProps> = ({}) => {
             <IconButton
               color="primary"
               {...buttonProps}
+              size="large"
               ref={ref}
               disabled={loadingNotifications}
             >
               {loadingNotifications ? (
-                <CircularProgress size={24}/>
+                <CircularProgress size={24} />
               ) : (
                 <NotificationsButton />
               )}

@@ -39,8 +39,8 @@ const DesktopHeaderContent = () => {
           gap: theme.spacing(2),
         })}
       >
-        <NextLink href="/search" passHref>
-          <IconButton color="primary">
+        <NextLink href="/search" passHref >
+          <IconButton color="primary" size="large">
             <SearchIcon />
           </IconButton>
         </NextLink>
@@ -67,7 +67,7 @@ const DesktopHeaderContent = () => {
 
         <DropdownMenu
           buttonBuilder={(buttonProps) => (
-            <IconButton color="primary" {...buttonProps}>
+            <IconButton color="primary" {...buttonProps} size="large">
               <SettingsIcon />
             </IconButton>
           )}
