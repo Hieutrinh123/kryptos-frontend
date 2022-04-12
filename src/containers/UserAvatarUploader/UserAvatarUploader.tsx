@@ -1,6 +1,6 @@
 import { firebaseStorage } from "@/firebase/firebase";
-import {useFirebaseAuthState} from "@/firebase/auth/useFirebaseAuthState";
-import {useUpdateUserData} from "@/firebase/firestore/useUserData";
+import { useFirebaseAuthState } from "@/firebase/auth/useFirebaseAuthState";
+import { useUpdateUserData } from "@/firebase/firestore/useUserData";
 import { useFirebaseUploadFile } from "@/firebase/useFirebaseUploadFile";
 import UserAvatar from "@/containers/UserAvatar";
 import UploadIcon from "@mui/icons-material/Upload";
@@ -25,13 +25,14 @@ const UserAvatarUploader: React.FC<UserAvatarUploaderProps> = ({}) => {
     { sizeLimitInMB: 5 }
   );
 
-  const { handleUpdate: handleUpdate, updating: updating } = useUpdateUserData();
+  const { handleUpdate: handleUpdate, updating: updating } =
+    useUpdateUserData();
 
   const handleUploadImage = useCallback(
     async (file?: File) => {
       if (file && user) {
         const uploadResult = await uploadToFirebase(file);
-        if (uploadResult) {
+        if (uploadResult && downloadUrl) {
           await handleUpdate({ photoURL: downloadUrl });
         }
       }

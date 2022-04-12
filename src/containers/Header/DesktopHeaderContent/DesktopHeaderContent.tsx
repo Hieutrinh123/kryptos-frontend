@@ -39,11 +39,13 @@ const DesktopHeaderContent = () => {
           gap: theme.spacing(2),
         })}
       >
-        <NextLink href="/search" passHref >
-          <IconButton color="primary" size="large">
-            <SearchIcon />
-          </IconButton>
-        </NextLink>
+        <div>
+          <NextLink href="/search" passHref>
+            <IconButton color="primary" size="large">
+              <SearchIcon />
+            </IconButton>
+          </NextLink>
+        </div>
 
         <NotificationMenu />
 
