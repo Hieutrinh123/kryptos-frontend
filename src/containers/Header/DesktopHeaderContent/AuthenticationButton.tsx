@@ -1,3 +1,4 @@
+import { useIsDesktop } from "#/styles/responsive";
 import { firebaseAuth } from "@/firebase/firebase";
 import UserAvatar from "@/containers/UserAvatar";
 import { CircularProgress } from "@mui/material";
@@ -13,6 +14,7 @@ const AuthenticationButton = React.forwardRef<
   AuthenticationButtonProps
 >((props, ref) => {
   const [user, loading, error] = useAuthState(firebaseAuth);
+  const isDesktop = useIsDesktop();
   if (loading) {
     return <CircularProgress />;
   }
@@ -32,7 +34,10 @@ const AuthenticationButton = React.forwardRef<
         {...props}
         style={{ background: "none", border: "none", cursor: "pointer" }}
       >
-        <UserAvatar user={user} sx={{ height: 40, width: 40 }} />
+        <UserAvatar
+          user={user}
+          sx={{ height: isDesktop ? 48 : 40, width: isDesktop ? 48 : 40 }}
+        />
       </button>
     );
   }
