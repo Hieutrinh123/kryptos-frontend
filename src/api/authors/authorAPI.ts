@@ -1,18 +1,18 @@
 import { QueryMany } from "@directus/sdk";
 import _ from "lodash";
-import {
-  RawAuthor,
-  Author,
-  authorFields,
-  AuthorListingResult,
-} from "./authorTypes";
-import { listPosts, PostListingResult } from "../posts";
+import { ListResult, Locale } from "../commonTypes";
 import {
   directusGetFirstItem,
   directusInstance,
   directusListItem,
 } from "../directus";
-import { ListResult } from "../commonTypes";
+import { listPosts, PostListingResult } from "../posts";
+import {
+  Author,
+  authorFields,
+  AuthorListingResult,
+  RawAuthor,
+} from "./authorTypes";
 
 export async function listAuthors(
   page: number,
@@ -78,10 +78,16 @@ export async function getAllAuthorSlugs() {
 export async function listPostsFromAuthor(
   authorSlug: string,
   page: number,
-  limit: number
+  limit: number,
+  locale: Locale
 ): Promise<PostListingResult> {
   return listPosts(page, limit, {
     filter: {
+      languages_code: {
+        code: {
+          _eq: locale,
+        },
+      },
       author: {
         slug: {
           _eq: authorSlug,

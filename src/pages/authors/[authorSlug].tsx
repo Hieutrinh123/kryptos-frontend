@@ -42,9 +42,14 @@ const AuthorProfilePage: NextPage<AuthorProfilePageProps> = ({
     if (page === 1) {
       setPosts(initialPosts);
     } else {
-      listPostsFromAuthor(authorSlug, page, POSTS_PER_PAGE).then(setPosts);
+      listPostsFromAuthor(
+        authorSlug,
+        page,
+        POSTS_PER_PAGE,
+        router.locale as Locale
+      ).then(setPosts);
     }
-  }, [initialPosts, router.query, setPosts]);
+  }, [initialPosts, router.locale, router.query, setPosts]);
 
   if (!author) {
     return null;
@@ -87,7 +92,12 @@ export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
   }
 
   const author = await getAuthor(authorSlug);
-  const posts = await listPostsFromAuthor(authorSlug, 1, POSTS_PER_PAGE);
+  const posts = await listPostsFromAuthor(
+    authorSlug,
+    1,
+    POSTS_PER_PAGE,
+    context.locale as Locale
+  );
 
   return {
     props: {
