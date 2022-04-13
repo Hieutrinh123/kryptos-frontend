@@ -2,7 +2,7 @@ import { joinPath } from "#/utils/path";
 import { useTranslation } from "next-i18next";
 import React from "react";
 import {
-  NAVIGATIONS,
+  HEADER_NAVIGATIONS,
   Navigation,
   OVERVIEW_NAVIGATION,
 } from "#/config/navigation";
@@ -22,7 +22,7 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ open }) => {
       <Box padding={3}>
         <Stack spacing={3}>
           <MobileNavLinkGroup navigation={OVERVIEW_NAVIGATION} />
-          {NAVIGATIONS.map((navigation) => (
+          {HEADER_NAVIGATIONS.map((navigation) => (
             <MobileNavLinkGroup
               prefix="categories"
               navigation={navigation}

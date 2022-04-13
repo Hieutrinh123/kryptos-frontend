@@ -1,4 +1,4 @@
-import { NAVIGATIONS, OVERVIEW_NAVIGATION } from "#/config/navigation";
+import { FOOTER_NAVIGATIONS, OVERVIEW_NAVIGATION } from "#/config/navigation";
 import { usePageSettings } from "@/api";
 import Grid from "@/components/Grid";
 import Logo from "@/components/Logo/Logo";
@@ -50,7 +50,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
               })}
             >
               <FooterLinkGroup navOption={OVERVIEW_NAVIGATION} />
-              {NAVIGATIONS.map((category, index) => (
+              {FOOTER_NAVIGATIONS.map((category, index) => (
                 <FooterLinkGroup
                   prefix="categories"
                   key={index}

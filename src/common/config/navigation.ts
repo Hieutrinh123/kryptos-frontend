@@ -19,6 +19,21 @@ export const PROJECT_ANALYSIS_CATEGORY = {
   title: "Project Analysis",
 };
 
+export const UPDATE_CATEGORY = {
+  slug: "update",
+  title: "Update",
+  subnavigations: [
+    {
+      slug: "on-chain-analysis",
+      title: "On-chain Analysis",
+    },
+    {
+      slug: "technical-analysis",
+      title: "Technical Analysis",
+    },
+  ],
+};
+
 export const ECOSYSTEM_CATEGORY = {
   title: "Ecosystem",
   slug: "ecosystem",
@@ -89,9 +104,25 @@ export const IN_DEPTH_ANALYSIS_CATEGORY = {
   ],
 };
 
-export const NAVIGATIONS: Navigation[] = [
+const ALL_NAVIGATION: Navigation[] = [
+  NEWS_CATEGORY,
+  UPDATE_CATEGORY,
+  PROJECT_ANALYSIS_CATEGORY,
+  ECOSYSTEM_CATEGORY,
+  IN_DEPTH_ANALYSIS_CATEGORY,
+];
+
+export const HEADER_NAVIGATIONS: Navigation[] = [
+  UPDATE_CATEGORY,
+  PROJECT_ANALYSIS_CATEGORY,
+  ECOSYSTEM_CATEGORY,
+  IN_DEPTH_ANALYSIS_CATEGORY,
+];
+
+export const FOOTER_NAVIGATIONS: Navigation[] = [
   NEWS_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
+  UPDATE_CATEGORY,
   ECOSYSTEM_CATEGORY,
   IN_DEPTH_ANALYSIS_CATEGORY,
 ];
@@ -102,7 +133,7 @@ export const OVERVIEW_NAVIGATION: Navigation = {
 };
 
 export function getAllLeafCategories() {
-  return NAVIGATIONS.flatMap(
+  return ALL_NAVIGATION.flatMap(
     (category) =>
       category.subnavigations?.map((subcategory) => subcategory.slug) ?? [
         category.slug,
