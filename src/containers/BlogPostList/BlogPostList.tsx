@@ -9,20 +9,30 @@ interface ListPostProps {
   posts: Post[];
   desktopVariant?: BlogPostCardVariant;
   mobileCarousel?: boolean;
+  hideBookmarkButton?: boolean;
 }
 
 const BlogPostList: React.FC<ListPostProps> = ({
   posts,
   mobileCarousel = true,
   desktopVariant = "vertical",
+  hideBookmarkButton,
 }) => {
   const isDesktop = useIsDesktop();
 
   if (isDesktop || !mobileCarousel) {
-    return <GridPostList posts={posts} variant={desktopVariant} />;
+    return (
+      <GridPostList
+        posts={posts}
+        variant={desktopVariant}
+        hideBookmarkButton={hideBookmarkButton}
+      />
+    );
   }
 
-  return <CarouselPostList posts={posts} />;
+  return (
+    <CarouselPostList posts={posts} hideBookmarkButton={hideBookmarkButton} />
+  );
 };
 
 export default BlogPostList;

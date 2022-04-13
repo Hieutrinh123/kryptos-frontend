@@ -7,9 +7,13 @@ import Slider from "react-slick";
 
 interface CarouselPostListProps {
   posts: Post[];
+  hideBookmarkButton?: boolean;
 }
 
-const CarouselPostList: React.FC<CarouselPostListProps> = ({ posts }) => {
+const CarouselPostList: React.FC<CarouselPostListProps> = ({
+  posts,
+  hideBookmarkButton,
+}) => {
   return (
     <Slider
       dots
@@ -26,7 +30,11 @@ const CarouselPostList: React.FC<CarouselPostListProps> = ({ posts }) => {
     >
       {posts.map((post) => (
         <Box key={post.id} padding={2}>
-          <BlogPostCard post={post} variant="vertical" />
+          <BlogPostCard
+            post={post}
+            variant="vertical"
+            hideBookmarkButton={hideBookmarkButton}
+          />
         </Box>
       ))}
     </Slider>

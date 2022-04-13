@@ -54,54 +54,62 @@ const SearchPage: NextPage = ({}) => {
       </Box>
       <Container disableGutters={!isDesktop}>
         <Stack paddingTop={8} paddingBottom={6} spacing={5}>
-          <FormControl
-            fullWidth
-            variant="filled"
-            sx={{
-              maxWidth: 600,
-              alignSelf: "center",
+          <form
+            style={{ display: "flex", justifyContent: "center" }}
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleSearch();
             }}
           >
-            <InputLabel htmlFor="search-bar">
-              {t("Input Search Terms")}
-            </InputLabel>
-            <FilledInput
-              id="search-bar"
-              value={searchInput}
+            <FormControl
+              fullWidth
+              variant="filled"
               sx={{
-                color: "black",
-                bgcolor: "white !important",
-                ":focus": {
-                  bgcolor: "white",
-                },
-                ":hover": {
-                  bgcolor: "white",
-                },
+                maxWidth: 600,
+                alignSelf: "center",
               }}
-              onChange={(event) => setSearchInput(event.target.value)}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    disabled={loading}
-                    color="primary"
-                    onClick={handleSearch}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+            >
+              <InputLabel htmlFor="search-bar">
+                {t("Input Search Terms")}
+              </InputLabel>
+              <FilledInput
+                id="search-bar"
+                value={searchInput}
+                sx={{
+                  color: "black",
+                  bgcolor: "white !important",
+                  ":focus": {
+                    bgcolor: "white",
+                  },
+                  ":hover": {
+                    bgcolor: "white",
+                  },
+                }}
+                onChange={(event) => setSearchInput(event.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      disabled={loading}
+                      color="primary"
+                      onClick={handleSearch}
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </form>
           <Box textAlign="center">{loading && <CircularProgress />}</Box>
           <Box>
             {!loading &&
               posts?.data &&
               (posts.data.length === 0 ? (
-                <Typography variant="h4" align="center">
+                <Typography variant="h4" align="center" color="white">
                   {t("No match found")}
                 </Typography>
               ) : (
-                <BlogPostList posts={posts?.data} />
+                <BlogPostList posts={posts?.data} hideBookmarkButton />
               ))}
           </Box>
         </Stack>

@@ -8,11 +8,13 @@ import React from "react";
 interface ComputerAndTabletPostListProps {
   posts: Post[];
   variant: BlogPostCardVariant;
+  hideBookmarkButton?: boolean;
 }
 
 const DesktopPostList: React.FC<ComputerAndTabletPostListProps> = ({
   posts,
   variant,
+  hideBookmarkButton,
 }) => {
   return (
     <Box>
@@ -25,7 +27,11 @@ const DesktopPostList: React.FC<ComputerAndTabletPostListProps> = ({
             desktop={variant === "horizontal" ? 6 : 4}
             key={post.id}
           >
-            <BlogPostCard post={post} variant={variant} />
+            <BlogPostCard
+              post={post}
+              variant={variant}
+              hideBookmarkButton={hideBookmarkButton}
+            />
           </Grid>
         ))}
       </Grid>
