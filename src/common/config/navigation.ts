@@ -74,14 +74,6 @@ export const IN_DEPTH_ANALYSIS_CATEGORY = {
   slug: "in-depth-analysis",
   subnavigations: [
     {
-      slug: "on-chain-analysis",
-      title: "On-chain Analysis",
-    },
-    {
-      slug: "technical-analysis",
-      title: "Technical Analysis",
-    },
-    {
       slug: "de-fi",
       title: "De-Fi",
     },
@@ -113,8 +105,8 @@ const ALL_NAVIGATION: Navigation[] = [
 ];
 
 export const HEADER_NAVIGATIONS: Navigation[] = [
-  UPDATE_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,
+  UPDATE_CATEGORY,
   ECOSYSTEM_CATEGORY,
   IN_DEPTH_ANALYSIS_CATEGORY,
 ];
