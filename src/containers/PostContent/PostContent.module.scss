@@ -37,4 +37,29 @@
     color: #4795e3;
     text-decoration: underline;
   }
+
+  ul,
+  ol {
+    list-style-position: inside;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 10px;
+  }
+}
+
+.post-content-dark {
+  *[style] {
+    color: white !important;
+  }
+}
+
+.post-content-light {
+  *[style] {
+    color: black !important;
+  }
 }

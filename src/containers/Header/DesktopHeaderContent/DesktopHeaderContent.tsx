@@ -1,4 +1,4 @@
-import { HEADER_NAVIGATIONS, OVERVIEW_NAVIGATION } from "#/config/navigation";
+import { HEADER_NAVIGATIONS } from "#/config/navigation";
 import DropdownMenu from "@/components/DropdownMenu";
 import Logo from "@/components/Logo/Logo";
 import AuthenticationMenu from "@/containers/AuthenticationMenu";
@@ -26,7 +26,6 @@ const DesktopHeaderContent = () => {
       <Logo />
 
       <Stack flexGrow={1} direction="row" justifyContent="center" spacing={2}>
-        <NavMenu prefix="" navigation={OVERVIEW_NAVIGATION} />
         {HEADER_NAVIGATIONS.map((category, index) => (
           <NavMenu prefix="categories" navigation={category} key={index} />
         ))}

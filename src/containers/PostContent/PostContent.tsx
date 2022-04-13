@@ -1,3 +1,4 @@
+import { useTheme } from "@mui/material";
 import React, { useEffect } from "react";
 import styles from "./PostContent.module.scss";
 
@@ -6,6 +7,7 @@ interface PostContentProps {
 }
 
 const PostContent: React.FC<PostContentProps> = ({ content }) => {
+  const theme = useTheme();
   useEffect(() => {
     const content = document.querySelector(".js-toc-content");
     if (!content) {
@@ -38,7 +40,11 @@ const PostContent: React.FC<PostContentProps> = ({ content }) => {
   }
   return (
     <div
-      className={`${styles.postContent} js-toc-content`}
+      className={`${styles.postContent} js-toc-content ${
+        theme.palette.mode === "dark"
+          ? styles.postContentDark
+          : styles.postContentLight
+      }`}
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );

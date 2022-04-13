@@ -1,4 +1,7 @@
 .post-toc {
+  max-height: 400px;
+  overflow: scroll;
+
   ol,
   ul {
     list-style-position: inside;
