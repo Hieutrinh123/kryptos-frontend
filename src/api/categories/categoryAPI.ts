@@ -20,6 +20,7 @@ export async function listPostsByCategories(
     limit,
     {
       fields: postToCategoryField,
+      sort: ["-created_at"],
       filter: {
         _or: [
           {
