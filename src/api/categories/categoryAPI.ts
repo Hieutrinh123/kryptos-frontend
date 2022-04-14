@@ -1,3 +1,4 @@
+import { nonNil } from "#/utils/nonNil";
 import {
   directusListItem,
   flattenPostTranslation,
@@ -60,6 +61,7 @@ export async function listPostsByCategories(
         return translationsArray[0];
       })
       .filter((value): value is PostTranslation => value !== null)
-      .map(flattenPostTranslation),
+      .map(flattenPostTranslation)
+      .filter(nonNil),
   };
 }

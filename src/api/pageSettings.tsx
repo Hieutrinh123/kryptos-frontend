@@ -1,3 +1,4 @@
+import { nonNil } from "#/utils/nonNil";
 import { Omit } from "@directus/sdk";
 import React, { useContext } from "react";
 import {
@@ -30,7 +31,10 @@ export interface PageSettingTranslation {
 const pageSettingsFields = [
   ...joinSubfield("languages_code", languageCodeFields),
   "introduction",
-  ...joinSubfield("featured_posts.posts_translations_id", postTranslationFields),
+  ...joinSubfield(
+    "featured_posts.posts_translations_id",
+    postTranslationFields
+  ),
   ...joinSubfield("page_settings_id", [
     "telegram_url",
     "twitter_url",
@@ -60,9 +64,11 @@ export async function getPageSettings(locale: Locale): Promise<PageSettings> {
   return {
     ...settings.page_settings_id,
     ...settings,
-    featured_posts: settings.featured_posts?.map((link) => {
-      return flattenPostTranslation(link.posts_translations_id);
-    }),
+    featured_posts: settings.featured_posts
+      ?.map((link) => {
+        return flattenPostTranslation(link.posts_translations_id);
+      })
+      .filter(nonNil),
   };
 }
 

@@ -1,3 +1,4 @@
+import { nonNil } from "#/utils/nonNil";
 import { QueryMany } from "@directus/sdk";
 import _ from "lodash";
 import { directusGetFirstItem, directusListItem } from "../directus";
@@ -33,7 +34,7 @@ export async function listPosts(
   );
   return {
     pagination: localizedPosts.pagination,
-    data: localizedPosts.data.map(flattenPostTranslation),
+    data: localizedPosts.data.map(flattenPostTranslation).filter(nonNil),
   };
 }
 
@@ -63,7 +64,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       },
       fields: postTranslationFields,
     });
-    return flattenPostTranslation(localizedPost);
+    return flattenPostTranslation(localizedPost) ?? null;
   } catch (e) {
     return null;
   }

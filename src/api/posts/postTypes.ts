@@ -2,7 +2,13 @@ import { contentToExcerpt } from "#/utils/contentToExcerpt";
 import _ from "lodash";
 import { Author, authorFields } from "../authors/authorTypes";
 import type { Category } from "../categories/categoryTypes";
-import { joinSubfield, LanguageCode, languageCodeFields, ListResult, Status } from "../commonTypes";
+import {
+  joinSubfield,
+  LanguageCode,
+  languageCodeFields,
+  ListResult,
+  Status,
+} from "../commonTypes";
 import { DirectusFile, fileFields } from "../files";
 
 export interface PostRoot {
@@ -60,7 +66,12 @@ export function getExcerpt(post: Post): string {
   return !_.isNil(post.excerpt) ? post.excerpt : contentToExcerpt(post.content);
 }
 
-export function flattenPostTranslation(localizedPost: PostTranslation): Post {
+export function flattenPostTranslation(
+  localizedPost: PostTranslation
+): Post | undefined {
+  if (!localizedPost.posts_id) {
+    return undefined;
+  }
   return {
     ..._.omit(localizedPost, "posts_id"),
     ...localizedPost.posts_id,
