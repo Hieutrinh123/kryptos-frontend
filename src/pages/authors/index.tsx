@@ -1,4 +1,4 @@
-import { AUTHORS_PER_PAGE } from "#/config/authors";
+import { AUTHOR_LIST_PAGE_CACHE_TIME, AUTHORS_PER_PAGE } from "#/config/authors";
 import { useRouterPage } from "#/hooks/useRouterPage";
 import { AuthorListingResult, listAuthors } from "@/api";
 import { getPageSettings } from "@/api";
@@ -68,5 +68,6 @@ export const getStaticProps: GetServerSideProps<AuthorListPageProps> = async (
       pageSettings: await getPageSettings(context.locale as Locale),
       initialAuthors: authors,
     },
+    revalidate: AUTHOR_LIST_PAGE_CACHE_TIME,
   };
 };

@@ -1,4 +1,4 @@
-import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
+import { COMMON_CACHE_TIME } from "#/config/caching";
 import { useIsDesktop, useIsMobile } from "#/styles/responsive";
 import {
   getPageSettings,
@@ -205,7 +205,7 @@ export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
       pageSettings: await getPageSettings(context.locale as Locale),
       post,
     },
-    revalidate: REVALIDATE_STATIC_FILE_TIME,
+    revalidate: COMMON_CACHE_TIME,
   };
 };
 

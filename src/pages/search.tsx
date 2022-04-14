@@ -1,4 +1,3 @@
-import { REVALIDATE_STATIC_FILE_TIME } from "#/config/caching";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { grey } from "#/styles/colors";
 import { useIsDesktop } from "#/styles/responsive";
@@ -129,6 +128,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ...(await serverSideTranslations(context.locale as Locale)),
       pageSettings,
     },
-    revalidate: REVALIDATE_STATIC_FILE_TIME,
   };
 };
