@@ -1,4 +1,4 @@
-import { AUTHOR_DETAIL_PAGE_CACHE_TIME } from "#/config/authors";
+import { AUTHOR_DETAIL_PAGE_CACHE_TIME } from "#/config/caching";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useStateWithPropsDefault } from "#/hooks/useStateWithPropsDefault";
 import {

@@ -1,4 +1,5 @@
-import { AUTHOR_LIST_PAGE_CACHE_TIME, AUTHORS_PER_PAGE } from "#/config/authors";
+import { AUTHORS_PER_PAGE } from "#/config/authors";
+import { AUTHOR_LIST_PAGE_CACHE_TIME } from "#/config/caching";
 import { useRouterPage } from "#/hooks/useRouterPage";
 import { AuthorListingResult, listAuthors } from "@/api";
 import { getPageSettings } from "@/api";
