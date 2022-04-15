@@ -96,6 +96,7 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
   if (!categorySlug) {
     return {
       notFound: true,
+      revalidate: COMMON_CACHE_TIME,
     };
   }
 
@@ -110,6 +111,7 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
   if (_.isNil(posts)) {
     return {
       notFound: true,
+      revalidate: COMMON_CACHE_TIME,
     };
   }
 

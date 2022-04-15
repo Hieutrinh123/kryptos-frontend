@@ -1,4 +1,7 @@
-import { AUTHOR_DETAIL_PAGE_CACHE_TIME } from "#/config/caching";
+import {
+  AUTHOR_DETAIL_PAGE_CACHE_TIME,
+  COMMON_CACHE_TIME,
+} from "#/config/caching";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useStateWithPropsDefault } from "#/hooks/useStateWithPropsDefault";
 import {
@@ -89,6 +92,7 @@ export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
   if (!authorSlug) {
     return {
       notFound: true,
+      revalidate: COMMON_CACHE_TIME,
     };
   }
 

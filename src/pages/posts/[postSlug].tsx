@@ -191,12 +191,14 @@ export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
   if (!postSlug) {
     return {
       notFound: true,
+      revalidate: COMMON_CACHE_TIME,
     };
   }
   const post = await getPostBySlug(postSlug as string);
   if (_.isNil(post)) {
     return {
       notFound: true,
+      revalidate: COMMON_CACHE_TIME,
     };
   }
   return {
