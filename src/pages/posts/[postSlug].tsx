@@ -3,7 +3,7 @@ import { useIsDesktop, useIsMobile } from "#/styles/responsive";
 import {
   getPageSettings,
   getPostBySlug,
-  listAllPostSlugs,
+  listNewestPostSlugs,
   Locale,
   Post,
   resolveImageUrl,
@@ -212,7 +212,7 @@ export const getStaticProps: GetStaticProps<BlogViewPageProps> = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const postSlugs = await listAllPostSlugs();
+  const postSlugs = await listNewestPostSlugs();
   return {
     paths: postSlugs.map((postSlug) => ({ params: { postSlug } })),
     fallback: true,

@@ -38,17 +38,10 @@ export async function listPosts(
   };
 }
 
-export async function listAllPostSlugs() {
-  let slugs: string[] = [];
-  for (let page = 1; ; ++page) {
-    const postListing = await listPosts(page, 100);
-    const posts = postListing.data;
-    slugs = slugs.concat(posts.map((post) => post.slug));
-    if (postListing.pagination.page >= postListing.pagination.pageCount) {
-      break;
-    }
-  }
-  return slugs.filter((value) => !_.isNil(value));
+export async function listNewestPostSlugs() {
+  const postListing = await listPosts(1, 20);
+  const posts = postListing.data;
+  return posts.map((post) => post.slug).filter(nonNil);
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {

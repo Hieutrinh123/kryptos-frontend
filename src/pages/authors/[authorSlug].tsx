@@ -6,7 +6,7 @@ import { POSTS_PER_PAGE } from "#/config/posts";
 import { useStateWithPropsDefault } from "#/hooks/useStateWithPropsDefault";
 import {
   Author,
-  getAllAuthorSlugs,
+  getNewestAuthorSlugs,
   getAuthor,
   getAuthorName,
   getPageSettings,
@@ -116,7 +116,7 @@ export const getStaticProps: GetStaticProps<AuthorProfilePageProps> = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const authorSlugs = await getAllAuthorSlugs();
+  const authorSlugs = await getNewestAuthorSlugs();
   const paths = authorSlugs.map((authorSlug) => ({
     params: {
       authorSlug,

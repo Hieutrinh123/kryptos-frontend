@@ -1,3 +1,4 @@
+import { nonNil } from "#/utils/nonNil";
 import { QueryMany } from "@directus/sdk";
 import _ from "lodash";
 import { ListResult, Locale } from "../commonTypes";
@@ -19,17 +20,15 @@ export async function listAuthors(
   limit: number,
   query?: QueryMany<RawAuthor>
 ): Promise<AuthorListingResult> {
-  const mergedQuery = _.merge(
-    {
-      fields: authorFields,
-      filter: {
-        hidden: {
-          _eq: false,
-        },
+  const defaultQuery: QueryMany<RawAuthor> = {
+    fields: authorFields,
+    filter: {
+      hidden: {
+        _eq: false,
       },
     },
-    query
-  );
+  };
+  const mergedQuery = _.merge(defaultQuery, query);
   const authors = await directusListItem(
     "directus_users",
     page,
@@ -58,21 +57,9 @@ export async function getAuthor(slug: string): Promise<Author> {
   };
 }
 
-export async function getAllAuthorSlugs() {
-  let slugs: string[] = [];
-  for (let page = 1; ; ++page) {
-    const authorListResult = await listAuthors(page, 100);
-    if (!authorListResult || !authorListResult.data) {
-      continue;
-    }
-    slugs = slugs.concat(authorListResult.data.map((author) => author.slug));
-    if (
-      authorListResult.pagination.page >= authorListResult.pagination.pageCount
-    ) {
-      break;
-    }
-  }
-  return slugs.filter((slug) => _.isNil(slug));
+export async function getNewestAuthorSlugs() {
+  const authorListResult = await listAuthors(1, 20);
+  return authorListResult.data.map((author) => author.slug).filter(nonNil);
 }
 
 export async function listPostsFromAuthor(
