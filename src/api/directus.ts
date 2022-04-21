@@ -15,6 +15,10 @@ interface DirectusCollectionsRaw {
   posts_categories: PostsToCategories;
   directus_users: RawAuthor;
   directus_files: DirectusFile;
+  categories: {
+    slug: string;
+    id: number;
+  };
 }
 
 export type DirectusCollections = Omit<DirectusCollectionsRaw, never>;

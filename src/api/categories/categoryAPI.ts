@@ -1,12 +1,4 @@
-import { nonNil } from "#/utils/nonNil";
-import {
-  directusListItem,
-  flattenPostTranslation,
-  Locale,
-  PostListingResult,
-  PostTranslation,
-} from "@/api";
-import { postToCategoryField } from "./postToCategoryTypes";
+import { listPosts, Locale, PostListingResult } from "@/api";
 
 export async function listPostsByCategories(
   categorySlugs: string[],
@@ -14,55 +6,23 @@ export async function listPostsByCategories(
   page: number,
   limit: number
 ): Promise<PostListingResult> {
-  const postsToCategories = await directusListItem(
-    "posts_categories",
-    page,
-    limit,
-    {
-      fields: postToCategoryField,
-      sort: ["-created_at"],
-      filter: {
-        _or: [
-          {
-            categories_id: {
-              slug: {
-                _in: categorySlugs,
-              },
-            },
-          },
-        ],
+  return listPosts(page, limit, {
+    filter: {
+      languages_code: {
+        code: {
+          _eq: locale,
+        },
       },
-
-      deep: {
-        posts_id: {
+      posts_id: {
+        categories: {
           // @ts-ignore
-          translations: {
-            _filter: {
-              status: {
-                _eq: "published",
-              },
-              languages_code: {
-                _eq: locale,
-              },
+          categories_id: {
+            slug: {
+              _in: categorySlugs,
             },
           },
         },
       },
-    }
-  );
-  return {
-    pagination: postsToCategories.pagination,
-    data: postsToCategories.data
-      .map((link) => {
-        const translationsArray = link.posts_id
-          .translations as PostTranslation[];
-        if (!translationsArray || translationsArray.length === 0) {
-          return null;
-        }
-        return translationsArray[0];
-      })
-      .filter(nonNil)
-      .map(flattenPostTranslation)
-      .filter(nonNil),
-  };
+    },
+  });
 }
