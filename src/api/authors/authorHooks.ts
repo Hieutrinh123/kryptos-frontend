@@ -11,8 +11,6 @@ export function useListAuthorsWithIds(
   const [authors, setAuthors] = useState<AuthorListingResult>();
   const [loading, setLoading] = useState(false);
 
-  console.log(ids);
-
   useEffect(() => {
     const filteredIds = ids.filter((id) => !_.isNil(id));
 

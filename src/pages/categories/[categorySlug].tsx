@@ -8,7 +8,6 @@ import {
   AuthorListingResult,
   getPageSettings,
   listAuthors,
-  listPosts,
   listPostsByCategories,
   Locale,
   PostListingResult,
@@ -26,12 +25,31 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 interface CategoryBlogListPageProps {
   categorySlug: string;
   authors: AuthorListingResult;
   initialPosts: PostListingResult;
+}
+
+async function listPostsInCategory(
+  categorySlug: string,
+  locale: Locale,
+  page: number
+) {
+  const largeCategory = ALL_NAVIGATION.find(
+    (value) => value.slug === categorySlug
+  );
+  let allCategorySlugs: string[] = [categorySlug];
+  if (largeCategory) {
+    allCategorySlugs = allCategorySlugs.concat(
+      largeCategory.subnavigations?.map((subnav) => subnav.slug) ?? []
+    );
+  }
+
+  return listPostsByCategories(allCategorySlugs, locale, page, POSTS_PER_PAGE);
 }
 
 const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
@@ -42,6 +60,7 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const page = useRouterPage();
+  const router = useRouter();
 
   const [postListResult, setPostListResult] = useState(initialPosts);
   const [updating, setUpdating] = useState(false);
@@ -51,12 +70,14 @@ const CategoryBlogListPage: NextPage<CategoryBlogListPageProps> = ({
       setPostListResult(initialPosts);
     } else {
       setUpdating(true);
-      listPosts(page, POSTS_PER_PAGE).then((posts) => {
-        setPostListResult(posts);
-        setUpdating(false);
-      });
+      listPostsInCategory(categorySlug, router.locale as Locale, page).then(
+        (posts) => {
+          setPostListResult(posts);
+          setUpdating(false);
+        }
+      );
     }
-  }, [page, initialPosts, categorySlug]);
+  }, [page, initialPosts, categorySlug, router.locale]);
 
   if (!postListResult || updating) {
     return null;
@@ -106,23 +127,11 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
   }
 
   const authors = await listAuthors(1, AUTHORS_PER_PAGE);
-  const largeCategory = ALL_NAVIGATION.find(
-    (value) => value.slug === categorySlug
-  );
-  let allCategorySlugs: string[] = [categorySlug];
-  if (largeCategory) {
-    allCategorySlugs = allCategorySlugs.concat(
-      largeCategory.subnavigations?.map((subnav) => subnav.slug) ?? []
-    );
-  }
-
-  const posts = await listPostsByCategories(
-    allCategorySlugs,
+  const posts = await listPostsInCategory(
+    categorySlug,
     context.locale as Locale,
-    1,
-    POSTS_PER_PAGE
+    1
   );
-
   if (_.isNil(posts)) {
     return {
       notFound: true,

@@ -61,7 +61,7 @@ export async function listPostsByCategories(
         }
         return translationsArray[0];
       })
-      .filter((value): value is PostTranslation => value !== null)
+      .filter(nonNil)
       .map(flattenPostTranslation)
       .filter(nonNil),
   };
