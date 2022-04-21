@@ -17,6 +17,7 @@ export interface UncontrolledDropDownMenuProps extends Omit<MenuProps, "open"> {
   offsetY?: number;
   PaperProps?: PaperProps;
   hover?: boolean;
+  disableClick?: boolean;
 }
 
 const UncontrolledDropDownMenu: React.FC<UncontrolledDropDownMenuProps> = (

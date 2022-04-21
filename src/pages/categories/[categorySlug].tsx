@@ -1,13 +1,18 @@
 import { AUTHORS_PER_PAGE } from "#/config/authors";
 import { COMMON_CACHE_TIME } from "#/config/caching";
-import { getAllLeafCategories } from "#/config/navigation";
+import { ALL_NAVIGATION, getAllLeafCategories } from "#/config/navigation";
 import { POSTS_PER_PAGE } from "#/config/posts";
 import { useRouterPage } from "#/hooks/useRouterPage";
 import { useIsMobile } from "#/styles/responsive";
-import { AuthorListingResult, listAuthors, listPostsByCategories } from "@/api";
-import { getPageSettings } from "@/api";
-import { listPosts, PostListingResult } from "@/api";
-import { Locale } from "@/api";
+import {
+  AuthorListingResult,
+  getPageSettings,
+  listAuthors,
+  listPosts,
+  listPostsByCategories,
+  Locale,
+  PostListingResult,
+} from "@/api";
 import RouterPagination from "@/components/RouterPagination";
 import AuthorList from "@/containers/AuthorList";
 import BlogPostList from "@/containers/BlogPostList";
@@ -101,8 +106,18 @@ export const getStaticProps: GetStaticProps<CategoryBlogListPageProps> = async (
   }
 
   const authors = await listAuthors(1, AUTHORS_PER_PAGE);
+  const largeCategory = ALL_NAVIGATION.find(
+    (value) => value.slug === categorySlug
+  );
+  let allCategorySlugs: string[] = [categorySlug];
+  if (largeCategory) {
+    allCategorySlugs = allCategorySlugs.concat(
+      largeCategory.subnavigations?.map((subnav) => subnav.slug) ?? []
+    );
+  }
+
   const posts = await listPostsByCategories(
-    [categorySlug],
+    allCategorySlugs,
     context.locale as Locale,
     1,
     POSTS_PER_PAGE

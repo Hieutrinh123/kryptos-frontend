@@ -20,6 +20,7 @@ interface ControlledDropDownMenuProps extends UncontrolledDropDownMenuProps {
 const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
   title,
   hover,
+  disableClick,
   titleNode,
   buttonBuilder,
   children,
@@ -37,7 +38,7 @@ const ControlledDropDownMenu: React.FC<ControlledDropDownMenuProps> = ({
 
   let buttonComponent;
 
-  const toggle = bindToggle(popupState);
+  const toggle = disableClick ? {} : bindToggle(popupState);
   const hoverProps = hover ? bindHover(popupState) : {};
   const MenuComponent = hover ? HoverMenu : Menu;
 

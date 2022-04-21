@@ -25,15 +25,24 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({
   });
 
   if (navigation.subnavigations) {
+    let titleNode = (
+      <Typography fontSize={16} fontWeight="bold">
+        {t(navigation.title)}
+      </Typography>
+    );
+    if (navigation.slug) {
+      titleNode = (
+        <NextLink href={"/" + joinPath(prefix, navigation.slug)}>
+          {titleNode}
+        </NextLink>
+      );
+    }
     return (
       <DropdownMenu
         popupState={popupState}
-        titleNode={
-          <Typography fontSize={16} fontWeight="bold">
-            {t(navigation.title)}
-          </Typography>
-        }
+        titleNode={titleNode}
         hover
+        disableClick
         offsetX={-20}
         offsetY={0}
       >

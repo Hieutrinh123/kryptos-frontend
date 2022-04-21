@@ -96,7 +96,7 @@ export const IN_DEPTH_ANALYSIS_CATEGORY = {
   ],
 };
 
-const ALL_NAVIGATION: Navigation[] = [
+export const ALL_NAVIGATION: Navigation[] = [
   NEWS_CATEGORY,
   UPDATE_CATEGORY,
   PROJECT_ANALYSIS_CATEGORY,

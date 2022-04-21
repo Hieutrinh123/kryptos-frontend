@@ -74,6 +74,7 @@ const SingleSidePost: React.FC<SingleSidePostProps> = ({ post }) => {
               <Typography
                 color="white"
                 variant={isMobile ? "h6" : "h4"}
+                textAlign="center"
                 fontWeight="bold"
               >
                 {post.title}
