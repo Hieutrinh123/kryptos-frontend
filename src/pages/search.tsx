@@ -34,6 +34,13 @@ const SearchPage: NextPage = ({}) => {
     if (searchInput.length) {
       setLoading(true);
       listPosts(1, POSTS_PER_PAGE, {
+        filter: {
+          languages_code: {
+            code: {
+              _eq: router.locale as Locale
+            },
+          },
+        },
         search: searchInput,
       })
         .then((fetchedPosts) => {
@@ -43,7 +50,7 @@ const SearchPage: NextPage = ({}) => {
           setLoading(false);
         });
     }
-  }, [searchInput]);
+  }, [router.locale, searchInput]);
   return (
     <BackgroundLayout color={grey[500]}>
       <Box position="absolute" top={10} left={10}>
