@@ -74,6 +74,7 @@ function MyApp({
               gtag('config', 'G-4HHQ534D0S');
             `}
       </Script>
+
       <Head>
         <title>Kryptos</title>
         <meta name="description" content="CoinBlog" />
